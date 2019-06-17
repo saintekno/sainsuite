@@ -2,7 +2,7 @@
     <div class="container">
         <ul class="nav nav-pills pull-right">
             <li <?php echo check_class('home'); ?>><a href="<?php echo site_url(); ?>"><?php e(lang('rp_home')); ?></a></li>
-            <li <?php echo check_class('blog'); ?>><a href="<?php echo site_url('blog'); ?>"><?php e(lang('blog_post')); ?></a></li>
+            <li <?php echo check_class('docs'); ?>><a href="<?php echo site_url('docs'); ?>">Documentation</a></li>
             <?php if (empty($current_user)) : ?>
             <li><a href="<?php echo site_url(LOGIN_URL); ?>">Sign In</a></li>
             <?php else : ?>

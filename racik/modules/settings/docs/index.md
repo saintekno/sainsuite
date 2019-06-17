@@ -4,8 +4,6 @@
 
 - [Main Settings](#main-settings)
 - [Security Settings](#security-settings)
-- [Developer Settings](#developer-settings)
-- [Extended Settings](#extended-settings)
 
 
 ## Main Settings {#main-settings}
