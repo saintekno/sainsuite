@@ -14499,6 +14499,219 @@ div.code-toolbar > .toolbar a:hover {
   color: white;
 }
 
+.badge-light-grey {
+  color: #1b1e24;
+  background-color: #e8eaf3;
+}
+
+a.badge-light-grey:hover, a.badge-light-grey:focus {
+  color: #1b1e24;
+  background-color: #c6cbe2;
+}
+
+a.badge-light-grey:focus, a.badge-light-grey.focus {
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0 rgba(232, 234, 243, 0.5);
+          box-shadow: 0 0 0 0 rgba(232, 234, 243, 0.5);
+}
+
+.badge-grey {
+  color: #fff;
+  background-color: #999ba8;
+}
+
+a.badge-grey:hover, a.badge-grey:focus {
+  color: #fff;
+  background-color: #7d8091;
+}
+
+a.badge-grey:focus, a.badge-grey.focus {
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0 rgba(153, 155, 168, 0.5);
+          box-shadow: 0 0 0 0 rgba(153, 155, 168, 0.5);
+}
+
+.badge-primary-soft {
+  color: #1b1e24;
+  background-color: #e9eafd;
+}
+
+a.badge-primary-soft:hover, a.badge-primary-soft:focus {
+  color: #1b1e24;
+  background-color: #babdf9;
+}
+
+a.badge-primary-soft:focus, a.badge-primary-soft.focus {
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0 rgba(233, 234, 253, 0.5);
+          box-shadow: 0 0 0 0 rgba(233, 234, 253, 0.5);
+}
+
+.badge-secondary-soft {
+  color: #1b1e24;
+  background-color: #c9f2e9;
+}
+
+a.badge-secondary-soft:hover, a.badge-secondary-soft:focus {
+  color: #1b1e24;
+  background-color: #a0e8d8;
+}
+
+a.badge-secondary-soft:focus, a.badge-secondary-soft.focus {
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0 rgba(201, 242, 233, 0.5);
+          box-shadow: 0 0 0 0 rgba(201, 242, 233, 0.5);
+}
+
+.badge-info-soft {
+  color: #1b1e24;
+  background-color: #e9fafe;
+}
+
+a.badge-info-soft:hover, a.badge-info-soft:focus {
+  color: #1b1e24;
+  background-color: #b8effc;
+}
+
+a.badge-info-soft:focus, a.badge-info-soft.focus {
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0 rgba(233, 250, 254, 0.5);
+          box-shadow: 0 0 0 0 rgba(233, 250, 254, 0.5);
+}
+
+.badge-success-soft {
+  color: #1b1e24;
+  background-color: #e5fdf4;
+}
+
+a.badge-success-soft:hover, a.badge-success-soft:focus {
+  color: #1b1e24;
+  background-color: #b6f9e0;
+}
+
+a.badge-success-soft:focus, a.badge-success-soft.focus {
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0 rgba(229, 253, 244, 0.5);
+          box-shadow: 0 0 0 0 rgba(229, 253, 244, 0.5);
+}
+
+.badge-danger-soft {
+  color: #1b1e24;
+  background-color: #fde9ee;
+}
+
+a.badge-danger-soft:hover, a.badge-danger-soft:focus {
+  color: #1b1e24;
+  background-color: #f9baca;
+}
+
+a.badge-danger-soft:focus, a.badge-danger-soft.focus {
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0 rgba(253, 233, 238, 0.5);
+          box-shadow: 0 0 0 0 rgba(253, 233, 238, 0.5);
+}
+
+.badge-warning-soft {
+  color: #1b1e24;
+  background-color: #fdf8e9;
+}
+
+a.badge-warning-soft:hover, a.badge-warning-soft:focus {
+  color: #1b1e24;
+  background-color: #f9e9ba;
+}
+
+a.badge-warning-soft:focus, a.badge-warning-soft.focus {
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0 rgba(253, 248, 233, 0.5);
+          box-shadow: 0 0 0 0 rgba(253, 248, 233, 0.5);
+}
+.badge {
+  line-height: 1.2;
+}
+
+.badge-with-close {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.badge-with-close .close {
+  margin-left: auto;
+  font-size: 0.875rem;
+  opacity: 1;
+}
+
+.badge-success, .badge-warning, .badge-info {
+  color: #fff;
+}
+
+.badge-primary-soft {
+  color: #444bf8;
+}
+
+.badge-primary-soft[href]:hover {
+  color: #444bf8;
+  background-color: rgba(68, 75, 248, 0.2);
+}
+
+.badge-secondary-soft {
+  color: #00c9a7;
+}
+
+.badge-secondary-soft[href]:hover {
+  color: #00c9a7;
+  background-color: rgba(0, 201, 167, 0.2);
+}
+
+.badge-success-soft {
+  color: #00ed96;
+}
+
+.badge-success-soft[href]:hover {
+  color: #00ed96;
+  background-color: rgba(0, 237, 150, 0.2);
+}
+
+.badge-warning-soft {
+  color: #f1be25;
+}
+
+.badge-warning-soft[href]:hover {
+  color: #f1be25;
+  background-color: rgba(241, 190, 37, 0.2);
+}
+
+.badge-danger-soft {
+  color: #f12559;
+}
+
+.badge-danger-soft[href]:hover {
+  color: #f12559;
+  background-color: rgba(241, 37, 89, 0.2);
+}
+
+.badge-info-soft {
+  color: #2cd2f6;
+}
+
+.badge-info-soft[href]:hover {
+  color: #2cd2f6;
+  background-color: rgba(44, 210, 246, 0.2);
+}
+
+.badge-xs {
+  padding: 0.25rem 1rem;
+}
+
+.badge-md {
+  font-size: 0.875rem;
+  padding: 0.625rem 1.25rem;
+}
+
 /*------------------------------------
   File for your custom SCSS style
 ------------------------------------*/

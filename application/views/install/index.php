@@ -1,54 +1,112 @@
-<style>
-    .good, .bad {
-        color: white;
-        padding: 3px 6px;
-        margin-bottom: 2px;
-        display: inline-block;
-    }
-    .good { background: green; }
-    .bad { background: red; }
-</style>
+<!-- Main -->
+<main class="d-flex flex-column u-hero u-hero--end mnh-100vh" style="background-image: url(<?=img_path().'/bg-1.png'?>);">
 
-<?php echo lang('in_intro'); ?>
+    <div class="container py-7 my-auto">
+        <div class="d-flex align-items-center justify-content-center">
+            <div style="width: 460px; max-width: 100%;">
+            
+                <?php echo lang('in_intro'); ?>
 
-<div class="well">
+                <!-- Simple List Group -->
+                <ul class="list-group">
+                    <!-- List Group Item -->
+                    <li class="list-group-item px-3">
+                        <div class="media align-items-center">
+                            <!-- Title -->
+                            <div class="media-body">
+                                <h6 class="font-weight-normal mb-1">
+                                <?php echo lang('in_php_version') .' <b>'. $php_min_version ?>+</b>
+                                </h6>
+                            </div>
+                            <!-- End Title -->
 
-    <table style="width: 50%;">
-        <tbody>
-            <!-- PHP Version -->
-            <tr>
-                <td><?php echo lang('in_php_version') .' <b>'. $php_min_version ?>+</b></td>
-                <td style="width: 10em"><?php echo $php_acceptable ? '<span class="good">' : '<span class="bad">'; ?><?php echo $php_version ?></span></td>
-            </tr>
-            <tr>
-                <td><?php echo lang('in_curl_enabled') ?></td>
-                <td><?php echo $curl_enabled ? '<span class="good">'. lang('in_enabled') .'</span>' : '<span class="bad">'. lang('in_disabled') .'</span>'; ?></td>
-            </tr>
+                            <!-- State -->
+                            <?php echo $php_acceptable 
+                            ? '<span class="badge badge-md badge-pill badge-success-soft ml-auto">'
+                            : '<span class="badge badge-md badge-pill badge-error-soft ml-auto">'; 
+                            ?>
+                            <?php echo $php_version ?></span>
+                            <!-- End State -->
+                        </div>
+                    </li>
+                    <!-- End List Group Item -->
+                    
+                    <!-- List Group Item -->
+                    <li class="list-group-item px-3">
+                        <div class="media align-items-center">
+                            <!-- Title -->
+                            <div class="media-body">
+                                <h6 class="font-weight-normal mb-1">
+                                <?php echo lang('in_curl_enabled') ?>
+                                </h6>
+                            </div>
+                            <!-- End Title -->
 
-            <!-- Folders -->
-            <tr><td colspan="2"><b><?php echo lang('in_folders') ?></b></td></tr>
+                            <!-- State -->
+                            <?php echo $curl_enabled 
+                            ? '<span class="badge badge-md badge-pill badge-success-soft ml-auto">'. lang('in_enabled') .'</span>' 
+                            : '<span class="badge badge-md badge-pill badge-error-soft ml-auto">'. lang('in_disabled') .'</span>'; ?>
+                            <!-- End State -->
+                        </div>
+                    </li>
+                    <!-- End List Group Item -->
+                </ul>
+                <!-- End Simple List Group -->
+                
+                <h6 class="font-weight-normal mb-1 mt-5">
+                <?php echo lang('in_folders') ?>
+                </h6>
+                <ul class="list-group">
+                    
+                    <?php foreach ($folders as $folder => $perm) :?>
+                    <!-- List Group Item -->
+                    <li class="list-group-item px-3">
+                        <div class="media align-items-center">
+                            <!-- Title -->
+                            <div class="media-body">
+                                <h6 class="font-weight-normal mb-1">
+                                <?php echo $folder ?>
+                                </h6>
+                            </div>
+                            <!-- End Title -->
 
-            <?php foreach ($folders as $folder => $perm) :?>
-            <tr>
-                <td><?php echo $folder ?></td>
-                <td><?php echo $perm ? '<span class="good">'. lang('in_writeable') .'</span>' : '<span class="bad">'. lang('in_not_writeable') .'</span>' ?></td>
-            </tr>
-            <?php endforeach; ?>
+                            <!-- State -->
+                            <?php echo $perm 
+                            ? '<span class="badge badge-md badge-pill badge-success-soft ml-auto">'. lang('in_writeable') .'</span>' 
+                            : '<span class="badge badge-md badge-pill badge-error-soft ml-auto">'. lang('in_not_writeable') .'</span>'; ?>
+                            <!-- End State -->
+                        </div>
+                    </li>
+                    <!-- End List Group Item -->
+                    <?php endforeach; ?>
+                    
+                    <?php foreach ($files as $file => $perm) :?>
+                    <!-- List Group Item -->
+                    <li class="list-group-item px-3">
+                        <div class="media align-items-center">
+                            <!-- Title -->
+                            <div class="media-body">
+                                <h6 class="font-weight-normal mb-1">
+                                <?php echo $file ?>
+                                </h6>
+                            </div>
+                            <!-- End Title -->
 
-            <!-- Files -->
-            <tr><td colspan="2"><b><?php echo lang('in_files') ?></b></td></tr>
+                            <!-- State -->
+                            <?php echo $perm 
+                            ? '<span class="badge badge-md badge-pill badge-success-soft ml-auto">'. lang('in_writeable') .'</span>' 
+                            : '<span class="badge badge-md badge-pill badge-error-soft ml-auto">'. lang('in_not_writeable') .'</span>'; ?>
+                            <!-- End State -->
+                        </div>
+                    </li>
+                    <!-- End List Group Item -->
+                    <?php endforeach; ?>
+                </ul>
 
-            <?php foreach ($files as $file => $perm) :?>
-            <tr>
-                <td><?php echo $file ?></td>
-                <td><?php echo $perm ? '<span class="good">'. lang('in_writeable') .'</span>' : '<span class="bad">'. lang('in_not_writeable') .'</span>' ?></td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+                <a href="<?=site_url('install/do_install')?>" class="btn btn-block btn-wide btn-primary text-uppercase mt-5">Next</a>
 
-</div>
+            </div>
+        </div>
+    </div>
 
-<p style="text-align: right">
-    <a href="<?php echo site_url('install/do_install') ?>" class="btn btn-primary btn-large">Next</a>
-</p>
+</main>

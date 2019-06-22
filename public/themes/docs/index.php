@@ -13,9 +13,9 @@
     <!-- Google Fonts -->
     <link href="//fonts.googleapis.com/css?family=Poppins:300,400,500,600" rel="stylesheet">
     
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="<?=css_path().'fontawesome-all.min.css'?>">
     <?php
-    // <!-- CSS Implementing Plugins -->
-    Assets::add_css('fontawesome-all.min.css');
     Assets::add_css('jquery.mCustomScrollbar.css');
     Assets::add_css('jquery-ui.min.css');
     Assets::add_css('prism.css');
@@ -134,13 +134,12 @@
     </a>
     <!-- End Go to Top -->
 
+    <script src="<?=js_path().'jquery.min.js'?>"></script>
+    <script src="<?=js_path().'jquery-migrate.min.js'?>"></script>
+    <script src="<?=js_path().'popper.min.js'?>"></script>
+    <script src="<?=js_path().'bootstrap.min.js'?>"></script>
+    
     <?php 
-    // <!-- JS Global Compulsory -->
-    Assets::add_js('jquery.min.js');
-    Assets::add_js('jquery-migrate.min.js');
-    Assets::add_js('popper.min.js');
-    Assets::add_js('bootstrap.min.js');
-
     // <!-- JS Implementing Plugins -->
     Assets::add_js('jquery.mCustomScrollbar.concat.min.js');
     Assets::add_js('jquery-ui.core.min.js');

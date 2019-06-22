@@ -1,76 +1,81 @@
-<?php
-	$site_open = $this->settings_lib->item('auth.allow_register');
-?>
-<p><br/><a href="<?php echo site_url(); ?>">&larr; <?php echo lang('us_back_to') . $this->settings_lib->item('site.title'); ?></a></p>
 
-<div id="login">
-	<h2><?php echo lang('us_login'); ?></h2>
+<div class="d-flex align-items-center justify-content-center">
+	<!-- Card -->
+	<div class="card my-7" style="width: 460px; max-width: 100%;">
+		<!-- Card Body -->
+		<div class="card-body p-4 p-lg-7">
+			<h2 class="text-center mb-4"><?php echo lang('us_login'); ?></h2>
 
-	<?php echo Template::message(); ?>
+			<?php echo Template::message(); ?>
 
-	<?php
-		if (validation_errors()) :
-	?>
-	<div class="row-fluid">
-		<div class="span12">
-			<div class="alert alert-error fade in">
-			  <a data-dismiss="alert" class="close">&times;</a>
-				<?php echo validation_errors(); ?>
-			</div>
-		</div>
-	</div>
-	<?php endif; ?>
-
-	<?php echo form_open(LOGIN_URL, array('autocomplete' => 'off')); ?>
-
-		<div class="control-group <?php echo iif( form_error('login') , 'error') ;?>">
-			<div class="controls">
-				<input style="width: 95%" type="text" name="login" id="login_value" value="<?php echo set_value('login'); ?>" tabindex="1" placeholder="<?php echo $this->settings_lib->item('auth.login_type') == 'both' ? lang('rp_username') .'/'. lang('rp_email') : ucwords($this->settings_lib->item('auth.login_type')) ?>" />
-			</div>
-		</div>
-
-		<div class="control-group <?php echo iif( form_error('password') , 'error') ;?>">
-			<div class="controls">
-				<input style="width: 95%" type="password" name="password" id="password" value="" tabindex="2" placeholder="<?php echo lang('rp_password'); ?>" />
-			</div>
-		</div>
-
-		<?php if ($this->settings_lib->item('auth.allow_remember')) : ?>
-			<div class="control-group">
-				<div class="controls">
-					<label class="checkbox" for="remember_me">
-						<input type="checkbox" name="remember_me" id="remember_me" value="1" tabindex="3" />
-						<span class="inline-help"><?php echo lang('us_remember_note'); ?></span>
-					</label>
+			<?php if (validation_errors()) : ?>
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="alert alert-error fade in">
+					<a data-dismiss="alert" class="close">&times;</a>
+						<?php echo validation_errors(); ?>
+					</div>
 				</div>
 			</div>
-		<?php endif; ?>
+			<?php endif; ?>
 
-		<div class="control-group">
-			<div class="controls">
-				<input class="btn btn-large btn-primary" type="submit" name="log-me-in" id="submit" value="<?php e(lang('us_let_me_in')); ?>" tabindex="5" />
-			</div>
+			<!-- Sign in Form -->
+			<?php echo form_open(LOGIN_URL, array('autocomplete' => 'off')); ?>
+				<!-- Email -->
+				<div class="form-group <?php echo iif( form_error('login') , 'error') ;?>">
+					<label for="login_value"><?php echo $this->settings_lib->item('auth.login_type') == 'both' ? lang('rp_username') .'/'. lang('rp_email') : ucwords($this->settings_lib->item('auth.login_type')) ?></label>
+					<input class="form-control" name="login" id="login_value" value="<?php echo set_value('login'); ?>" tabindex="1" placeholder="<?php echo $this->settings_lib->item('auth.login_type') == 'both' ? lang('rp_username') .'/'. lang('rp_email') : ucwords($this->settings_lib->item('auth.login_type')) ?>">
+				</div>
+				<!-- End Email -->
+
+				<!-- Password -->
+				<div class="form-group <?php echo iif( form_error('password') , 'error') ;?>">
+					<label for="password"><?php echo lang('rp_password'); ?></label>
+					<input class="form-control" type="password" name="password" id="password" value="" tabindex="2" placeholder="<?php echo lang('rp_password'); ?>">
+				</div>
+				<!-- End Password -->
+
+				<?php if ($this->settings_lib->item('auth.allow_remember')) : ?>
+				<div class="d-flex align-items-center justify-content-between my-4">
+					<!-- Remember -->
+					<div class="custom-control custom-checkbox">
+						<input name="remember_me" id="remember_me" value="1" tabindex="3" class="custom-control-input" type="checkbox">
+						<label class="custom-control-label text-dark" for="remember_me"><?php echo lang('us_remember_note'); ?></label>
+					</div>
+					<!-- End Remember -->
+
+					<?php echo anchor('/forgot_password', lang('us_forgot_your_password'), 'class="font-weight-semi-bold"'); ?>
+				</div>
+				<?php endif; ?>
+
+				<button type="submit" name="log-me-in" tabindex="5" class="btn btn-block btn-wide btn-primary text-uppercase"><?php e(lang('us_let_me_in')); ?></button>
+
+				<?php if ($this->settings_lib->item('auth.user_activation_method') == 1) : ?>
+					<!-- // show for Email Activation (1) only -->
+					<!-- Activation Block -->
+					<p style="text-align: left" class="well">
+						<?php echo lang('rp_login_activate_title'); ?><br />
+						<?php
+						$activate_str = str_replace('[ACCOUNT_ACTIVATE_URL]',anchor('/activate', lang('rp_activate')),lang('rp_login_activate_email'));
+						$activate_str = str_replace('[ACTIVATE_RESEND_URL]',anchor('/resend_activation', lang('rp_activate_resend')),$activate_str);
+						echo $activate_str; 
+						?>
+					</p>
+				<?php endif; ?>
+				
+				<p class="text-center mb-0">
+					Don’t have an account?
+					<?php
+					$site_open = $this->settings_lib->item('auth.allow_register');
+					if ( $site_open ) : 
+					echo anchor(REGISTER_URL, lang('us_sign_up'), 'class="font-weight-semi-bold"');
+					endif; 
+					?>
+				</p>
+			</form>
+			<!-- End Sign in Form -->
 		</div>
-	<?php echo form_close(); ?>
-
-	<?php // show for Email Activation (1) only
-		if ($this->settings_lib->item('auth.user_activation_method') == 1) : ?>
-	<!-- Activation Block -->
-			<p style="text-align: left" class="well">
-				<?php echo lang('rp_login_activate_title'); ?><br />
-				<?php
-				$activate_str = str_replace('[ACCOUNT_ACTIVATE_URL]',anchor('/activate', lang('rp_activate')),lang('rp_login_activate_email'));
-				$activate_str = str_replace('[ACTIVATE_RESEND_URL]',anchor('/resend_activation', lang('rp_activate_resend')),$activate_str);
-				echo $activate_str; ?>
-			</p>
-	<?php endif; ?>
-
-	<p style="text-align: center">
-		<?php if ( $site_open ) : ?>
-			<?php echo anchor(REGISTER_URL, lang('us_sign_up')); ?>
-		<?php endif; ?>
-
-		<br/><?php echo anchor('/forgot_password', lang('us_forgot_your_password')); ?>
-	</p>
-
+		<!-- End Card Body -->
+	</div>
+	<!-- End Card -->
 </div>

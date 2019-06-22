@@ -73,7 +73,7 @@ class Install extends CI_Controller
         $data['php_version']     = $this->installer->php_version;
 
         Template::set($data);
-        Template::render();
+        Template::render('install');
     }
 
     /**
@@ -100,6 +100,6 @@ class Install extends CI_Controller
             define('RP_DID_INSTALL', true);
         }
 
-        Template::render();
+        Template::render('install');
     }
 }
