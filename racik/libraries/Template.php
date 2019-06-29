@@ -657,7 +657,8 @@ EOF;
             $data = self::$data;
         }
 
-            $output = '';
+        $output = '';
+
         if ($is_themed) {
             // First check for the overridden file...
             if (! empty($override)) {
