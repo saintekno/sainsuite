@@ -16,7 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Racik Directory Helper
  *
- * @package Racik\Helpers\directory_helper
+ * @package Racik\Helpers\RP_directory_helper
  */
 if (! function_exists('bcDirectoryMap')) {
     /**

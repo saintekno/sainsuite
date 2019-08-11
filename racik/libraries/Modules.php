@@ -547,7 +547,7 @@ class Modules
     {
         // Ensure the bcDirectoryMap function is available.
         if (! function_exists('bcDirectoryMap')) {
-            get_instance()->load->helper('directory');
+            get_instance()->load->helper('rp_directory');
         }
 
         $map = array();

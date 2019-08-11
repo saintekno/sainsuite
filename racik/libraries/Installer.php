@@ -403,7 +403,7 @@ class Installer
         $this->ci->load->helper('string');
         $key = random_string('md5', 40);
 
-        $this->ci->load->helper('filer');
+        $this->ci->load->helper('rp_file');
 
         $config_array = array('encryption_key' => $key);
         write_config('config', $config_array, '', APPPATH);

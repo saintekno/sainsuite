@@ -52,7 +52,7 @@ class Events
 	{
         if (! function_exists('read_config')) {
             self::$ci =& get_instance();
-            self::$ci->load->helper('filer');
+            self::$ci->load->helper('rp_file');
 		}
 
         self::$events = read_config('events', true, null, false);

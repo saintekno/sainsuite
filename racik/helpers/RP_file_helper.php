@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Functions to aid in reading and saving config items to and from configuration
  * files.
  *
- * @package Racik\Helpers\filer_helper
+ * @package Racik\Helpers\RP_file_helper
  */
 
 // Ensure this is defined before using it in write_db_config().

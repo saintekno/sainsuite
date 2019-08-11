@@ -108,8 +108,9 @@ if (! function_exists('e')) {
      * A convenience function to ensure output is safe to display. Helps to defeat
      * XSS attacks by running the text through htmlspecialchars().
      *
-     * Should be used anywhere user-submitted text is displayed.
-     *
+     * Fungsi untuk memastikan output aman untuk ditampilkan
+     * dari serangan XSS.
+     * 
      * @param string $str The text to process and output.
      *
      * @return void
