@@ -46,7 +46,7 @@ if (! function_exists('list_languages')) {
      * List existing languages in the system
      *
      * Lists the existing languages in the system by examining the core
-     * language folders in bonfire/application/language.
+     * language folders in racik/application/language.
      *
      * @return array The names of the language directories.
      */

@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * Provides methods to retrieve translations from external sites.
  *
- * @uses Bonfire\Libraries\Curl (CodeIgniter cURL library from Phil Sturgeon)
+ * @uses Racik\Libraries\Curl (CodeIgniter cURL library from Phil Sturgeon)
  * 
  */
 class Translate_lib

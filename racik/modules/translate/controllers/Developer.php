@@ -16,7 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Translate Module
  *
- * Manages the language files in Bonfire and allows an easy way for the user
+ * Manages the language files in Racik and allows an easy way for the user
  * to add language files for other languages.  The user can export current language
  * files for translation.
  */
@@ -35,8 +35,8 @@ class Developer extends Admin_Controller
         parent::__construct();
 
         // Restrict access - View and Manage
-        $this->auth->restrict('Bonfire.Translate.View');
-        $this->auth->restrict('Bonfire.Translate.Manage');
+        $this->auth->restrict('Racik.Translate.View');
+        $this->auth->restrict('Racik.Translate.Manage');
 
         $this->lang->load('translate');
 
@@ -241,7 +241,7 @@ class Developer extends Admin_Controller
             }
         }
 
-        $this->zip->download("bonfire_{$language}_files.zip");
+        $this->zip->download("Racik_{$language}_files.zip");
         die();
     }
 }
