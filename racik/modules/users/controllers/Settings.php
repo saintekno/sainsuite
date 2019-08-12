@@ -264,7 +264,7 @@ class Settings extends Admin_Controller
             $this->auth->restrict($this->permissionManage);
         }
 
-        $this->load->config('user_meta');
+        $this->load->config('users/user_meta');
         $metaFields = config_item('user_meta_fields');
         Template::set('meta_fields', $metaFields);
 

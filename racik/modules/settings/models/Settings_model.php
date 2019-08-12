@@ -4,11 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Racik
  *
- * Web App Starter CodeIgniter-based
+ * An open source project to allow developers to Starter Web App of CodeIgniter-based
  *
  * @package   Racik
  * @copyright Copyright (c) 2019
- * @since     Version 0.1
+ * @since     Version 1.2
  * @link      https://github.com/boedwinangun/racik
  * @filesource
  */
