@@ -380,12 +380,12 @@ $config['encryption_key'] = "08e3d82654568c8f9b530dba34281ad9";
 |   update /racik/migrations/043_Add_ci3_sessions.php
 |   accordingly or create the table manually.
 */
-$config['sess_driver'] = 'files';
-$config['sess_cookie_name'] = 'ci_session';
-$config['sess_expiration'] = 7200;
-$config['sess_save_path'] = NULL;
-$config['sess_match_ip'] = FALSE;
-$config['sess_time_to_update'] = 300;
+$config['sess_driver']             = 'database';
+$config['sess_cookie_name']        = 'app_session';
+$config['sess_save_path']          = 'sessions';
+$config['sess_expiration']         = 7200;
+$config['sess_time_to_update']     = 300;
+$config['sess_match_ip']           = FALSE;
 $config['sess_regenerate_destroy'] = FALSE;
 
 /*
@@ -451,11 +451,11 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_regenerate' = Regenerate token on every submission
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
-$config['csrf_protection'] = TRUE;
-$config['csrf_token_name'] = 'ci_csrf_token';
-$config['csrf_cookie_name'] = 'ci_csrf_token';
-$config['csrf_expire'] = 7200;
-$config['csrf_regenerate'] = TRUE;
+$config['csrf_protection']   = TRUE;
+$config['csrf_token_name']   = 'app_csrf_token';
+$config['csrf_cookie_name']  = 'app_csrf_token';
+$config['csrf_expire']       = 7200;
+$config['csrf_regenerate']   = TRUE;
 $config['csrf_exclude_uris'] = array();
 
 /*

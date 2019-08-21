@@ -1,6 +1,18 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Racik
+ *
+ * Web App Starter CodeIgniter-based
+ *
+ * @package     Racik
+ * @copyright   Copyright (c) 2019
+ * @version     1.0.0
+ * @link        https://github.com/boedwinangun/racik
+ * @filesource
+ */
+
 /*
 | -------------------------------------------------------------------------
 | Hooks

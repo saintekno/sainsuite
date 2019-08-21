@@ -112,9 +112,9 @@ define('REGISTER_URL', 'register');
 // The 'IS_AJAX' constant allows for a quick simple test as to whether the current
 // request was made with XHR.
 // -----------------------------------------------------------------------------
-if (! defined('IS_AJAX')) {
-    $ajax_request = ! empty($_SERVER['HTTP_X_REQUESTED_WITH'])
-        && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
+if (! defined('IS_AJAX')) 
+{
+    $ajax_request = ! empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
     define('IS_AJAX', $ajax_request);
     unset($ajax_request);
 }
@@ -123,8 +123,11 @@ if (! defined('IS_AJAX')) {
 // Basic URL
 // --------------------------------------------------------------------------
 $_base_path = $_SERVER['HTTP_HOST'].str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
-if ( ! empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' OR $_SERVER['SERVER_PORT'] == 443) {
+if ( ! empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' OR $_SERVER['SERVER_PORT'] == 443) 
+{
 	defined('BASE_URL') OR define('BASE_URL', "https://".$_base_path);
-} else {
+} 
+else 
+{
 	defined('BASE_URL') OR define('BASE_URL', "http://".$_base_path);
 }

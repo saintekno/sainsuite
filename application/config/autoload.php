@@ -41,7 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $autoload['packages'] = array(
     realpath(APPPATH .'../racik'),	// Racik Core
-    APPPATH . 'third_party',          // App -specific 3rd-party libs.
+    APPPATH . 'third_party',        // App -specific 3rd-party libs.
 );
 
 /*

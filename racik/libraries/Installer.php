@@ -6,10 +6,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * Web App Starter CodeIgniter-based
  *
- * @package   Racik
- * @copyright Copyright (c) 2019
- * @since     Version 1.2
- * @link      https://github.com/boedwinangun/racik
+ * @package     Racik
+ * @copyright   Copyright (c) 2019
+ * @version     1.0.0
+ * @link        https://github.com/boedwinangun/racik
  * @filesource
  */
 
@@ -227,31 +227,41 @@ class Installer
     public function is_installed()
     {
         // If 'config/installed.txt' exists, the app is installed
-        if (is_file(APPPATH . 'config/installed.txt')) {
+        if (is_file(APPPATH . 'config/installed.txt')) 
+        {
             return true;
         }
 
         // If the database config doesn't exist, the app is not installed
-        if (defined('ENVIRONMENT') && is_file(APPPATH . 'config/' . ENVIRONMENT . '/database.php')) {
+        if (defined('ENVIRONMENT') && is_file(APPPATH . 'config/' . ENVIRONMENT . '/database.php')) 
+        {
             require(APPPATH . 'config/' . ENVIRONMENT . '/database.php');
-        } elseif (is_file(APPPATH . 'config/development/database.php')) {
+        } 
+        elseif (is_file(APPPATH . 'config/development/database.php')) 
+        {
             require(APPPATH . 'config/development/database.php');
-        } elseif (is_file(APPPATH . 'config/database.php')) {
+        } 
+        elseif (is_file(APPPATH . 'config/database.php')) 
+        {
             require(APPPATH . 'config/database.php');
-        } else {
+        } 
+        else 
+        {
             $this->db_settings_exist = false;
             return false;
         }
 
         // If $db['default'] doesn't exist, the app can't load the database
-        if (! isset($db) || ! isset($db['default'])) {
+        if (! isset($db) || ! isset($db['default'])) 
+        {
             $this->db_settings_exist = false;
             return false;
         }
         $this->db_settings_exist = true;
 
         // Make sure the database name is specified
-        if (empty($db['default']['database'])) {
+        if (empty($db['default']['database'])) 
+        {
             $this->db_exists = false;
             return false;
         }
@@ -260,13 +270,15 @@ class Installer
         $this->ci->load->database($db['default']);
 
         // Does the users table exist?
-        if (! $this->ci->db->table_exists('users')) {
+        if (! $this->ci->db->table_exists('users')) 
+        {
             return false;
         }
 
         // Make sure at least one row exists in the users table.
         $query = $this->ci->db->get('users');
-        if ($query->num_rows() == 0) {
+        if ($query->num_rows() == 0) 
+        {
             return false;
         }
 
