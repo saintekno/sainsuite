@@ -6,10 +6,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * Web App Starter CodeIgniter-based
  *
- * @package   Racik
- * @copyright Copyright (c) 2019
- * @since     Version 0.1
- * @link      https://github.com/boedwinangun/racik
+ * @package     Racik
+ * @copyright   Copyright (c) 2019
+ * @version     1.0.0
+ * @link        https://github.com/boedwinangun/racik
  * @filesource
  */
 
@@ -42,27 +42,26 @@ $config['modules_locations'] = array(
 //------------------------------------------------------------------------------
 // The path to the root folder that holds the application. This does not have to
 // be the site root folder, or even the folder defined in FCPATH.
-$config['template.site_path']       = FCPATH;
+$config['template.site_path'] = FCPATH;
 
 // An array of folders to look in for themes. There must be at least one folder
 // path at all times, to serve as the fall-back for when a theme isn't found.
 // Paths are relative to the FCPATH.
-$config['template.theme_paths']     = array('themes');
+$config['template.theme_paths'] = array('themes');
 
 // This is the folder name that contains the default admin theme to use
-$config['template.admin_theme']     = 'admin';
+$config['template.admin_theme'] = 'admin';
 
-// This is the folder name that contains the default theme to use when
-// 'template.use_mobile_themes' is set to true.
-$config['template.default_theme']   = 'default/';
+// This is the folder name that contains the default theme to use.
+$config['template.default_theme'] = 'default/';
 
 // This is the name of the default layout used if no others are specified.
 // NOTE: do not include an ending ".php" extension.
-$config['template.default_layout']  = "index";
+$config['template.default_layout'] = "index";
 
 // This is the name of the default layout used when the page is displayed via an AJAX call.
 // NOTE: do not include an ending ".php" extension.
-$config['template.ajax_layout']     = 'ajax';
+$config['template.ajax_layout'] = 'ajax';
 
 // This is the template that the Template library will use when displaying
 // messages through the message() function.
@@ -77,11 +76,11 @@ $config['template.message_template'] =<<<EOD
 EOD;
 
 // BREADCRUMB Separator - The symbol displayed between the breadcrumb elements.
-$config['template.breadcrumb_symbol']	= ' : ';
+$config['template.breadcrumb_symbol'] = ' : ';
 
 // If set to true, views will be parsed via CodeIgniter's parser.
 // If false, views will be considered PHP views only.
-$config['template.parse_views']     = false;
+$config['template.parse_views'] = false;
 
 
 //------------------------------------------------------------------------------
@@ -129,16 +128,10 @@ $config['assets.encode'] = false;
 //------------------------------------------------------------------------------
 // ACTIVITIES
 //------------------------------------------------------------------------------
-
 // If true, will log activities to the database using the activity_model's
 // log_activity method. If this is false, you can remove the Activity module
 // without repurcussions.
 $config['enable_activity_logging'] = true;
-
-
-//------------------------------------------------------------------------------
-// Auth
-//------------------------------------------------------------------------------
 
 // If 'auth.log_failed_login_activity' is set to true, entries will be added to
 // the activity logs whenever someone attempts to login with a bad password or a
@@ -149,7 +142,6 @@ $config['auth.log_failed_login_activity'] = true;
 //------------------------------------------------------------------------------
 // Shortcut Keys
 //------------------------------------------------------------------------------
-
 // Array containing the currently available shortcuts
 // - these are output in the /display/views/shortcut_keys file
 $config['display.current_shortcuts'] = array(
@@ -168,7 +160,6 @@ $config['display.current_shortcuts'] = array(
 //------------------------------------------------------------------------------
 // !CONTEXTS
 //------------------------------------------------------------------------------
-
 // Contexts provide the main sections of the admin area.
 // Only two are required: 'settings' and 'developer'.
 // The name of the context displayed in the UI is determined by language strings

@@ -6,10 +6,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * Web App Starter CodeIgniter-based
  *
- * @package   Racik
- * @copyright Copyright (c) 2019
- * @since     Version 0.1
- * @link      https://github.com/boedwinangun/racik
+ * @package     Racik
+ * @copyright   Copyright (c) 2019
+ * @version     1.0.0
+ * @link        https://github.com/boedwinangun/racik
  * @filesource
  */
 
@@ -306,6 +306,8 @@ class Auth
         $this->ci->session->sess_destroy();
     }
 
+	//--------------------------------------------------------------------
+
     /**
      * Check the session for the required info, then verify it against the database.
      *
@@ -314,7 +316,8 @@ class Auth
     public function user()
     {
         // If the user has already been cached, return it.
-        if (isset($this->user)) {
+        if (isset($this->user)) 
+        {
             return $this->user;
         }
 
@@ -322,21 +325,22 @@ class Auth
 
         // Is the required session data available?
         if (! $this->ci->session->userdata('identity')
-            || ! $this->ci->session->userdata('user_id')
-        ) {
+            || ! $this->ci->session->userdata('user_id')) 
+        {
             return false;
         }
 
         // Grab the user account.
         $user = $this->ci->user_model->find($this->ci->session->userdata('user_id'));
-        if ($user === false) {
+        if ($user === false) 
+        {
             return false;
         }
 
         // Ensure user_token is still equivalent to SHA1 of the user_id and password_hash.
         if (sha1($this->ci->session->userdata('user_id') . $user->password_hash)
-            !== $this->ci->session->userdata('user_token')
-        ) {
+            !== $this->ci->session->userdata('user_token')) 
+        {
             return false;
         }
 

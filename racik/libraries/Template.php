@@ -6,10 +6,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * Web App Starter CodeIgniter-based
  *
- * @package   Racik
- * @copyright Copyright (c) 2019
- * @since     Version 0.1
- * @link      https://github.com/boedwinangun/racik
+ * @package     Racik
+ * @copyright   Copyright (c) 2019
+ * @version     1.0.0
+ * @link        https://github.com/boedwinangun/racik
  * @filesource
  */
 
@@ -100,6 +100,8 @@ class Template
         self::init();
     }
 
+	//--------------------------------------------------------------------
+
     /**
      * Grabs an instance of the CI superobject, loads the Ocular config file, and
      * sets our default layout.
@@ -109,7 +111,8 @@ class Template
     public static function init()
     {
         // If the application config file hasn't been loaded, do it now
-        if (! self::$ci->config->item('template.theme_paths')) {
+        if (! self::$ci->config->item('template.theme_paths')) 
+        {
             self::$ci->config->load('application');
         }
 
@@ -123,6 +126,8 @@ class Template
         log_message('debug', 'Template library loaded');
     }
 
+	//--------------------------------------------------------------------
+
     /**
      * Get the name of the layout into which the views will be rendered.
      *
@@ -134,6 +139,8 @@ class Template
     {
         return self::$layout;
     }
+
+	//--------------------------------------------------------------------
 
     /**
      * Specify the layout into which the views will be rendered.
@@ -151,6 +158,8 @@ class Template
         self::$layout = $layout;
     }
 
+	//--------------------------------------------------------------------
+
     /**
      * Enable/disable the library's use of sessions.
      *
@@ -166,6 +175,8 @@ class Template
     {
         self::$ignore_session = ! $useSession;
     }
+
+	//--------------------------------------------------------------------
 
     /**
      * Renders the specified layout.
@@ -186,12 +197,14 @@ class Template
 
         // If the current view has not been set, use the current controller/method.
         $controller = self::$ci->router->class;
-        if (empty(self::$current_view)) {
+        if (empty(self::$current_view)) 
+        {
             self::$current_view = "{$controller}/" . self::$ci->router->method;
         }
 
         // Override the layout if this is an AJAX request.
-        if (self::$ci->input->is_ajax_request()) {
+        if (self::$ci->input->is_ajax_request()) 
+        {
             $layout = self::$ci->config->item('template.ajax_layout');
 
             // $controller is passed to load_view to set a controller-based override
@@ -203,7 +216,8 @@ class Template
         $output = '';
         self::load_view($layout, self::$data, $controller, true, $output);
 
-        if (empty($output)) {
+        if (empty($output)) 
+        {
             show_error("Unable to find theme layout: {$layout}");
         }
 
@@ -211,6 +225,8 @@ class Template
 
         self::$ci->output->set_output($output);
     }
+
+	//--------------------------------------------------------------------
 
     /**
      * Renders the current view into the layout.
@@ -254,10 +270,13 @@ class Template
      */
     public static function set_block($block_name = '', $view_name = '')
     {
-        if (! empty($block_name)) {
+        if (! empty($block_name)) 
+        {
             self::$blocks[$block_name] = $view_name;
         }
     }
+
+	//--------------------------------------------------------------------
 
     /**
      * Renders a "block" to the view.
@@ -316,22 +335,26 @@ class Template
      */
     public static function add_theme_path($path = null)
     {
-        if (empty($path) || ! is_string($path)) {
+        if (empty($path) || ! is_string($path)) 
+        {
             return false;
         }
 
         // Make sure the path has a '/' at the end.
-        if (substr($path, -1) != '/') {
+        if (substr($path, -1) != '/') 
+        {
             $path .= '/';
         }
 
         // If the path already exists, we're done here.
-        if (isset(self::$theme_paths[$path])) {
+        if (isset(self::$theme_paths[$path])) 
+        {
             return true;
         }
 
         // Make sure the folder actually exists.
-        if (is_dir(self::$site_path . $path)) {
+        if (is_dir(self::$site_path . $path)) 
+        {
             array_push(self::$theme_paths, $path);
             return false;
         }
@@ -339,6 +362,8 @@ class Template
         self::debug_message("Cannot add theme path: '{$path}' does not exist");
         return false;
     }
+
+	//--------------------------------------------------------------------
 
     /**
      * Remove the theme path
@@ -349,172 +374,20 @@ class Template
      */
     public static function remove_theme_path($path = null)
     {
-        if (empty($path) || ! is_string($path)) {
+        if (empty($path) || ! is_string($path)) 
+        {
             return;
         }
 
-        if (isset(self::$theme_paths[$path])) {
+        if (isset(self::$theme_paths[$path])) 
+        {
             unset(self::$theme_paths[$path]);
         }
     }
 
-    /**
-     * Stores the name of the active theme to use. This theme should be relative
-     * to one of the 'template.theme_paths' folders.
-     *
-     * @param string $theme         The name of the active theme.
-     * @param string $default_theme (Optional) The name of the desired default theme.
-     *
-     * @return void
-     */
-    public static function set_theme($theme = null, $default_theme = null)
-    {
-        if (empty($theme) || ! is_string($theme)) {
-            return;
-        }
-
-        // Make sure a trailing slash is there
-        if (substr($theme, -1) !== '/') {
-            $theme .= '/';
-        }
-
-        self::$active_theme = $theme;
-
-        // Default theme?
-        if (! empty($default_theme) && is_string($default_theme)) {
-            self::set_default_theme($default_theme);
-        }
-    }
-
-    /**
-     * Stores the name of the default theme to use. This theme should be relative
-     * to one of the template.theme_paths folders.
-     *
-     * @param string $theme The name of the desired default theme to use.
-     *
-     * @return void
-     */
-    public static function set_default_theme($theme = null)
-    {
-        if (empty($theme) || ! is_string($theme)) {
-            return;
-        }
-
-        // Make sure a trailing slash is there
-        if (substr($theme, -1) !== '/') {
-            $theme .= '/';
-        }
-
-        self::$default_theme = $theme;
-    }
-
-    /**
-     * Returns the active theme.
-     *
-     * @return string The name of the active theme.
-     */
-    public static function theme()
-    {
-        return empty(self::$active_theme) ? self::$default_theme : self::$active_theme;
-    }
-
-    /**
-     * Returns the full url to a file in the currently active theme.
-     *
-     * @param string $resource Path to a resource in the theme
-     *
-     * @return string The full url (including http://) to the resource.
-     */
-    public static function theme_url($resource = '')
-    {
-        $url = site_url();
-
-        // Add theme path and theme.
-        $url .= self::$theme_paths[0] . '/' . self::theme();
-
-        // Cleanup, just to be safe.
-        $url = str_replace(array('//', ':/'), array('/', '://'), $url);
-
-        return $url . $resource;
-    }
-
-    /**
-     * Set the current view to render.
-     *
-     * @param string $view The name of the view file to render as content.
-     *
-     * @return void
-     */
-    public static function set_view($view = null)
-    {
-        if (empty($view) || ! is_string($view)) {
-            return;
-        }
-
-        self::$current_view = $view;
-    }
-
-    /**
-     * Makes it easy to save information to be rendered within the views.
-     *
-     * This should probably be updated to clarify the intended functionality when
-     * an array is passed into $var_name and $value is ''.
-     *
-     * @todo If $var_name is an array and $value != '', the else condition will
-     * probably be problematic.
-     *
-     * @param string $var_name The name of the variable to set
-     * @param mixed  $value    The value to set it to.
-     *
-     * @return void
-     */
-    public static function set($var_name = '', $value = '')
-    {
-        if (is_array($var_name) && $value == '') {
-            foreach ($var_name as $key => $val) {
-                self::$data[$key] = $val;
-            }
-        } else {
-            self::$data[$var_name] = $value;
-        }
-    }
-
-    /**
-     * Returns a variable that has been previously set, or false if not exists.
-     * As of 3.0, will also return class properties.
-     *
-     * @param string $var_name The name of the data item to return.
-     *
-     * @return mixed The value of the class property or view data.
-     */
-    public static function get($var_name = null)
-    {
-        if (empty($var_name)) {
-            return false;
-        }
-
-        // First, is it a class property?
-        if (isset(self::$$var_name)) {
-            return self::$$var_name;
-        }
-
-        if (isset(self::$data[$var_name])) {
-            return self::$data[$var_name];
-        }
-
-        return false;
-    }
-
-    /**
-     * Enable/disable passing views through CI's Parser.
-     *
-     * @param  boolean $parse If true, the views will be parsed.
-     * @return void
-     */
-    public function parse_views($parse = false)
-    {
-        self::$parse_views = (bool) $parse;
-    }
+    //--------------------------------------------------------------------------
+    // !Status Message
+    //--------------------------------------------------------------------------
 
     /**
      * Sets a status message (for displaying small success/error messages).
@@ -597,6 +470,195 @@ class Template
         return $template;
     }
 
+	//--------------------------------------------------------------------
+
+    /**
+     * Stores the name of the active theme to use. This theme should be relative
+     * to one of the 'template.theme_paths' folders.
+     *
+     * @param string $theme         The name of the active theme.
+     * @param string $default_theme (Optional) The name of the desired default theme.
+     *
+     * @return void
+     */
+    public static function set_theme($theme = null, $default_theme = null)
+    {
+        if (empty($theme) || ! is_string($theme)) 
+        {
+            return;
+        }
+
+        // Make sure a trailing slash is there
+        if (substr($theme, -1) !== '/') 
+        {
+            $theme .= '/';
+        }
+
+        self::$active_theme = $theme;
+
+        // Default theme?
+        if (! empty($default_theme) && is_string($default_theme)) 
+        {
+            self::set_default_theme($default_theme);
+        }
+    }
+
+	//--------------------------------------------------------------------
+
+    /**
+     * Stores the name of the default theme to use. This theme should be relative
+     * to one of the template.theme_paths folders.
+     *
+     * @param string $theme The name of the desired default theme to use.
+     *
+     * @return void
+     */
+    public static function set_default_theme($theme = null)
+    {
+        if (empty($theme) || ! is_string($theme)) 
+        {
+            return;
+        }
+
+        // Make sure a trailing slash is there
+        if (substr($theme, -1) !== '/') 
+        {
+            $theme .= '/';
+        }
+
+        self::$default_theme = $theme;
+    }
+
+	//--------------------------------------------------------------------
+
+    /**
+     * Returns the active theme.
+     *
+     * @return string The name of the active theme.
+     */
+    public static function theme()
+    {
+        return empty(self::$active_theme) ? self::$default_theme : self::$active_theme;
+    }
+
+	//--------------------------------------------------------------------
+
+    /**
+     * Returns the full url to a file in the currently active theme.
+     *
+     * @param string $resource Path to a resource in the theme
+     *
+     * @return string The full url (including http://) to the resource.
+     */
+    public static function theme_url($resource = '')
+    {
+        $url = site_url();
+
+        // Add theme path and theme.
+        $url .= self::$theme_paths[0] . '/' . self::theme();
+
+        // Cleanup, just to be safe.
+        $url = str_replace(array('//', ':/'), array('/', '://'), $url);
+
+        return $url . $resource;
+    }
+
+	//--------------------------------------------------------------------
+
+    /**
+     * Set the current view to render.
+     *
+     * @param string $view The name of the view file to render as content.
+     *
+     * @return void
+     */
+    public static function set_view($view = null)
+    {
+        if (empty($view) || ! is_string($view)) 
+        {
+            return;
+        }
+
+        self::$current_view = $view;
+    }
+
+	//--------------------------------------------------------------------
+
+    /**
+     * Makes it easy to save information to be rendered within the views.
+     *
+     * This should probably be updated to clarify the intended functionality when
+     * an array is passed into $var_name and $value is ''.
+     *
+     * @todo If $var_name is an array and $value != '', the else condition will
+     * probably be problematic.
+     *
+     * @param string $var_name The name of the variable to set
+     * @param mixed  $value    The value to set it to.
+     *
+     * @return void
+     */
+    public static function set($var_name = '', $value = '')
+    {
+        if (is_array($var_name) && $value == '') 
+        {
+            foreach ($var_name as $key => $val) 
+            {
+                self::$data[$key] = $val;
+            }
+        } 
+        else 
+        {
+            self::$data[$var_name] = $value;
+        }
+    }
+
+	//--------------------------------------------------------------------
+
+    /**
+     * Returns a variable that has been previously set, or false if not exists.
+     * As of 3.0, will also return class properties.
+     *
+     * @param string $var_name The name of the data item to return.
+     *
+     * @return mixed The value of the class property or view data.
+     */
+    public static function get($var_name = null)
+    {
+        if (empty($var_name)) 
+        {
+            return false;
+        }
+
+        // First, is it a class property?
+        if (isset(self::$$var_name)) 
+        {
+            return self::$$var_name;
+        }
+
+        if (isset(self::$data[$var_name]))
+        {
+            return self::$data[$var_name];
+        }
+
+        return false;
+    }
+
+	//--------------------------------------------------------------------
+
+    /**
+     * Enable/disable passing views through CI's Parser.
+     *
+     * @param  boolean $parse If true, the views will be parsed.
+     * @return void
+     */
+    public function parse_views($parse = false)
+    {
+        self::$parse_views = (bool) $parse;
+    }
+
+	//--------------------------------------------------------------------
+
     /**
      * Like CodeIgniter redirect(), but uses javascript if needed to redirect out
      * of an ajax request.
@@ -608,18 +670,22 @@ class Template
      */
     public static function redirect($url = null)
     {
-        if (! preg_match('#^https?://#i', $url)) {
+        if (! preg_match('#^https?://#i', $url)) 
+            {
             $url = site_url($url);
         }
 
-        if (! self::$ci->input->is_ajax_request()) {
+        if (! self::$ci->input->is_ajax_request()) 
+        {
             header("Location: {$url}");
 
             // The default header specifies the content type as HTML, which requires
             // certain elements to be considered valid. No content is included,
             // so use a content type which does not require any.
             header("Content-Type: text/plain");
-        } else {
+        } 
+        else 
+        {
             // Output URL in a known location and escape it for safety.
             echo '<div id="url" data-url="';
             e($url);
@@ -636,6 +702,8 @@ EOF;
         exit();
     }
 
+	//--------------------------------------------------------------------
+
     /**
      * Load a view based on the current themes.
      *
@@ -649,58 +717,74 @@ EOF;
      */
     public static function load_view($view = null, $data = null, $override = '', $is_themed = true, &$output)
     {
-        if (empty($view)) {
+        if (empty($view)) 
+        {
             return '';
         }
 
-        if (empty($data)) {
+        if (empty($data)) 
+        {
             $data = self::$data;
         }
 
         $output = '';
 
-        if ($is_themed) {
+        if ($is_themed) 
+        {
             // First check for the overridden file...
-            if (! empty($override)) {
+            if (! empty($override)) 
+            {
                 $output = self::find_file($override, $data);
             }
 
             // If it wasn't found, try the standard view
-            if (empty($output)) {
+            if (empty($output)) 
+            {
                 $output = self::find_file($view, $data);
             }
 
             // Should it be parsed?
-            if (self::$parse_views === true) {
-                if (! class_exists('CI_Parser', false)) {
+            if (self::$parse_views === true) 
+            {
+                if (! class_exists('CI_Parser', false)) 
+                {
                     self::$ci->load->library('parser');
                 }
 
                 $output = self::$ci->parser->parse($output, $data, true, false);
             }
-        } else {
+        } 
+        else 
+        {
             // Just a normal view (possibly from a module, though.)
-
             // First check within the themes...
             $output = self::find_file($view, $data);
 
             // If it wasn't found, go for the default.
-            if (empty($output)) {
+            if (empty($output)) 
+            {
                 self::$ci->load->_ci_view_path = self::$orig_view_path;
 
-                if (self::$parse_views === true) {
-                    if (! class_exists('CI_Parser', false)) {
+                if (self::$parse_views === true) 
+                {
+                    if (! class_exists('CI_Parser', false)) 
+                    {
                         self::$ci->load->library('parser');
                     }
 
                     $output = self::$ci->parser->parse($view, $data, true);
-                } else {
+                } 
+                else 
+                {
                     $output = self::$ci->load->view($view, $data, true);
                 }
             }
+
             self::$ci->load->_ci_view_path = self::$orig_view_path;
         }
     }
+
+	//--------------------------------------------------------------------
 
     /**
      * Load a view (from the current theme) and return the content of that view.
@@ -718,22 +802,26 @@ EOF;
      */
     public static function themeView($view = null, $data = null, $ignoreMobile = false)
     {
-        if (empty($view)) {
+        if (empty($view)) 
+        {
             return '';
         }
 
         $output = '';
 
         // If allowed, try to load the mobile version of the file.
-        if (! $ignoreMobile) {
+        if (! $ignoreMobile) 
+        {
             self::$ci->load->library('user_agent');
-            if (self::$ci->agent->is_mobile()) {
+            if (self::$ci->agent->is_mobile()) 
+            {
                 self::load_view("mobile_{$view}", $data, null, true, $output);
             }
         }
 
         // If output is empty, either mobile is ignored or no mobile file was found.
-        if (empty($output)) {
+        if (empty($output)) 
+        {
             self::load_view($view, $data, null, true, $output);
         }
 
@@ -755,11 +843,13 @@ EOF;
      */
     private static function find_file($view = null, $data = null)
     {
-        if (empty($view)) {
+        if (empty($view)) 
+        {
             return false;
         }
 
-        if (! empty($data)) {
+        if (! empty($data)) 
+        {
             $data = (array)$data;
         }
 
@@ -773,14 +863,16 @@ EOF;
         $theme_locations = array_reverse(self::$theme_paths);
 
         // Search through the theme locations.
-        foreach ($theme_locations as $path) {
+        foreach ($theme_locations as $path) 
+        {
             $site_theme_path = self::$site_path . "{$path}/";
 
             // First, check the active theme
             $active_theme_path = $site_theme_path . self::$active_theme;
             self::debug_message("[Find File] Looking for view in active theme: '{$active_theme_path}{$view_file}'");
 
-            if ($active_theme_set && is_file($active_theme_path . $view_file)) {
+            if ($active_theme_set && is_file($active_theme_path . $view_file)) 
+            {
                 // If the view was found, set the view path and exit the loop.
                 $view_path = $active_theme_path;
                 self::debug_message("Found '{$view}' in Active Theme.");
@@ -791,7 +883,8 @@ EOF;
             $default_theme_path = $site_theme_path . self::$default_theme;
             self::debug_message("[Find File] Looking for view in default theme: '{$default_theme_path}{$view_file}'");
 
-            if (is_file($default_theme_path . $view_file)) {
+            if (is_file($default_theme_path . $view_file)) 
+            {
                 // If the view was found, set the view path and exit the loop.
                 $view_path = $default_theme_path;
                 self::debug_message("Found '{$view}' in Default Theme.");
@@ -800,18 +893,19 @@ EOF;
         }
 
         // If $view_path is empty, the view was not found.
-        if (empty($view_path)) {
+        if (empty($view_path)) 
+        {
             return '';
         }
 
         // Parse or render the view based on current settings.
-
         // Clean up the view path, to be safe.
-            $view_path = str_replace('//', '/', $view_path);
+        $view_path = str_replace('//', '/', $view_path);
         self::debug_message("[Find File] Rendering file at: '{$view_path}{$view_file}'");
 
         // Get the output of the view.
-        if (self::$parse_views === true) {
+        if (self::$parse_views === true) 
+        {
             $data = array_merge((array) $data, self::$ci->load->_ci_cached_vars);
         }
 
@@ -823,6 +917,8 @@ EOF;
             )
         );
     }
+
+	//--------------------------------------------------------------------
 
     /**
      * Debugging script to echo out message to the Console (if loaded) and to the
@@ -840,12 +936,14 @@ EOF;
     protected static function debug_message($message, $force = false)
     {
         // Only echo the message when in debug mode.
-        if (self::$debug) {
+        if (self::$debug) 
+        {
             echo $message;
         }
 
         // Log the message in debug mode or when $force is true.
-        if ($force || self::$debug) {
+        if ($force || self::$debug) 
+        {
             logit(self::$log_prefix . $message);
         }
     }
@@ -895,7 +993,8 @@ function theme_view($view = null, $data = null, $ignore_mobile = false)
  */
 function check_class($item = '', $class_only = false)
 {
-    if (strtolower(get_instance()->router->class) == strtolower($item)) {
+    if (strtolower(get_instance()->router->class) == strtolower($item)) 
+    {
         return $class_only ? 'active' : 'class="active"';
     }
 
@@ -914,7 +1013,8 @@ function check_class($item = '', $class_only = false)
 function check_method($item, $class_only = false)
 {
     $items = is_array($item) ? $item : array($item);
-    if (in_array(get_instance()->router->method, $items)) {
+    if (in_array(get_instance()->router->method, $items)) 
+    {
         return $class_only ? 'active' : 'class="active"';
     }
 
@@ -933,7 +1033,8 @@ function check_method($item, $class_only = false)
  */
 function check_segment($segment_num, $item, $class_only = false)
 {
-    if (get_instance()->uri->segment($segment_num) == $item) {
+    if (get_instance()->uri->segment($segment_num) == $item) 
+    {
         return $class_only ? 'active' : 'class="active"';
     }
 
@@ -955,13 +1056,17 @@ function breadcrumb($my_segments = null, $wrap = false, $echo = true)
 {
     $ci =& get_instance();
 
-    if (empty($my_segments) || ! is_array($my_segments)) {
-        if (! class_exists('CI_URI', false)) {
+    if (empty($my_segments) || ! is_array($my_segments)) 
+    {
+        if (! class_exists('CI_URI', false)) 
+        {
             $ci->load->library('uri');
         }
         $segments = $ci->uri->segment_array();
         $total    = $ci->uri->total_segments();
-    } else {
+    } 
+    else 
+    {
         $segments = $my_segments;
         $total    = count($my_segments);
     }
@@ -969,15 +1074,19 @@ function breadcrumb($my_segments = null, $wrap = false, $echo = true)
     // Are these segments in the admin section of the site?
     $home_link = site_url(is_array($segments) && in_array(SITE_AREA, $segments) ? SITE_AREA : '');
     $output    = '';
-    $separator = $ci->config->item('template.breadcrumb_symbol') == '' ?
-        '/' : $ci->config->item('template.breadcrumb_symbol');
+    $separator = ($ci->config->item('template.breadcrumb_symbol') == '')
+        ? '/' 
+        : $ci->config->item('template.breadcrumb_symbol');
 
-    if ($wrap === true) {
+    if ($wrap === true) 
+    {
         $separator = "<span class='divider'>{$separator}</span>" . PHP_EOL;
 
         $output  = "<ul class='breadcrumb'>" . PHP_EOL;
         $output .= "<li><a href='{$home_link}'><span class='icon-home'></span></a> {$separator}</li>" . PHP_EOL;
-    } else {
+    } 
+    else 
+    {
         /** @todo Use a lang() value in place of home. */
         $output  = "<a href='{$home_link}'>home</a> {$separator}";
     }
@@ -986,56 +1095,81 @@ function breadcrumb($my_segments = null, $wrap = false, $echo = true)
     $count = 0;
 
     // URI BASED BREADCRUMB
-    if (empty($my_segments) || ! is_array($my_segments)) {
-        foreach ($segments as $segment) {
+    if (empty($my_segments) || ! is_array($my_segments)) 
+    {
+        foreach ($segments as $segment) 
+        {
             $url .= "/{$segment}";
             ++$count;
 
-            if ($count == $total) {
+            if ($count == $total) 
+            {
                 $currentSegment = ucfirst(str_replace('_', ' ', $segment));
-                if ($wrap === true) {
+                if ($wrap === true) 
+                {
                     $output .= "<li class='active'>{$currentSegment}</li>" . PHP_EOL;
-                } else {
+                } 
+                else 
+                {
                     $output .= $currentSegment . PHP_EOL;
                 }
-            } else {
+            } 
+            else 
+            {
                 $currentSegment = str_replace('_', ' ', ucfirst(mb_strtolower($segment)));
-                if ($wrap === true) {
+                if ($wrap === true)
+                {
                     $output .= "<li><a href='{$url}'>{$currentSegment}</a>{$separator}</li>" . PHP_EOL;
-                } else {
+                } 
+                else 
+                {
                     $output .= "<a href='{$url}'>{$currentSegment}</a>{$separator}" . PHP_EOL;
                 }
             }
         }
-    } else {
+    } 
+    else 
+    {
         // USER-SUPPLIED BREADCRUMB
-        foreach ($my_segments as $title => $uri) {
+        foreach ($my_segments as $title => $uri) 
+        {
             $url .= "/{$uri}";
             ++$count;
 
-            if ($count == $total) {
+            if ($count == $total) 
+            {
                 $currentTitle = str_replace('_', ' ', $title);
-                if ($wrap === true) {
+                if ($wrap === true) 
+                {
                     $output .= "<li class='active'>{$currentTitle}</li>" . PHP_EOL;
-                } else {
+                } 
+                else 
+                {
                     $output .= $currentTitle;
                 }
-            } else {
+            } 
+            else 
+            {
                 $currentTitle = str_replace('_', ' ', ucfirst(mb_strtolower($title)));
-                if ($wrap === true) {
+                if ($wrap === true) 
+                {
                     $output .= "<li><a href='{$url}'>{$currentTitle}</a>{$separator}</li>" . PHP_EOL;
-                } else {
+                } 
+                else 
+                {
                     $output .= "<a href='{$url}'>{$currentTitle}</a>{$separator}" . PHP_EOL;
                 }
             }
         }
     }
 
-    if ($wrap === true) {
+    if ($wrap === true) 
+    {
         $output .= "</ul>" . PHP_EOL;
     }
 
-    if ($echo === true) {
+    if ($echo === true) 
+    {
         echo $output;
         return;
     }

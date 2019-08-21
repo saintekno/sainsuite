@@ -6,14 +6,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * Web App Starter CodeIgniter-based
  *
- * @package   Racik
- * @copyright Copyright (c) 2019
- * @since     Version 0.1
- * @link      https://github.com/boedwinangun/racik
+ * @package     Racik
+ * @copyright   Copyright (c) 2019
+ * @version     1.0.0
+ * @link        https://github.com/boedwinangun/racik
  * @filesource
  */
 
-if (! function_exists('gravatar_link')) {
+if (! function_exists('gravatar_link')) 
+{
     /**
      * Create an image link based on Gravatar for the specified email address.
      * Defaults to the site's generic image if none is found for the user.
@@ -39,21 +40,12 @@ if (! function_exists('gravatar_link')) {
         $size = empty($size) || is_object($size) || ! is_int($size) ? 48 : intval($size);
 
         // If email is empty, don't send an HTTP request to gravatar.com.
-        if (empty($email)) {
+        if (empty($email)) 
+        {
             $avatarURL = Template::theme_url('images/user.png');
-        } else {
-            // While it would be more efficient to place the values for $defaultImage,
-            // $rating, and $gravatarUrl (and $httpProtocol) directly into the call
-            // to sprintf(), it would be more difficult to document and change the
-            // values when necessary (as was the case when the format for the URL
-            // changed in the past).
-            //
-            // Similarly, the calls to the strtolower() and rawurlencode() functions
-            // to manipulate the $rating and $defaultImage values in the sprintf()
-            // call could be avoided/removed by making sure the values were correct
-            // beforehand, but the requirements would need to be documented for
-            // each value anyway...
-
+        } 
+        else 
+        {
             // Set the default image.
             $defaultImage = 'identicon';
 
@@ -87,15 +79,18 @@ if (! function_exists('gravatar_link')) {
             "alt='{$alt}'",
         );
 
-        if (! empty($id)) {
+        if (! empty($id)) 
+        {
             $imageAttributes[] = "id='" . html_escape($id) . "'";
         }
 
-        if (! empty($class)) {
+        if (! empty($class)) 
+        {
             $imageAttributes[] = "class='" . html_escape($class) . "'";
         }
 
-        if (! empty($title)) {
+        if (! empty($title)) 
+        {
             $imageAttributes[] = "title='" . html_escape($title) . "'";
         }
 
@@ -103,7 +98,8 @@ if (! function_exists('gravatar_link')) {
     }
 }
 
-if (! function_exists('e')) {
+if (! function_exists('e')) 
+{
     /**
      * A convenience function to ensure output is safe to display. Helps to defeat
      * XSS attacks by running the text through htmlspecialchars().
@@ -121,7 +117,8 @@ if (! function_exists('e')) {
     }
 }
 
-if (! function_exists('log_activity')) {
+if (! function_exists('log_activity')) 
+{
     /**
      * Log an activity if config item 'enable_activity_logging' is true.
      *
@@ -144,7 +141,8 @@ if (! function_exists('log_activity')) {
     }
 }
 
-if (! function_exists('logit')) {
+if (! function_exists('logit')) 
+{
     /**
      * provide a simple interface to log to both the Console and the log file.
      * 
@@ -167,7 +165,8 @@ if (! function_exists('logit')) {
     }
 }
 
-if (! function_exists('iif')) {
+if (! function_exists('iif')) 
+{
     /**
     * If then Else Statement wrapped in one function, If $expression = true then
     * $returnTrue else $returnFalse.
@@ -193,7 +192,8 @@ if (! function_exists('iif')) {
     }
 }
 
-if (! function_exists('js_escape')) {
+if (! function_exists('js_escape')) 
+{
     /**
      * Like html_escape() for JavaScript string literals.
      *
