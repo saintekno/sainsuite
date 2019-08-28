@@ -69,8 +69,8 @@ class App_hooks {
             $this->isInstalled = $this->ci->config->item('racik.installed');
             if (! $this->isInstalled) 
             {
-                $this->ci->load->library('installer');
-                $this->isInstalled = $this->ci->installer->is_installed();
+                $this->ci->load->library('installer/setupinstaller');
+                $this->isInstalled = $this->ci->setupinstaller->is_installed();
             }
         }
     }

@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * @package Racik\Controllers\Install
  */
-class Install extends CI_Controller
+class Installer extends MX_Controller
 {
     /** @var string The minimum PHP version required to use Racik. */
     protected $minVersionPhp = '5.4';
@@ -43,13 +43,14 @@ class Install extends CI_Controller
         $this->load->library('events');
 
         $this->load->helper('application');
+        $this->config->load('install_check');
 
         // Disable hooks, since they may rely on an installed environment.
         get_instance()->hooks->enabled = false;
 
         // Load the Installer library.
         $this->lang->load('install');
-        $this->load->library('installer');
+        $this->load->library('setupinstaller');
     }
 
     /**
@@ -59,18 +60,18 @@ class Install extends CI_Controller
      */
     public function index()
     {
-        if ($this->installer->is_installed()) {
+        if ($this->setupinstaller->is_installed()) {
             $this->load->library('users/auth');
             $this->load->library('settings/settings_lib');
         }
 
         $data = array();
-        $data['curl_enabled']    = $this->installer->cURL_enabled();
-        $data['files']           = $this->installer->check_files();
-        $data['folders']         = $this->installer->check_folders();
-        $data['php_acceptable']  = $this->installer->php_acceptable($this->minVersionPhp);
+        $data['curl_enabled']    = $this->setupinstaller->cURL_enabled();
+        $data['files']           = $this->setupinstaller->check_files();
+        $data['folders']         = $this->setupinstaller->check_folders();
+        $data['php_acceptable']  = $this->setupinstaller->php_acceptable($this->minVersionPhp);
         $data['php_min_version'] = $this->minVersionPhp;
-        $data['php_version']     = $this->installer->php_version;
+        $data['php_version']     = $this->setupinstaller->php_version;
 
         Template::set($data);
         Template::render('install');
@@ -86,17 +87,17 @@ class Install extends CI_Controller
     {
         // Make sure the application is not installed already, otherwise attackers
         // could take advantage and recreate the admin account.
-        if ($this->installer->is_installed()) {
+        if ($this->setupinstaller->is_installed()) {
             show_error('This application has already been installed. Cannot install again.');
         }
 
         // Does the database table even exist?
-        if ($this->installer->db_settings_exist === false) {
+        if ($this->setupinstaller->db_settings_exist === false) {
             show_error(lang('in_need_db_settings'));
         }
 
         // If setup fails, it will return an error message.
-        if ($this->installer->setup() === true) {
+        if ($this->setupinstaller->setup() === true) {
             define('RP_DID_INSTALL', true);
         }
 

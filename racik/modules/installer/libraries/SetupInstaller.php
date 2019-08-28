@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * @package Racik\Libraries\Installer
  */
-class Installer
+class SetupInstaller
 {
     /** @var boolean Indicates whether the default database settings were found. */
     public $db_exists = null;

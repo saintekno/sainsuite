@@ -31,12 +31,12 @@ class Home extends MX_Controller
 		$this->load->library('events');
 
 		// Check Installed
-        $this->load->library('installer');
-		if (! $this->installer->is_installed()) 
+        $this->load->library('installer/setupinstaller');
+		if (! $this->setupinstaller->is_installed()) 
 		{
             $ci =& get_instance();
             $ci->hooks->enabled = false;
-            redirect('install');
+            redirect('installer');
         }
 
         // Make the requested page var available.
