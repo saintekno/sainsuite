@@ -89,7 +89,7 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 // get contents of composer.json
 // -----------------------------------------------------------------------------
 $composer_json = json_decode(file_get_contents(realpath(APPPATH ."../composer.json")), true);
-defined('RACIK_VERSION') || define('RACIK_VERSION', $composer_json ? $composer_json['version'] : 1);
+defined('RACIK_VERSION') || define('RACIK_VERSION', $composer_json ? $composer_json['version'] : "1.0.0");
 
 // -----------------------------------------------------------------------------
 // The 'Site Area' allows you to specify the base folder used for all of the contexts
