@@ -26,5 +26,5 @@ $config['writable_folders'] = array(
 // string[] Files the installer checks for write access.
 $config['writable_files'] = array(
     'application/config/application.php',
-    'application/config/database.php',
+    'application/config/'.ENVIRONMENT.'/database.php',
 );

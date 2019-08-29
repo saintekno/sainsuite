@@ -43,7 +43,6 @@ class Installer extends MX_Controller
         $this->load->library('events');
 
         $this->load->helper('application');
-        $this->config->load('install_check');
 
         // Disable hooks, since they may rely on an installed environment.
         get_instance()->hooks->enabled = false;

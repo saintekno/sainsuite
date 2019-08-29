@@ -36,7 +36,7 @@ class Home extends MX_Controller
 		{
             $ci =& get_instance();
             $ci->hooks->enabled = false;
-            redirect('installer');
+            redirect('install');
         }
 
         // Make the requested page var available.

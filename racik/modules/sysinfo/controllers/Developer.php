@@ -66,8 +66,8 @@ class Developer extends Admin_Controller
             'sysinfo_environment'  => ENVIRONMENT,
         );
 
-        $this->config->load('installer/install_check', true, true);
-        $installerConfig = $this->config->item('installer');
+        $this->config->load('setupinstaller', true, true);
+        $installerConfig = $this->config->item('setupinstaller');
         if (is_array($installerConfig)) {
             foreach ($installerConfig as $key => $value) {
                 if (is_array($value)) {

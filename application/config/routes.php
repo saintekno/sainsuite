@@ -21,10 +21,12 @@ Route::any('forgot_password', 'users/forgot_password');
 Route::any('reset_password/(:any)/(:any)', 'users/reset_password/$1/$2');
 
 // Activation
-// Route::any('install', 'installer/index');
 Route::any('activate', 'users/activate');
 Route::any('activate/(:any)', 'users/activate/$1');
 Route::any('resend_activation', 'users/resend_activation');
+
+// Installation
+Route::any('install', 'installer/index');
 
 // Contexts
 Route::prefix(SITE_AREA, function(){
