@@ -27,6 +27,7 @@ Route::any('resend_activation', 'users/resend_activation');
 
 // Installation
 Route::any('install', 'installer/index');
+Route::any('install/do_install', 'installer/do_install');
 
 // Contexts
 Route::prefix(SITE_AREA, function(){
