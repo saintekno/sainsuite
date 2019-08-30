@@ -5,13 +5,13 @@
  * readCookie() copied verbatim from http://www.quirksmode.org/js/cookies.html
  * Thanks to Peter-Paul Koch, and Scott Andrew
  * 
- * The rest of ci_csrf_token() is trivial.  Please feel free to copy it!
+ * The rest of app_csrf_token() is trivial.  Please feel free to copy it!
  * Written 2012 by Alan Jenkins <alan.christopher.jenkins@gmail.com>.
  */
-function ci_csrf_token()
+function app_csrf_token()
 {
 	// Match the config of the same name in application/config/config.php
-	var csrf_cookie_name = "ci_csrf_token";
+	var csrf_cookie_name = "app_csrf_token";
 
 	return readCookie(csrf_cookie_name);
 

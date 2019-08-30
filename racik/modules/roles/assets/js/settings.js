@@ -18,7 +18,7 @@ $('#permission_table input:checkbox').change(function() {
 		data: {
 			"role_perm": val,
 			"action": what,
-			"ci_csrf_token": ci_csrf_token()
+			"app_csrf_token": app_csrf_token()
 		},
 		success: function(data) {
 			var newtext = data.replace(/g_permission/i, '"' + p_name + '"');
