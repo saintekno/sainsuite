@@ -6,10 +6,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * Web App Starter CodeIgniter-based
  *
- * @package   Racik
- * @copyright Copyright (c) 2019
- * @since     Version 0.1
- * @link      https://github.com/boedwinangun/racik
+ * @package     Racik
+ * @copyright   Copyright (c) 2019
+ * @version     1.0.0
+ * @link        https://github.com/boedwinangun/racik
  * @filesource
  */
 
@@ -260,19 +260,23 @@ class RP_Model extends CI_Model
 
         // If there are specific DB connection settings used in the model, load
         // the database using those settings.
-        if (! empty($this->db_con)) {
+        if (! empty($this->db_con)) 
+        {
             $this->db = $this->load->database($this->db_con, true);
         }
 
         // When loading the model, make sure the db class is loaded.
-        if (! isset($this->db)) {
+        if (! isset($this->db)) 
+        {
             $this->load->database();
         }
 
         // If the $field_info property is set, convert it from an array of arrays
         // to an array of objects.
-        if (! empty($this->field_info)) {
-            foreach ($this->field_info as $key => &$field) {
+        if (! empty($this->field_info)) 
+        {
+            foreach ($this->field_info as $key => &$field) 
+            {
                 $this->field_info[$key] = (object) $field;
             }
         }
@@ -283,13 +287,17 @@ class RP_Model extends CI_Model
 
         // Check the auto-set features and make sure they are loaded into the
         // observer system.
-        if ($this->set_created === true) {
+        if ($this->set_created === true) 
+        {
             array_unshift($this->before_insert, 'created_on');
         }
-        if ($this->set_modified === true) {
+        if ($this->set_modified === true) 
+        {
             array_unshift($this->before_update, 'modified_on');
         }
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Search for a single row in the database.
@@ -305,12 +313,14 @@ class RP_Model extends CI_Model
 
         $query = $this->db->get($this->table_name);
         $return = $query->{$this->_return_type()}();
-        if (empty($return)) {
+        if (empty($return)) 
+        {
             return false;
         }
 
         $return = $this->trigger('after_find', $return);
-        if ($this->temp_return_type == 'json') {
+        if ($this->temp_return_type == 'json') 
+        {
             $return = json_encode($return);
         }
 
@@ -319,6 +329,62 @@ class RP_Model extends CI_Model
 
         return $return;
     }
+
+    //--------------------------------------------------------------------------
+
+    /**
+     * Return the first result that matches the field/values passed.
+     *
+     * @param string|array $field Either a string or an array of fields to match
+     * against. If an array is passed it, the $value parameter is ignored since
+     * the array is expected to have key/value pairs in it.
+     * @param string       $value The value to match on the $field. Only used when
+     * $field is a string.
+     * @param string       $type  The type of where clause to create: 'and' or 'or'.
+     *
+     * @return bool|mixed The first result returned as an array/object, or false.
+     */
+    public function find_by($field = '', $value = '', $type = 'and')
+    {
+        if (empty($field) || ( ! is_array($field) && empty($value))) 
+        {
+            $this->error = lang('rp_model_find_error');
+            $this->logit('[' . get_class($this) . ': ' . __METHOD__ . '] ' . lang('rp_model_find_error'));
+            return false;
+        }
+
+        $this->trigger('before_find');
+
+        $where = is_array($field) ? $field : [$field => $value];
+        if ($type == 'or') 
+        {
+            $this->or_where($where);
+        } 
+        else 
+        {
+            $this->where($where);
+        }
+
+        $query = $this->db->get($this->table_name);
+        $return = $query->{$this->_return_type()}();
+        if (empty($return)) 
+        {
+            return false;
+        }
+
+        $return = $this->trigger('after_find', $return);
+        if ($this->temp_return_type == 'json') 
+        {
+            $return = json_encode($return);
+        }
+
+        // Reset the return type.
+        $this->temp_return_type = $this->return_type;
+
+        return $return;
+    }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Return all records in the table.
@@ -336,18 +402,22 @@ class RP_Model extends CI_Model
 
         $query = $this->db->get($this->table_name);
         $return = $query->{$this->_return_type(true)}();
-        if (empty($return)) {
+        if (empty($return)) 
+        {
             return false;
         }
 
-        if (is_array($return)) {
+        if (is_array($return)) 
+        {
             $last_record = count($return) - 1;
-            foreach ($return as $key => &$row) {
+            foreach ($return as $key => &$row) 
+            {
                 $row = $this->trigger('after_find', $row, ($key == $last_record));
             }
         }
 
-        if ($this->temp_return_type == 'json') {
+        if ($this->temp_return_type == 'json') 
+        {
             $return = json_encode($return);
         }
 
@@ -356,6 +426,8 @@ class RP_Model extends CI_Model
 
         return $return;
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * A convenience method combining where() and find_all() into a single call.
@@ -371,66 +443,26 @@ class RP_Model extends CI_Model
      */
     public function find_all_by($field = null, $value = null, $type = 'and')
     {
-        if (empty($field)) {
+        if (empty($field)) 
+        {
             return false;
         }
 
         // Setup the field/value check.
         $where = is_array($field) ? $field : [$field => $value];
-        if ($type == 'or') {
+        if ($type == 'or') 
+        {
             $this->or_where($where);
-        } else {
+        } 
+        else 
+        {
             $this->where($where);
         }
 
         return $this->find_all();
     }
 
-    /**
-     * Return the first result that matches the field/values passed.
-     *
-     * @param string|array $field Either a string or an array of fields to match
-     * against. If an array is passed it, the $value parameter is ignored since
-     * the array is expected to have key/value pairs in it.
-     * @param string       $value The value to match on the $field. Only used when
-     * $field is a string.
-     * @param string       $type  The type of where clause to create: 'and' or 'or'.
-     *
-     * @return bool|mixed The first result returned as an array/object, or false.
-     */
-    public function find_by($field = '', $value = '', $type = 'and')
-    {
-        if (empty($field) || ( ! is_array($field) && empty($value))) {
-            $this->error = lang('rp_model_find_error');
-            $this->logit('[' . get_class($this) . ': ' . __METHOD__ . '] ' . lang('rp_model_find_error'));
-            return false;
-        }
-
-        $this->trigger('before_find');
-
-        $where = is_array($field) ? $field : [$field => $value];
-        if ($type == 'or') {
-            $this->or_where($where);
-        } else {
-            $this->where($where);
-        }
-
-        $query = $this->db->get($this->table_name);
-        $return = $query->{$this->_return_type()}();
-        if (empty($return)) {
-            return false;
-        }
-
-        $return = $this->trigger('after_find', $return);
-        if ($this->temp_return_type == 'json') {
-            $return = json_encode($return);
-        }
-
-        // Reset the return type.
-        $this->temp_return_type = $this->return_type;
-
-        return $return;
-    }
+    //--------------------------------------------------------------------------
 
     /**
      * Insert a row of data into the database.
@@ -442,9 +474,11 @@ class RP_Model extends CI_Model
      */
     public function insert($data = null)
     {
-        if ($this->skip_validation === false) {
+        if ($this->skip_validation === false) 
+        {
             $data = $this->validate($data, 'insert');
-            if ($data === false) {
+            if ($data === false) 
+            {
                 return false;
             }
         }
@@ -459,8 +493,10 @@ class RP_Model extends CI_Model
         }
 
         // Insert it
-        if ($this->db->insert($this->table_name, $data)) {
-            if ($this->return_insert_id) {
+        if ($this->db->insert($this->table_name, $data)) 
+        {
+            if ($this->return_insert_id) 
+            {
                 $id = $this->db->insert_id();
                 return $this->trigger('after_insert', $id);
             }
@@ -471,6 +507,8 @@ class RP_Model extends CI_Model
         return false;
     }
 
+    //--------------------------------------------------------------------------
+
     /**
      * Perform a batch insert of data into the database.
      *
@@ -480,9 +518,9 @@ class RP_Model extends CI_Model
      *
      * @todo Check the code before the section marked "Insert it".
      * 'before_insert' should trigger the 'created_on' method, so either this
-     * shouldn't set $this->created_field in $set, or $set should be merged
-     * before triggering 'before_insert'.
-     * Additionally, shouldn't the merge be:
+     *  shouldn't set $this->created_field in $set, or $set should be merged
+     *  before triggering 'before_insert'.
+     *  Additionally, shouldn't the merge be:
      *  $data[$key] = array_merge($set, $record)
      *  or
      *  $record = array_merge($set, $record)
@@ -493,29 +531,36 @@ class RP_Model extends CI_Model
         $set = [];
 
         // Add the created field.
-        if ($this->set_created === true) {
+        if ($this->set_created === true) 
+        {
             $set[$this->created_field] = $this->set_date();
 
-            if ($this->log_user === true) {
+            if ($this->log_user === true) 
+            {
                 $set[$this->created_by_field] = $this->auth->user_id();
             }
         }
 
-        if (! empty($set)) {
-            foreach ($data as $key => &$record) {
+        if (! empty($set)) 
+        {
+            foreach ($data as $key => &$record) 
+            {
                 $record = $this->trigger('before_insert', $record);
                 $data[$key] = array_merge($set, $data[$key]);
             }
         }
 
         // Insert it.
-        if ($this->db->insert_batch($this->table_name, $data)) {
+        if ($this->db->insert_batch($this->table_name, $data)) 
+        {
             return true;
         }
 
         $this->error = sprintf(lang('rp_model_db_error'), $this->get_db_error_message());
         return false;
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Update an existing row in the database.
@@ -528,14 +573,17 @@ class RP_Model extends CI_Model
      */
     public function update($where = null, $data = null)
     {
-        if ($this->skip_validation === false) {
+        if ($this->skip_validation === false) 
+        {
             $data = $this->validate($data);
-            if ($data === false) {
+            if ($data === false) 
+            {
                 return false;
             }
         }
 
-        if (! is_array($where)) {
+        if (! is_array($where)) 
+        {
             $where = [$this->key => $where];
         }
 
@@ -549,7 +597,8 @@ class RP_Model extends CI_Model
             $data[$this->modified_by_field] = $this->auth->user_id();
         }
 
-        if ($result = $this->db->update($this->table_name, $data, $where)) {
+        if ($result = $this->db->update($this->table_name, $data, $where)) 
+        {
             $this->trigger('after_update', [$data, $result]);
             return true;
         }
@@ -557,6 +606,8 @@ class RP_Model extends CI_Model
         $this->error = sprintf(lang('rp_model_db_error'), $this->get_db_error_message());
         return false;
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * A convenience method that allows use of any field/value pair as the
@@ -574,6 +625,8 @@ class RP_Model extends CI_Model
         return $this->update($where, $data);
     }
 
+    //--------------------------------------------------------------------------
+
     /**
      * Update a batch of existing rows in the database.
      *
@@ -584,7 +637,8 @@ class RP_Model extends CI_Model
      */
     public function update_batch($data = null, $index = null)
     {
-        if (is_null($index) || is_null($data)) {
+        if (is_null($index) || is_null($data)) 
+        {
             return false;
         }
 
@@ -602,13 +656,16 @@ class RP_Model extends CI_Model
             }
         }
 
-        if ($this->db->update_batch($this->table_name, $data, $index) === false) {
+        if ($this->db->update_batch($this->table_name, $data, $index) === false) 
+        {
             $this->error = sprintf(lang('rp_model_db_error'), $this->get_db_error_message());
             return false;
         }
 
         return true;
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Delete the record with the specified primary key value.
@@ -624,6 +681,8 @@ class RP_Model extends CI_Model
     {
         return $this->delete_where([$this->key => $id]);
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Delete the record(s) specified by the given field/value pair(s).
@@ -644,18 +703,23 @@ class RP_Model extends CI_Model
         $where = $this->trigger('before_delete', $where);
         $this->where($where);
 
-        if ($this->soft_deletes !== true) {
+        if ($this->soft_deletes !== true) 
+        {
             $result = $this->db->delete($this->table_name);
-        } else {
+        } 
+        else 
+        {
             $data = [$this->deleted_field => 1];
-            if ($this->log_user === true) {
+            if ($this->log_user === true) 
+            {
                 $data[$this->deleted_by_field] = $this->auth->user_id();
             }
 
             $result = $this->db->update($this->table_name, $data);
         }
 
-        if ($result) {
+        if ($result) 
+        {
             $result = $this->db->affected_rows();
             $this->trigger('after_delete', $result);
             return $result;
@@ -680,7 +744,8 @@ class RP_Model extends CI_Model
      */
     public function is_unique($field = '', $value = '')
     {
-        if (empty($field) || empty($value)) {
+        if (empty($field) || empty($value)) 
+        {
             $this->error = lang('rp_model_unique_error');
             $this->logit('[' . get_class($this) . ': ' . __METHOD__ . '] ' . lang('rp_model_unique_error'));
             return false;
@@ -689,12 +754,15 @@ class RP_Model extends CI_Model
         $this->where($field, $value);
         $query = $this->db->get($this->table_name);
 
-        if ($query && $query->num_rows() == 0) {
+        if ($query && $query->num_rows() == 0) 
+        {
             return true;
         }
 
         return false;
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Return the number of rows in the table.
@@ -711,6 +779,8 @@ class RP_Model extends CI_Model
         return $this->db->count_all_results($this->table_name);
     }
 
+    //--------------------------------------------------------------------------
+
     /**
      * Return the number of elements that match the field/value pair.
      *
@@ -721,7 +791,8 @@ class RP_Model extends CI_Model
      */
     public function count_by($field = '', $value = null)
     {
-        if (empty($field)) {
+        if (empty($field)) 
+        {
             $this->error = lang('rp_model_count_error');
             $this->logit('[' . get_class($this) . ': ' . __METHOD__ . '] ' . lang('rp_model_count_error'));
             return false;
@@ -731,6 +802,8 @@ class RP_Model extends CI_Model
 
         return (int) $this->count_all();
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * A convenience method to return only a single field of the specified row.
@@ -742,7 +815,8 @@ class RP_Model extends CI_Model
      */
     public function get_field($id = null, $field = '')
     {
-        if (empty($id) || empty($field)) {
+        if (empty($id) || empty($field)) 
+        {
             $this->error = lang('rp_model_fetch_error');
             $this->logit('[' . get_class($this) . ': ' . __METHOD__ . '] ' . lang('rp_model_fetch_error'));
             return false;
@@ -752,12 +826,15 @@ class RP_Model extends CI_Model
             ->where($this->key, $id);
 
         $query = $this->db->get($this->table_name);
-        if ($query && $query->num_rows() > 0) {
+        if ($query && $query->num_rows() > 0) 
+        {
             return $query->row()->$field;
         }
 
         return false;
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * A convenience method to return options for form dropdown menus.
@@ -769,9 +846,12 @@ class RP_Model extends CI_Model
     public function format_dropdown()
     {
         $args = func_get_args();
-        if (count($args) == 2) {
+        if (count($args) == 2) 
+        {
             list($key, $value) = $args;
-        } else {
+        } 
+        else 
+        {
             $key = $this->key;
             $value = $args[0];
         }
@@ -780,7 +860,8 @@ class RP_Model extends CI_Model
         $query = $this->db->get($this->table_name);
 
         $options = [];
-        foreach ($query->result() as $row) {
+        foreach ($query->result() as $row) 
+        {
             $options[$row->{$key}] = $row->{$value};
         }
 
@@ -803,7 +884,8 @@ class RP_Model extends CI_Model
      */
     public function where($field = null, $value = null)
     {
-        if (empty($field)) {
+        if (empty($field)) 
+        {
             return $this;
         }
 
@@ -811,6 +893,8 @@ class RP_Model extends CI_Model
 
         return $this;
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Insert a chainable order_by clause from either a string or an array of field/order
@@ -832,17 +916,20 @@ class RP_Model extends CI_Model
      */
     public function order_by($field = null, $order = 'asc')
     {
-        if (empty($field)) {
+        if (empty($field)) 
+        {
             return $this;
         }
 
-        if (is_array($field)) {
+        if (is_array($field)) 
+        {
             foreach ($field as $f => $o) {
                 $this->order_by($f, $o);
             }
         }
 
-        if (is_string($field)) {
+        if (is_string($field)) 
+        {
             $this->db->order_by($field, $order);
         }
 
@@ -870,6 +957,8 @@ class RP_Model extends CI_Model
         return $this;
     }
 
+    //--------------------------------------------------------------------------
+
     /**
      * Temporarily set the return type to an array.
      *
@@ -880,6 +969,8 @@ class RP_Model extends CI_Model
         $this->temp_return_type = 'array';
         return $this;
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Temporarily set the return type to an object.
@@ -892,6 +983,8 @@ class RP_Model extends CI_Model
         return $this;
     }
 
+    //--------------------------------------------------------------------------
+
     /**
      * Temporarily set the object return to a json object.
      *
@@ -902,6 +995,8 @@ class RP_Model extends CI_Model
         $this->temp_return_type = 'json';
         return $this;
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Set the value of the return_insert_id flag.
@@ -915,6 +1010,8 @@ class RP_Model extends CI_Model
         $this->return_insert_id = (bool) $return;
         return $this;
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Set the value of the skip_validation flag.
@@ -945,12 +1042,15 @@ class RP_Model extends CI_Model
      */
     public function created_on($row)
     {
-        if (! array_key_exists($this->created_field, $row)) {
+        if (! array_key_exists($this->created_field, $row)) 
+        {
             $row[$this->created_field] = $this->set_date();
         }
 
         return $row;
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Set the modified date for the row.
@@ -964,7 +1064,8 @@ class RP_Model extends CI_Model
      */
     public function modified_on($row)
     {
-        if (! array_key_exists($this->modified_field, $row)) {
+        if (! array_key_exists($this->modified_field, $row)) 
+        {
             $row[$this->modified_field] = $this->set_date();
         }
 
@@ -985,12 +1086,15 @@ class RP_Model extends CI_Model
      */
     public function trigger($event, $data = false)
     {
-        if (! isset($this->$event) || ! is_array($this->$event)) {
+        if (! isset($this->$event) || ! is_array($this->$event)) 
+        {
             return $data;
         }
 
-        foreach ($this->$event as $method) {
-            if (strpos($method, '(')) {
+        foreach ($this->$event as $method) 
+        {
+            if (strpos($method, '(')) 
+            {
                 preg_match('/([a-zA-Z0-9\_\-]+)(\(([a-zA-Z0-9\_\-\., ]+)\))?/', $method, $matches);
                 $this->callback_parameters = explode(',', $matches[3]);
             }
@@ -1000,6 +1104,8 @@ class RP_Model extends CI_Model
 
         return $data;
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Get the validation rules for the model.
@@ -1018,9 +1124,11 @@ class RP_Model extends CI_Model
 
         // When $validation_rules is empty (or not an array), try to generate the
         // rules by triggering the $empty_validation_rules observer.
-        if (empty($temp_validation_rules) || ! is_array($temp_validation_rules)) {
+        if (empty($temp_validation_rules) || ! is_array($temp_validation_rules)) 
+        {
             $temp_validation_rules = $this->trigger('empty_validation_rules', $temp_validation_rules);
-            if (empty($temp_validation_rules) || ! is_array($temp_validation_rules)) {
+            if (empty($temp_validation_rules) || ! is_array($temp_validation_rules)) 
+            {
                 return [];
             }
 
@@ -1041,17 +1149,23 @@ class RP_Model extends CI_Model
 
         // Get the index for each field in the validation rules.
         $fieldIndexes = [];
-        foreach ($temp_validation_rules as $key => $validation_rule) {
+        foreach ($temp_validation_rules as $key => $validation_rule) 
+        {
             $fieldIndexes[$validation_rule['field']] = $key;
         }
 
-        foreach ($this->insert_validation_rules as $key => $rule) {
-            if (is_array($rule)) {
+        foreach ($this->insert_validation_rules as $key => $rule) 
+        {
+            if (is_array($rule)) 
+            {
                 $insert_rule = $rule;
-            } else {
+            } 
+            else 
+            {
                 // If $key isn't a field name and $insert_rule isn't an array,
                 // there's nothing useful to do, so skip it.
-                if (is_numeric($key)) {
+                if (is_numeric($key)) 
+                {
                     continue;
                 }
 
@@ -1063,14 +1177,20 @@ class RP_Model extends CI_Model
 
             // If the field is already in the validation rules, update the
             // validation rule to merge the insert rule (replace empty rules).
-            if (isset($fieldIndexes[$insert_rule['field']])) {
+            if (isset($fieldIndexes[$insert_rule['field']])) 
+            {
                 $fieldKey = $fieldIndexes[$insert_rule['field']];
-                if (empty($temp_validation_rules[$fieldKey]['rules'])) {
+                if (empty($temp_validation_rules[$fieldKey]['rules'])) 
+                {
                     $temp_validation_rules[$fieldKey]['rules'] = $insert_rule['rules'];
-                } else {
+                } 
+                else 
+                {
                     $temp_validation_rules[$fieldKey]['rules'] .= "|{$insert_rule['rules']}";
                 }
-            } else {
+            } 
+            else 
+            {
                 // Otherwise, add the insert rule to the validation rules
                 $temp_validation_rules[] = $insert_rule;
             }
@@ -1078,6 +1198,8 @@ class RP_Model extends CI_Model
 
         return $temp_validation_rules;
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Validate the $data passed into it.
@@ -1094,12 +1216,14 @@ class RP_Model extends CI_Model
      */
     public function validate($data, $type = 'update')
     {
-        if ($this->skip_validation) {
+        if ($this->skip_validation) 
+        {
             return $data;
         }
 
         $current_validation_rules = $this->get_validation_rules($type);
-        if (empty($current_validation_rules)) {
+        if (empty($current_validation_rules)) 
+        {
             return $data;
         }
 
@@ -1108,7 +1232,8 @@ class RP_Model extends CI_Model
         // should loop through $current_validation_rules and retrieve $_POST data
         // for any fields which are not in $data... Don't forget to move this below
         // $this->load->library('form_validation') if changing it to set_data().
-        foreach ($data as $key => $val) {
+        foreach ($data as $key => $val) 
+        {
             $_POST[$key] = $val;
         }
 
@@ -1118,10 +1243,13 @@ class RP_Model extends CI_Model
         // set_rules(), or a string which is passed to run(). If it is a string,
         // run() will attempt to load the rules from a config file, otherwise, run()
         // will ignore any input.
-        if (is_array($current_validation_rules)) {
+        if (is_array($current_validation_rules)) 
+        {
             $this->form_validation->set_rules($current_validation_rules);
             $valid = $this->form_validation->run();
-        } else {
+        } 
+        else 
+        {
             $valid = $this->form_validation->run($current_validation_rules);
         }
 
@@ -1131,6 +1259,8 @@ class RP_Model extends CI_Model
 
         return $data;
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Protect attributes by removing them from $row array.
@@ -1145,16 +1275,22 @@ class RP_Model extends CI_Model
      */
     public function protect_attributes($row)
     {
-        foreach ($this->protected_attributes as $attr) {
-            if (is_object($row)) {
+        foreach ($this->protected_attributes as $attr) 
+        {
+            if (is_object($row)) 
+            {
                 unset($row->$attr);
-            } else {
+            } 
+            else 
+            {
                 unset($row[$attr]);
             }
         }
 
         return $row;
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * A utility function to allow child models to use the preferred date/time format.
@@ -1194,6 +1330,8 @@ class RP_Model extends CI_Model
                 date($dateFormat, $curr_date));
     }
 
+    //--------------------------------------------------------------------------
+
     /**
      * Return the method name for the current return type.
      *
@@ -1213,6 +1351,8 @@ class RP_Model extends CI_Model
         return $this->temp_return_type == 'array' ? "{$method}_array" : $method;
     }
 
+    //--------------------------------------------------------------------------
+
     /**
      * Retrieve error messages from the database
      *
@@ -1223,6 +1363,8 @@ class RP_Model extends CI_Model
         $error = $this->db->error();
         return isset($error['message']) ? $error['message'] : '';
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Allow setting the table to use for all methods during runtime.
@@ -1236,6 +1378,8 @@ class RP_Model extends CI_Model
         $this->table_name = $table;
     }
 
+    //--------------------------------------------------------------------------
+
     /**
      * Get the table name.
      *
@@ -1245,6 +1389,8 @@ class RP_Model extends CI_Model
     {
         return $this->table_name;
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Get the table's primary key.
@@ -1256,6 +1402,8 @@ class RP_Model extends CI_Model
         return $this->key;
     }
 
+    //--------------------------------------------------------------------------
+
     /**
      * Get the name of the created by field.
      *
@@ -1263,12 +1411,15 @@ class RP_Model extends CI_Model
      */
     public function get_created_by_field()
     {
-        if ($this->set_created && $this->log_user) {
+        if ($this->set_created && $this->log_user) 
+        {
             return $this->created_by_field;
         }
 
         return '';
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Get the name of the created field.
@@ -1277,12 +1428,15 @@ class RP_Model extends CI_Model
      */
     public function get_created_field()
     {
-        if ($this->set_created) {
+        if ($this->set_created) 
+        {
             return $this->created_field;
         }
 
         return '';
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Get the name of the deleted field.
@@ -1292,12 +1446,15 @@ class RP_Model extends CI_Model
      */
     public function get_deleted_field()
     {
-        if ($this->soft_deletes) {
+        if ($this->soft_deletes) 
+        {
             return $this->deleted_field;
         }
 
         return '';
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Get the name of the deleted by field.
@@ -1306,12 +1463,15 @@ class RP_Model extends CI_Model
      */
     public function get_deleted_by_field()
     {
-        if ($this->soft_deletes && $this->log_user) {
+        if ($this->soft_deletes && $this->log_user) 
+        {
             return $this->deleted_by_field;
         }
 
         return '';
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Get the metadata for the model's database fields.
@@ -1327,12 +1487,15 @@ class RP_Model extends CI_Model
      */
     public function get_field_info()
     {
-        if (empty($this->field_info)) {
+        if (empty($this->field_info)) 
+        {
             $this->field_info = $this->db->field_data($this->table_name);
         }
 
         return $this->field_info;
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Get the name of the modified by field.
@@ -1341,12 +1504,15 @@ class RP_Model extends CI_Model
      */
     public function get_modified_by_field()
     {
-        if ($this->set_modified && $this->log_user) {
+        if ($this->set_modified && $this->log_user) 
+        {
             return $this->modified_by_field;
         }
 
         return '';
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Get the name of the modified field.
@@ -1355,12 +1521,15 @@ class RP_Model extends CI_Model
      */
     public function get_modified_field()
     {
-        if ($this->set_modified) {
+        if ($this->set_modified) 
+        {
             return $this->modified_field;
         }
 
         return '';
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Set the $date_format to use for setting created_on and modified_on values.
@@ -1371,13 +1540,16 @@ class RP_Model extends CI_Model
      */
     public function set_date_format($format = 'int')
     {
-        if ($format != 'int' && $format != 'datetime' && $format != 'date') {
+        if ($format != 'int' && $format != 'datetime' && $format != 'date') 
+        {
             return false;
         }
         $this->date_format = $format;
 
         return true;
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Set whether $modified_on dates should be auto-created in the update method.
@@ -1394,7 +1566,8 @@ class RP_Model extends CI_Model
         // function call.
         // === false || === true is faster than !== true && !== false, because
         // === true will only be compared for values other than false.
-        if ($modified === false || $modified === true) {
+        if ($modified === false || $modified === true) 
+        {
             $this->set_modified = $modified;
 
             return true;
@@ -1402,6 +1575,8 @@ class RP_Model extends CI_Model
 
         return false;
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Log an error to the Console (if loaded) and to the log files.
@@ -1413,16 +1588,20 @@ class RP_Model extends CI_Model
      */
     protected function logit($message = '', $level = 'debug')
     {
-        if (empty($message)) {
+        if (empty($message)) 
+        {
             return false;
         }
 
-        if (class_exists('Console', false)) {
+        if (class_exists('Console', false)) 
+        {
             Console::log($message);
         }
 
         log_message($level, $message);
     }
+
+    //--------------------------------------------------------------------------
 
     /**
      * Extract the model's fields (except the key and those handled by Observers)
@@ -1451,7 +1630,8 @@ class RP_Model extends CI_Model
 
         // If the field is the primary key, one of the created/modified/deleted
         // fields, or has not been set in the $post_data, skip it.
-        foreach ($this->get_field_info() as $field) {
+        foreach ($this->get_field_info() as $field) 
+        {
             if (isset($field->primary_key)
                 && $field->primary_key
                 || in_array($field->name, $skippedFields)

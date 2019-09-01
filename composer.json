@@ -1,7 +1,7 @@
 {
 	"name": "racikproject/racik",
 	"description": "Web App Starter CodeIgniter-based",
-    "version": "1.0.1",
+    "version": "1.0.2",
 	"type": "project",
     "autoload": {
         "psr-4": {

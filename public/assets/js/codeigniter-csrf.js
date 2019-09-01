@@ -11,7 +11,7 @@
 function app_csrf_token()
 {
 	// Match the config of the same name in application/config/config.php
-	var csrf_cookie_name = "app_csrf_token";
+	var csrf_cookie_name = csrfName;
 
 	return readCookie(csrf_cookie_name);
 

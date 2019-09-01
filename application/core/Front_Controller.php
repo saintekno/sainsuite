@@ -6,10 +6,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * Web App Starter CodeIgniter-based
  *
- * @package   Racik
- * @copyright Copyright (c) 2019
- * @since     Version 0.3
- * @link      https://github.com/boedwinangun/racik
+ * @package     Racik
+ * @copyright   Copyright (c) 2019
+ * @version     1.0.0
+ * @link        https://github.com/boedwinangun/racik
  * @filesource
  */
 
@@ -37,9 +37,13 @@ class Front_Controller extends Base_Controller
         $this->autoload['libraries'][] = 'users/auth';
         $this->autoload['libraries'][] = 'template';
         $this->autoload['libraries'][] = 'assets';
+        $this->autoload['libraries'][] = 'form_validation';
 
         parent::__construct();
 
+        $this->form_validation->CI =& $this;
+        $this->form_validation->set_error_delimiters('', '');
+        
         Events::trigger('before_front_controller');
 
         $this->set_current_user();
