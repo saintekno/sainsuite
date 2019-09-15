@@ -1,27 +1,21 @@
-<?php defined('BASEPATH') || exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
- * Bonfire
+ * Racik
  *
- * An open source project to allow developers to jumpstart their development of
- * CodeIgniter applications
+ * Web App Starter CodeIgniter-based
  *
- * @package   Bonfire
- * @author    Bonfire Dev Team
- * @copyright Copyright (c) 2011 - 2014, Bonfire Dev Team
- * @license   http://opensource.org/licenses/MIT
- * @link      http://cibonfire.com
+ * @package   Racik
+ * @copyright Copyright (c) 2019
  * @since     Version 1.0
+ * @link      https://github.com/boedwinangun/racik
  * @filesource
  */
 
 /**
  * Activities
- *
  * Display user activity
- *
- * @package    Bonfire\Modules\Activities\Controllers\Activities
- * @author     Bonfire Dev Team
- * @link       http://cibonfire.com/docs/activities
  */
 class Activities extends Admin_Controller
 {
@@ -37,6 +31,8 @@ class Activities extends Admin_Controller
         $this->lang->load('activities/activities');
 		$this->load->model('activities/activity_model');
 	}
+    
+    //------------------------------------------------------------------------------
 
 	/**
 	 * Display the Activities for a module
@@ -51,7 +47,7 @@ class Activities extends Admin_Controller
         $this->auth->restrict('Activities.Module.View');
 
 		if (empty($module)) {
-			log_message(lang('activities_list_no_module'), 'debug');
+			log_message('debug', lang('activities_list_no_module'));
 			return;
 		}
 

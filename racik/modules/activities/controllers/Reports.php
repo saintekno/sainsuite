@@ -15,9 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Activities Reports Context
- *
  * Allow the administrator to view the activity logs.
- *
  */
 class Reports extends Admin_Controller
 {
