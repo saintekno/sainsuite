@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<action namespace="after_app_init">
+	Trigger actions after eracik app inition
+	<action namespace="is_connected">
+		triggers actions registered to execute while eracik checks if user is connected
+		this must login.
+		<action namespace="set_login_rules">
+			trigger form_validation rules for login page
+			<action namespace="do_login">
+				trigger actions registered to execute during eracik login
+				<action namespcae="login_redirection">contain default route when user login</action>
+			</action>
+		</action>
+		<action namespace="display_login_fields">displays login fields (app/views/login/body)</action>
+		<action namespace="load_dashboard">
+			<action namespace="before_dashboard_menu">trigger action before admin menu init</action>
+			<action namespace="before_body_content"></action>
+			<action namespace="display_admin_header_menu">trigger actions whichs displays header menu.</action>
+			<action namespace="dashboard_footer">triigers action within dashboard footer</action>
+			<action namespace="dashboard_header">triggers actions within dashboard header</action>
+			<!-- Modules -->
+			<action namespace="do_enable_module">triggers actions while enabling a module</action>
+			<action namespace="do_disable_module">triggers actions while disabling a module</action>
+			<action namespace="do_extract_module">triggers actions during module extraction pass module namespace (as string) as unique parameter</action>
+			<action namespace="do_remove_module">removes module action</action>
+			<action namespace="load_dashboard_home">triggers action withing dashboard controller at index method.</action>
+			<action namespace="create_dashboard_pages">Create dashboard page</action>
+			<!-- Settings -->
+			<action namespace="register_general_settings_fields">Trigger action when registering general settings fields</action>
+			<!-- Auth -->
+			<action namespace="displays_dashboard_errors">t-a-r (Triggers action registered) to display admin errors</action>
+			<action namespace="user_creation_rules">add rules to user creation form_validation for custom fields</action>
+			<action namespace="user_profile_rules">add rules for user profile edition for form validation custom fields</action>
+			<action namespace="load_users_custom_fields">Load user creation custom fields</action>
+		</action>
+		<action namespace="load_frontend">
+		triggers actions during frontend loading provide URI segments as array
+		</action>
+		<action namespace="do_send_recovery">
+		Triggers Actions before sending recovery email
+		</action>
+		<action namespace="do_reset_user">
+		do reset user for recovery
+		</action>
+		<action namespace="do_verify_user">
+		</action>
+		<action namespace="log_user_out">
+		trigger action to log user out
+		</action>
+		<action namespace="registration_rules">
+			define registration rules
+			<action namespace="do_register_user">triggers actions while registering user</action>
+		</action>
+		<action namespace="displays_public_errors"></action>
+	</action>
+</action>
+<action namespace="before_creating_tables">
+	eracik to be installed
+	<action namespace="Do_setup">
+		Load action registered after database connection has been established during eracik installation.
+		<action namespace="before_db_setup">Load action registered to trigger before setting tables and after database connection is established</action>
+		<action namespace="Do_settings_tables">create table while creating tables</action>
+		<action namespace="Do_settings_final_config"></action>
+	</action>
+</action>
+<action namespace="load_404">
+</action>
+<action namespace="load_403">
+</action>

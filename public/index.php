@@ -90,14 +90,16 @@ switch (ENVIRONMENT)
 }
 
 /*
- *---------------------------------------------------------------
- * RACIK PATH
- *---------------------------------------------------------------
+ *----------------------
+ * TIMEZONE
+ *----------------------
  *
- * Change the first "path" variable, and the individual paths will be set accordingly.
+ * If timezone has not been set, give it a default
+ *
  */
-	$path = "..";
-	$racik_path = "{$path}/racik";
+if(ini_get('date.timezone') == '' ) {
+    date_default_timezone_set('GMT');
+}
 
 /*
  *---------------------------------------------------------------
@@ -107,7 +109,7 @@ switch (ENVIRONMENT)
  * This variable must contain the name of your "system" directory.
  * Set the path if it is not in the same directory as this file.
  */
-	$system_path = "{$path}/racik/system";
+	$system_path = '../system';
 
 /*
  *---------------------------------------------------------------
@@ -124,7 +126,7 @@ switch (ENVIRONMENT)
  *
  * NO TRAILING SLASH!
  */
-	$application_folder = "{$path}/application";
+	$application_folder = '../apps';
 
 /*
  *---------------------------------------------------------------
@@ -244,9 +246,6 @@ switch (ENVIRONMENT)
 
 	// Name of the "system" directory
 	define('SYSDIR', basename(BASEPATH));
-
-	// The path to the Racik folder.
-	define('RPPATH', $racik_path . '/');
 
 	// The path to the "application" directory
 	if (is_dir($application_folder))

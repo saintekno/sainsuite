@@ -1,0 +1,663 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2017-12-14 20:18+0100\n"
+"PO-Revision-Date: 2017-12-14 20:23+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: tr_TR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_s\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: controllers/UsersController.php:25 controllers/UsersController.php:164
+#: controllers/UsersController.php:210 views/users/create.php:38
+#: views/users/edit.php:39 views/users/profile.php:51
+#, fuzzy
+msgid "User Email"
+msgstr "Kullanıcı E posta"
+
+#: controllers/UsersController.php:26 controllers/UsersController.php:166
+#: controllers/UsersController.php:211 inc/fields.php:52 inc/fields.php:77
+#: inc/fields.php:121 inc/rules.php:19 views/users/create.php:46
+#, fuzzy
+msgid "Password"
+msgstr "Parola"
+
+#: controllers/UsersController.php:27 controllers/UsersController.php:167
+#: controllers/UsersController.php:212 inc/fields.php:126 inc/rules.php:20
+#: views/users/create.php:54
+#, fuzzy
+msgid "Confirm"
+msgstr "Onayla"
+
+#: controllers/UsersController.php:28 controllers/UsersController.php:213
+#, fuzzy
+msgid "User Privilege"
+msgstr "ayrıcalık"
+
+#: controllers/UsersController.php:62 controllers/UsersController.php:245
+#, fuzzy
+msgid "Return to the list"
+msgstr "Listeye dön"
+
+#: controllers/UsersController.php:69
+#, php-format
+msgid "Edit user &mdash; %s"
+msgstr "Kullanıcıyı düzenle &mdash; %s"
+
+#: controllers/UsersController.php:112
+#, fuzzy
+msgid "Add A user"
+msgstr "Kullanıcı Ekle"
+
+#: controllers/UsersController.php:119
+#, fuzzy, php-format
+msgid "Users &mdash; %s"
+msgstr "Kullanıcılar &mdash; %s"
+
+#: controllers/UsersController.php:165
+#, fuzzy
+msgid "Old Pass"
+msgstr "Eski Pass"
+
+#: controllers/UsersController.php:192
+#, fuzzy, php-format
+msgid "My Profile &mdash; %s"
+msgstr "Profilimi &mdash; %s"
+
+#: controllers/UsersController.php:209 inc/fields.php:40 inc/fields.php:109
+#: inc/rules.php:17 views/users/create.php:30 views/users/edit.php:29
+#: views/users/profile.php:41
+#, fuzzy
+msgid "User Name"
+msgstr "Kullanıcı Adı"
+
+#: controllers/UsersController.php:252
+#, fuzzy, php-format
+msgid "Create a new user &mdash; %s"
+msgstr "Yeni bir kullanıcı oluşturmak &mdash; %s"
+
+#: controllers/UsersController.php:275
+#, fuzzy, php-format
+msgid "Roles &mdash; %s"
+msgstr "Roller &mdash; %s"
+
+#: inc/aauth_lang.php:8
+#, fuzzy
+msgid "Eracik : Account Verification"
+msgstr "Eracik: Hesap doğrulama"
+
+#: inc/aauth_lang.php:9
+msgid ""
+"Hey you have successfully created an account using Eracik. Please "
+"consider activating your account using the following verification code.\\n"
+"\\n<strong>Your verification code is</strong>: "
+msgstr ""
+"Hey, Eracik'yi kullanarak bir hesap oluşturmuşsunuzdur. Lütfen aşağıdaki "
+"doğrulama kodunu kullanarak hesabınızı etkinleştirmeyi düşünün. \n"
+"\\ n <strong> Doğrulama kodunuz </ strong>:"
+
+#: inc/aauth_lang.php:10
+#, fuzzy, php-format
+msgid ""
+" You can also click on (or copy and paste) the following link\n"
+"\n"
+"%s"
+msgstr ""
+"Ayrıca tıklayın (veya kopyalayın ve yapıştırın) aşağıdaki bağlantıyı %s"
+
+#: inc/aauth_lang.php:13
+#, fuzzy
+msgid "Eracik : Reset Password"
+msgstr "Eracik: Parolayı Sıfırla"
+
+#: inc/aauth_lang.php:14
+#, fuzzy, php-format
+msgid ""
+"To reset your password click on (or copy and paste in your browser address "
+"bar) the link below:\n"
+"\n"
+"%s"
+msgstr ""
+"Aşağıdaki linki üzerinde parola tıklama sıfırlamak (veya kopyalayıp "
+"tarayıcınızın adres çubuğuna yapıştırın için): %s"
+
+#: inc/aauth_lang.php:17
+#, fuzzy
+msgid "Eracik : Successful Pasword Reset"
+msgstr "Eracik: Başarılı Pasword sıfırlama"
+
+#: inc/aauth_lang.php:18
+#, fuzzy
+msgid "Your password has successfully been reset. Your new password is : "
+msgstr "Parolanızı başarıyla sıfırlandı. Yeni şifrenizi geçerli:"
+
+#: inc/aauth_lang.php:24
+#, fuzzy
+msgid ""
+"Email address already exists on the system. If you forgot your password, you "
+"can click the link below."
+msgstr ""
+"E-posta adresi zaten sistemde var. Şifrenizi unuttuysanız, aşağıdaki "
+"bağlantıyı tıklatabilirsiniz."
+
+#: inc/aauth_lang.php:26
+#, fuzzy
+msgid "Invalid e-mail address"
+msgstr "Geçersiz e-posta adresi"
+
+#: inc/aauth_lang.php:27
+#, fuzzy
+msgid "Invalid password"
+msgstr "Geçersiz şifre"
+
+#: inc/aauth_lang.php:28
+#, fuzzy
+msgid "Invalid Username"
+msgstr "Hatalı kullanıcı adı"
+
+#: inc/aauth_lang.php:29
+#, fuzzy
+msgid "Username required"
+msgstr "Kullanıcı Adı Zorunludur"
+
+#: inc/aauth_lang.php:32
+msgid "Sorry, you do not have access to the resource you requested."
+msgstr "Üzgünüm, istediğiniz kaynağa erişiminiz yok."
+
+#: inc/aauth_lang.php:33
+#, fuzzy
+msgid "E-mail Address and Password do not match."
+msgstr "E-posta adresi ve parola eşleşmiyor."
+
+#: inc/aauth_lang.php:34
+#, fuzzy
+msgid ""
+"You have exceeded your login attempts, your account has now been locked."
+msgstr "Oturum açma girişimleri aştınız, hesabınızı şimdi kilitli."
+
+#: inc/aauth_lang.php:35
+#, fuzzy
+msgid "Sorry, the reCAPTCHA text entered was incorrect."
+msgstr "Üzgünüz, girilen reCAPTCHA metin yanlış."
+
+#: inc/aauth_lang.php:39
+#, fuzzy
+msgid "User does not exist"
+msgstr "Kullanıcı mevcut değil!"
+
+#: inc/aauth_lang.php:40
+#, fuzzy
+msgid ""
+"Your account has not been verified. Please check your e-mail and verify your "
+"account."
+msgstr ""
+"Hesap doğrulandı değil. Lütfen e-postanızı denetleyin ve hesabınızı "
+"doğrulayın."
+
+#: inc/aauth_lang.php:41
+#, fuzzy
+msgid "Group does not exist"
+msgstr "mevcut değil"
+
+#: inc/aauth_lang.php:42
+#, fuzzy
+msgid "It is not possible to send a Message to yourself."
+msgstr "Kendinize bir mesaj göndermek mümkün değildir."
+
+#: inc/aauth_lang.php:43
+#, fuzzy
+msgid "Private Message not found"
+msgstr "Özel ileti bulunamadı"
+
+#: inc/aauth_lang.php:47
+#, fuzzy
+msgid "User is already member of group"
+msgstr "Kullanıcı zaten grubunun üyesidir"
+
+#: inc/aauth_lang.php:48
+#, fuzzy
+msgid "Group name already exists"
+msgstr "Grup adı zaten var!"
+
+#: inc/aauth_lang.php:49
+#, fuzzy
+msgid "Permission name already exists"
+msgstr "İzin adı zaten var"
+
+#: inc/aauth_lang.php:51
+#, fuzzy
+msgid "The group has been updated"
+msgstr "Grup güncellendi"
+
+#: inc/aauth_lang.php:64
+#, fuzzy
+msgid "User settings's has been updated."
+msgstr "Kullanıcı ayarları 's güncellenmiştir."
+
+#: inc/aauth_lang.php:65
+#, fuzzy
+msgid "The user has been deleted."
+msgstr "Kullanıcı Silindi."
+
+#: inc/aauth_lang.php:66
+#, fuzzy
+msgid "The new password cannot match the old one, please use another password."
+msgstr "Yeni parolayı eski bir maç olamaz lütfen başka bir parola kullanın."
+
+#: inc/aauth_lang.php:67
+#, fuzzy
+msgid "Your old password is not correct."
+msgstr "Eski şifreni yanlış"
+
+#: inc/aauth_lang.php:70
+#, fuzzy
+msgid "A group with this name already exists. Please choose another name."
+msgstr "Bu adı taşıyan bir grup zaten var. Lütfen başka bir ad seçin."
+
+#: inc/aauth_lang.php:71
+#, fuzzy
+msgid "Group has been created."
+msgstr "Grup başarıyla oluşturuldu."
+
+#: inc/aauth_lang.php:72
+#, fuzzy
+msgid "This group does'nt exists or has been deleted."
+msgstr "Bu grup doesnt'yok veya silinmiş."
+
+#: inc/aauth_lang.php:73
+msgid "Unknow group."
+msgstr "Bilinmeyen grup."
+
+#: inc/aauth_lang.php:74
+#, fuzzy
+msgid "Group has been updated."
+msgstr "Grup başarıyla güncellendi."
+
+#: inc/aauth_lang.php:75
+#, fuzzy
+msgid "You can't delete your own  account."
+msgstr "Kendi hesabınızı silemezsiniz."
+
+#: inc/dashboard.php:45
+#, fuzzy
+msgid "Users"
+msgstr "Kullanıcılar"
+
+#: inc/dashboard.php:63
+#, fuzzy
+msgid "Manage Users"
+msgstr "Kullanıcıları Yönet"
+
+#: inc/dashboard.php:69
+#, fuzzy
+msgid "Users List"
+msgstr "Kullanıcı listesi"
+
+#: inc/dashboard.php:75
+#, fuzzy
+msgid "Create a new User"
+msgstr "Yeni kullanıcı oluştur"
+
+#: inc/dashboard.php:82
+#, fuzzy
+msgid "Groups"
+msgstr "Gruplar"
+
+#: inc/dashboard.php:90
+#, fuzzy
+msgid "My profile"
+msgstr "Profilim"
+
+#: inc/fields.php:20
+#, fuzzy
+msgid "Please provide your user email in order to get recovery email"
+msgstr "Kullanıcı e-posta kurtarma e-posta almak için veriniz"
+
+#: inc/fields.php:23 inc/fields.php:25
+msgid "User email or Pseudo"
+msgstr "Kullanıcı e-postası veya sözde"
+
+#: inc/fields.php:28
+msgid "Get recovery Email"
+msgstr "Kurtarma e-postasını alın"
+
+#: inc/fields.php:46 inc/fields.php:115 inc/rules.php:18
+#: views/users/body.php:35
+#, fuzzy
+msgid "Email"
+msgstr "E-posta"
+
+#: inc/fields.php:58
+#, fuzzy
+msgid "Password confirm"
+msgstr "Parola Doğrulama"
+
+#: inc/fields.php:72 inc/rules.php:12 inc/rules.php:13
+#, fuzzy
+msgid "Email or User Name"
+msgstr "Kullanıcı adı veya e-posta"
+
+#: inc/fields.php:85
+#, fuzzy
+msgid "Remember me"
+msgstr "Beni hatırla"
+
+#: inc/fields.php:90
+#, fuzzy
+msgid "Sign In"
+msgstr "Oturum Aç"
+
+#: inc/fields.php:136
+#, fuzzy
+msgid "Sign Up"
+msgstr "Kaydol"
+
+#: inc/fields.php:157
+#, fuzzy
+msgid "First Name"
+msgstr "Ad"
+
+#: inc/fields.php:164
+#, fuzzy
+msgid "Last Name"
+msgstr "Soyadı"
+
+#: inc/fields.php:171
+#, fuzzy
+msgid "Select a theme"
+msgstr "Bir tema seçin..."
+
+#: inc/fields.php:179
+#, fuzzy
+msgid "Blue"
+msgstr "Mavi"
+
+#: inc/fields.php:187
+#, fuzzy
+msgid "Black"
+msgstr "Siyah"
+
+#: inc/fields.php:195
+#, fuzzy
+msgid "Purple"
+msgstr "Mor"
+
+#: inc/fields.php:203
+#, fuzzy
+msgid "Green"
+msgstr "Yeşil"
+
+#: inc/fields.php:211
+#, fuzzy
+msgid "Red"
+msgstr "Kırmızı"
+
+#: inc/fields.php:219
+#, fuzzy
+msgid "Yellow"
+msgstr "Sarı"
+
+#: inc/fields.php:227
+#, fuzzy
+msgid "Blue Light"
+msgstr "Mavi Işık"
+
+#: inc/fields.php:235
+#, fuzzy
+msgid "Black Light"
+msgstr "Siyah ışık"
+
+#: inc/fields.php:243
+#, fuzzy
+msgid "Purple Light"
+msgstr "Mor ışık"
+
+#: inc/fields.php:251
+#, fuzzy
+msgid "Green Light"
+msgstr "Açık Yeşil"
+
+#: inc/fields.php:259
+#, fuzzy
+msgid "Red Light"
+msgstr "Kırmızı ışık"
+
+#: inc/fields.php:267
+#, fuzzy
+msgid "Yellow Light"
+msgstr "Sarı ışık"
+
+#: views/groups/body.php:14
+#, fuzzy
+msgid "Role List"
+msgstr "Rol Seç"
+
+#: views/groups/body.php:39
+#, fuzzy
+msgid "Yes"
+msgstr "Evet"
+
+#: views/groups/body.php:39
+#, fuzzy
+msgid "No"
+msgstr "Hayır"
+
+#: views/groups/body.php:46
+#, fuzzy
+msgid "Role name"
+msgstr "Rol ismi"
+
+#: views/groups/body.php:46
+#, fuzzy
+msgid "Description"
+msgstr "Açıklama"
+
+#: views/groups/body.php:46 views/groups/create.php:42 views/groups/edit.php:45
+#, fuzzy
+msgid "Admin"
+msgstr "Yönetici"
+
+#: views/groups/body.php:46
+#, fuzzy
+msgid "Permissions"
+msgstr "İzinler"
+
+#: views/groups/create.php:13
+#, fuzzy
+msgid "Create a new role"
+msgstr "Yeni bir Rol Oluştur"
+
+#: views/groups/create.php:18
+#, fuzzy
+msgid "Create the role"
+msgstr "Rolü oluşturmak"
+
+#: views/groups/create.php:31
+#, fuzzy
+msgid "Enter role name"
+msgstr "Rol adını girin:"
+
+#: views/groups/create.php:32 views/groups/create.php:33
+#: views/groups/edit.php:34 views/groups/edit.php:35
+#, fuzzy
+msgid "Role Name"
+msgstr "Rol Adı"
+
+#: views/groups/create.php:41 views/groups/edit.php:44
+#, fuzzy
+msgid "Public"
+msgstr "Herkese Açık"
+
+#: views/groups/create.php:44 views/groups/create.php:45
+#: views/groups/edit.php:47 views/groups/edit.php:48
+#, fuzzy
+msgid "Role Type"
+msgstr "Rol türü"
+
+#: views/groups/edit.php:15
+#, fuzzy
+msgid "Edit a new role"
+msgstr "Yeni bir rolü Düzenle"
+
+#: views/groups/edit.php:20 views/groups/permissions.php:20
+#, fuzzy
+msgid "Edit the role"
+msgstr "Rolü Düzenle"
+
+#: views/groups/edit.php:33
+#, fuzzy
+msgid "Edit role name"
+msgstr "Rol Adı Düzenle"
+
+#: views/groups/permissions.php:15
+#, fuzzy
+msgid "Groups permissions"
+msgstr "Grup izinleri"
+
+#: views/users/app-list.php:5
+#, fuzzy
+msgid "App Keys"
+msgstr "Uygulama tuşları"
+
+#: views/users/app-list.php:10
+#, fuzzy
+msgid "Click on any key to revoke it"
+msgstr "Bunu iptal etmek için herhangi bir tuşa basın"
+
+#: views/users/app-list.php:17
+#, fuzzy, php-format
+msgid "Scopes : %s"
+msgstr "Kapsamlar: %s"
+
+#: views/users/app-list.php:18
+#, fuzzy, php-format
+msgid "Created on : %s"
+msgstr "Tarihinde yaratılmıştır: %s"
+
+#: views/users/app-list.php:19
+#, fuzzy, php-format
+msgid "Expire on : %s"
+msgstr "Doğum tarihi:: %s"
+
+#: views/users/app-list.php:20
+#, fuzzy, php-format
+msgid "Keys : %s"
+msgstr "Anahtarlar: %s"
+
+#: views/users/app-list.php:27
+#, fuzzy
+msgid "No application is linked to this account."
+msgstr "Hiçbir uygulama bu hesaba bağlıdır."
+
+#: views/users/app-list.php:36
+#, fuzzy
+msgid "Would you like to revoke this App key ?"
+msgstr "Bu App anahtar iptal etmek ister misiniz?"
+
+#: views/users/body.php:17 views/users/create.php:65 views/users/edit.php:83
+#, fuzzy
+msgid "Unactive"
+msgstr "Etkin değil"
+
+#: views/users/body.php:17 views/users/create.php:64 views/users/edit.php:82
+#, fuzzy
+msgid "Active"
+msgstr "Aktif"
+
+#: views/users/body.php:18
+#, fuzzy
+msgid "Would you like to delete this account ?"
+msgstr "Bu hesab² silmek ister misiniz?"
+
+#: views/users/body.php:18
+#, fuzzy
+msgid "Delete"
+msgstr "Sil"
+
+#: views/users/body.php:26
+#, fuzzy
+msgid "List"
+msgstr "Liste"
+
+#: views/users/body.php:35
+#, fuzzy
+msgid "Id"
+msgstr "ID"
+
+#: views/users/body.php:35
+#, fuzzy
+msgid "Username"
+msgstr "Kullanıcı Adı"
+
+#: views/users/body.php:35
+#, fuzzy
+msgid "Role"
+msgstr "Rol"
+
+#: views/users/body.php:35
+#, fuzzy
+msgid "Activity"
+msgstr "Faaliyet"
+
+#: views/users/body.php:35
+#, fuzzy
+msgid "Status"
+msgstr "Durum"
+
+#: views/users/body.php:35
+#, fuzzy
+msgid "Actions"
+msgstr "Aksiyon"
+
+#: views/users/create.php:21
+#, fuzzy
+msgid "Create User"
+msgstr "Kullanıcı Oluştur"
+
+#: views/users/create.php:61 views/users/edit.php:79
+#, fuzzy
+msgid "User Status"
+msgstr "Kullanıcı durumu"
+
+#: views/users/create.php:63 views/users/edit.php:81
+#, fuzzy
+msgid "Default"
+msgstr "Varsayılan"
+
+#: views/users/create.php:79 views/users/edit.php:70
+#, fuzzy
+msgid "Add to a group"
+msgstr "\"Gruba işaret ekle\""
+
+#: views/users/edit.php:20 views/users/profile.php:20
+#, fuzzy
+msgid "Edit User"
+msgstr "Kullanıcı Editle"
+
+#: views/users/edit.php:48 views/users/profile.php:66
+#, fuzzy
+msgid "New Password"
+msgstr "Yeni Şifre"
+
+#: views/users/edit.php:56 views/users/profile.php:74
+#, fuzzy
+msgid "Confirm New"
+msgstr "Yeni onaylamak"
+
+#: views/users/profile.php:29
+#, fuzzy
+msgid "Connected Applications"
+msgstr "Bağlantılı Uygulamalar"
+
+#: views/users/profile.php:60
+#, fuzzy
+msgid "Old Password"
+msgstr "Eski Şifre"

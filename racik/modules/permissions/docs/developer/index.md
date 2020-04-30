@@ -1,1 +1,0 @@
-# Permissions for Developers

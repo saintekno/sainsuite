@@ -1,0 +1,9 @@
+{
+    "require": {
+        "nesbot/carbon": "^1.21",
+        "league/csv": "^8.1",
+        "pecee/simple-router": "4.2.0.6",
+        "rmccue/requests": "^1.7",
+        "chriskacerguis/codeigniter-restserver": "^3.1"
+    }
+}

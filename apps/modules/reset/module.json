@@ -1,0 +1,10 @@
+{
+    "application": {
+       "name": "Reset Data",
+       "namespace": "reset",
+       "main": "reset.php",
+       "version": "1.0",
+       "author": "eracik",
+       "description": "Enabling this module will delete all the data. Make sure to be fore before performing this action. It's action cannot be undone."
+    }
+}

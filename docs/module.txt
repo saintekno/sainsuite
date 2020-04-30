@@ -1,0 +1,9 @@
+- module.json
+- manifest.json
+- main.php
+- migrate.php
+- folder (MVC)
+- /libraries
+- /config
+- /helpers
+- /language

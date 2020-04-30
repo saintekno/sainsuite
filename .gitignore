@@ -1,62 +1,27 @@
-# Ignore OS Related/Generic
-Thumbs.db
-Desktop.ini
-._*
-Icon?
-.DS_Store
-*.bak
-*.tmproj
-*.tmproject
-*~
+# Apps
+apps/cache/
+!apps/cache/index.html
+!apps/cache/app/index.html
+!apps/cache/sessions/index.html
+!apps/cache/database/index.html
 
-# IDEs project files/settings
-nbproject/
-nbactions.xml
-.settings/
-.project
-.metadata
-.properties
-Procfile
+apps/debug/*
+!apps/debug/index.html
 
-# Ignore Application Specifics
-application/logs/*
-!application/logs/index.html
-application/cache/*
-!application/cache/index.html
-public/assets/cache/*
-!public/assets/cache/index.html
+apps/logs/*
+!apps/logs/index.html
 
-# Ignore Custom config files
-application/config/testing/*
-application/config/production/*
-application/config/installed.txt
+apps/temp/*
+!apps/temp/index.html
 
-# but leave the config folders there
-!application/config/development/index.html
-!application/config/testing/index.html
-!application/config/production/index.html
+# apps/vendor/*
+apps/composer.lock
+apps/config/database.php
 
-# Helping GUIs omiting subtree repos
-racik/modules/**/.git/*
-racik/modules/**/.hg/*
-application/modules/**/.git/*
-application/modules/**/.hg/*
+# Upload
+public/upload/*
+!public/upload/index.html
 
-# Ignore all custom modules.
-application/modules/*
-# Except the following modules:
-!application/modules/index.html
-
-# Ignore all custom theme.
-public/themes/*
-# Except the following theme:
-!public/themes/admin
-!public/themes/docs
-!public/themes/default
-
-# Remove PHPStorm Project folders
-racik/.ideas
-.idea/*
-
-# Ignore any composer downloaded packages
-vendor/*
+# Vendor Style
+public/node_modules/*
+public/yarn.lock
