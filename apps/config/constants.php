@@ -100,4 +100,4 @@ define('GUI_EXPIRE', 60*60*6); // GUI expiration time
 define('MODULESPATH', APPPATH . 'modules' . '/'); // Modules Paths
 define('ADDINSPATH', APPPATH . 'addins' . '/'); // Modules Paths
 define('UPLOADPATH', FCPATH . 'upload' . '/'); // Upload path
-define( 'ENABLE_DEBUG', true );
+define('ENABLE_DEBUG', true );

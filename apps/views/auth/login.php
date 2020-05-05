@@ -22,7 +22,7 @@
 								
 								<small><?php $this->events->do_action('displays_public_errors'); ?> </small>
 								
-								<form method="post">
+								<form method="post" autocomplete="off">
 									<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
 									<?php $this->events->do_action('display_login_fields');?>
 

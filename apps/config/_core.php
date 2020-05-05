@@ -26,7 +26,7 @@ $config[ 'username_login' ]         = true;
 
 // Core ID
 $config[ 'core_app_name' ]    = 'eracik';
-$config[ 'core_version' ]     = '2.0.0';                              // core id
+$config[ 'core_version' ]     = '2.0.1';                              // core id
 $config[ 'core_signature' ]   = 'eracik. ' . $config[ 'core_version' ];  // core id
 $config[ 'database_version' ] = '1.0';
 

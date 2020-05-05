@@ -37,12 +37,20 @@ class Dashboard extends Eracik_Controller
     **/
     public function _dashboard_header()
     {
-        $this->enqueue->css_namespace( 'common_header' );
-        $this->enqueue->asset_css('assets/jquery-ui-bundle/jquery-ui.min' );
-
         $this->enqueue->js_namespace( 'dashboard_header' );
+        $this->enqueue->asset_js('assets/underscore/underscore-min');
         $this->enqueue->js('eracik.meta' );
         $this->enqueue->js('eracik.core');
+        $this->enqueue->asset_js('assets/jquery-slimscroll/jquery.slimscroll.min');
+        $this->enqueue->js('heartcode/heartcode-canvasloader-min');
+        $this->enqueue->asset_js('assets/bootstrap-notify/bootstrap-notify.min');
+        $this->enqueue->js('jquery.parseParams');
+        $this->enqueue->asset_js('assets/bootbox/bootbox.min');
+
+        $segments = $this->uri->segment_array();
+        if ( riake( 2, $segments, 'index' ) == 'index' ) {
+            $this->enqueue->js( 'eracik.widget' );
+        }
 
         // Show assets header
         $this->events->do_action( 'common_header' );
@@ -60,19 +68,6 @@ class Dashboard extends Eracik_Controller
     public function _dashboard_footer()
     {
         $this->enqueue->js_namespace( 'dashboard_footer' );
-        $this->enqueue->js('jquery.parseParams');
-        $this->enqueue->js('heartcode/heartcode-canvasloader-min');
-        $this->enqueue->asset_js('assets/jquery-ui-bundle/jquery-ui.min' );
-        $this->enqueue->asset_js('assets/jquery-slimscroll/jquery.slimscroll.min');
-        $this->enqueue->asset_js('assets/underscore/underscore-min');
-        $this->enqueue->asset_js('assets/bootstrap-notify/bootstrap-notify.min');
-        $this->enqueue->asset_js('assets/bootbox/bootbox.min');
-
-        $segments = $this->uri->segment_array();
-        if ( riake( 2, $segments, 'index' ) == 'index' ) {
-            $this->enqueue->js( 'eracik.widget' );
-        }
-
         $this->enqueue->js( 'angular-ui-sortable' );
         $this->enqueue->js( 'angular-queue' );
         $this->enqueue->js( 'angular-compile' );

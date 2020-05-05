@@ -1,4 +1,7 @@
-
+#main-table-box > .box-header,
+#main-table-box > .box-footer {
+	padding: 10px 0;
+}
 .bg-image {
 	display: flex;
     align-items: center;
@@ -103,9 +106,9 @@
 	display: none;
 }
 
-.box-header {
+/* .box-header {
 	overflow-x: scroll;
-}
+} */
 
 @media (min-width: 767px) {
 	.sidebar-mini.sidebar-collapse .main-header .navbar {
