@@ -111,9 +111,10 @@ class Eracik_Controller extends CI_Controller
     {
         // loading assets for reserved controller
         $css_libraries = $this->events->apply_filters( 'default_css_libraries', array(
-            'assets/bootstrap/css/bootstrap.min',
-            'assets/font-awesome/css/font-awesome.min',
-            'assets/sweetalert2/sweetalert2.min',
+            'plugins/bootstrap/css/bootstrap.min',
+            'plugins/font-awesome/css/font-awesome.min',
+            'plugins/sweetalert2/sweetalert2.min',
+            'plugins/icheck/skins/flat/blue',
             'css/AdminLTE',
             'css/skins/_all-skins',
             'css/eracik.core',
@@ -123,17 +124,17 @@ class Eracik_Controller extends CI_Controller
         if ( is_array( $css_libraries ) ) {
             $this->enqueue->css_namespace( 'common_header' );
             foreach ($css_libraries as $lib) {
-                $this->enqueue->asset_css($lib);
+                $this->enqueue->css($lib, null, true);
             }
         }
 
         // Enqueueing Js
         $js_libraries = $this->events->apply_filters( 'default_js_libraries', array(
-            'assets/jquery/jquery.min',
-            'assets/jquery-migrate/jquery-migrate.min',
-            'assets/bootstrap/js/bootstrap.min',
-            'assets/sweetalert2/sweetalert2.min',
-            'assets/icheck/icheck.min',
+            'plugins/jquery/jquery.min',
+            'plugins/jquery-migrate/jquery-migrate.min',
+            'plugins/bootstrap/js/bootstrap.min',
+            'plugins/sweetalert2/sweetalert2.min',
+            'plugins/icheck/icheck.min',
             'js/adminlte.min',
             'js/toast'
         ) );
@@ -141,7 +142,7 @@ class Eracik_Controller extends CI_Controller
         if ( is_array( $js_libraries ) ) {
             $this->enqueue->js_namespace( 'common_header' );
             foreach ($js_libraries as $lib) {
-                $this->enqueue->asset_js($lib);
+                $this->enqueue->js($lib, null, true);
             }
         }
 
@@ -154,7 +155,7 @@ class Eracik_Controller extends CI_Controller
     public function _common_footer()
     {
         $this->enqueue->js_namespace( 'common_footer' );
-        $this->enqueue->asset_js( 'assets/angular/angular.min' );
+        $this->enqueue->js( 'plugins/angular/angular.min', null, true );
 
         $this->enqueue->load_js( 'common_footer' );
     }

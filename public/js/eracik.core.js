@@ -4,12 +4,13 @@
 
 eracik.app		=	function(){
 
+
 	$this			=	this;
 	/**
 	 * Handle sidebar status
 	**/
 	this.sidebar		=	new function(){
-		$( '.sidebar-toggle, .sidebar-footer' ).bind( 'click' , function(){
+		$( '.sidebar-footer' ).bind( 'click' , function(){
 			if( $( 'body' ).hasClass( 'sidebar-collapse' ) ) {
 				$this.options.save( 'dashboard-sidebar' , 'sidebar-expanded' , eracik.user.id );
 			} else	{
@@ -234,4 +235,29 @@ $(document).ready(function(){
 $(document).ready(function(){
 	"use strict";
 	new eracik.app();
+	
+	$( '.sidebar-toggle' ).bind( 'click' , function(){
+		if( $( 'body' ).hasClass( 'sidebar-open' ) ) {
+			$('.mobile-overlay').removeClass('mobile-nav-open');
+		} else	{
+			$this.options.save( 'dashboard-sidebar' , 'sidebar-collapse' , eracik.user.id );
+			$('.mobile-overlay').addClass('mobile-nav-open');
+		}
+	});
+	$( '.mobile-overlay' ).bind( 'click' , function(){
+		$('.mobile-overlay').removeClass('mobile-nav-open');
+	});
+	$( '.navbar-toggler' ).bind( 'click' , function(){
+		if( $( '.navbar-header-custom' ).hasClass( 'navbar-header-hidden' ) ) {
+			$('.navbar-toggler').find('i').removeClass('fa-times');
+			$('.navbar-toggler').find('i').addClass('fa-ellipsis-h');
+			$('.navbar-custom-menu').css('display', 'none');
+			$('.navbar-header-custom').removeClass('navbar-header-hidden');
+		} else	{
+			$('.navbar-toggler').find('i').removeClass('fa-ellipsis-h');
+			$('.navbar-toggler').find('i').addClass('fa-times');
+			$('.navbar-custom-menu').css('display', 'flex');
+			$('.navbar-header-custom').addClass('navbar-header-hidden');
+		}
+	});
 });

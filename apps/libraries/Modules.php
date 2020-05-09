@@ -44,13 +44,14 @@ class Modules
 
             // Adding Valid init file to module array
             // only namespace is required for a module to be valid
-            if (isset($config[ 'application' ][ 'namespace' ])) {
+            if (isset($config[ 'application' ][ 'namespace' ])) 
+            {
                 $namespace = strtolower($config[ 'application' ][ 'namespace' ]);
                 // Saving details
 				if( $type == 'addins' ) {
-                	self::$addins[ $namespace ]     =    $config;
+                	self::$addins[ $namespace ] = $config;
 				} else {
-					self::$modules[ $namespace ]        =    $config;
+					self::$modules[ $namespace ] = $config;
 				}
                 // Edit main file path
                 if (isset($config[ 'application' ][ 'main' ])) {
@@ -74,16 +75,16 @@ class Modules
             **/
             if (isset($config[ 'application' ][ 'language' ])) {
                 if (is_dir(APPPATH . 'modules/' . $namespace . '/' . $config[ 'application' ][ 'language' ])) {
-                    $text_domain    =    get_instance()->config->item('text_domain');
-                    $text_domain[ $namespace ]     =    APPPATH . 'modules/' . $namespace . '/' . $config[ 'application' ][ 'language' ];
+                    $text_domain = get_instance()->config->item('text_domain');
+                    $text_domain[ $namespace ] = APPPATH . 'modules/' . $namespace . '/' . $config[ 'application' ][ 'language' ];
                     get_instance()->config->set_item('text_domain', $text_domain);
                 }
             }
 
             if (isset($config[ 'application' ][ 'language' ])) {
                 if (is_dir(APPPATH . 'addins/' . $namespace . '/' . $config[ 'application' ][ 'language' ])) {
-                    $text_domain    =    get_instance()->config->item('text_domain');
-                    $text_domain[ $namespace ]     =    APPPATH . 'addins/' . $namespace . '/' . $config[ 'application' ][ 'language' ];
+                    $text_domain = get_instance()->config->item('text_domain');
+                    $text_domain[ $namespace ] = APPPATH . 'addins/' . $namespace . '/' . $config[ 'application' ][ 'language' ];
                     get_instance()->config->set_item('text_domain', $text_domain);
                 }
             }
@@ -290,11 +291,14 @@ class Modules
         global $Options;
 
         $modules = self::get();
-        foreach( $modules as $module ) 
+        if ( ! empty($modules) ) 
         {
-            if( in_array( $module[ 'application' ][ 'namespace' ], ( array ) @$Options[ 'actives_modules' ] ) ) 
+            foreach( $modules as $module ) 
             {
-                self::checkDependency( $module[ 'application' ][ 'namespace' ] );
+                if( in_array( $module[ 'application' ][ 'namespace' ], ( array ) @$Options[ 'actives_modules' ] ) ) 
+                {
+                    self::checkDependency( $module[ 'application' ][ 'namespace' ] );
+                }
             }
         }
     }

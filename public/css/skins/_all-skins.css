@@ -95,6 +95,9 @@
 .skin-blue .sidebar-menu .treeview-menu > li.active > a,
 .skin-blue .sidebar-menu .treeview-menu > li > a:hover {
   color: #25496e;
+  background: #e7e7e7;
+  margin-left: -5px;
+  padding-left: 20px;
 }
 .skin-blue .sidebar-form {
   border-radius: 3px;

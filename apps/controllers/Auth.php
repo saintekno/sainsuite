@@ -25,8 +25,8 @@ class Auth extends Eracik_Controller
     {
         $this->enqueue->css_namespace( 'auth_header' );
         $this->enqueue->css('bootstrap.min');
-        $this->enqueue->asset_css('assets/font-awesome/css/font-awesome.min');
         $this->enqueue->css('login');
+        $this->enqueue->css('plugins/font-awesome/css/font-awesome.min', null, true);
 
         // Show assets header
         $this->enqueue->load_css( 'auth_header' );
@@ -42,7 +42,7 @@ class Auth extends Eracik_Controller
     public function _auth_footer()
     {
         $this->enqueue->js_namespace( 'auth_footer' );
-        $this->enqueue->asset_js('assets/jquery/jquery.min');
+        $this->enqueue->js('plugins/jquery/jquery.min', null, true);
         $this->enqueue->js('bootstrap.bundle.min');
 
         // Show asset footer

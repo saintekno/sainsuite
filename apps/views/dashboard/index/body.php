@@ -1,6 +1,10 @@
 <?php
         
-$this->Gui->set_title(sprintf(__('&mdash; %s'), get('core_signature')));
+if(is_object(@$this->widgets)) :
+$this->Gui->set_title(sprintf(__('Dashboard &mdash; %s'), get('core_signature')));
+else :
+$this->Gui->set_title(get('core_signature'));
+endif;
 
 $this->Gui->col_width(1, 4);
 

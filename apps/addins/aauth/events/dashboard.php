@@ -69,7 +69,7 @@ class aauth_dashboard extends CI_model
             $menus[ 'users' ] = array(
                 array(
                     'icon'    => 'fa fa-users',
-                    'title'   => __('Manage Users', 'aauth'),
+                    'title'   => __('Users', 'aauth'),
                     'disable' => true
                 )
             );

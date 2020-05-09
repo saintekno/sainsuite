@@ -24,7 +24,7 @@ THE SOFTWARE.
 
 The MIT License (MIT)
 
-Copyright (c) 2019 Boed Winangun, RacikProject.
+Copyright (c) 2019 - 2020 Boed Winangun, Eracik.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -46,12 +46,9 @@ THE SOFTWARE.
 
 ----------------------------------------------------------
 
-https://github.com/almasaeed2010/AdminLTE
 https://github.com/sekati/codeigniter-asset-helper
 https://github.com/zajohnson/CodeIgniter-enqueue
 https://github.com/bainternet/PHP-Hooks
 https://github.com/emreakay/CodeIgniter-Aauth
-https://github.com/tamaspap/timezones
 https://github.com/jonlabelle/ci-markdown
-https://github.com/mouse0270/bootstrap-notify
 https://github.com/raulferras/PHP-po-parser

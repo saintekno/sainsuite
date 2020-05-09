@@ -142,22 +142,4 @@ class Enqueue
     {
         return $this->js( $script, module_url( $module_namespace ) );
     }
-
-    /**
-     * Assets css
-    **/
-
-    public function asset_css( $style )
-    {
-        return $this->css( $style, null, true );
-    }
-
-    /**
-     * Assets js
-    **/
-
-    public function asset_js( $script )
-    {
-        return $this->js( $script, null, true );
-    }
 }

@@ -38,14 +38,14 @@ class Dashboard extends Eracik_Controller
     public function _dashboard_header()
     {
         $this->enqueue->js_namespace( 'dashboard_header' );
-        $this->enqueue->asset_js('assets/underscore/underscore-min');
+        $this->enqueue->js('plugins/underscore/underscore-min', null, true);
+        $this->enqueue->js('plugins/jquery-slimscroll/jquery.slimscroll.min', null, true);
+        $this->enqueue->js('plugins/bootstrap-notify/bootstrap-notify.min', null, true);
+        $this->enqueue->js('plugins/bootbox/bootbox.min', null, true);
+        $this->enqueue->js('plugins/heartcode/heartcode-canvasloader-min', null, true);
         $this->enqueue->js('eracik.meta' );
         $this->enqueue->js('eracik.core');
-        $this->enqueue->asset_js('assets/jquery-slimscroll/jquery.slimscroll.min');
-        $this->enqueue->js('heartcode/heartcode-canvasloader-min');
-        $this->enqueue->asset_js('assets/bootstrap-notify/bootstrap-notify.min');
         $this->enqueue->js('jquery.parseParams');
-        $this->enqueue->asset_js('assets/bootbox/bootbox.min');
 
         $segments = $this->uri->segment_array();
         if ( riake( 2, $segments, 'index' ) == 'index' ) {
@@ -214,7 +214,7 @@ class Dashboard extends Eracik_Controller
             }
 
             $this->events->add_filter('gui_page_title', function ($title) {
-                return '<section class="content-header"><h1>' . strip_tags($title) . ' <a class="btn btn-primary btn-sm pull-right" href="' . site_url(array( 'dashboard', 'modules', 'install_zip' )) . '">' . __('Upload a zip file') . '</a></h1></section>';
+                return '<h1>' . strip_tags($title) . ' <a class="btn btn-primary btn-sm eright" href="' . site_url(array( 'dashboard', 'modules', 'install_zip' )) . '"> <i class="fa fa-upload"></i> ' . __('Upload a zip file') . '</a></h1>';
             });
             
             $this->events->add_action('displays_dashboard_errors', function () {
@@ -260,7 +260,7 @@ class Dashboard extends Eracik_Controller
             }
 
             $this->events->add_filter('gui_page_title', function ($title) {
-                return '<section class="content-header"><h1>' . strip_tags($title) . ' <a class="btn btn-primary btn-sm pull-right" href="' . site_url(array( 'dashboard', 'modules' )) . '">' . __('Back to modules list') . '</a></h1></section>';
+                return '<h1>' . strip_tags($title) . ' <a class="btn btn-primary btn-sm eright" href="' . site_url(array( 'dashboard', 'modules' )) . '">' . __('Back to modules list') . '</a></h1>';
             });
 
             $this->load->view('dashboard/modules/install');

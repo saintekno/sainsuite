@@ -36,7 +36,7 @@ throw new Error('AdminLTE requires jQuery')
     content        : '.box-body',
     loadInContent  : true,
     responseType   : '',
-    overlayTemplate: '<div class="overlay"><div class="fa fa-refresh fa-spin"></div></div>',
+    overlayTemplate: '<div class="overlay"><div class="fa fa-spinner fa-spin"></div></div>',
     onLoadStart    : function () {
     },
     onLoadDone     : function (response) {

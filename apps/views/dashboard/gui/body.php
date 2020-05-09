@@ -1,9 +1,17 @@
 <div class="content-wrapper" style="min-height: 916px;" <?php echo $this->events->apply_filters('gui_wrapper_attrs', '' );?>>
-    <!-- Content Header (Page header) -->
-	<?php
-    echo $this->events->apply_filters('gui_page_title', $page_header);
-    echo $this->events->apply_filters('gui_before_cols', '');
-    ?>
+    <div class="mobile-overlay"></div>    
+    <section class="content-header container-limited">    
+        <div class="header">
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <i class="fa fa-bars"></i>
+            </a>    
+            <!-- Content Header (Page header) -->
+            <?php echo $this->events->apply_filters('gui_page_title', $page_header); ?>
+        </div>
+    </section>
+
+    <?php echo $this->events->apply_filters('gui_before_cols', ''); ?>
 
     <div class="content">
         <?php
@@ -228,7 +236,5 @@
         </div>
     </div>
 
-    <?php
-    echo $this->events->apply_filters('gui_after_cols', '');
-    ?>
+    <?php echo $this->events->apply_filters('gui_after_cols', ''); ?>
 </div>

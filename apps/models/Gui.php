@@ -121,7 +121,7 @@ class Gui extends CI_Model
     public function output()
     {
         $this->load->view('dashboard/header');
-        $this->load->view('dashboard/menu');
+        $this->load->view('dashboard/navigation');
         $this->load->view('dashboard/aside');
         $this->load->view('dashboard/gui/body', array(
             'page_header' => $this->load->view('dashboard/gui/page-header', array(), true),

@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row equal">
     <?php
     global $Options;
     $modules = Modules::get();
@@ -10,10 +10,10 @@
             $module_version   = $_module[ 'application' ][ 'version' ];
             $last_version     = get_option( 'migration_' . $module_namespace );
             ?>
-            <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6">
+            <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6 box-wrap">
                 <div class="box box-solid <?php echo (riake('highlight', $_GET) == $_module[ 'application' ][ 'namespace' ] || Modules::is_active($module_namespace)) ? 'box-primary' : 'box-default' ;?>"
                     id="#module-<?php echo $_module[ 'application' ][ 'namespace' ];?>">
-                    <div class="box-header with-border">
+                    <div class="box-header with-border text-overflow">
                         <h3 class="box-title" style="line-height: 30px;">
                             <?php echo isset($_module[ 'application' ][ 'name' ]) ? $_module[ 'application' ][ 'name' ] : __('Eracik Extension');?>
                         </h3>
@@ -35,27 +35,27 @@
                         <?php endif;?>
                     </div>
                     
-                    <div class="box-body" style="height:100px;">
+                    <div class="box-body bg-gray-light text-overflow">
                         <small><?php echo isset($_module[ 'application' ][ 'description' ]) ? $_module[ 'application' ][ 'description' ] : '';?></small>
                     </div>
 
-                    <div class="box-footer" <?php if (! Modules::is_active($module_namespace)):?> style="background:#F3F3F3;" <?php endif;?>>
-                        <div class="box-tools pull-right">
+                    <div class="box-footer" <?php if (! Modules::is_active($module_namespace)):?> style="background:#F3F3F3;"<?php else: ?> style="background:#f0f0f0;" <?php endif;?>>
+                        <div class="box-tools">
                             <?php
                             if (isset($_module[ 'application' ][ 'main' ])) 
                             { 
                                 // if the module has a main file, it can be activated
                                 if (! Modules::is_active($module_namespace)) { ?>
                                     <a href="<?php echo site_url(array( 'dashboard', 'modules', 'enable', $module_namespace ));?>"
-                                        class="btn btn-sm btn-default btn-box-tool" data-action="enable">
-                                        <i style="font-size:20px;" class="fa fa-toggle-off"></i> Enable
+                                        class="btn btn-sm btn-box-tool" data-action="enable">
+                                        <i style="font-size:20px;" class="fa fa-toggle-off"></i> <span class="hidden-xs">Enable</span>
                                     </a>
                                     <?php
                                 } 
                                 else { ?>
                                     <a href="<?php echo site_url(array( 'dashboard', 'modules', 'disable', $module_namespace ));?>"
-                                        class="btn btn-sm btn-default btn-box-tool" data-action="disable">
-                                        <i style="font-size:20px;" class="fa fa-toggle-on"></i> Disable
+                                        class="btn btn-sm btn-box-tool" data-action="disable">
+                                        <i style="font-size:20px;" class="fa fa-toggle-on text-blue"></i> <span class="hidden-xs">Disable</span>
                                     </a>
                                     <?php
                                 }
@@ -63,16 +63,16 @@
                             ?>
 
                             <a href="<?php echo site_url(array( 'dashboard', 'modules', 'remove', $module_namespace ));?>"
-                                class="btn btn-sm btn-default btn-box-tool" data-action="uninstall">
+                                class="btn btn-sm btn-box-tool text-red" data-action="uninstall">
                                 <i style="font-size:20px;" class="fa fa-trash"></i>
-                                <?php _e('Remove');?>
+                                <span class="hidden-xs"><?php _e('Remove');?></span>
                             </a>
 
                             <?php if (intval(riake('webdev_mode', $Options)) == true):?>
                                 <a href="<?php echo site_url(array( 'dashboard', 'modules', 'extract', $module_namespace ));?>"
-                                    class="btn btn-sm btn-default btn-box-tool" data-action="extract">
-                                    <i style="font-size:20px;" class="fa fa-archive"></i>
-                                    <?php _e('Extract');?>
+                                    class="btn btn-sm btn-box-tool text-green" data-action="extract">
+                                    <i style="font-size:20px;" class="fa fa-get-pocket"></i>
+                                    <span class="hidden-xs"><?php _e('Extract');?></span>
                                 </a>
                             <?php endif;?>
                         </div>

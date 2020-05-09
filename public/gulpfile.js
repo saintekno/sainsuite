@@ -7,5 +7,5 @@ gulp.task('default', async function() {
         .pipe(rename(function(path) {
             path.dirname = path.dirname.replace(/\/dist/, '').replace(/\\dist/, '');
         }))
-        .pipe(gulp.dest('./assets'));
+        .pipe(gulp.dest('./plugins'));
 });

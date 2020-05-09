@@ -40,11 +40,10 @@ class GroupsController extends Eracik_Module
 
         $this->events->add_filter( 'gui_page_title', function( $filter ) 
         {
-            $filter = '<section class="content-header">
-                <h2 class="no-margin">
+            $filter = '<h1 class="no-margin">
                     ' . str_replace('&mdash; ' . get('core_signature'), '', Html::get_title()) . '
-                    <small><a class="btn btn-primary btn-sm pull-right ng-binding" href="' . site_url([ 'dashboard', 'groups', 'create' ] ) . '">' . __( 'Add A group', 'aauth' ) . '</a></small>
-                </h2> </section>';
+                    <small><a class="btn btn-primary btn-sm eright ng-binding" href="' . site_url([ 'dashboard', 'groups', 'create' ] ) . '">' . __( 'Add A group', 'aauth' ) . '</a></small>
+                </h1>';
             return $filter;
         });
 

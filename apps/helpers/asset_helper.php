@@ -58,7 +58,7 @@ if (! function_exists('asset_url')) {
         $CI =& get_instance();
         if ($uri === null) { // if module namespace is not specified
             //return the full asset path
-            return base_url() . $CI->config->item('asset_path');
+            return base_url(). $CI->config->item('asset_path');
         } 
         else {
             return base_url(). $CI->config->item('asset_path') . $uri ;
@@ -77,7 +77,7 @@ if (! function_exists('module_url')) {
     {
         $CI =& get_instance();
         if ($module_namespace === null) {
-            return base_url() . $CI->config->item('css_path');
+            return base_url(). $CI->config->item('asset_path') . $CI->config->item('css_path');
         } 
         else {
             return base_url(). $CI->config->item('asset_path') . 'modules' . '/' . $module_namespace . '/';
@@ -96,7 +96,7 @@ if (! function_exists('css_url')) {
     {
         $CI =& get_instance();
         if ($module_namespace === null) {
-            return base_url() . $CI->config->item('css_path');
+            return base_url(). $CI->config->item('asset_path') . $CI->config->item('css_path');
         } 
         else {
             return base_url(). $CI->config->item('asset_path') . 'modules' . '/' . $module_namespace . '/' . 'css/';
@@ -115,7 +115,7 @@ if (! function_exists('js_url')) {
     {
         $CI =& get_instance();
         if ($module_namespace === null) {
-            return base_url() . $CI->config->item('js_path');
+            return base_url(). $CI->config->item('asset_path') . $CI->config->item('js_path');
         } 
         else {
             return base_url(). $CI->config->item('asset_path') . 'modules' . '/' . $module_namespace . '/' . 'js/';
@@ -134,7 +134,7 @@ if (! function_exists('img_url')) {
     {
         $CI =& get_instance();
         if ($module_namespace === null) {
-            return base_url() . $CI->config->item('img_path');
+            return base_url(). $CI->config->item('asset_path') . $CI->config->item('img_path');
         } 
         else {
             return base_url(). $CI->config->item('asset_path') . 'modules' . '/' . $module_namespace . '/' . 'images/';
@@ -153,7 +153,7 @@ if (! function_exists('swf_url')) {
     {
         $CI =& get_instance();
         if ($module_namespaec === null) {
-            return base_url() . $CI->config->item('swf_path');
+            return base_url(). $CI->config->item('asset_path') . $CI->config->item('swf_path');
         } 
         else {
             return base_url(). $CI->config->item('asset_path') . 'modules' . '/' . $module_namespace . '/' . 'swf/';
@@ -171,7 +171,7 @@ if (! function_exists('upload_url')) {
     function upload_url()
     {
         $CI =& get_instance();
-        return base_url() . $CI->config->item('upload_path');
+        return base_url(). $CI->config->item('asset_path') . $CI->config->item('upload_path');
     }
 }
 
@@ -185,7 +185,7 @@ if (! function_exists('download_url')) {
     function download_url()
     {
         $CI =& get_instance();
-        return base_url() . $CI->config->item('download_path');
+        return base_url(). $CI->config->item('asset_path') .  $CI->config->item('download_path');
     }
 }
 
@@ -199,7 +199,7 @@ if (! function_exists('xml_url')) {
     function xml_url()
     {
         $CI =& get_instance();
-        return base_url() . $CI->config->item('xml_path');
+        return base_url(). $CI->config->item('asset_path') . $CI->config->item('xml_path');
     }
 }
 

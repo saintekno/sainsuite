@@ -2,10 +2,10 @@
 
 $this->Gui->set_title(sprintf(__('Settings &mdash; %s'), get('core_signature')));
 
-$this->Gui->col_width(1, 2);
+$this->Gui->col_width(1, 4);
 
 $this->Gui->add_meta(array(
-    'type'      => 'box-default',
+    'type'      => 'box',
     'title'     => __('General Settings'),
     'namespace' => 'general-settings',
     'col_id'    => 1,                        
@@ -55,10 +55,10 @@ $this->events->do_action('register_general_settings_fields');
  * Advanced Settings
  */
 
-$this->Gui->col_width(2, 2);
+$this->Gui->col_width(2, 4);
 
 $this->Gui->add_meta(array(
-    'type'      => 'box-default',
+    'type'      => 'box',
     'title'     => __('Advanced Settings'),
     'namespace' => 'advanced-settings',
     'col_id'    => 2,                         

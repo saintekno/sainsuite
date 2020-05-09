@@ -11,7 +11,7 @@ foreach ($users as $user)
         $user->email ,
         $user->last_login,
         $user->banned == 1 ? __( 'Unactive' , 'aauth') : __( 'Active' , 'aauth'),
-        '<a class="btn btn-default" onclick="return confirm( \'' . _s( 'Would you like to delete this account ?', 'aauth' ) . '\' )" href="' . site_url(array( 'dashboard', 'users', 'delete', $user->user_id )) . '"><i class="fa fa-trash-o"></i> ' . __('Delete', 'aauth') . '</a>' ,
+        '<a class="text-red" onclick="return confirm( \'' . _s( 'Would you like to delete this account ?', 'aauth' ) . '\' )" href="' . site_url(array( 'dashboard', 'users', 'delete', $user->user_id )) . '"><i class="fa fa-trash-o"></i> </a>' ,
     );
 }
 

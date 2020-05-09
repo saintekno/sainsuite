@@ -106,7 +106,7 @@ eracikApp.controller( 'dashboardIndexController',
             </div>
             <div class="box-body" bind-html-compile="widget.template"></div>
             <div class="overlay" ng-show="! widget.hasLoaded">
-                <i class="fa fa-refresh fa-spin"></i>
+                <i class="fa fa-spinner fa-spin"></i>
             </div>
         </div>
             

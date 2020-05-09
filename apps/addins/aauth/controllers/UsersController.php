@@ -46,11 +46,10 @@ class UsersController extends Eracik_Module
         $groups = $this->users->auth->list_groups();
 
         $this->events->add_filter( 'gui_page_title', function( $filter ) {
-            $filter =  '<section class="content-header">
-                <h1 class="no-margin">
+            $filter =  '<h1 class="no-margin">
                     ' . str_replace('&mdash; ' . get('core_signature'), '', Html::get_title()) . '<small></small>
-                    <a class="btn btn-primary btn-sm pull-right ng-binding" href="' . site_url([ 'dashboard', 'users' ] ) . '">' . __( 'Return to the list', 'aauth' ) . '</a>
-                </h1> </section>';
+                    <a class="btn btn-primary btn-sm eright ng-binding" href="' . site_url([ 'dashboard', 'users' ] ) . '">' . __( 'Return to the list', 'aauth' ) . '</a>
+                </h1>';
             return $filter;
         });
 
@@ -96,11 +95,10 @@ class UsersController extends Eracik_Module
 
         $this->events->add_filter( 'gui_page_title', function( $filter ) 
         {
-            $filter = '<section class="content-header">
-                <h2 class="no-margin">
+            $filter = '<h1 class="no-margin">
                     ' . str_replace('&mdash; ' . get('core_signature'), '', Html::get_title()) . '
-                    <small><a class="btn btn-primary btn-sm pull-right ng-binding" href="' . site_url([ 'dashboard', 'users', 'create' ] ) . '">' . __( 'Add A user', 'aauth' ) . '</a></small>
-                </h2> </section>';
+                    <small><a class="btn btn-primary btn-sm eright ng-binding" href="' . site_url([ 'dashboard', 'users', 'create' ] ) . '">' . __( 'Add A user', 'aauth' ) . '</a></small>
+                </h1>';
             return $filter;
         });
 
@@ -171,11 +169,10 @@ class UsersController extends Eracik_Module
         }
 
         $this->events->add_filter( 'gui_page_title', function( $filter ) {
-            $filter = '<section class="content-header">
-                <h1 class="no-margin">
+            $filter = '<h1 class="no-margin">
                     ' . str_replace('&mdash; ' . get('core_signature'), '', Html::get_title()) . '<small></small>
-                    <a class="btn btn-primary btn-sm pull-right ng-binding" href="' . site_url([ 'dashboard', 'users' ] ) . '">' . __( 'Return to the list', 'aauth' ) . '</a>
-                </h1></section>';
+                    <a class="btn btn-primary btn-sm eright ng-binding" href="' . site_url([ 'dashboard', 'users' ] ) . '">' . __( 'Return to the list', 'aauth' ) . '</a>
+                </h1>';
             return $filter;
         });
 
