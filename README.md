@@ -1,6 +1,6 @@
 # Eracik App ![GitHub release (latest by date)](https://img.shields.io/github/v/release/racikproject/eracik) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/racikcore?locale.x=id_ID)
 
-[![Eracik App](http://racikproject.com/img/eracik.jpeg)](http://racikproject.com)
+[![Eracik App](http://racikproject.com/img/mockup-eracik.jpg)](http://racikproject.com)
 
 ## Make it Better!
 
