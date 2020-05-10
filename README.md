@@ -1,6 +1,6 @@
 # Eracik App ![GitHub release (latest by date)](https://img.shields.io/github/v/release/racikproject/eracik) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/racikcore?locale.x=id_ID)
 
-[![Eracik App](https://racikproject.com/img/eracik.jpeg)](http://racikproject.com)
+[![Eracik App](http://racikproject.com/img/eracik.jpeg)](http://racikproject.com)
 
 ## Make it Better!
 
@@ -79,7 +79,7 @@ Released under the MIT License: [http://www.opensource.org/licenses/mit-license.
 
 The MIT License (MIT)
 
-Copyright (c) 2019 Boed Winangun, RacikProject.
+Copyright (c) 2019 - 2020 Boed Winangun, Eracik.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
