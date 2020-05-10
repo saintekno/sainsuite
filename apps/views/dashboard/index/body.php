@@ -1,6 +1,6 @@
 <?php
         
-if(is_object(@$this->widgets)) :
+if(is_object(@$this->widgets) || Modules::is_active('pos')) :
 $this->Gui->set_title(sprintf(__('Dashboard &mdash; %s'), get('core_signature')));
 else :
 $this->Gui->set_title(get('core_signature'));

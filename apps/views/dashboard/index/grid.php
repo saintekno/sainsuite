@@ -1,7 +1,7 @@
 <div> 
     <div class="row" >
 
-        <?php if(is_object(@$this->widgets)) : ?> 
+        <?php if(is_object(@$this->widgets) || Modules::is_active('pos')) : ?> 
 
         <?php echo $this->events->apply_filters('gui_dashboard', ''); ?>
         <!-- <div class="col-md-4">
