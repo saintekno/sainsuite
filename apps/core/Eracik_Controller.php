@@ -132,6 +132,7 @@ class Eracik_Controller extends CI_Controller
         $js_libraries = $this->events->apply_filters( 'default_js_libraries', array(
             'plugins/jquery/jquery.min',
             'plugins/jquery-migrate/jquery-migrate.min',
+            'plugins/jquery-ui-bundle/jquery-ui.min',
             'plugins/bootstrap/js/bootstrap.min',
             'plugins/sweetalert2/sweetalert2.min',
             'plugins/icheck/icheck.min',
