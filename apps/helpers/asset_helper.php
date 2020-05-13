@@ -77,7 +77,7 @@ if (! function_exists('module_url')) {
     {
         $CI =& get_instance();
         if ($module_namespace === null) {
-            return base_url(). $CI->config->item('asset_path') . $CI->config->item('css_path');
+            return base_url(). $CI->config->item('asset_path') . 'modules' . '/';
         } 
         else {
             return base_url(). $CI->config->item('asset_path') . 'modules' . '/' . $module_namespace . '/';

@@ -181,7 +181,7 @@ class OauthLibrary
     public function saveApp( $userId, $scopes, $appName, $callback, $date )
     {
         $generateKey            =   $this->generateKey();
-        get_instance()->load->config( 'oauth' );
+        get_instance()->load->addin_config('oauth', '_oauth');
 
         $expiration             =   get_instance()->config->item( 'oauth_key_expiration_days' );
         $date                   =   Carbon::parse( $date );

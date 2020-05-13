@@ -16,10 +16,10 @@ class Eracik_Controller extends CI_Controller
         // Include default library class
         include_once( APPPATH . 'core/Eracik_Module.php' );
         include_once( APPPATH . 'core/Eracik_Api.php' );
-        include_once( APPPATH . 'third_party/PHP-po-parser-master/src/Sepia/InterfaceHandler.php');
-        include_once( APPPATH . 'third_party/PHP-po-parser-master/src/Sepia/FileHandler.php');
-        include_once( APPPATH . 'third_party/PHP-po-parser-master/src/Sepia/PoParser.php');
-        include_once( APPPATH . 'third_party/PHP-po-parser-master/src/Sepia/StringHandler.php');
+        include_once( APPPATH . 'third_party/parser/src/Sepia/InterfaceHandler.php');
+        include_once( APPPATH . 'third_party/parser/src/Sepia/FileHandler.php');
+        include_once( APPPATH . 'third_party/parser/src/Sepia/PoParser.php');
+        include_once( APPPATH . 'third_party/parser/src/Sepia/StringHandler.php');
         
         // Load Global Lang lines
         $this->lang->load_lines(APPPATH . '/language/*.php');

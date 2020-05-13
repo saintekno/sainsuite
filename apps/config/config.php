@@ -444,7 +444,12 @@ $config['csrf_token_name']   = 'csrf_secure';
 $config['csrf_cookie_name']  = 'csrf_secure';
 $config['csrf_expire']       = 7200;
 $config['csrf_regenerate']   = false;
-$config['csrf_exclude_uris'] = array('rest/(.+)');
+$config['csrf_exclude_uris'] = array(
+    'rest/(.+)',
+    'api/(.+)',
+    'Pos_report/(.+)',
+    'Pos_bills/(.+)',
+);
 
 /*
 |--------------------------------------------------------------------------

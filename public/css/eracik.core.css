@@ -6,6 +6,9 @@ body {
 #main-table-box > .box-footer {
 	padding: 10px 0;
 }
+.small-box {
+	margin-bottom: 0;
+}
 #cart-header {
 	overflow: auto;
     margin-right: 10px;
@@ -293,6 +296,9 @@ body {
 		width: 100%;
 		right: 0;
 		border: 0;
+	}
+	.module .box-footer {
+		padding: 5px;
 	}
 }
 @media (max-width: 767px) {
