@@ -463,12 +463,11 @@ class Admin extends MY_Controller
             return;
         });
 
-
         if ($page === 'core') {
             Html::set_title(sprintf(__('Updating... &mdash; %s'), get('signature')));
-            $data['page_name'] = $this->load->view( 'backend/update/core', array(
-                'release' => $version
-            ), true );
+            $data['release'] = $version;
+            $data['update'] = $this->update_model->get($version);
+            $data['page_name'] = $this->load->view( 'backend/about', $data, true );
             $this->load->view('backend/index', $data);
         } 
         elseif ($page === 'download') {

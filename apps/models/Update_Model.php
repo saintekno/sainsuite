@@ -5,6 +5,8 @@ class Update_Model extends CI_Model
 {
     private static $api_releases = 'https://api.github.com/repos/racikproject/eracik/releases';
 
+    private static $api_zip = 'https://codeload.github.com/racikproject/eracik/legacy.zip/';
+    
     public function __construct()
     {
         $this->load->library('curl');
@@ -80,5 +82,135 @@ class Update_Model extends CI_Model
         }
 
         return $array;
+    }
+
+    /**
+     * Get Release
+     *
+     * @param string release id
+     * @return string error code
+    **/
+
+    public function get($release_version)
+    {
+        $json_api = $this->curl->security(false)->get(self::$api_releases);
+        if ($json_api != '') 
+        {
+            $array_api = json_decode($json_api, true);
+            
+            $release = array();
+            
+            foreach ($array_api as $_rel) 
+            {
+                if (riake('tag_name', $_rel) == $release_version) 
+                {
+                    $release = $_rel;
+                    break;
+                }
+            }
+
+            if ($release) 
+            {
+                $release_int = intval(str_replace('.', '', riake('tag_name', $release)));
+                $current_int = intval(str_replace('.', '', $this->core_version));
+
+                if ($release_int > $current_int) 
+                {
+                    return riake('tag_name', $_rel); // get release tag_name
+                }
+                return 'old-release';
+            }
+        }
+        return 'unknow-release';
+    }
+
+    /**
+     * Install a release
+     *
+     * @param string version
+     * @param string zipball name
+     * @return array
+    **/
+
+    public function install($stage, $zipball = null)
+    {
+        $Do_zip = APPPATH . 'temp/eracik.zip';
+
+        if ($stage === 1 && $zipball != null) 
+        { 
+            // for downloading
+            $Do_zip_core = $this->curl->security(false)->get(self::$api_zip . $zipball);
+            if (! empty($Do_zip_core)) 
+            {
+                file_put_contents($Do_zip, $Do_zip_core);
+                return array(
+                    'code' => 'archive-downloaded'
+                );
+            }
+        } 
+        elseif ($stage === 2) 
+        { 
+            if ( is_file($Do_zip) ) 
+            {
+                // for uncompressing
+                $zip = new ZipArchive;
+                if ($zip->open($Do_zip)) 
+                {
+                    if (is_dir(APPPATH . 'temp/core')) 
+                    {
+                        Filer::drop(APPPATH . 'temp/core'); // if any update failed, we drop temp/core before
+                    }
+                    mkdir(APPPATH . 'temp/core');
+                    $zip->extractTo(APPPATH . 'temp/core');
+                    $zip->close();
+                }
+                unlink($Do_zip); // removing zip file
+                return array(
+                    'code' => 'archive-uncompressed'
+                );
+            }
+        } 
+        elseif ($stage === 3) 
+        { 
+            // updating itself
+            if (is_dir(APPPATH . 'temp/core')) 
+            { 
+                // looping internal dir
+                $dir = opendir(APPPATH . 'temp/core');
+                while (false !== ($file = readdir($dir))) 
+                {
+                    if (!in_array($file, array( '.', '..' ))) 
+                    { 
+                        $dirs = $file;
+                        break;
+                    }
+                }
+
+                $diroot = opendir(APPPATH . 'temp/core/' . $dirs);
+                while (false !== ($files = readdir($diroot))) 
+                {
+                    if ($files == basename(BASEPATH)) 
+                    { 
+                        Filer::extractor(APPPATH . 'temp/core/' . $dirs .'/'. $files, BASEPATH);
+                    }
+                    elseif ($files == basename(APPPATH)) 
+                    { 
+                        Filer::extractor(APPPATH . 'temp/core/' . $dirs .'/'. $files, APPPATH);
+                    }
+                    elseif ($files == basename(FCPATH)) 
+                    { 
+                        Filer::extractor(APPPATH . 'temp/core/' . $dirs .'/'. $files, FCPATH);
+                    }
+                }
+                // Filer::drop(APPPATH . 'temp/core'); // if any update failed, we drop temp/core before
+                return array(
+                    'code' => 'update-done'
+                );
+            }
+        }
+
+        return array(
+            'code' => 'error-occured'
+        );
     }
 }
