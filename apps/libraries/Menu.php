@@ -1,158 +1,146 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Menu
+class Menu 
 {
-    public static $admin_menus_core = array();
-    public static function add_admin_menu_core($namespace, $config)
+    public static $setting_menus_core = array();
+    public static $report_menus_core = array();
+    public static $apps_menus_core = array();
+    public static $toolbar_menus_core = array();
+    public static $system_menus_core = array();
+
+    public static function add_setting_menu($namespace, $config)
     {
-        self::$admin_menus_core[ $namespace ][] = $config;
+        self::$setting_menus_core[ $namespace ][] = $config;
     }
-    
-    /**
-     * Load Menus
-     * 
-     * @return void
-    **/
-    
-    public static function load()
+
+    public static function add_report_menu($namespace, $config)
     {
-        $core_menus = self::$admin_menus_core;
+        self::$report_menus_core[ $namespace ][] = $config;
+    }
 
-        foreach ($core_menus as $menu_namespace => $current_menu) 
-        {
-            // check if the first menu can be shown
-            if( @$current_menu[0][ 'permission' ] != null ) {
-                if( ! User::can( $current_menu[0][ 'permission' ] ) ) {
-                    continue;
-                }
-            }
+    public static function add_apps_menu($namespace)
+    {
+        self::$apps_menus_core[] = $namespace;
+    }
 
-            /**
-             * if the user don't have access to all the permisisons
-             */
-            if( @$current_menu[0][ 'some-permissions' ] && ! User::canSome( @$current_menu[0][ 'some-permissions' ] ) ) {
-                continue;
-            }
+    public static function add_system_menu($namespace)
+    {
+        self::$system_menus_core[] = $namespace;
+    }
 
-            $parent_status = '';
-            $parent_open   = '';
-            $child_status  = '';
+    public static function add_toolbar_menu($namespace)
+    {
+        self::$toolbar_menus_core[] = $namespace;
+    }
 
+    /**
+     * 
+     */
+
+    public static function load_setting_menu()
+    {
+        self::load_menu('setting', self::$setting_menus_core);
+    }
+
+    public static function load_report_menu()
+    {
+        self::load_menu('report', self::$report_menus_core);
+    }
+
+    public static function load_menu($section, $core_menus)
+    {
+        if ($core_menus) : ?>
+        <li class="menu-section mt-0">
+            <h4 class="menu-text"><?php _e($section);?></h4>
+            <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+        </li>
+        <?php endif;
+        
+        foreach ($core_menus as $menu_namespace => $current_menu) {
+            $custom_ul_style = '';
+            $attr = '';
             // Preloop, to check if this menu has an  active child
-            // for displaying notice nbr count @since 1.4
-            $parent_notice_count= 0; 
-
+            $parent_notice_count = 0;  // for displaying notice nbr count @since 1.4
             foreach ($current_menu as $_menu) 
             {
                 $parent_notice_count += riake('notices_nbr', $_menu);
-                if (riake('href', $_menu) == current_url() ) 
+                if (riake('href', $_menu) == current_url()) 
                 {
-                    $parent_status = 'active';
-                    $parent_open   = 'menu-open';
+                    $custom_ul_style = 'menu-item-open menu-item-here';
+                    $attr = 'data-menu-toggle="hover"'; 
                 }
             }
-            $class      = is_array($current_menu) && count($current_menu) > 1 ? 'treeview' : '';
+            $class = is_array($current_menu) && count($current_menu) > 1 ? 'menu-item-submenu' : '';
+            
             $loop_index = 0;
             ?>
-            <li class="<?php echo $parent_status . ' ' . $class . ' ' . $parent_open . ' namespace-' . $menu_namespace ;?>">
+            <li class="menu-item <?php echo $class . ' ' . $custom_ul_style;?>" <?php echo $attr;?>>
             <?php
+            $custom_style = '';
             foreach ($current_menu as $menu) 
             {
-                // var_dump( riake('href', $menu) );
-                // If has more than one child
-                $child_status = (riake('href', $menu) == current_url()) ? 'active' : '';
+                $custom_style = (riake('href', $menu) == current_url()) ? 'menu-item-active' : '';
                 
-                // var_dump( $loop_index );
                 if ($class != '') 
                 {
-                    if ($loop_index == 0) {
-                        // First child, set a default page and first sub-menu.
-                        ?>
-                        <a href="javascript:void(0)"> 
-                            <i class="<?php echo riake('icon', $menu, 'fa fa-star');?>"></i> 
-                            <span><?php echo riake('title', $menu);?></span>
-                            <span class="pull-right-container">
-                                <?php if ($parent_notice_count > 0):?>
-                                <span class="label label-primary pull-right"><?php echo $parent_notice_count;?></span>
-                                <?php else:?>
-                                <i class="fa fa-angle-left pull-right"></i>
-                                <?php endif;?>
+                    // First child, set a default page and first sub-menu.
+                    if ($loop_index == 0) : ?>
+                        <a href="javascript:void(0)" class="menu-link menu-toggle"> 
+                            <span class="svg-icon menu-icon">
+                            <?php include asset_path().riake('icon', $menu, 'svg/tambah.svg');?>
                             </span>
+                            <span class="menu-text"><?php echo riake('title', $menu);?></span>
+                            <i class="menu-arrow"></i>
+                            <?php if ($parent_notice_count > 0):?>
+                            <small class="label pull-right bg-yellow"><?php echo $parent_notice_count;?></small>
+                            <?php endif;?>
                         </a>
-                        <ul class="treeview-menu">
-                            <?php if ( @$menu[ 'disable' ] == null ) : // is used to disable menu title showed as first submenu.?>
-                            <li class="<?php echo $child_status;?>"> 
-                                <a href="<?php echo @$menu[ 'route' ] ? site_url( 'dashboard' . implode('/', $menu[ 'route' ] ) ) : @$menu[ 'href' ];?>">
-                                    <i class="fa fa-circle-o"></i>
-                                    <span><?php echo @$menu[ 'title'];?></span>
-                                    <?php if ( @$menu[ 'notices_nbr' ] == true):?>
-                                    <span class="pull-right-container">
-                                        <span class="label pull-right bg-green"><?php echo $menu[ 'notices_nbr' ];?></span>
-                                    </span>
-                                    <?php endif;?> 
-                                </a> 
-                            </li>	
-                            <?php endif;
-                    } else {
-                        if( $loop_index > 0 ) 
-                        {
-                            // check if the first menu can be shown
-                            if( @$current_menu[$loop_index][ 'permission' ] != null ) 
-                            {
-                                if( ! User::can( $current_menu[$loop_index][ 'permission' ] ) ) 
-                                {
-                                    if ($loop_index == (count($current_menu) - 1)) 
-                                    {
-                                        echo '</ul>';
-                                    }
-
-                                    $loop_index++;
-                                    continue;
-                                }
-                            }
-
-                            if( @$current_menu[ $loop_index ][ 'some-permissions' ] && ! User::canSome( @$current_menu[ $loop_index ][ 'some-permissions' ] ) ) 
-                            {
-                                if ( $loop_index == ( count( $current_menu ) - 1 ) ) {
-                                    echo '</ul>';
-                                }
-
-                                $loop_index++;
-                                continue;
-                            }
-                        }
-                        // after the first child, all are included as sub-menu
-                        ?>
-                        <li class="<?php echo $child_status;?>"> 
-                            <a href="<?php echo @$menu[ 'route' ] ? site_url( 'dashboard' . implode('/', $menu[ 'route' ] ) ) : @$menu[ 'href' ];?>">
-                                <i class="fa fa-circle-o"></i>
-                                <span><?php echo riake('title', $menu);?></span>
+                        <div class="menu-submenu">
+                            <i class="menu-arrow"></i>
+                            
+                            <ul class="menu-subnav">
+                                <?php if ( @$menu[ 'disable' ] == null ) : // is used to disable menu title showed as first submenu.?>
+                                <li class="menu-item <?php echo $custom_style;?>" aria-haspopup="true"> 
+                                    <a href="<?php echo @$menu[ 'route' ] ? site_url( 'admin' . implode('/', $menu[ 'route' ] ) ) : @$menu[ 'href' ];?>" class="menu-link">
+                                        <i class="menu-bullet menu-bullet-line">
+                                            <span></span>
+                                        </i>
+                                        <span class="menu-text"><?php echo @$menu[ 'title'];?></span>
+                                        <?php if ( @$menu[ 'notices_nbr' ] == true):?>
+                                        <small class="label pull-right bg-yellow"><?php echo $menu[ 'notices_nbr' ];?></small>
+                                        <?php endif;?>                 
+                                    </a> 
+                                </li>	
+                                <?php endif;?>
+                    <!-- // after the first child, all are included as sub-menu -->
+                    <?php else : ?>
+                        <li class="menu-item <?php echo $custom_style;?>" aria-haspopup="true"> 
+                            <a href="<?php echo @$menu[ 'route' ] ? site_url( 'admin' . implode('/', $menu[ 'route' ] ) ) : @$menu[ 'href' ];?>" class="menu-link">
+                                <i class="menu-bullet menu-bullet-line">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text"><?php echo riake('title', $menu);?></span>
                                 <?php if( @$menu[ 'notices_nbr' ] ):?>
-                                <span class="pull-right-container">
-                                    <span class="label pull-right bg-green"><?php echo riake('notices_nbr', $menu);?></span>
-                                </span>
-                                <?php endif;?> 
+                                 <small class="label pull-right bg-yellow"><?php echo riake('notices_nbr', $menu);?></small>
+                                <?php endif;?>
                             </a> 
-                        </li>
-                        <?php
-                    }
+                        </li>	
+                    <?php endif;
                     
-                    if ($loop_index == (count($current_menu) - 1)) 
-                    {
-                        echo '</ul>';
+                    if ($loop_index == (count($current_menu) - 1)) {
+                        echo '</ul></div>';
                     }
                 } 
-                else 
-                { 
+                else { 
                     ?>
-                    <a href="<?php echo riake('href', $menu, '#');?>"> 
-                        <i class="<?php echo riake('icon', $menu, 'fa fa-star');?>"></i> 
-                        <span><?php echo riake('title', $menu);?> </span>
-                        <?php if( @$menu[ 'notices_nbr' ] ):?>
-                        <span class="pull-right-container">
-                            <span class="label pull-right bg-green"><?php echo riake('notices_nbr', $menu);?></span>
+                    <a href="<?php echo riake('href', $menu, '#');?>" class="menu-link"> 
+                        <span class="svg-icon menu-icon">
+                        <?php include asset_path().riake('icon', $menu, 'svg/tambah.svg');?>
                         </span>
+                        <span class="menu-text"><?php echo riake('title', $menu);?></span> 
+                        <?php if( @$menu[ 'notices_nbr' ] ):?>
+                            <small class="label pull-right bg-yellow"><?php echo riake('notices_nbr', $menu);?></small>
                         <?php endif;?>
                     </a>
                     <?php	
@@ -160,6 +148,71 @@ class Menu
                 $loop_index++; // increment loop_index
             }
             ?>
+            </li>
+            <?php
+        }
+    }
+
+    public static function load_apps_menu()
+    {
+        if (self::$apps_menus_core) :
+            foreach (self::$apps_menus_core as $menu_namespace => $current_menu) { 
+                ?>
+                <!--begin::Item-->
+                <a href="<?php echo riake('href', $current_menu);?>" class="list-item hoverable p-2 p-lg-3 mb-2 d-block">
+                    <div class="d-flex align-items-center">
+
+                        <!--begin::Symbol-->
+                        <div class="symbol symbol-40 symbol-light mr-4">
+                            <span class="symbol-label bg-hover-white">
+                                <img src="<?php echo asset_url(riake('icon', $current_menu));?>" class="h-50 align-self-center" />
+                            </span>
+                        </div>
+
+                        <!--end::Symbol-->
+
+                        <!--begin::Text-->
+                        <div class="d-flex flex-column flex-grow-1 mr-2">
+                            <span class="text-dark-75 font-size-h6 mb-0"><?php echo riake('title', $current_menu);?></span>
+                            <span class="text-muted text-hover-primary font-weight-bold">By <?php echo get('app_name');?></span>
+                        </div>
+
+                        <!--begin::End-->
+                    </div>
+                </a>
+                <?php
+            }
+        else : ?>
+            <div class="offset-md-3 col-md-6 mt-10">
+                <span class="svg-icon svg-icon-full">
+                    <?php include asset_path().'svg/Puzzle.svg';?>
+                </span>
+            </div>
+        <?php endif;
+    }
+
+    public static function load_toolbar_menu()
+    {
+        foreach (self::$toolbar_menus_core as $menu_namespace => $current_menu) { 
+            ?>
+            <a href="<?php echo riake('href', $current_menu); ?>" class="btn <?php echo riake('button', $current_menu); ?> font-weight-bolder btn-sm mr-2">
+                <?php echo riake('title', $current_menu); ?>
+            </a>
+            <?php
+        }
+    }
+
+    public static function load_system_menu()
+    {
+        foreach (self::$system_menus_core as $menu_namespace => $current_menu) { 
+            ?>
+            <!--begin::Item-->
+            <li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="<?php echo riake('title', $current_menu); ?>">
+                <a href="<?php echo riake('href', $current_menu); ?>" class="nav-link btn btn-icon btn-clean btn-lg">
+                    <span class="svg-icon svg-icon-xl">
+                    <?php include asset_path().riake('icon', $current_menu);?>
+                    </span>
+                </a>
             </li>
             <?php
         }

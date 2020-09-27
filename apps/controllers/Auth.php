@@ -1,104 +1,86 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Auth extends Eracik_Controller
+class Auth extends MY_Controller 
 {
-    public function __construct()
-    {
-        parent::__construct();
+	public function __construct()
+	{
+		parent::__construct();
         $this->load->library('form_validation');
-        $this->load->addin_model('aauth', 'Login_Model');
-        
-        // Load CSS and JS
-        $this->events->add_action( 'auth_header', array( $this, '_auth_header' ), 1 );
-        $this->events->add_action( 'auth_footer', array( $this, '_auth_footer' ), 1 );
-    }
 
-	// --------------------------------------------------------------------
+        $this->_auth_assets();
+    }
     
-    /**
-     *  Dashboard header
-     *  @param void
-     *  @return void
-    **/
-    public function _auth_header()
+    public function _auth_assets()
     {
-        $this->enqueue->css_namespace( 'auth_header' );
-        $this->enqueue->css('bootstrap.min');
+        $this->enqueue->css_namespace( 'common_header' );
         $this->enqueue->css('login');
-        $this->enqueue->css('plugins/font-awesome/css/font-awesome.min', null, true);
-
-        // Show assets header
-        $this->enqueue->load_css( 'auth_header' );
     }
 
-	// --------------------------------------------------------------------
-
-    /**
-     *  Dashboard Footer
-     *  @param void
-     *  @return void
-    **/
-    public function _auth_footer()
-    {
-        $this->enqueue->js_namespace( 'auth_footer' );
-        $this->enqueue->js('plugins/jquery/jquery.min', null, true);
-        $this->enqueue->js('bootstrap.bundle.min');
-
-        // Show asset footer
-        $this->enqueue->load_js( 'auth_footer' );
-    }
-
-	// --------------------------------------------------------------------
-    
-    /**
-     * Sign In index page
-     *
-     *	Displays login page
-     * 	@return : void
-    **/
-    
-    public function index()
-    {
-        if ($this->users->is_connected() || User::get()) 
-        {
-            redirect(array( $this->config->item('default_logout_route') ));
-        }
-
-        $this->events->do_action('set_login_rules');
-        
-        // in order to let validation return true
+	public function index()
+	{
+        $this->form_validation->set_rules('username_or_email', __('Email or User Name' ), 'required|min_length[5]');
+        $this->form_validation->set_rules('password', __('Password' ), 'required|min_length[6]');
         $this->form_validation->set_rules('submit_button', __('Submit button'), 'alpha_dash');
 		
+        // Log User After Applying Filters
         if ($this->form_validation->run()) 
         {
-            // Log User After Applying Filters
-            $this->events->do_action( 'do_login' );
-            $exec = $this->events->apply_filters('Do_login_notice', 'user-logged-in');
+            $exec = $this->users->login();
             if ($exec == 'user-logged-in') 
             {
-                if (riake('redirect', $_GET)) 
-                {
+                if (riake('redirect', $_GET)) {
                     redirect(urldecode(riake('redirect', $_GET)));
                 } 
-                else 
-                {
-                    $url = $this->events->apply_filters( 'login_redirection', site_url( array( 'dashboard' ) ) );
+                else {
+                    $url = $this->events->apply_filters( 'login_redirection', site_url( array( 'admin' ) ) );
                     redirect( $url );
                 }
             }
-            $this->notice->push_notice($this->lang->line($exec));
+            // $this->notice->push_notice($this->lang->line($exec));
         }
 		
-        // load login fields
-        $this->config->set_item('signin_fields', $this->events->apply_filters('signin_fields', $this->config->item('signin_fields')));
-        
-        Html::set_title(sprintf(__('Sign In &mdash; %s'), get('app_name')));
-        $this->load->view('auth/header');
-        $this->load->view('auth/login');
-    }
+		Html::set_title(sprintf(__('Sign In &mdash; %s'), get('app_name')));
+		$data['page_name'] = 'login';
+		$this->load->view('auth/index', $data);
+	}
+	
+    public function register()
+    {
+        $this->events->do_action('registration_rules');
 
-	// --------------------------------------------------------------------
+        if ($this->form_validation->run()) 
+        {
+            global $Options;
+            $exec = $this->users->create(
+                $this->input->post('email'),
+                $this->input->post('password'),
+                $this->input->post('username'),
+                'user',
+                ( @$Options[ 'require_validation' ] == 1 ? 1 : 0 )
+            );
+    
+            if ($exec === 'user-created') {
+                redirect(array( 'login?notice=' . $exec ));
+            }
+        }
+		
+		Html::set_title(sprintf(__('Sign Up &mdash; %s'), get('app_name')));
+		$data['page_name'] = 'register';
+		$this->load->view('auth/index', $data);
+    }
+	
+    public function logout()
+    {
+        // doing log_user_out
+        if ($this->aauth->logout() == null) {
+            if (($redir = riake('redirect', $_GET)) != false) {
+                redirect(array( 'login?redirect=' . urlencode($redir) ));
+            } else {
+                redirect(array( 'login' ));
+            }
+        }
+    }
     
     /**
      * 	Recovery Method
@@ -107,46 +89,22 @@ class Auth extends Eracik_Controller
      *
      *	@return void
     **/
-    
     public function recovery()
     {
         $this->form_validation->set_rules('user_email', __('User Email'), 'required|valid_email');
-        if ($this->form_validation->run()) {
-            /**
-             * Actions to be run before sending recovery email
-             * It can allow use to edit email
-            **/
-            $this->events->do_action('do_send_recovery');
-        }
-        Html::set_title(sprintf(__('Recover Password &mdash; %s'), get('app_name')));
-        $this->load->view('auth/header');
-        $this->load->view('auth/recovery');
-    }
-    
-    /**
-     * 	Reset
-     * 	
-     *	Checks a verification code an send a new password to user email
-     *
-     * 	@access : public
-     *	@param : int user_id
-     * 	@param : string verfication code
-     * 	@return : void
-     * 
-    **/
-
-    public function register()
-    {
-        $this->events->do_action('registration_rules');
-
-        if ($this->form_validation->run()) {
-            $this->events->do_action('do_register_user');
+        if ($this->form_validation->run()) 
+        {
+            if ($this->aauth->user_exist_by_email($this->input->post('user_email'))) 
+            {
+                $this->aauth->remind_password($this->input->post('user_email'));
+                redirect(array( 'login?notice=recovery-email-send' ));
+            }
+            $this->notice->push_notice($this->lang->line('unknow-user'));
         }
 
-        Html::set_title(sprintf(__('Sign Up &mdash; %s'), get('app_name')));
-
-        $this->load->view('auth/header');
-        $this->load->view('auth/register');
+        Html::set_title(sprintf(__('Recover Password &mdash; %s'), get('core_signature')));
+        $data['page_name'] = 'recovery';
+		$this->load->view('auth/index', $data);
     }
     
     /**
@@ -160,27 +118,13 @@ class Auth extends Eracik_Controller
      * 	@return : void
      * 
     **/
-    public function logout()
+    public function reset_password($ver_code)
     {
-        // doing log_user_out
-        $this->events->do_action('log_user_out');
-    }
-    
-    /**
-     * 	Reset
-     * 	
-     *	Checks a verification code an send a new password to user email
-     *
-     * 	@access : public
-     *	@param : int user_id
-     * 	@param : string verfication code
-     * 	@return : void
-     * 
-    **/
-    
-    public function reset($user_id, $ver_code)
-    {
-        $this->events->do_action('do_reset_user', $user_id, $ver_code);
+        if ($this->aauth->reset_password($ver_code)) 
+        {
+            redirect(array( 'login?notice=new-password-created' ));
+        }
+        redirect(array( 'login?notice=error-occured' ));
     }
     
     /**
@@ -193,9 +137,16 @@ class Auth extends Eracik_Controller
      *	@param : string verification code
      *	@status	: untested
     **/
-    
-    public function verify($user_id, $ver_code)
+    public function verification($user_id, $ver_code)
     {
-        $this->events->do_action('do_verify_user', $user_id, $ver_code);
+        $user = $this->aauth->get_user($user_id);
+        if ($user) {
+            if ($this->aauth->verify_user($user_id, $ver_code)) 
+            {
+                redirect(array( 'login?notice=account-activated' ));
+            }
+            redirect(array( 'login?notice=error-occured' ));
+        }
+        redirect(array( 'login?notice=unknow-user' ));
     }
 }

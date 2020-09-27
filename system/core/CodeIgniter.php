@@ -46,7 +46,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	CodeIgniter
  * @category	Front-controller
  * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/
+ * @link		https://codeigniter.com/userguide3/
  */
 
 /**
@@ -55,7 +55,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @var	string
  *
  */
-	const CI_VERSION = '3.1.11';
+	const CI_VERSION = '3.1.12-dev';
 
 /*
  * ------------------------------------------------------
