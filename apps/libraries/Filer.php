@@ -1,5 +1,4 @@
 <?php
-
 class Filer
 {
     /**
@@ -11,12 +10,9 @@ class Filer
     
     public static function drop($source)
     {
-        if (is_dir($source)) 
-        {
-            if ($open = opendir($source)) 
-            {
-                while (($content = readdir($open)) !== false) 
-                {
+        if (is_dir($source)) {
+            if ($open    =    opendir($source)) {
+                while (($content    =    readdir($open)) !== false) {
                     if (is_file($source. '/' . $content)) {
                         unlink($source . '/' . $content);
                     }
@@ -44,26 +40,18 @@ class Filer
         if (!is_dir($destination)) {
             mkdir($destination);
         }
-
         if (is_file($source)) {
             copy($source, $destination);
             unlink($source);
         }
-
-        if (is_dir($source)) 
-        {
-            if ($open = opendir($source)) 
-            {
-                while (($content = readdir($open)) !== false) 
-                {
-                    if (is_file($source . '/' . $content)) 
-                    {
+        if (is_dir($source)) {
+            if ($open    =    opendir($source)) {
+                while (($content    =    readdir($open)) !== false) {
+                    if (is_file($source . '/' . $content)) {
                         copy($source . '/' . $content, $destination . '/' . $content);
                         unlink($source . '/' . $content);
                     }
-
-                    if (is_dir($source . '/' . $content) && !in_array($content, array('..', '.'))) 
-                    {
+                    if (is_dir($source . '/' . $content) && !in_array($content, array('..', '.'))) {
                         if ($dir_limit > 0) {
                             if (!is_dir($destination . '/' . $content)) {
                                 mkdir($destination . '/' . $content);
@@ -92,18 +80,15 @@ class Filer
     
     public static function file_copy($source, $destination)
     {
-        if (is_file($source)) 
-        {
-            $file_content = file_get_contents($source);
+        if (is_file($source)) {
+            $file_content    =    file_get_contents($source);
             
             // Checks if all directory exists
-            $path_explode = explode('/', $destination);
-            $path_progressive = '';
-            foreach ($path_explode as $index => $file) 
-            {
+            $path_explode    =    explode('/', $destination);
+            $path_progressive    =    '';
+            foreach ($path_explode as $index => $file) {
                 // last index is not handled
-                if ($index < count($path_explode) - 1) 
-                {
+                if ($index < count($path_explode) - 1) {
                     $path_progressive    .= $file . '/';
                     if (! is_dir($path_progressive)) {
                         mkdir($path_progressive);
@@ -127,20 +112,14 @@ class Filer
     {
         if (!is_dir($destination)) {
             mkdir($destination);
-        } 
-
-        if (is_dir($source)) 
-        {
-            if ($open = opendir($source)) 
-            {
-                while (($content = readdir($open)) !== false) 
-                {
-                    if (is_file($source . '/' . $content)) 
-                    {
+        }
+        if (is_dir($source)) {
+            if ($open    =    opendir($source)) {
+                while (($content    =    readdir($open)) !== false) {
+                    if (is_file($source . '/' . $content)) {
                         copy($source . '/' . $content, $destination . '/' . $content);
                     }
-                    if (is_dir($source . '/' . $content) && !in_array($content, array('..', '.'))) 
-                    {
+                    if (is_dir($source . '/' . $content) && !in_array($content, array('..', '.'))) {
                         if ($dir_limit > 0) {
                             if (!is_dir($destination . '/' . $content)) {
                                 mkdir($destination . '/' . $content);

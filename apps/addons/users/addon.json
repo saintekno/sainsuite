@@ -1,0 +1,11 @@
+{
+    "application": {
+        "name": "Users",
+        "namespace": "users",
+        "version": "1.0",
+        "author": "saintekno",
+        "description": "Users by SainTekno",
+        "main": "main.php",
+        "readonly": true
+    }
+}

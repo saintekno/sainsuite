@@ -1,19 +1,10 @@
 <?php
+defined('BASEPATH') or exit('No direct script access allowed');
+
 class Html
 {
     private static $page_title = 'Untitled Page';
     private static $page_description;
-    
-    /**
-     * 	Get Title
-     * @access : public
-     * @return : string
-    **/
-    
-    public static function get_title()
-    {
-        return self::$page_title;
-    }
     
     /**
      * Set title
@@ -31,17 +22,14 @@ class Html
     }
     
     /**
-     * title
-     *
-     * Returns title tag with defined title
-     * 
+     * 	Get Title
      * @access : public
      * @return : string
     **/
     
-    public static function title()
+    public static function get_title()
     {
-        echo xss_clean(self::$page_title);
+        return self::$page_title;
     }
     
     /**

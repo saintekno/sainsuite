@@ -1,12 +1,8 @@
-# Eracik App ![GitHub release (latest by date)](https://img.shields.io/github/v/release/racikproject/eracik) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/racikcore?locale.x=id_ID)
-
-![Eracik App](http://racikproject.com/img/eracik.jpeg)
+# ERACIK ![GitHub release (latest by date)](https://img.shields.io/github/v/release/racikproject/eracik) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/racikcore?locale.x=id_ID)
 
 ## Make it Better!
 
-Bagi Anda yang sedang mencari alat praktis untuk membuat aplikasi web. Eracik dibangun untuk Anda. Sangat terinspirasi oleh cara cibonfire. Alih-alih, ini adalah batu loncatan yang dibangun dengan banyak alat, yang Anda harap Anda miliki dalam proyek tetapi tidak pernah memiliki banyak waktu untuk membangunnya.
-
-Semua terpaket dalam antarmuka yang elegan yang akan membuat Anda bangga ketika Anda menyerahkan proyek kepada klien Anda.
+Free Engine Management System - Indonesia
 
 ### Our purpose
 
@@ -20,7 +16,7 @@ Anda dapat menyumbangkan jumlah pilihan Anda dengan mengklik [di sini](https://w
 
 ### What's are the advantages
 
-Eracik menawarkan Cara mudah untuk menangani pustaka CodeIgniter, kemudahan dalam hal menginstal perpustakaan dengan sistem manajemen modul, yang membantu Anda menginstal, mengaktifkan, menghapus, dan berbagi modul yang diinstal dengan mudah.
+Eracik menawarkan Cara mudah untuk menangani pustaka CodeIgniter, kemudahan dalam hal menginstal perpustakaan dengan sistem manajemen addon, yang membantu Anda menginstal, mengaktifkan, menghapus, dan berbagi addon yang diinstal dengan mudah.
 
 Saya juga menggunakan pustaka populer (baik JS dan PHP) untuk membuat Core yang lebih kuat berdasarkan CodeIgniter. Saya juga terinspirasi oleh CMS yang ada (untuk tidak membuang-buang waktu dalam penciptaan ulang) dan menggunakan API populer seperti Plugin API dari WordPress, untuk kinerja dan ekstensibilitas yang lebih baik.
 
@@ -56,7 +52,7 @@ Jika perpustakaan tidak memiliki fitur yang Anda butuhkan dalam proyek Anda atau
 
 1. Siapkan [Apache Virtual Host](https://gist.github.com/boedwinangun/368b62a18d0142659bb4966b7e1756d3) Anda atau gunakan Laragon untuk lebih mudah.
 2. Root Web Anda harus disetel ke folder <strong>public</strong>.
-3. Kemudian Ikuti langkah instalasi dengan beberapa langkah mudah.
+3. Kemudian Ikuti petunjuk instalasi dengan benar dan pastikan semua kebutuhan sistem terpenuhi sebelum instalasi.
 
 ### Contact
 
@@ -64,11 +60,10 @@ Jika Anda tidak mengerti sesuatu, Anda dapat berbicara dengan saya di boedwinang
 
 ### Acknowledgements
 
-Terima kasih kepada semua proyek yang bersifat open source, yang komponennya dimasukkan dan memungkinkan inisiatif ini ada. Dan, Terima kasih khusus kepada tim CodeIgniter, semua kontributor proyek CodeIgniter dan Anda sebagai pengguna CodeIgniter.!
-
-### Sub projects merged
-
-Based on CodeIgniter. Style from Bootstrap. Icons from Font Awesome. Web fonts from Google.
+1. Tuhan Yang Maha Esa
+2. Orang-orang yang berada di belakang eracik
+3. Terima kasih kepada semua proyek yang bersifat open source
+4. Terima kasih khusus kepada tim CodeIgniter, semua kontributor proyek CodeIgniter dan Anda sebagai pengguna CodeIgniter.!
 
 ---
 
@@ -79,7 +74,7 @@ Released under the MIT License: [http://www.opensource.org/licenses/mit-license.
 
 The MIT License (MIT)
 
-Copyright (c) 2019 - 2020 Boed Winangun, Eracik.
+Copyright (c) 2019 - 2020 Buddy Winangun, Eracik.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

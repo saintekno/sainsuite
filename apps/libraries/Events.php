@@ -185,7 +185,7 @@ if (!class_exists('Events')) {
       if (isset($this->filters['all'])) {
           $this->current_filter[] = $tag;
           $args = func_get_args();
-          $this->_call_all_hook($args);
+          $this->__call_all_hook($args);
       }
 
         if (!isset($this->filters[$tag])) {
@@ -238,7 +238,7 @@ if (!class_exists('Events')) {
       if (isset($this->filters['all'])) {
           $this->current_filter[] = $tag;
           $all_args = func_get_args();
-          $this->_call_all_hook($all_args);
+          $this->__call_all_hook($all_args);
       }
 
         if (!isset($this->filters[$tag])) {
@@ -354,7 +354,7 @@ if (!class_exists('Events')) {
       if (isset($this->filters['all'])) {
           $this->current_filter[] = $tag;
           $all_args = func_get_args();
-          $this->_call_all_hook($all_args);
+          $this->__call_all_hook($all_args);
       }
 
         if (!isset($this->filters[$tag])) {
@@ -420,7 +420,7 @@ if (!class_exists('Events')) {
       if (isset($this->filters['all'])) {
           $this->current_filter[] = $tag;
           $all_args = func_get_args();
-          $this->_call_all_hook($all_args);
+          $this->__call_all_hook($all_args);
       }
 
         if (!isset($this->filters[$tag])) {
@@ -591,13 +591,13 @@ if (!class_exists('Events')) {
      * @since 0.1
      * @param  (array) $args [description]
      */
-    public function __call_all_hook($args)
+    public function __call_all_hook($argsa)
     {
         reset($this->filters['all']);
         do {
             foreach ((array) current($this->filters['all']) as $the_) {
                 if (!is_null($the_['function'])) {
-                    call_user_func_array($the_['function'], $args);
+                    call_user_func_array($the_['function'], $argsa);
                 }
             }
         } while (next($this->filters['all']) !== false);

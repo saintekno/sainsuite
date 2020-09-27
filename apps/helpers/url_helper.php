@@ -514,28 +514,28 @@ if ( ! function_exists('url_title'))
 
 // ------------------------------------------------------------------------
 
-if (! function_exists('redirect')) 
+if ( ! function_exists('redirect'))
 {
-    /**
-     * Header Redirect
-     *
-     * Header redirect in two flavors
-     * For very fine grained control over headers, you could use the Output
-     * Library's set_header() function.
-     *
-     * @param	string	$uri	URL
-     * @param	string	$method	Redirect method
-     *			'auto', 'location' or 'refresh'
-     * @param	int	$code	HTTP Response status code
-     * @return	void
-     */
-    function redirect($uri = '', $method = 'auto', $code = null)
-    {
-        if (is_array($uri)) 
-        {
+	/**
+	 * Header Redirect
+	 *
+	 * Header redirect in two flavors
+	 * For very fine grained control over headers, you could use the Output
+	 * Library's set_header() function.
+	 *
+	 * @param	string	$uri	URL
+	 * @param	string	$method	Redirect method
+	 *			'auto', 'location' or 'refresh'
+	 * @param	int	$code	HTTP Response status code
+	 * @return	void
+	 */
+	function redirect($uri = '', $method = 'auto', $code = NULL)
+	{
+		if (is_array($uri)) 
+		{
             $uri = site_url($uri);
-        } 
-        elseif ( ! preg_match('#^(\w+:)?//#i', $uri))
+		}
+		elseif ( ! preg_match('#^(\w+:)?//#i', $uri))
 		{
 			$uri = site_url($uri);
 		}
@@ -569,5 +569,5 @@ if (! function_exists('redirect'))
 				break;
 		}
 		exit;
-    }
+	}
 }
