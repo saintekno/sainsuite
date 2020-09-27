@@ -202,7 +202,7 @@ class Update_Model extends CI_Model
                         Filer::extractor(APPPATH . 'temp/core/' . $dirs .'/'. $files, FCPATH);
                     }
                 }
-                // Filer::drop(APPPATH . 'temp/core'); // if any update failed, we drop temp/core before
+                Filer::drop(APPPATH . 'temp/core'); // if any update failed, we drop temp/core before
                 return array(
                     'code' => 'update-done'
                 );

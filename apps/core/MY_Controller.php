@@ -104,6 +104,7 @@ class MY_Controller extends CI_Controller
             {
                 $this->enqueue->css($value);
             }
+            $this->enqueue->js('plugins.bundle');
         }
 
         /**
@@ -111,7 +112,6 @@ class MY_Controller extends CI_Controller
         **/
         $js_libraries = $this->events->apply_filters( 'default_js_libraries', array(
             'app.settings',
-            'plugins.bundle',
             'scripts.bundle',
         ));
         
