@@ -467,7 +467,7 @@ class Admin extends MY_Controller
             Html::set_title(sprintf(__('Updating... &mdash; %s'), get('signature')));
             $data['release'] = $version;
             $data['update'] = $this->update_model->get($version);
-            $data['page_name'] = $this->load->view( 'backend/about', $data, true );
+            $data['page_name'] = $this->load->view( 'backend/update', $data, true );
             $this->load->view('backend/index', $data);
         } 
         elseif ($page === 'download') {
