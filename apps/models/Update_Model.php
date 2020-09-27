@@ -10,7 +10,7 @@ class Update_Model extends CI_Model
         $this->load->library('curl');
         $this->load->library('Filer');
 
-        $this->core_version = $this->config->item('core_version');
+        $this->core_version = $this->config->item('version');
 
         // $this->auto_update();
     }
@@ -67,7 +67,6 @@ class Update_Model extends CI_Model
         {
             $release_int = str_replace('.', '', $release[ 'version' ]);
             $current_int = str_replace('.', '', $this->core_version);
-            // if (true) 
             if ($release_int > $current_int) 
             { 
                 $array[] = array(
