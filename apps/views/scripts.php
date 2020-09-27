@@ -45,11 +45,11 @@
         toastr.success('<?php echo $this->session->flashdata("flash_message");?>');
     <?php endif;?>
 
-    <?php if (notice_from_url()):?>
+    <?php if (notice_from_url() != ""):?>
         toastr.success('<?php echo notice_from_url();?>');
     <?php endif;?>
 
-    <?php if ($this->notice->output_notice()):?>
-        toastr.success('<?php echo $this->notice->output_notice();?>');
+    <?php if ($this->notice->output_notice(true)):?>
+        toastr.error('<?php echo $this->notice->output_notice();?>');
     <?php endif;?>
 </script>

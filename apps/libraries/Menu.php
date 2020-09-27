@@ -80,7 +80,7 @@ class Menu
             $custom_style = '';
             foreach ($current_menu as $menu) 
             {
-                $custom_style = (riake('href', $menu) == current_url()) ? 'menu-item-active' : '';
+                $custom_style = (riake('href', $menu) == current_url()) ? 'active' : '';
                 
                 if ($class != '') 
                 {
@@ -134,7 +134,7 @@ class Menu
                 } 
                 else { 
                     ?>
-                    <a href="<?php echo riake('href', $menu, '#');?>" class="menu-link"> 
+                    <a href="<?php echo riake('href', $menu, '#');?>" class="menu-link btn btn-hover-light <?php echo $custom_style;?>"> 
                         <span class="svg-icon menu-icon">
                         <?php include asset_path().riake('icon', $menu, 'svg/tambah.svg');?>
                         </span>
@@ -157,13 +157,14 @@ class Menu
     {
         if (self::$apps_menus_core) :
             foreach (self::$apps_menus_core as $menu_namespace => $current_menu) { 
+                $custom_style = (riake('href', $current_menu) == current_url()) ? 'active' : '';
                 ?>
                 <!--begin::Item-->
-                <a href="<?php echo riake('href', $current_menu);?>" class="list-item hoverable p-2 p-lg-3 mb-2 d-block">
+                <a href="<?php echo riake('href', $current_menu);?>" class="list-item hoverable p-2 p-lg-3 mb-2 d-block <?php echo $custom_style;?>">
                     <div class="d-flex align-items-center">
 
                         <!--begin::Symbol-->
-                        <div class="symbol symbol-40 symbol-light mr-4">
+                        <div class="symbol symbol-40 symbol-light-dark mr-4">
                             <span class="symbol-label bg-hover-white">
                                 <img src="<?php echo asset_url(riake('icon', $current_menu));?>" class="h-50 align-self-center" />
                             </span>
