@@ -52,10 +52,4 @@
     <?php if ($this->notice->output_notice()):?>
         toastr.success('<?php echo $this->notice->output_notice();?>');
     <?php endif;?>
-    
-    <?php if ($errors = $this->aauth->get_errors_array()) :
-        foreach ($errors as $error) : ?>
-            toastr.error('<?php echo $error;?>');
-        <?php endforeach ;
-    endif; ?>
 </script>

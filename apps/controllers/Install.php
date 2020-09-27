@@ -10,6 +10,14 @@ class Install extends MY_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
+
+        $this->_install_assets();
+    }
+    
+    public function _install_assets()
+    {
+        $this->enqueue->css_namespace( 'common_header' );
+        $this->enqueue->css('login');
     }
 
     /**
@@ -24,6 +32,8 @@ class Install extends MY_Controller
             redirect('welcome?notice=database-installed' );
         endif;
 
+        $this->events->add_filter('install_current', function(){ return 'current'; });
+        
         $data['title'] = (sprintf(__('Welcome Page &mdash; %s'), get('app_name')));
         $data['page_name'] = 'install';
         $this->load->view('install/index', $data);
@@ -40,6 +50,8 @@ class Install extends MY_Controller
         if ($this->install_model->is_installed()):
             redirect('welcome');
         endif;
+
+        $this->events->add_filter('install_current2', function(){ return 'current'; });
 
         $this->form_validation->set_rules('_ht_name', __('Host Name'), 'required');
         $this->form_validation->set_rules('_uz_name', __('User Name'), 'required');
@@ -82,6 +94,8 @@ class Install extends MY_Controller
         if (! $this->install_model->is_installed()):
             redirect('install' . ( $_GET[ 'lang' ] ? '?lang=' . $_GET[ 'lang' ] : '') );
         endif;
+
+        $this->events->add_filter('install_current3', function(){ return 'current'; });
 
         $this->events->do_action('settings_setup');
         

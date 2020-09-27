@@ -58,6 +58,13 @@
     </div>
     <!--end::Main-->
 	
-	<?php echo $this->events->do_action( 'common_footer' );?>
+    <?php echo $this->events->do_action( 'common_footer' );?>
+    <script>
+    <?php if ($errors = $this->aauth->get_errors_array()) :
+        foreach ($errors as $error) : ?>
+            toastr.error('<?php echo $error;?>');
+        <?php endforeach ;
+    endif; ?>
+    </script>
 </body>
 </html>

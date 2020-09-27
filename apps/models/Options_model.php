@@ -7,7 +7,9 @@ class Options_Model extends CI_Model
 
     public function __construct()
     {
-        $this->init();
+        if ($this->install_model->is_installed()) {
+            $this->init();
+        }
     }
 
     /**
