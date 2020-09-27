@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "angular": "1.6.10",
+    "angular": "1.8.0",
     "angular-bootstrap-datetimepicker": "1.1.4",
     "bootbox": "4.4.0",
     "bootstrap": "3.4.1",
