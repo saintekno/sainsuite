@@ -3,6 +3,13 @@
     <div class=" container-fluid  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
         <!--begin::Info-->
         <div class="d-flex align-items-center flex-wrap mr-2">
+            <!--begin::Mobile Toggle-->
+            <button class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none"
+                id="kt_subheader_mobile_toggle">
+                <span></span>
+            </button>
+            <!--end::Mobile Toggle-->
+            
             <!--begin::Page Title-->
             <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">
             <?php echo str_replace('&mdash; ' . get('signature'), '', Html::get_title());?> 
@@ -23,7 +30,7 @@
         <!--end::Info-->
 
         <!--begin::Toolbar-->
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center mt-2">
             <!--begin::Daterange-->
             <a href="#" class="btn btn-light btn-sm font-weight-bold mr-2" id="kt_dashboard_daterangepicker"
                 data-toggle="tooltip" title="date" data-placement="left">

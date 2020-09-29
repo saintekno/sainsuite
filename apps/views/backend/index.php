@@ -15,7 +15,7 @@
 
     <?php $this->events->do_action('common_header');?>
 </head>
-<body id="kt_body" class="header-mobile-fixed subheader-enabled aside-enabled aside-fixed aside-secondary-enabled page-loading">
+<body id="kt_body" class="header-mobile-fixed subheader-enabled aside-enabled aside-fixed aside-secondary-enabled subheader-fixed page-loading">
     
     <?php include('_header-mobile.php'); ?>
 
@@ -35,7 +35,8 @@
                     <?php include('_page-title.php'); ?>
 
                     <div class="d-flex flex-column-fluid">
-                        <div class="container">
+                        <div class="<?php echo $this->events->apply_filters('layouts', 'container');?>">
+
                             <?php if (function_exists('validation_errors')) {
                                 if (validation_errors()) : ?>
                                     <div class="alert alert-danger" role="alert">
