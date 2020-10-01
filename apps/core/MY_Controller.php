@@ -36,7 +36,7 @@ class MY_Controller extends CI_Controller
         elseif ($this->uri->segment(1) === 'install' && $this->uri->segment(2) === 'database') 
         {
 			$this->events->add_action('before_db_setup', function () {
-				// this hook let modules being called during tendoo installation
+				// this hook let modules being called during installation
 				// Only when site name is being defined
 				Addons::init('all');
             });

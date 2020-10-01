@@ -12,31 +12,26 @@ class Admin extends MY_Controller
         $this->load->model('admin_model');
         $this->load->model('update_model');
 
-        // Load Assets/JS
-        $this->_dashboard_assets();
-
         // Loading Admin Menu
         $this->events->do_action( 'load_dashboard' );
     }
 
 	// --------------------------------------------------------------------
-    
-    public function _dashboard_assets()
-    {
-        $this->enqueue->css_namespace( 'common_footer' );
-    }
 
-	// --------------------------------------------------------------------
-
+    /**
+     * Index
+     *
+     * @return void
+     */
 	public function index()
 	{
         $this->events->add_filter('toolbar_menu', function ($menus)
         {
             $menus[] = array(
-                    'title'   => __('Graphic Report'),
-                    'icon'    => 'svg/Thunder-move.svg',
-                    'button'   => 'btn-white btn-hover-primary',
-                    'href'    => site_url('admin')
+                    'title'  => __('Graphic Report'),
+                    'icon'   => 'svg/Thunder-move.svg',
+                    'button' => 'btn-white btn-hover-primary',
+                    'href'   => site_url('admin')
             );
             return $menus;
         } );
@@ -49,7 +44,11 @@ class Admin extends MY_Controller
 	// --------------------------------------------------------------------
 
     /**
-     * Remap controller methods
+     * Rmap Controller
+     *
+     * @param [type] $page
+     * @param array $params
+     * @return void
      */
     public function _remap($page, $params = array())
     {
@@ -102,6 +101,16 @@ class Admin extends MY_Controller
 
     // --------------------------------------------------------------------
     
+    /**
+     * Addons
+     *
+     * @param string $page
+     * @param [type] $arg2
+     * @param [type] $arg3
+     * @param [type] $arg4
+     * @param [type] $arg5
+     * @return void
+     */
     public function addons($page = 'list', $arg2 = null, $arg3 = null, $arg4 = null, $arg5 = null)
     {
         $this->events->add_filter('toolbar_menu', function ($finals)
@@ -301,6 +310,16 @@ class Admin extends MY_Controller
 
     // --------------------------------------------------------------------
     
+    /**
+     * Themes
+     *
+     * @param string $page
+     * @param [type] $arg2
+     * @param [type] $arg3
+     * @param [type] $arg4
+     * @param [type] $arg5
+     * @return void
+     */
     public function themes($page = 'list', $arg2 = null, $arg3 = null, $arg4 = null, $arg5 = null)
     {
         $this->events->add_filter('toolbar_menu', function ($finals)
@@ -386,7 +405,6 @@ class Admin extends MY_Controller
      *
      * @access public
      */
-
     public function options($mode = 'list')
     {
         if (in_array($mode, array( 'save', 'merge' ))) 
@@ -424,11 +442,10 @@ class Admin extends MY_Controller
     // --------------------------------------------------------------------
 
     /**
-     * Load Tendoo Setting Page
+     * Load Setting Page
      * [New Permission Ready]
      * @return void
     **/
-
     public function settings()
     {
         // Can user access modules ?
@@ -452,7 +469,6 @@ class Admin extends MY_Controller
      *
      * @access public
      */
-
     public function about($page = 'home',  $version = null)
     {
         if (! User::can('manage.core')) {

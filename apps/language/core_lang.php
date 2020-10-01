@@ -4,14 +4,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 // System
 $lang[ 'database-installed' ]  = __('Database has been installed');
 $lang[ 'eracik-installed' ]    = __('System has been installed');
-$lang[ 'database-not-found' ]  = __('Tendoo can\'t access to the database.');
-$lang[ 'unable-to-connect' ]   = __('Tendoo cannot connect to your database host.');
+$lang[ 'database-not-found' ]  = __('Eracik can\'t access to the database.');
+$lang[ 'unable-to-connect' ]   = __('Eracik cannot connect to your database host.');
 $lang[ 'error-occured' ]       = __('An error occured.');
 $lang[ 'unexpected-error' ]    = __('An unexpected error occured.');
 $lang[ 'access-denied' ]       = __('Access Denied.');
 $lang[ 'file-conflict' ]       = __('File Conflict.');
 $lang[ 'option-saved' ]        = __('Option was successfully saved.');
-$lang[ 'unable-to-find-item' ] = __( 'Unable to find this item. It may have been deleted or moved.' );
+$lang[ 'unable-to-find-item' ] = __('Unable to find this item. It may have been deleted or moved.' );
 
 // Login page
 $lang[ 'signin-notice-message' ]         = __('Sign in to start your session');
