@@ -101,6 +101,7 @@ $autoload['helper'] = array(
     'asset', 
     'date', 
     'core', 
+    'form', 
     'url', 
     'security',
     'request'
