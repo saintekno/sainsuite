@@ -933,7 +933,7 @@ class Aauth {
 		$query = $this->aauth_db->where('id', $user_id);
 		$query = $this->aauth_db->get($this->config_vars['users']);
 
-		if ($query->num_rows() <= 0){
+		if ($this->aauth_db->affected_rows() <= 0){
 			$this->error($this->CI->lang->line('aauth_error_no_user'));
 			return false;
 		}
@@ -1186,7 +1186,7 @@ class Aauth {
 
 		$query = $this->aauth_db->get($this->config_vars['users']);
 
-		if ($query->num_rows() <= 0){
+		if ($this->aauth_db->affected_rows() <= 0){
 			$this->error($this->CI->lang->line('aauth_error_no_user'));
 			return false;
 		}
