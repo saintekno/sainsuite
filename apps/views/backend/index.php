@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <!-- Add Scale for mobile devices, @since 3.0.7 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <link rel="canonical" href="http://saintekno.id/" />
     <meta content="saintekno" name="author" />
