@@ -9,6 +9,9 @@ class Menu
     public static $toolbar_menus_core = array();
     public static $system_menus_core = array();
 
+    /**
+     * Add Menu
+     */
     public static function add_setting_menu($namespace, $config)
     {
         self::$setting_menus_core[ $namespace ][] = $config;
@@ -35,9 +38,8 @@ class Menu
     }
 
     /**
-     * 
+     * Load Menu
      */
-
     public static function load_setting_menu()
     {
         self::load_menu('setting', self::$setting_menus_core);
@@ -51,8 +53,8 @@ class Menu
     public static function load_menu($section, $core_menus)
     {
         if ($core_menus) : ?>
-        <li class="menu-section mt-0">
-            <h4 class="menu-text"><?php _e($section);?></h4>
+        <li class="menu-section m-0">
+            <h4 class="menu-text text-light"><?php _e($section);?></h4>
             <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
         </li>
         <?php endif;
@@ -65,10 +67,14 @@ class Menu
             foreach ($current_menu as $_menu) 
             {
                 $parent_notice_count += riake('notices_nbr', $_menu);
-                if (riake('href', $_menu) == current_url()) 
+                if (riake('href', $_menu) == current_url() && is_array($current_menu) && count($current_menu) > 1) 
                 {
                     $custom_ul_style = 'menu-item-open menu-item-here';
                     $attr = 'data-menu-toggle="hover"'; 
+                }
+                else if (riake('href', $_menu) == current_url()) {
+                    $custom_ul_style = 'menu-item-active';
+                    $attr = '';
                 }
             }
             $class = is_array($current_menu) && count($current_menu) > 1 ? 'menu-item-submenu' : '';
@@ -80,10 +86,9 @@ class Menu
             $custom_style = '';
             foreach ($current_menu as $menu) 
             {
-                $custom_style = (riake('href', $menu) == current_url()) ? 'active' : '';
-                
                 if ($class != '') 
                 {
+                    $custom_style = (riake('href', $menu) == current_url()) ? 'menu-item-active' : '';
                     // First child, set a default page and first sub-menu.
                     if ($loop_index == 0) : ?>
                         <a href="javascript:void(0)" class="menu-link menu-toggle"> 
@@ -134,9 +139,9 @@ class Menu
                 } 
                 else { 
                     ?>
-                    <a href="<?php echo riake('href', $menu, '#');?>" class="menu-link btn btn-hover-light <?php echo $custom_style;?>"> 
+                    <a href="<?php echo riake('href', $menu, '#');?>" class="menu-link btn btn-hover-dark"> 
                         <span class="svg-icon menu-icon">
-                        <?php include asset_path().riake('icon', $menu, 'svg/tambah.svg');?>
+                        <?php include asset_path().riake('icon', $menu, 'svg/Library.svg');?>
                         </span>
                         <span class="menu-text"><?php echo riake('title', $menu);?></span> 
                         <?php if( @$menu[ 'notices_nbr' ] ):?>
@@ -160,47 +165,42 @@ class Menu
                 $custom_style = (riake('href', $current_menu) == current_url()) ? 'active' : '';
                 ?>
                 <!--begin::Item-->
-                <a href="<?php echo riake('href', $current_menu);?>" class="list-item hoverable p-2 p-lg-3 mb-2 d-block <?php echo $custom_style;?>">
+                <a href="<?php echo riake('href', $current_menu);?>" class="list-item hoverable p-2 mb-2 d-block <?php echo $custom_style;?>">
                     <div class="d-flex align-items-center">
 
-                        <!--begin::Symbol-->
-                        <div class="symbol symbol-40 symbol-light-dark mr-4">
-                            <span class="symbol-label bg-hover-white">
-                                <img src="<?php echo asset_url(riake('icon', $current_menu));?>" class="h-50 align-self-center" />
+                        <div class="symbol symbol-40 mr-4">
+                            <span class="symbol-label">
+                                <img src="<?php echo asset_url(riake('icon', $current_menu));?>" />
                             </span>
                         </div>
 
-                        <!--end::Symbol-->
-
-                        <!--begin::Text-->
                         <div class="d-flex flex-column flex-grow-1 mr-2">
-                            <span class="text-dark-75 font-size-h6 mb-0"><?php echo riake('title', $current_menu);?></span>
-                            <span class="text-muted text-hover-primary font-weight-bold">By <?php echo get('app_name');?></span>
+                            <span class="text-light font-size-h6 mb-0"><?php echo riake('title', $current_menu);?></span>
                         </div>
-
-                        <!--begin::End-->
                     </div>
                 </a>
                 <?php
             }
         else : ?>
-            <div class="offset-md-3 col-md-6 mt-10">
-                <span class="svg-icon svg-icon-full">
-                    <?php include asset_path().'svg/Puzzle.svg';?>
-                </span>
-            </div>
-        <?php endif;
-    }
+            <a href="<?php echo site_url('admin/addons');?>" class="list-item list-border d-block p-2 mb-2">
+                <div class="d-flex align-items-center">
+                    <div class="symbol symbol-40 mr-4">
+                        <span class="svg-icon svg-icon-2x">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g id="Stockholm-icons-/-Navigation-/-Plus" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect id="Rectangle-185" fill="#000000" x="4" y="11" width="16" height="2" rx="1"></rect>
+                                    <rect id="Rectangle-185-Copy" fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) " x="4" y="11" width="16" height="2" rx="1"></rect>
+                                </g>
+                            </svg>
+                        </span>
+                    </div>
 
-    public static function load_toolbar_menu()
-    {
-        foreach (self::$toolbar_menus_core as $menu_namespace => $current_menu) { 
-            ?>
-            <a href="<?php echo riake('href', $current_menu); ?>" class="btn <?php echo riake('button', $current_menu); ?> font-weight-bolder btn-sm mr-2">
-                <?php echo riake('title', $current_menu); ?>
+                    <div class="d-flex flex-column flex-grow-1 mr-2">
+                        <span class="font-size-h6 mb-0">Install AddOns</span>
+                    </div>
+                </div>
             </a>
-            <?php
-        }
+        <?php endif;
     }
 
     public static function load_system_menu()
@@ -215,6 +215,18 @@ class Menu
                     </span>
                 </a>
             </li>
+            <?php
+        }
+    }
+
+    public static function load_toolbar_menu()
+    {
+        foreach (self::$toolbar_menus_core as $menu_namespace => $current_menu) { 
+            ?>
+            <a href="<?php echo riake('href', $current_menu); ?>" class="btn <?php echo riake('button', $current_menu); ?> font-weight-bolder btn-sm mr-2">
+                <i class="ki ki-plus icon-1x p-0"></i>
+                <span class="d-none d-md-inline"><?php echo riake('title', $current_menu); ?></span> 
+            </a>
             <?php
         }
     }

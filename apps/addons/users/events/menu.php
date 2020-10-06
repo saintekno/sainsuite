@@ -25,7 +25,7 @@ class Users_Menu extends CI_model
         ) {
             $system[] = array(
                 'title' => __('Users', 'aauth'),
-                'icon'  => 'svg/users.svg',
+                'icon'  => 'svg/Group.svg',
                 'href'  => site_url('admin/users'),
             );
         };
@@ -39,7 +39,12 @@ class Users_Menu extends CI_model
     **/
     public function after_user_card()
     {
-        return '<a href="'. xss_clean(site_url(array( 'admin', 'users', 'profile' ) ) ).'" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5 mb-2">'.__('Profile').'</a>';
+        return '
+        <li class="navi-item active font-size-xs">
+            <a href="'. xss_clean(site_url(array( 'admin', 'users', 'profile' ) ) ).'" class="navi-link">
+                <span class="navi-text">'.__('Personal Settings').'</span>
+            </a>
+        </li>';
     }
 }
 new Users_Menu;

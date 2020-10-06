@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Auth Controller
+ */
 class Auth extends MY_Controller 
 {
 	public function __construct()
@@ -11,12 +14,20 @@ class Auth extends MY_Controller
         $this->_auth_assets();
     }
     
+    /**
+     * Assets login
+     */
     public function _auth_assets()
     {
         $this->enqueue->css_namespace( 'common_header' );
         $this->enqueue->css('login');
+        $this->enqueue->js_namespace( 'common_footer' );
+        $this->enqueue->js('login');
     }
 
+    /**
+     * Index
+     */
 	public function index()
 	{
         $this->form_validation->set_rules('username_or_email', __('Email or User Name' ), 'required|min_length[5]');
@@ -44,7 +55,10 @@ class Auth extends MY_Controller
 		$data['page_name'] = 'login';
 		$this->load->view('auth/index', $data);
 	}
-	
+    
+    /**
+     * Register
+     */
     public function register()
     {
         $this->events->do_action('registration_rules');
@@ -69,7 +83,10 @@ class Auth extends MY_Controller
 		$data['page_name'] = 'register';
 		$this->load->view('auth/index', $data);
     }
-	
+    
+    /**
+     * Logout
+     */
     public function logout()
     {
         // doing log_user_out
@@ -84,10 +101,7 @@ class Auth extends MY_Controller
     
     /**
      * 	Recovery Method
-     *	
      *	Allow user to get reset email for his account
-     *
-     *	@return void
     **/
     public function recovery()
     {
@@ -109,14 +123,8 @@ class Auth extends MY_Controller
     
     /**
      * 	Reset
-     * 	
      *	Checks a verification code an send a new password to user email
      *
-     * 	@access : public
-     *	@param : int user_id
-     * 	@param : string verfication code
-     * 	@return : void
-     * 
     **/
     public function reset_password($ver_code)
     {
@@ -128,14 +136,7 @@ class Auth extends MY_Controller
     }
     
     /**
-     * Verify
-     * 
-     * 	Verify actvaton code for specifc user
-     *
-     *	@access : public
-     *	@param : int user_id
-     *	@param : string verification code
-     *	@status	: untested
+     * Verify actvaton code for specifc user
     **/
     public function verification($user_id, $ver_code)
     {

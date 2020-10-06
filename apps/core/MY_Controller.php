@@ -43,22 +43,18 @@ class MY_Controller extends CI_Controller
         }
         
         // Checks system status
-        if ( in_array(
-                $this->uri->segment(1), 
-                $this->config->item('reserved_controllers')
-            ) || 
-            $this->uri->segment(1) === null
+        if ( 
+            in_array( $this->uri->segment(1), $this->config->item('reserved_controllers') ) 
+            || $this->uri->segment(1) === null
         ) {
             // there are some section which need to be installed. Before getting there, controller checks if for those
             // section is installed. If segment(1) returns null, it means the current section is index. Even for index,
             // installation is required
-            if ( 
-                ( 
-                    in_array(
-                        $this->uri->segment(1), 
-                        $this->config->item('controllers_requiring_installation')
-                    ) || $this->uri->segment(1) === null
-                ) && ! $this->install_model->is_installed()
+            if (( 
+                    in_array( $this->uri->segment(1), $this->config->item('controllers_requiring_installation') ) 
+                    || $this->uri->segment(1) === null
+                ) 
+                && ! $this->install_model->is_installed()
             ) {
                 redirect('install');
             }
@@ -89,39 +85,16 @@ class MY_Controller extends CI_Controller
      */
     public function _load_assets()
     {
-        /**
-         * 	Enqueueing Js
-        **/
-        $css_libraries = $this->events->apply_filters( 'default_css_libraries', array(
-            'plugins.bundle',
-            'style.bundle',
-        ));
-        
-        if ( is_array( $css_libraries ) ) 
-        {
-            $this->enqueue->css_namespace( 'common_header' );
-            foreach ($css_libraries as $value) 
-            {
-                $this->enqueue->css($value);
-            }
-            $this->enqueue->js('plugins.bundle');
-            $this->enqueue->js('scripts.bundle');
-        }
+        // Enqueueing header
+        $this->enqueue->css_namespace( 'common_header' );
+        $this->enqueue->css('plugins.bundle');
+        $this->enqueue->css('style.bundle');
+        $this->enqueue->js_namespace( 'common_header' );
+        $this->enqueue->js('plugins.bundle');
+        $this->enqueue->js('scripts.bundle');
 
-        /**
-         * 	Enqueueing Js
-        **/
-        $js_libraries = $this->events->apply_filters( 'default_js_libraries', array(
-            'app.settings',
-        ));
-        
-        if ( is_array( $js_libraries ) ) 
-        {
-            $this->enqueue->js_namespace( 'common_footer' );
-            foreach ($js_libraries as $value) 
-            {
-                $this->enqueue->js($value);
-            }
-        }
+        // Enqueueing footer
+        $this->enqueue->js_namespace( 'common_footer' );
+        $this->enqueue->js('app.settings');
     }
 }

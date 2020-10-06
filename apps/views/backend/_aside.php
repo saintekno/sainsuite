@@ -2,31 +2,33 @@
 <div class="aside aside-left d-flex aside-fixed" id="kt_aside">
 
     <!--begin::Primary-->
-    <div class="aside-primary bg-dark d-flex flex-column align-items-center flex-row-auto">
+	<div class="aside-primary d-flex flex-column align-items-center flex-row-auto">
 
         <!--begin::Brand-->
-        <div class="aside-brand d-flex flex-column align-items-center flex-column-auto py-5 py-lg-7">
+		<div class="aside-brand d-flex flex-column align-items-center flex-column-auto py-3 py-lg-5 my-5">
 
             <!--begin::Logo-->
             <a href="<?php echo site_url('admin'); ?>">
                 <img alt="<?php echo get('app_name');?>" src="<?php echo $this->events->apply_filters( 'dashboard_logo_small', upload_url().'system/logo-light-sm.png' ); ?>" class="max-h-40px" />
             </a>
 
-            <!--end::Logo-->
+            <!--begin::Aside Toggle-->
+            <span class="aside-toggle btn btn-icon btn-primary btn-hover-primary shadow-sm" id="kt_aside_toggle" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Toggle Aside">
+                <i class="ki ki-bold-arrow-back icon-sm"></i>
+            </span>
+            <!--end::Aside Toggle-->
         </div>
 
-        <!--end::Brand-->
-
         <!--begin::Nav Wrapper-->
-        <div class="aside-nav d-flex flex-column align-items-center flex-column-fluid py-5 scroll scroll-pull">
+		<div class="aside-nav d-flex flex-column align-items-center flex-column-fluid py-5 scroll scroll-pull">
 
             <!--begin::Nav-->
-            <ul class="nav flex-column" role="tablist">
+            <ul class="nav flex-column" role="tablist" id="myTab">
 
                 <!--begin::Item-->
-                <li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="<?php _e('Apps');?>">
-                    <a href="#" class="nav-link btn btn-icon btn-clean btn-lg active" data-toggle="tab" data-target="#kt_aside_tab_1" role="tab">
-                        <span class="svg-icon svg-icon-xl">
+				<li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Application">
+					<a href="app" class="nav-link btn btn-icon btn-aside btn-lg active" data-toggle="tab" data-target="#kt_aside_tab_1" role="tab">
+						<span class="svg-icon svg-icon-light svg-icon-xl">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -43,89 +45,148 @@
                 <?php Menu::load_system_menu(); ?>
                 
                 <!--begin::Item-->
-                <li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="<?php _e('Settings');?>">
-                    <a href="#" class="nav-link btn btn-icon btn-clean btn-lg" data-toggle="tab" data-target="#kt_aside_tab_2" role="tab">
-                        <span class="svg-icon svg-icon-xl">
-                        <?php include asset_path().'svg/Brush.svg';?>
-                        </span>
-                    </a>
-                </li>
+				<li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Settings">
+					<a href="settings" class="nav-link btn btn-icon btn-aside btn-lg" data-toggle="tab" data-target="#kt_aside_tab_2" role="tab">
+						<span class="svg-icon svg-icon-light svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo10\dist/../src/media/svg/icons\Code\Plus.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+								<rect x="0" y="0" width="24" height="24"/>
+								<path d="M12,21 C7.02943725,21 3,16.9705627 3,12 C3,7.02943725 7.02943725,3 12,3 C16.9705627,3 21,7.02943725 21,12 C21,16.9705627 16.9705627,21 12,21 Z M12,16 C14.209139,16 16,14.209139 16,12 C16,9.790861 14.209139,8 12,8 C9.790861,8 8,9.790861 8,12 C8,14.209139 9.790861,16 12,16 Z" fill="#000000"/>
+								<circle fill="#000000" opacity="0.3" cx="12" cy="12" r="1"/>
+							</g>
+						</svg><!--end::Svg Icon--></span>
+					</a>
+				</li>
             </ul>
 
             <!--end::Nav-->
         </div>
 
-        <!--end::Nav Wrapper-->
-
         <!--begin::Footer-->
-        <div class="aside-footer d-flex flex-column align-items-center flex-column-auto py-4 py-lg-10">
+		<div class="aside-footer d-flex flex-column align-items-center flex-column-auto py-4 py-lg-10">
 
-            <!--begin::Aside Toggle-->
-            <span class="aside-toggle btn btn-icon btn-primary btn-hover-primary shadow-sm" id="kt_aside_toggle" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Toggle Aside">
-                <i class="ki ki-bold-arrow-back icon-sm"></i>
-            </span>
+			<a href="<?php echo site_url('admin/addons'); ?>" class="btn btn-icon btn-aside btn-lg mb-1 position-relative" onclick="myAside()" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="<?php _e('addons');?>">
+				<span class="svg-icon svg-icon-light svg-icon-xxl"><!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
+					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+						<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+							<polygon points="0 0 24 0 24 24 0 24"></polygon>
+							<path d="M12.9336061,16.072447 L19.36,10.9564761 L19.5181585,10.8312381 C20.1676248,10.3169571 20.2772143,9.3735535 19.7629333,8.72408713 C19.6917232,8.63415859 19.6104327,8.55269514 19.5206557,8.48129411 L12.9336854,3.24257445 C12.3871201,2.80788259 11.6128799,2.80788259 11.0663146,3.24257445 L4.47482784,8.48488609 C3.82645598,9.00054628 3.71887192,9.94418071 4.23453211,10.5925526 C4.30500305,10.6811601 4.38527899,10.7615046 4.47382636,10.8320511 L4.63,10.9564761 L11.0659024,16.0730648 C11.6126744,16.5077525 12.3871218,16.5074963 12.9336061,16.072447 Z" fill="#000000" fill-rule="nonzero"></path>
+							<path d="M11.0563554,18.6706981 L5.33593024,14.122919 C4.94553994,13.8125559 4.37746707,13.8774308 4.06710397,14.2678211 C4.06471678,14.2708238 4.06234874,14.2738418 4.06,14.2768747 L4.06,14.2768747 C3.75257288,14.6738539 3.82516916,15.244888 4.22214834,15.5523151 C4.22358765,15.5534297 4.2250303,15.55454 4.22647627,15.555646 L11.0872776,20.8031356 C11.6250734,21.2144692 12.371757,21.2145375 12.909628,20.8033023 L19.7677785,15.559828 C20.1693192,15.2528257 20.2459576,14.6784381 19.9389553,14.2768974 C19.9376429,14.2751809 19.9363245,14.2734691 19.935,14.2717619 L19.935,14.2717619 C19.6266937,13.8743807 19.0546209,13.8021712 18.6572397,14.1104775 C18.654352,14.112718 18.6514778,14.1149757 18.6486172,14.1172508 L12.9235044,18.6705218 C12.377022,19.1051477 11.6029199,19.1052208 11.0563554,18.6706981 Z" fill="#000000" opacity="0.3"></path>
+						</g>
+					</svg><!--end::Svg Icon-->
+				</span>
+			</a>
 
-            <a href="<?php echo site_url('admin/addons'); ?>" class="btn btn-icon btn-clean btn-lg mb-1" data-toggle="tooltip" data-placement="right" title="<?php _e('addons');?>">
-                <span class="svg-icon svg-icon-xl"> 
-                <?php include asset_path().'svg/addons.svg';?>
+            <div class="dropdown" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Help Center">
+                <a href="#" class="btn btn-icon btn-aside btn-lg" data-toggle="dropdown" data-offset="0px,0px" aria-expanded="false">
+                <span class="svg-icon svg-icon-light svg-icon-xxl"><!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24"/>
+                            <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"/>
+                            <path d="M12,16 C12.5522847,16 13,16.4477153 13,17 C13,17.5522847 12.5522847,18 12,18 C11.4477153,18 11,17.5522847 11,17 C11,16.4477153 11.4477153,16 12,16 Z M10.591,14.868 L10.591,13.209 L11.851,13.209 C13.447,13.209 14.602,11.991 14.602,10.395 C14.602,8.799 13.447,7.581 11.851,7.581 C10.234,7.581 9.121,8.799 9.121,10.395 L7.336,10.395 C7.336,7.875 9.31,5.922 11.851,5.922 C14.392,5.922 16.387,7.875 16.387,10.395 C16.387,12.915 14.392,14.868 11.851,14.868 L10.591,14.868 Z" fill="#000000"/>
+                        </g>
+                    </svg><!--end::Svg Icon-->
                 </span>
-            </a>
-
-            <div class="dropdown" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="User Profile">
-                <a href="#" class="btn btn-icon btn-clean btn-lg" data-toggle="dropdown" data-offset="0px,0px">
-                    <span class="symbol symbol-30 symbol-lg-40">
-                        <span class="svg-icon svg-icon-xl">
-                            <!--begin::Svg Icon | path:assets/media/svg/icons/General/User.svg-->
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <polygon points="0 0 24 0 24 24 0 24" />
-                                    <path d="M12,11 C9.790861,11 8,9.209139 8,7 C8,4.790861 9.790861,3 12,3 C14.209139,3 16,4.790861 16,7 C16,9.209139 14.209139,11 12,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
-                                    <path d="M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z" fill="#000000" fill-rule="nonzero" />
-                                </g>
-                            </svg>
-                            <!--end::Svg Icon-->
-                        </span>
-                        <!--<span class="symbol-label font-size-h5 font-weight-bold">S</span>-->
-                    </span>
                 </a>
                 <!--begin::Dropdown-->
-                <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-lg dropdown-menu-left">
-                    <div class="d-flex align-items-center px-5 py-5">
-                        <div class="symbol symbol-100 mr-5">
-                            <div class="symbol-label" style="background-image:url('<?php echo $this->events->apply_filters('user_menu_card_avatar_src', '');?>')"></div>
-                            <i class="symbol-badge bg-success"></i>
-                        </div>
-                        <div class="d-flex flex-column">
-                            <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">
-                            <?php echo $this->users->current->username;?>    
+                <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-left">
+                    <!--begin::Nav-->
+                    <ul class="navi navi-hover py-4">
+                        <li class="navi-section text-uppercase pb-0">
+                            Help
+                        </li>
+
+                        <!--begin::Item-->
+                        <li class="navi-item active font-size-xs">
+                            <a href="#" class="navi-link pb-0">
+                                <span class="navi-text">Documentation</span>
                             </a>
-                            <div class="navi mt-2">
-                                <a href="#" class="navi-item">
-                                    <span class="navi-link p-0 pb-2">
-                                        <span class="navi-icon mr-1">
-                                            <span class="svg-icon svg-icon-lg svg-icon-primary">
-                                            <?php include asset_path().'svg/mail.svg';?>
-                                            </span>
-                                        </span>
-                                        <span class="navi-text text-muted text-hover-primary"><?php echo $this->users->current->email;?></span>
-                                    </span>
-                                </a>
-                                <?php echo xss_clean($this->events->apply_filters('after_user_card', ''));?>
-                                
-                                <a href="<?php echo xss_clean($this->events->apply_filters('user_header_sign_out_link', site_url('logout' ) . '?redirect=' . urlencode(current_url())));?>" class="btn btn-sm btn-light-danger font-weight-bolder py-2 px-5 mb-2"><?php _e('Sign Out');?></a>
-                            </div>
-                        </div>
-                    </div>
+                        </li>
+                        <!--end::Item-->
+
+                        <!--begin::Item-->
+                        <li class="navi-item font-size-xs">
+                            <a href="#" class="navi-link pb-0">
+                                <span class="navi-text">API</span>
+                            </a>
+                        </li>
+                        <!--end::Item-->
+                        <li class="navi-section text-uppercase mt-5 pb-0">
+                            Information
+                        </li>
+
+                        <!--begin::Item-->
+                        <li class="navi-item active font-size-xs">
+                            <a href="#" class="navi-link pb-0">
+                                <span class="navi-text">Blog</span>
+                            </a>
+                        </li>
+                        <!--end::Item-->
+
+                        <!--begin::Item-->
+                        <li class="navi-item font-size-xs">
+                            <a href="#" class="navi-link pb-0">
+                                <span class="navi-text">Plan &amp; pricing</span>
+                            </a>
+                        </li>
+                        <!--end::Item-->
+                        <!--end::Item-->
+                        <li class="navi-section text-uppercase mt-5 pb-0">
+                            Legal
+                        </li>
+
+                        <!--begin::Item-->
+                        <li class="navi-item active font-size-xs">
+                            <a href="#" class="navi-link pb-0">
+                                <span class="navi-text">Term of service</span>
+                            </a>
+                        </li>
+                        <!--end::Item-->
+
+                        <!--begin::Item-->
+                        <li class="navi-item font-size-xs">
+                            <a href="#" class="navi-link pb-0">
+                                <span class="navi-text">Privacy policy</span>
+                            </a>
+                        </li>
+                        <!--end::Item-->
+                    </ul>
+                    <!--end::Nav-->
+                </div>
+                <!--end::Dropdown-->
+            </div>
+
+            <div class="dropdown">
+                <a href="#" class="btn btn-icon btn-aside btn-lg" data-toggle="dropdown" data-offset="0px,0px" aria-expanded="false">
+                    <img class="w-30px rounded" src="<?php echo $this->events->apply_filters('user_menu_card_avatar_src', '');?>" alt="<?php echo $this->events->apply_filters('user_menu_card_avatar_alt', '');?>">
+                </a>
+                <!--begin::Dropdown-->
+                <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-left">
+                    <!--begin::Nav-->
+                    <ul class="navi navi-hover py-4">
+                        <li class="navi-section text-uppercase">
+                        <?php echo $this->users->current->username;?>    
+                        </li>
+
+                        <?php echo xss_clean($this->events->apply_filters('after_user_card', ''));?>
+
+                        <!--begin::Item-->
+                        <li class="navi-item font-size-xs">
+                            <a href="<?php echo xss_clean($this->events->apply_filters('user_header_sign_out_link', site_url('logout' ) . '?redirect=' . urlencode(current_url())));?>" class="navi-link pb-0">
+                                <span class="navi-text"><?php _e('Sign Out');?></span>
+                            </a>
+                        </li>
+                        <!--end::Item-->
+                    </ul>
+                    <!--end::Nav-->
                 </div>
                 <!--end::Dropdown-->
             </div>
         </div>
-
-        <!--end::Footer-->
     </div>
 
     <!--begin::Secondary-->
-    <div class="aside-secondary d-flex flex-row-fluid border-right">
+	<div class="aside-secondary d-flex flex-row-fluid">
 
         <!--begin::Workspace-->
         <div class="aside-workspace scroll scroll-push my-2">
@@ -133,86 +194,9 @@
             <!--begin::Tab Content-->
             <div class="tab-content">
 
-                <!--begin::Tab Pane-->
-                <div class="tab-pane p-3 px-lg-7 py-lg-5 fade show active" id="kt_aside_tab_1">
-                    <!--end::Form-->
-                    <h3 class="p-2 p-lg-3"><?php echo $this->options_model->get('site_name');?></h3>
-                    <!--begin::Form-->
-                    <form class="p-2 p-lg-3 my-1 my-lg-3">
-                        <div class="d-flex">
-                            <div class="input-icon h-40px">
-                                <input type="text" class="form-control form-control-lg form-control-solid h-40px" placeholder="Search..." id="generalSearch" />
-                                <span>
-                                    <span class="svg-icon svg-icon-lg">
+                <h3 class="p-3 p-lg-5 my-5 my-lg-7 text-light"><?php echo $this->options_model->get('site_name');?></h3>
 
-                                        <!--begin::Svg Icon | path:assets/media/svg/icons/General/Search.svg-->
-                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                <rect x="0" y="0" width="24" height="24" />
-                                                <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
-                                                <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero" />
-                                            </g>
-                                        </svg>
-
-                                        <!--end::Svg Icon-->
-                                    </span>
-                                </span>
-                            </div>
-                            <div class="dropdown" data-toggle="tooltip" title="Quick actions" data-placement="left">
-                                <a href="#" class="btn btn-icon btn-default btn-hover-primary ml-2 h-40px w-40px flex-shrink-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="svg-icon svg-icon-lg">
-
-                                        <!--begin::Svg Icon | path:assets/media/svg/icons/Code/Compiling.svg-->
-                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                <rect x="0" y="0" width="24" height="24" />
-                                                <path d="M2.56066017,10.6819805 L4.68198052,8.56066017 C5.26776695,7.97487373 6.21751442,7.97487373 6.80330086,8.56066017 L8.9246212,10.6819805 C9.51040764,11.267767 9.51040764,12.2175144 8.9246212,12.8033009 L6.80330086,14.9246212 C6.21751442,15.5104076 5.26776695,15.5104076 4.68198052,14.9246212 L2.56066017,12.8033009 C1.97487373,12.2175144 1.97487373,11.267767 2.56066017,10.6819805 Z M14.5606602,10.6819805 L16.6819805,8.56066017 C17.267767,7.97487373 18.2175144,7.97487373 18.8033009,8.56066017 L20.9246212,10.6819805 C21.5104076,11.267767 21.5104076,12.2175144 20.9246212,12.8033009 L18.8033009,14.9246212 C18.2175144,15.5104076 17.267767,15.5104076 16.6819805,14.9246212 L14.5606602,12.8033009 C13.9748737,12.2175144 13.9748737,11.267767 14.5606602,10.6819805 Z" fill="#000000" opacity="0.3" />
-                                                <path d="M8.56066017,16.6819805 L10.6819805,14.5606602 C11.267767,13.9748737 12.2175144,13.9748737 12.8033009,14.5606602 L14.9246212,16.6819805 C15.5104076,17.267767 15.5104076,18.2175144 14.9246212,18.8033009 L12.8033009,20.9246212 C12.2175144,21.5104076 11.267767,21.5104076 10.6819805,20.9246212 L8.56066017,18.8033009 C7.97487373,18.2175144 7.97487373,17.267767 8.56066017,16.6819805 Z M8.56066017,4.68198052 L10.6819805,2.56066017 C11.267767,1.97487373 12.2175144,1.97487373 12.8033009,2.56066017 L14.9246212,4.68198052 C15.5104076,5.26776695 15.5104076,6.21751442 14.9246212,6.80330086 L12.8033009,8.9246212 C12.2175144,9.51040764 11.267767,9.51040764 10.6819805,8.9246212 L8.56066017,6.80330086 C7.97487373,6.21751442 7.97487373,5.26776695 8.56066017,4.68198052 Z" fill="#000000" />
-                                            </g>
-                                        </svg>
-
-                                        <!--end::Svg Icon-->
-                                    </span>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-
-                                    <!--[html-partial:begin:{"id":"demo1/dist/inc/view/partials/content/dropdowns/dropdown-4","page":"index"}]/-->
-
-                                    <!--begin::Navigation-->
-                                    <ul class="navi navi-hover py-5">
-                                        <li class="navi-item">
-                                            <a href="#" class="navi-link">
-                                                <span class="navi-icon">
-                                                    <i class="flaticon2-drop"></i>
-                                                </span>
-                                                <span class="navi-text">New Group</span>
-                                            </a>
-                                        </li>
-                                        <li class="navi-item">
-                                            <a href="#" class="navi-link">
-                                                <span class="navi-icon">
-                                                    <i class="flaticon2-list-3"></i>
-                                                </span>
-                                                <span class="navi-text">Contacts</span>
-                                            </a>
-                                        </li>
-                                        <li class="navi-item">
-                                            <a href="#" class="navi-link">
-                                                <span class="navi-icon">
-                                                    <i class="flaticon2-bell-2"></i>
-                                                </span>
-                                                <span class="navi-text">Calls</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-
-                                    <!--end::Navigation-->
-
-                                    <!--[html-partial:end:{"id":"demo1/dist/inc/view/partials/content/dropdowns/dropdown-4","page":"index"}]/-->
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                <div class="tab-pane p-3 px-lg-5 fade show active" id="kt_aside_tab_1">
 
                     <!--begin::List-->
                     <div class="list list-hover">
@@ -221,13 +205,13 @@
                 </div>
 
                 <!--begin::Tab Pane-->
-                <div class="tab-pane fade" id="kt_aside_tab_2">
+                <div class="tab-pane p-3 px-lg-5 py-lg-5 fade" id="kt_aside_tab_2">
                     <!--begin::Aside Menu-->
-                    <div class="aside-menu-wrapper flex-column-fluid px-5 py-5" id="kt_aside_menu_wrapper">
+                    <div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper">
                         <!--begin::Menu Container-->
                         <div id="kt_aside_menu" class="aside-menu min-h-lg-800px" data-menu-vertical="1" data-menu-scroll="1">
                             <!--begin::Menu Nav-->
-                            <ul class="menu-nav pt-2">
+                            <ul class="menu-nav pt-0">
                                 <?php Menu::load_setting_menu();  ?>
                             </ul>
                             <ul class="menu-nav">
@@ -248,3 +232,19 @@
     </div>
 
 </div>
+
+<script>
+$(document).ready(function(){
+	$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+		localStorage.setItem('activeTab', $(e.target).attr('href'));
+	});
+	var activeTab = localStorage.getItem('activeTab');
+	if(activeTab){
+		$('#myTab a[href="' + activeTab + '"]').tab('show');
+	}
+});
+
+function myAside() {
+    localStorage.removeItem('activeTab');
+}
+</script>

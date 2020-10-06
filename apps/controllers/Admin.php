@@ -113,23 +113,6 @@ class Admin extends MY_Controller
      */
     public function addons($page = 'list', $arg2 = null, $arg3 = null, $arg4 = null, $arg5 = null)
     {
-        $this->events->add_filter('toolbar_menu', function ($finals)
-        {
-            $finals[] = array(
-                'title'   => __('List'),
-                'icon'    => 'svg/list.svg',
-                'button'   => 'btn-white btn-hover-primary',
-                'href'    => site_url(array( 'admin', 'addons' ))
-            );
-            $finals[] = array(
-                'title'   => __('Upload a zip file'),
-                'icon'    => 'svg/upload.svg',
-                'button'   => 'btn-light-primary',
-                'href'    => site_url(array( 'admin', 'addons', 'install_zip' ))
-            );
-            return $finals;
-        } );
-
         if ($page === 'list') 
         {
             // Can user access.addons ?
@@ -172,10 +155,6 @@ class Admin extends MY_Controller
                     $this->notice->push_notice($this->lang->line($notice));
                 }
             }
-
-            Html::set_title(sprintf(__('Add a new extension &mdash; %s'), get('signature')));
-            $data['page_name'] = $this->load->view( 'backend/addons/install', null, true );
-            $this->load->view('backend/index', $data);
         }
         elseif ($page === 'enable') 
         {
@@ -322,23 +301,6 @@ class Admin extends MY_Controller
      */
     public function themes($page = 'list', $arg2 = null, $arg3 = null, $arg4 = null, $arg5 = null)
     {
-        $this->events->add_filter('toolbar_menu', function ($finals)
-        {
-            $finals[] = array(
-                'title'   => __('List'),
-                'icon'    => 'svg/list.svg',
-                'button'   => 'btn-white btn-hover-primary',
-                'href'    => site_url(array( 'admin', 'themes' ))
-            );
-            $finals[] = array(
-                'title'   => __('Upload a zip file'),
-                'icon'    => 'svg/upload.svg',
-                'button'   => 'btn-light-primary',
-                'href'    => site_url(array( 'admin', 'themes', 'install_zip' ))
-            );
-            return $finals;
-        } );
-
         if ($page === 'list') 
         {
             // Can user access.addons ?
@@ -351,14 +313,12 @@ class Admin extends MY_Controller
             }
 
             Html::set_title(sprintf(__('Themes List &mdash; %s'), get('signature')));
-            $data['page_name'] = $this->load->view( 'backend/home', null, true );
+            $data['page_name'] = $this->load->view( 'backend/theme', null, true );
             $this->load->view('backend/index', $data);
         }
         elseif ($page === 'install_zip') 
         {
-            Html::set_title(sprintf(__('Add a new themes &mdash; %s'), get('signature')));
-            $data['page_name'] = $this->load->view( 'backend/home', null, true );
-            $this->load->view('backend/index', $data);
+            // 
         }
         elseif ($page === 'enable') 
         {
