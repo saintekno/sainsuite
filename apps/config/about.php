@@ -26,7 +26,7 @@ $config[ 'supported_languages' ] = array(
 |--------------------------------------------------------------------------
 */
 $config[ 'app_name' ] = 'sainsuite';
-$config[ 'version' ] = '3.2.0-beta';
+$config[ 'version' ] = '3.2.2-beta';
 $config[ 'signature' ] = $config[ 'app_name' ] . ' ' . $config[ 'version' ];
 
 /*
