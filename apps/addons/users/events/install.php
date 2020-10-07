@@ -10,8 +10,8 @@ class Users_Install extends CI_model
         // Installation
         $this->events->add_action('do_enable_addon', [ $this, 'enable' ] );
         $this->events->add_action('do_remove_addon', [ $this, 'remove' ] );
-        $this->events->add_action('settings_tables', [ $this, 'install_tables' ] );
-        $this->events->add_action('settings_final_config', [ $this, 'final_config' ] );
+        $this->events->add_action('set_tables', [ $this, 'install_tables' ] );
+        $this->events->add_action('set_final_config', [ $this, 'final_config' ] );
     }
     
     public function enable($namespace)

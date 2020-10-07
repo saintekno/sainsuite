@@ -1,21 +1,20 @@
 <!doctype html>
-<html>
-<head>
+<HTML>
+<HEAD>
     <meta charset="utf-8">
-
     <!-- Add Scale for mobile devices, -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- End Add Scale for mobile devices -->
-
-    <title><?php echo $title;?></title>
-    <link rel="favicon" href="<?php echo base_url().'favicon.ico' ?>">
+    <link rel="canonical" href="http://saintekno.id" />
+	<!--begin::Fonts-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>   
+    <link rel="shortcut icon" href="<?php echo base_url('uploads/system/favicon.png');?>">
+    
+    <title><?php echo HTML::get_title();?></title>
     
     <?php $this->events->do_action( 'common_header' );?>
-</head>
-<body id="kt_body"
-    class="header-mobile-fixed subheader-enabled aside-enabled aside-fixed aside-secondary-enabled page-loading">
-
+</HEAD>
+<BODY>
     <!--begin::Main-->
     <div class="d-flex flex-column flex-root">
         <!--begin::Login-->
@@ -126,10 +125,10 @@
                         </div>
                         <!--end: Wizard Nav-->
                     </div>
-                    <!--end::Aside Top-->    
-                    <!--begin::Aside Top-->
+
+                    <div class="login-form">
                     <?php include $page_name.'.php'; ?>
-                    <!--end::Container-->
+                    </div>
                 </div>
                 <!--begin::Content-->
             </div>
@@ -138,7 +137,7 @@
             <!--begin::Aside-->
             <div class="login-aside order-1 order-lg-2 bgi-no-repeat bgi-position-x-right">
                 <div class="login-conteiner bgi-no-repeat bgi-position-x-right bgi-position-y-bottom"
-                    style="background-image: url(<?php echo asset_url('svg/login-visual-4.svg');?>);">
+                    style="background-image: url(<?php echo asset_url('svg/login.svg');?>);">
                     <!--begin::Aside title-->
                     <h3 class="pt-lg-40 pl-lg-20 pb-lg-0 pl-10 py-20 m-0 d-flex justify-content-lg-start font-weight-boldest display5 display1-lg text-white">
                         We Got<br />
@@ -154,6 +153,6 @@
     </div>
     <!--end::Main-->
     
-    <?php $this->events->do_action( 'common_footer' );?>
-</body>
-</html>
+    <?php echo $this->events->do_action( 'common_footer' );?>
+</BODY>
+</HTML>

@@ -34,7 +34,7 @@ class Install extends MY_Controller
 
         $this->events->add_filter('install_current', function(){ return 'current'; });
         
-        $data['title'] = (sprintf(__('Welcome Page &mdash; %s'), get('app_name')));
+		Html::set_title(sprintf(__('Welcome Page &mdash; %s'), get('app_name')));
         $data['page_name'] = 'install';
         $this->load->view('install/index', $data);
     }
@@ -78,7 +78,7 @@ class Install extends MY_Controller
             $this->notice->push_notice($this->lang->line($exec));
         }
 
-        $data['title'] = (sprintf(__('Database config &mdash; %s'), get('app_name')));
+		Html::set_title(sprintf(__('Database config &mdash; %s'), get('app_name')));
         $data['page_name'] = 'database';
         $this->load->view('install/index', $data);
     }
@@ -105,19 +105,19 @@ class Install extends MY_Controller
         {
             $exec = $this->install_model->final_configuration();
 
-            if ($exec == 'SainSuite-installed') 
+            if ($exec == 'sainsuite-installed') 
             {                      
                 // $data_about = file_get_contents(APPPATH . 'config/about.php');
                 // $data_about = str_replace($this->config->item('app_name'), $this->input->post('site_name'), $data_about);
                 // file_put_contents(APPPATH . 'config/about.php', $data_about);
 
-                redirect('login?redirect=admin/index&notice=' . $exec . ( @$_GET[ 'lang' ] ? '&lang=' . $_GET[ 'lang' ] : '') );
+                redirect('login?redirect=admin&notice=' . $exec . ( @$_GET[ 'lang' ] ? '&lang=' . $_GET[ 'lang' ] : '') );
             }
 
             $this->notice->push_notice($this->lang->line($exec));
         }
 
-        $data['title'] = (sprintf(__('Site & Master account &mdash; %s'), get('app_name')));
+        Html::set_title(sprintf(__('Site & Master account &mdash; %s'), get('core_signature')));
         $data['page_name'] = 'site';
         $this->load->view('install/index', $data);
     }

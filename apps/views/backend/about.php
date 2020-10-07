@@ -8,7 +8,16 @@
                         <?php echo sprintf( __( 'You\'re using <b>%s</b> %s' ), get( 'app_name' ), get('str_version') );?>
                     </h3>
                     <div class="font-weight-nromal font-size-lg mb-6">
+                        <?php if ($check) : ?>
+                        <h6><?php echo sprintf(__('%s : %s is available'), get('app_name'), riake('title', $check[0])); ?></h6>
                         <p><?php echo riake('content', $check[0]); ?></p>
+                        
+                        <a class="btn btn-primary" href="<?php echo site_url(array( 'admin', 'about', 'core', riake('version', $check[0]) )); ?>">
+                            <?php _e('Click Here to Update'); ?>
+                        </a>
+                        <?php else : ?>
+                        <h6><?php _e("up to date"); ?></h6>
+                        <?php endif; ?>
                     </div>
                     <div class="mb-5">
                         <!--begin::Table-->
@@ -124,15 +133,6 @@
                     </div>
 
                     <div class="font-weight-nromal font-size-lg mb-6">
-                        <?php if ($check) : ?>
-                        <h4><?php echo sprintf(__('%s : %s is available'), get('app_name'), riake('title', $check[0])); ?></h4>
-                        
-                        <a class="btn btn-primary" href="<?php echo site_url(array( 'admin', 'about', 'core', riake('version', $check[0]) )); ?>">
-                            <?php _e('Click Here to Update'); ?>
-                        </a>
-                        <?php else : ?>
-                        <h4><?php _e("up to date"); ?></h4>
-                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="col-lg-2"></div>
