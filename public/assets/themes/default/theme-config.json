@@ -1,7 +1,7 @@
 {
   "theme-name"     : "default",
-  "author"         : "Creativeitem",
-  "year"           : "2018",
+  "author"         : "SainTekno",
+  "year"           : "2020",
   "homepage" : {
     "homepage_banner_image" : true,
     "homepage_banner_image_size" : "2000 X 1335"
@@ -10,6 +10,6 @@
     "course_thumbnail" : "600 X 600"
   },
   "course_media_placeholders" : {
-    "course_thumbnail_placeholder" : "assets/frontend/default/img/course_thumbnail_placeholder.jpg"
+    "course_thumbnail_placeholder" : "assets/themes/default/img/course_thumbnail_placeholder.jpg"
   }
 }
