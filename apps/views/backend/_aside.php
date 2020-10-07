@@ -76,85 +76,17 @@
 				</span>
 			</a>
 
-            <div class="dropdown" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Help Center">
-                <a href="#" class="btn btn-icon btn-aside btn-lg" data-toggle="dropdown" data-offset="0px,0px" aria-expanded="false">
-                <span class="svg-icon svg-icon-light svg-icon-xxl"><!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <rect x="0" y="0" width="24" height="24"/>
-                            <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"/>
-                            <path d="M12,16 C12.5522847,16 13,16.4477153 13,17 C13,17.5522847 12.5522847,18 12,18 C11.4477153,18 11,17.5522847 11,17 C11,16.4477153 11.4477153,16 12,16 Z M10.591,14.868 L10.591,13.209 L11.851,13.209 C13.447,13.209 14.602,11.991 14.602,10.395 C14.602,8.799 13.447,7.581 11.851,7.581 C10.234,7.581 9.121,8.799 9.121,10.395 L7.336,10.395 C7.336,7.875 9.31,5.922 11.851,5.922 C14.392,5.922 16.387,7.875 16.387,10.395 C16.387,12.915 14.392,14.868 11.851,14.868 L10.591,14.868 Z" fill="#000000"/>
-                        </g>
-                    </svg><!--end::Svg Icon-->
-                </span>
-                </a>
-                <!--begin::Dropdown-->
-                <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-left">
-                    <!--begin::Nav-->
-                    <ul class="navi navi-hover py-4">
-                        <li class="navi-section text-uppercase pb-0">
-                            Help
-                        </li>
-
-                        <!--begin::Item-->
-                        <li class="navi-item active font-size-xs">
-                            <a href="#" class="navi-link pb-0">
-                                <span class="navi-text">Documentation</span>
-                            </a>
-                        </li>
-                        <!--end::Item-->
-
-                        <!--begin::Item-->
-                        <li class="navi-item font-size-xs">
-                            <a href="#" class="navi-link pb-0">
-                                <span class="navi-text">API</span>
-                            </a>
-                        </li>
-                        <!--end::Item-->
-                        <li class="navi-section text-uppercase mt-5 pb-0">
-                            Information
-                        </li>
-
-                        <!--begin::Item-->
-                        <li class="navi-item active font-size-xs">
-                            <a href="#" class="navi-link pb-0">
-                                <span class="navi-text">Blog</span>
-                            </a>
-                        </li>
-                        <!--end::Item-->
-
-                        <!--begin::Item-->
-                        <li class="navi-item font-size-xs">
-                            <a href="#" class="navi-link pb-0">
-                                <span class="navi-text">Plan &amp; pricing</span>
-                            </a>
-                        </li>
-                        <!--end::Item-->
-                        <!--end::Item-->
-                        <li class="navi-section text-uppercase mt-5 pb-0">
-                            Legal
-                        </li>
-
-                        <!--begin::Item-->
-                        <li class="navi-item active font-size-xs">
-                            <a href="#" class="navi-link pb-0">
-                                <span class="navi-text">Term of service</span>
-                            </a>
-                        </li>
-                        <!--end::Item-->
-
-                        <!--begin::Item-->
-                        <li class="navi-item font-size-xs">
-                            <a href="#" class="navi-link pb-0">
-                                <span class="navi-text">Privacy policy</span>
-                            </a>
-                        </li>
-                        <!--end::Item-->
-                    </ul>
-                    <!--end::Nav-->
-                </div>
-                <!--end::Dropdown-->
-            </div>
+            <a href="https://github.com/saintekno/sainsuite" target="_blank" class="btn btn-icon btn-aside btn-lg" aria-expanded="false">
+            <span class="svg-icon svg-icon-light svg-icon-xxl"><!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24"/>
+                        <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"/>
+                        <path d="M12,16 C12.5522847,16 13,16.4477153 13,17 C13,17.5522847 12.5522847,18 12,18 C11.4477153,18 11,17.5522847 11,17 C11,16.4477153 11.4477153,16 12,16 Z M10.591,14.868 L10.591,13.209 L11.851,13.209 C13.447,13.209 14.602,11.991 14.602,10.395 C14.602,8.799 13.447,7.581 11.851,7.581 C10.234,7.581 9.121,8.799 9.121,10.395 L7.336,10.395 C7.336,7.875 9.31,5.922 11.851,5.922 C14.392,5.922 16.387,7.875 16.387,10.395 C16.387,12.915 14.392,14.868 11.851,14.868 L10.591,14.868 Z" fill="#000000"/>
+                    </g>
+                </svg><!--end::Svg Icon-->
+            </span>
+            </a>
 
             <div class="dropdown">
                 <a href="#" class="btn btn-icon btn-aside btn-lg" data-toggle="dropdown" data-offset="0px,0px" aria-expanded="false">
