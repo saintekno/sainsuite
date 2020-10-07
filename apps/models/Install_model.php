@@ -131,7 +131,7 @@ class Install_Model extends CI_Model
         $this->events->do_action('settings_final_config');
 
         // user can change this behaviors
-        return $this->events->apply_filters('validating_setup', 'eracik-installed');
+        return $this->events->apply_filters('validating_setup', 'sainsuite-installed');
     }
 
     /**
@@ -147,9 +147,9 @@ class Install_Model extends CI_Model
         $string_config =
         "<?php
 /**
- * Database configuration for Eracik
+ * Database configuration for SainSuite
  * -------------------------------------
- * Eracik Version : " . get('version') . "
+ * SainSuite Version : " . get('version') . "
 **/
 
 defined('BASEPATH') OR exit('No direct script access allowed');

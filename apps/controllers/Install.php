@@ -27,7 +27,7 @@ class Install extends MY_Controller
      */
     public function index()
     {
-        // checks if eracik is not installed
+        // checks if SainSuite is not installed
         if ($this->install_model->is_installed()):
             redirect('welcome?notice=database-installed' );
         endif;
@@ -46,7 +46,7 @@ class Install extends MY_Controller
      */
     public function database()
     {
-        // checks if eracik is not installed
+        // checks if SainSuite is not installed
         if ($this->install_model->is_installed()):
             redirect('welcome');
         endif;
@@ -90,7 +90,7 @@ class Install extends MY_Controller
      */
     public function site()
     {
-        // checks if eracik is not installed
+        // checks if SainSuite is not installed
         if (! $this->install_model->is_installed()):
             redirect('install' . ( $_GET[ 'lang' ] ? '?lang=' . $_GET[ 'lang' ] : '') );
         endif;
@@ -105,7 +105,7 @@ class Install extends MY_Controller
         {
             $exec = $this->install_model->final_configuration();
 
-            if ($exec == 'eracik-installed') 
+            if ($exec == 'SainSuite-installed') 
             {                      
                 // $data_about = file_get_contents(APPPATH . 'config/about.php');
                 // $data_about = str_replace($this->config->item('app_name'), $this->input->post('site_name'), $data_about);

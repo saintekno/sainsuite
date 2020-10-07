@@ -3,9 +3,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 // System
 $lang[ 'database-installed' ]  = __('Database has been installed');
-$lang[ 'eracik-installed' ]    = __('System has been installed');
-$lang[ 'database-not-found' ]  = __('Eracik can\'t access to the database.');
-$lang[ 'unable-to-connect' ]   = __('Eracik cannot connect to your database host.');
+$lang[ 'sainsuite-installed' ]    = __('System has been installed');
+$lang[ 'database-not-found' ]  = __('SainSuite can\'t access to the database.');
+$lang[ 'unable-to-connect' ]   = __('SainSuite cannot connect to your database host.');
 $lang[ 'error-occured' ]       = __('An error occured.');
 $lang[ 'unexpected-error' ]    = __('An unexpected error occured.');
 $lang[ 'access-denied' ]       = __('Access Denied.');

@@ -3,9 +3,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Update_Model extends CI_Model
 {
-    private static $api_releases = 'https://api.github.com/repos/racikproject/eracik/releases';
+    private static $api_releases = 'https://api.github.com/repos/saintekno/sainsuite/releases';
 
-    private static $api_zip = 'https://codeload.github.com/racikproject/eracik/legacy.zip/';
+    private static $api_zip = 'https://codeload.github.com/saintekno/sainsuite/legacy.zip/';
     
     public function __construct()
     {
@@ -134,7 +134,7 @@ class Update_Model extends CI_Model
 
     public function install($stage, $zipball = null)
     {
-        $Do_zip = APPPATH . 'temp/eracik.zip';
+        $Do_zip = APPPATH . 'temp/sainsuite.zip';
 
         if ($stage === 1 && $zipball != null) 
         { 
