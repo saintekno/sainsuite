@@ -2,7 +2,7 @@
     <div class="col-lg-2"></div>
     <div class="col-lg-8">
         <h3 class="font-weight-bold mb-10 text-dark">
-            <?php echo sprintf( __( 'You\'re using <b>%s</b> %s' ), get( 'app_name' ), get('str_version') );?>
+            <?php echo sprintf( __( 'You\'re using <b>%s</b> %s' ), get( 'app_name' ), get('version') );?>
         </h3>
         <div class="font-weight-nromal font-size-lg mb-6">
             <?php if ($check) : ?>

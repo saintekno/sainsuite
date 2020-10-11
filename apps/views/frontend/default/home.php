@@ -85,7 +85,7 @@
                 <?php echo $this->options_model->get('site_name');?>
                 </div>
 
-                <span><?php echo $this->events->apply_filters( 'dashboard_footer_right', sprintf( __( 'You\'re using %s %s' ), get( 'app_name' ), get('str_version') ) );?></span>
+                <span><?php echo $this->events->apply_filters( 'dashboard_footer_right', sprintf( __( 'You\'re using %s %s' ), get( 'app_name' ), get('version') ) );?></span>
                 <div class="links">
                     <a href="#"><?php echo date('Y'). ' &copy; Powered by SainTekno';?></a>
                 </div>
