@@ -8,7 +8,7 @@ class Aauth_model extends CI_Model
         parent::__construct();
         
         $this->load->library('aauth');
-        $this->load->model('user_model', 'users');
+        $this->load->model('user_model');
         
         if (get_instance()->install_model->is_installed())  {
             $this->load->library('user');
@@ -34,6 +34,20 @@ class Aauth_model extends CI_Model
         });
     }
 
+    /**
+    * Count Users
+    *
+    * @return int
+    **/
+    public function count_users($include_banneds = false)
+    {
+        // banneds
+        if (! $include_banneds) {
+            $this->aauth->aauth_db->where('banned != ', 1);
+        }
+        return $this->aauth->aauth_db->count_all($this->aauth->config_vars[ 'users' ]);
+    }
+
     public function signin_logo()
     {
         return upload_url().'system/logo-dark.png';
@@ -50,12 +64,12 @@ class Aauth_model extends CI_Model
     public function dashboard_body_class($class)
     {
         // skin is defined by default
-        $class = ($db_skin = $this->users->get_meta('theme-skin')) ? $db_skin : $class; // weird ??? lol
+        $class = ($db_skin = $this->user_model->get_meta('theme-skin')) ? $db_skin : $class; // weird ??? lol
 
         unset($db_skin);
 
         // get user sidebar status
-        $sidebar = $this->users->get_meta('dashboard-sidebar');
+        $sidebar = $this->user_model->get_meta('dashboard-sidebar');
         if ($sidebar == true) {
             $class .= ' ' . $sidebar;
         } 
@@ -75,8 +89,8 @@ class Aauth_model extends CI_Model
 
     public function user_menu_name($user_name)
     {
-        $name    =    $this->users->get_meta('first-name');
-        $last    =    $this->users->get_meta('last-name');
+        $name    =    $this->user_model->get_meta('first-name');
+        $last    =    $this->user_model->get_meta('last-name');
         $full    =    trim(ucwords(substr($name, 0, 1)) . '.' . ucwords($last));
         return $full == '.' ? $user_name : $full;
     }
@@ -128,8 +142,8 @@ class Aauth_model extends CI_Model
     
     public function settings_tables()
     {
-        $this->users->create_default_groups();
-        $this->users->create_permissions();
+        $this->user_model->create_default_groups();
+        $this->user_model->create_permissions();
     }
     
     /**
@@ -138,7 +152,7 @@ class Aauth_model extends CI_Model
     public function final_config()
     {
         // Creating Master & Groups
-        $create_user = $this->users->create_master(
+        $create_user = $this->user_model->create_master(
             $this->input->post('email'),
             $this->input->post('password'),
             $this->input->post('username')
