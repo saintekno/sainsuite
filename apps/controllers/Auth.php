@@ -37,7 +37,7 @@ class Auth extends MY_Controller
         // Log User After Applying Filters
         if ($this->form_validation->run()) 
         {
-            $exec = $this->users->login();
+            $exec = $this->user_model->login();
             if ($exec == 'user-logged-in') 
             {
                 if (riake('redirect', $_GET)) {
@@ -51,7 +51,7 @@ class Auth extends MY_Controller
             // $this->notice->push_notice($this->lang->line($exec));
         }
 		
-		Html::set_title(sprintf(__('Sign In &mdash; %s'), get('app_name')));
+		Polatan::set_title(sprintf(__('Sign In &mdash; %s'), get('app_name')));
 		$data['page_name'] = 'login';
 		$this->load->view('auth/index', $data);
 	}
@@ -66,7 +66,7 @@ class Auth extends MY_Controller
         if ($this->form_validation->run()) 
         {
             global $Options;
-            $exec = $this->users->create(
+            $exec = $this->user_model->create(
                 $this->input->post('email'),
                 $this->input->post('password'),
                 $this->input->post('username'),
@@ -79,7 +79,7 @@ class Auth extends MY_Controller
             }
         }
 		
-		Html::set_title(sprintf(__('Sign Up &mdash; %s'), get('app_name')));
+		Polatan::set_title(sprintf(__('Sign Up &mdash; %s'), get('app_name')));
 		$data['page_name'] = 'register';
 		$this->load->view('auth/index', $data);
     }
@@ -116,7 +116,7 @@ class Auth extends MY_Controller
             $this->notice->push_notice($this->lang->line('unknow-user'));
         }
 
-        Html::set_title(sprintf(__('Recover Password &mdash; %s'), get('core_signature')));
+        Polatan::set_title(sprintf(__('Recover Password &mdash; %s'), get('core_signature')));
         $data['page_name'] = 'recovery';
 		$this->load->view('auth/index', $data);
     }

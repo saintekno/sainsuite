@@ -34,7 +34,7 @@ class Install extends MY_Controller
 
         $this->events->add_filter('install_current', function(){ return 'current'; });
         
-		Html::set_title(sprintf(__('Welcome Page &mdash; %s'), get('app_name')));
+		Polatan::set_title(sprintf(__('Welcome Page &mdash; %s'), get('app_name')));
         $data['page_name'] = 'install';
         $this->load->view('install/index', $data);
     }
@@ -78,7 +78,7 @@ class Install extends MY_Controller
             $this->notice->push_notice($this->lang->line($exec));
         }
 
-		Html::set_title(sprintf(__('Database config &mdash; %s'), get('app_name')));
+		Polatan::set_title(sprintf(__('Database config &mdash; %s'), get('app_name')));
         $data['page_name'] = 'database';
         $this->load->view('install/index', $data);
     }
@@ -117,7 +117,7 @@ class Install extends MY_Controller
             $this->notice->push_notice($this->lang->line($exec));
         }
 
-        Html::set_title(sprintf(__('Site & Master account &mdash; %s'), get('core_signature')));
+        Polatan::set_title(sprintf(__('Site & Master account &mdash; %s'), get('core_signature')));
         $data['page_name'] = 'site';
         $this->load->view('install/index', $data);
     }

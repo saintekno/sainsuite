@@ -12,8 +12,14 @@ class Admin extends MY_Controller
         $this->load->model('admin_model');
         $this->load->model('update_model');
 
+        // $this->_assets_admin();
+
         // Loading Admin Menu
         $this->events->do_action( 'load_dashboard' );
+    }
+    
+    public function _assets_admin()
+    {
     }
 
 	// --------------------------------------------------------------------
@@ -36,9 +42,8 @@ class Admin extends MY_Controller
             return $menus;
         } );
 
-        Html::set_title(sprintf(__('Dashboard &mdash; %s'), get('signature')));
-        $data['page_name'] = $this->events->apply_filters('dashboard_home', $this->load->view( 'backend/home', null, true ));
-		$this->load->view('backend/index', $data);
+        Polatan::set_title(sprintf(__('Dashboard &mdash; %s'), get('signature')));
+        $this->events->apply_filters('dashboard_home', $this->load->view( 'backend/home'));
 	}
 
 	// --------------------------------------------------------------------
@@ -87,11 +92,14 @@ class Admin extends MY_Controller
     
             // Show Errors
             $Routes->error(function($request, \Exception $exception) {
-                return show_error( sprintf( 
-                    __( 'The request returned the following message : %s<br>Code : %s'  ),
-                    $exception->getMessage(),
-                    $exception->getCode()
-                ), intval( $exception->getCode() ) );
+                $this->session->set_flashdata('info_message', 
+                    sprintf( 
+                        __( '%s<br>Code : %s'  ),
+                        $exception->getMessage(),
+                        $exception->getCode()
+                    )
+                );
+                redirect('admin');
             });
             
             // Start Route
@@ -124,9 +132,8 @@ class Admin extends MY_Controller
                 return show_error( __( 'You\'re not allowed to see that page' ) );
             }
 
-            Html::set_title(sprintf(__('Addons List &mdash; %s'), get('signature')));
-            $data['page_name'] = $this->load->view( 'backend/addons/list', null, true );
-            $this->load->view('backend/index', $data);
+            Polatan::set_title(sprintf(__('Addons List &mdash; %s'), get('signature')));
+            $this->load->view( 'backend/addons/list' );
         }
         elseif ($page === 'install_zip') 
         {
@@ -218,9 +225,8 @@ class Admin extends MY_Controller
             ) ) );
             $data['addon'] = $addon;
 
-            HTML::set_title(sprintf(__('Migration &mdash; %s'), get('signature')));
-            $data['page_name'] = $this->load->view( 'backend/addons/migrate', null, true );
-            $this->load->view('backend/index', $data);
+            Polatan::set_title(sprintf(__('Migration &mdash; %s'), get('signature')));
+            $this->load->view( 'backend/addons/migrate');
         }
         elseif ($page == 'exec') 
         {
@@ -312,9 +318,8 @@ class Admin extends MY_Controller
                 return show_error( __( 'You\'re not allowed to see that page' ) );
             }
 
-            Html::set_title(sprintf(__('Themes List &mdash; %s'), get('signature')));
-            $data['page_name'] = $this->load->view( 'backend/theme', null, true );
-            $this->load->view('backend/index', $data);
+            Polatan::set_title(sprintf(__('Themes List &mdash; %s'), get('signature')));
+            $this->load->view( 'backend/theme/index' );
         }
         elseif ($page === 'install_zip') 
         {
@@ -416,9 +421,8 @@ class Admin extends MY_Controller
             return show_error( __( 'You\'re not allowed to see that page' ) );
         }
 
-        Html::set_title(sprintf(__('Settings &mdash; %s'), get('signature')));
-        $data['page_name'] = $this->load->view( 'backend/settings', null, true );
-		$this->load->view('backend/index', $data);
+        Polatan::set_title(sprintf(__('Settings &mdash; %s'), get('signature')));
+        $this->load->view( 'backend/settings/index');
     }
 
     // --------------------------------------------------------------------
@@ -440,11 +444,10 @@ class Admin extends MY_Controller
         });
 
         if ($page === 'core') {
-            Html::set_title(sprintf(__('Updating... &mdash; %s'), get('signature')));
+            Polatan::set_title(sprintf(__('Updating... &mdash; %s'), get('signature')));
             $data['release'] = $version;
             $data['update'] = $this->update_model->get($version);
-            $data['page_name'] = $this->load->view( 'backend/update', $data, true );
-            $this->load->view('backend/index', $data);
+            $this->load->view( 'backend/about/update', $data );
         } 
         elseif ($page === 'download') {
             echo json_encode($this->update_model->install(1, $version));
@@ -456,10 +459,9 @@ class Admin extends MY_Controller
             echo json_encode($this->update_model->install(3));
         } 
         else {
-            Html::set_title(sprintf(__('About &mdash; %s'), get('signature')));
+            Polatan::set_title(sprintf(__('About &mdash; %s'), get('signature')));
             $data['check'] = $this->update_model->check();
-            $data['page_name'] = $this->load->view( 'backend/about', $data, true );
-            $this->load->view('backend/index', $data);
+            $this->load->view( 'backend/about/index', $data );
         }
     }
 }
