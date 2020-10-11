@@ -13,7 +13,8 @@ $this->polatan->add_meta(array(
         'submit' => array(
             'label' => __('Edit User', 'aauth')
         )
-    )
+    ),
+    'type' => 'card'
 ));
 
 // User name

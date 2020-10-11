@@ -18,7 +18,8 @@ $this->polatan->add_meta(array(
         'submit' => array(
             'label' => __('Create User', 'aauth')
         )
-    )
+        ),
+    'type' => 'card'
 ));
 
 /**

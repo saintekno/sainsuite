@@ -22,6 +22,7 @@ $this->polatan->add_meta(array(
     'title'      => __('List', 'aauth'),
     'pagination' => array( true ),
     'col_id'     => 1,
+    'type' => 'card'
 ));
 
 $this->polatan->add_item(array(

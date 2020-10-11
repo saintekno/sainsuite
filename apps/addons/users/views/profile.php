@@ -14,7 +14,8 @@ $this->polatan->add_meta(array(
         'submit'    =>    array(
             'label' => __('Edit User', 'aauth')
         )
-    )
+    ),
+    'type' => 'card'
 ));
 
 // Connected Apps
@@ -25,7 +26,8 @@ $this->polatan->add_meta(array(
     'gui_saver' => false,
     'form'    => array(
         'action' => null
-    )
+    ),
+    'type' => 'card'
 ));
 
 // User name
