@@ -1,10 +1,10 @@
 # SainSuite ![GitHub release (latest by date)](https://img.shields.io/github/v/release/saintekno/SainSuite)
 
-SainSuite adalah serangkaian aplikasi bisnis open source berbasis web.
+SainSuite adalah serangkaian aplikasi bisnis berbasis web.
 
-Aplikasi utama SainSuite termasuk CRM, eCommerce, Manajemen Gudang, Manajemen Proyek, Akuntansi, POS, Human Resources, Pemasaran, Manufaktur...
+Aplikasi utama SainSuite termasuk CRM, eCommerce, Manajemen Gudang, Manajemen Proyek, Akuntansi, POS, Human Resources, Pemasaran, Manufaktur...**(soon)**
 
-Aplikasi SainSuite dapat digunakan sebagai aplikasi yang berdiri sendiri, tetapi juga terintegrasi dengan mulus sehingga Anda mendapatkan Open Source ERP berfitur lengkap saat Anda menginstal beberapa Aplikasi.
+Aplikasi SainSuite dapat digunakan sebagai aplikasi yang berdiri sendiri, tetapi juga terintegrasi dengan mulus sehingga Anda mendapatkan ERP berfitur lengkap saat Anda menginstal beberapa Aplikasi.
 
 ### Installing
 
@@ -20,6 +20,5 @@ Jika Anda tidak mengerti sesuatu, Anda dapat berbicara dengan saya di buddywinan
 
 1. Tuhan Yang Maha Esa
 2. Orang-orang yang berada di belakang SainSuite
-3. CodeIgniter sebagai engine core untuk SainSuite v.3.0.0
-4. Terima kasih kepada semua proyek yang bersifat open source
-5. Terima kasih khusus kepada tim CodeIgniter, semua kontributor proyek CodeIgniter dan Anda sebagai pengguna CodeIgniter.!
+3. Kepada semua proyek yang bersifat open source
+4. Kepada tim CodeIgniter, semua kontributor proyek CodeIgniter dan Anda sebagai pengguna CodeIgniter.!
