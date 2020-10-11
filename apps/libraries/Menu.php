@@ -4,9 +4,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Menu 
 {
     public static $setting_menus_core = array();
+
     public static $report_menus_core = array();
+
     public static $apps_menus_core = array();
+
     public static $toolbar_menus_core = array();
+
+    public static $aside_menu_core = array();
+
     public static $system_menus_core = array();
 
     /**
@@ -35,6 +41,11 @@ class Menu
     public static function add_toolbar_menu($namespace)
     {
         self::$toolbar_menus_core[] = $namespace;
+    }
+
+    public static function add_aside_menu($namespace)
+    {
+        self::$aside_menu_core[] = $namespace;
     }
 
     /**
@@ -223,10 +234,26 @@ class Menu
     {
         foreach (self::$toolbar_menus_core as $menu_namespace => $current_menu) { 
             ?>
-            <a href="<?php echo riake('href', $current_menu); ?>" class="btn <?php echo riake('button', $current_menu); ?> font-weight-bolder btn-sm mr-2">
+            <a href="<?php echo riake('href', $current_menu); ?>" class="btn <?php echo riake('button', $current_menu); ?> font-weight-bolder btn-sm ml-2">
                 <i class="ki ki-plus icon-1x p-0"></i>
                 <span class="d-none d-md-inline"><?php echo riake('title', $current_menu); ?></span> 
             </a>
+            <?php
+        }
+    }
+
+    public static function load_aside_menu()
+    {
+        foreach (self::$aside_menu_core as $menu_namespace => $current_menu) { 
+            ?>
+            <li class="navi-item">
+            <a href="<?php echo riake('href', $current_menu); ?>" class="navi-link px-2">
+                <span class="navi-bullet">
+                    <i class="bullet"></i>
+                </span>
+                <span class="navi-text"><?php echo riake('title', $current_menu); ?></span> 
+            </a>
+            </li>
             <?php
         }
     }
