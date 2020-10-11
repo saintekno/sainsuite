@@ -5,7 +5,7 @@ class Update_Model extends CI_Model
 {
     private static $api_releases = 'https://api.github.com/repos/saintekno/sainsuite/releases';
 
-    private static $api_zip = 'https://api.github.com/repos/saintekno/sainsuite/zipball/';
+    private static $api_zip = 'https://codeload.github.com/saintekno/sainsuite/legacy.zip/';
     
     public function __construct()
     {

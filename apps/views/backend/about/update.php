@@ -4,8 +4,7 @@ $this->polatan->col_width(1, 4);
 
 $this->polatan->add_meta(array(
     'col_id' => 1,
-    'type' => 'card',
-    'namespace' => 'about'
+    'namespace' => 'update'
 ));
 
 $this->polatan->add_item(array(
@@ -14,6 +13,6 @@ $this->polatan->add_item(array(
         'release' => $release,
         'update' => $update,
     ), true )
-), 'about', 1);
+), 'update', 1);
 
 $this->polatan->output();
