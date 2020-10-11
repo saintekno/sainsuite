@@ -7,7 +7,7 @@
         <div class="font-weight-nromal font-size-lg mb-6">
             <?php if ($check) : ?>
             <h6><?php echo sprintf(__('%s : %s is available'), get('app_name'), riake('title', $check[0])); ?></h6>
-            <p><?php echo riake('content', $check[0]); ?></p>
+            <p><?php echo $this->markdown->parse(riake('content', $check[0])); ?></p>
             
             <a class="btn btn-primary" href="<?php echo site_url(array( 'admin', 'about', 'core', riake('version', $check[0]) )); ?>">
                 <?php _e('Click Here to Update'); ?>

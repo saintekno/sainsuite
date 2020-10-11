@@ -459,6 +459,7 @@ class Admin extends MY_Controller
             echo json_encode($this->update_model->install(3));
         } 
         else {
+            $this->load->library('markdown');
             Polatan::set_title(sprintf(__('About &mdash; %s'), get('signature')));
             $data['check'] = $this->update_model->check();
             $this->load->view( 'backend/about/index', $data );
