@@ -219,8 +219,8 @@ class User_model extends CI_Model
             $this->aauth->send_verification($master_id);
             
             // Activate Master
-            $users = $this->aauth->get_user($master_id);
-            $this->aauth->verify_user($master_id, $users->verification_code);
+            $user = $this->aauth->get_user($master_id);
+            $this->aauth->verify_user($master_id, $user->verification_code);
             
             return 'user-created';
         }
