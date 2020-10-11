@@ -6,5 +6,4 @@ $this->polatan->add_meta(array(
     'col_id' => 1,
     'type' => 'welcome'
 ));
-
 $this->polatan->output();

@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>   
     <link rel="shortcut icon" href="<?php echo base_url('uploads/system/favicon.png');?>">
     
-    <title><?php echo HTML::get_title();?></title>
+    <title><?php echo Polatan::get_title();?></title>
     
     <?php $this->events->do_action( 'common_header' );?>
 </HEAD>
@@ -21,7 +21,7 @@
     <div class="d-flex flex-column flex-root">
         <div class="d-flex flex-row flex-column-fluid page">
 
-            <?php include '_aside.php';?>
+            <?php include('_aside.php');?>
             
             <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
 
@@ -29,17 +29,17 @@
 
                     <?php include('_subheader.php'); ?>
 
-                    <div class="d-flex flex-column-fluid">
-                        <?php if (function_exists('validation_errors')) {
-                            if (validation_errors()) : ?>
-                                <div class="alert alert-danger" role="alert">
-                                    <?php echo strip_tags(validation_errors())?>
-                                </div>
-                            <?php endif; ?>
-                        <?php } ?>
+                    <?php if (function_exists('validation_errors')) {
+                        if (validation_errors()) : ?>
+                        <div class="container">
+                            <div class="alert alert-danger" role="alert">
+                                <?php echo strip_tags(validation_errors())?>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+                    <?php } ?>
                         
-                        <?php echo $page_name; ?>
-                    </div>
+                    <?php include('_content.php'); ?>
 
                 </div>
 

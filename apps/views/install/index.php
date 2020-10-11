@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>   
     <link rel="shortcut icon" href="<?php echo base_url('uploads/system/favicon.png');?>">
     
-    <title><?php echo HTML::get_title();?></title>
+    <title><?php echo Polatan::get_title();?></title>
     
     <?php $this->events->do_action( 'common_header' );?>
 </HEAD>

@@ -52,7 +52,7 @@ var KTLogin = function() {
 				setTimeout(function() {
 					KTUtil.btnRelease(formSubmitButton);
 					form.submit();
-				}, 2000);
+				}, 1000);
 
 
 				// Form Validation & Ajax Submission: https://formvalidation.io/guide/examples/using-ajax-to-submit-the-form

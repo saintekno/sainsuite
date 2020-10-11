@@ -6,17 +6,22 @@
             </button> -->
             
             <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">
-                <?php echo str_replace('&mdash; ' . get('signature'), '', Html::get_title());?> 
+                <?php echo str_replace('&mdash; ' . get('signature'), '', Polatan::get_title());?> 
                 <i class="flaticon2-correct text-success icon-md ml-2"></i>                          
             </h5>
 
             <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                 <li class="breadcrumb-item">
-                    <span class="text-muted"> <?php echo str_replace('&mdash; ' . get('signature'), '', Html::get_title());?> </span>
+                    <span class="text-muted"> <?php echo str_replace('&mdash; ' . get('signature'), '', Polatan::get_title());?> </span>
                 </li>
-                <?php if ($this->uri->segment(2) === FALSE) : ?>
+                <?php if ($this->uri->segment(3) && ! is_numeric($this->uri->segment(3))) : ?>
                 <li class="breadcrumb-item">
                     <span class="text-muted"> <?php echo $this->uri->segment(3); ?> </span>
+                </li>
+                <?php endif; ?>
+                <?php if ($this->uri->segment(4) && ! is_numeric($this->uri->segment(4))) : ?>
+                <li class="breadcrumb-item">
+                    <span class="text-muted"> <?php echo $this->uri->segment(4); ?> </span>
                 </li>
                 <?php endif; ?>
             </ul>

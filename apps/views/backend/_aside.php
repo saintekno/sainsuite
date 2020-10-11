@@ -64,6 +64,11 @@
         <!--begin::Footer-->
 		<div class="aside-footer d-flex flex-column align-items-center flex-column-auto py-4 py-lg-10">
 
+            <a href="https://github.com/saintekno/sainsuite" target="_blank" class="btn btn-icon btn-hover-transparent-light btn-aside btn-lg" aria-expanded="false"
+                data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="<?php _e('github');?>">
+                <i class="fab fa-github"></i>
+            </a>
+
 			<a href="<?php echo site_url('admin/addons'); ?>" class="btn btn-icon btn-aside btn-lg mb-1 position-relative" onclick="myAside()" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="<?php _e('addons');?>">
 				<span class="svg-icon svg-icon-light svg-icon-xxl"><!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
 					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -76,18 +81,6 @@
 				</span>
 			</a>
 
-            <a href="https://github.com/saintekno/sainsuite" target="_blank" class="btn btn-icon btn-aside btn-lg" aria-expanded="false">
-            <span class="svg-icon svg-icon-light svg-icon-xxl"><!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                        <rect x="0" y="0" width="24" height="24"/>
-                        <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"/>
-                        <path d="M12,16 C12.5522847,16 13,16.4477153 13,17 C13,17.5522847 12.5522847,18 12,18 C11.4477153,18 11,17.5522847 11,17 C11,16.4477153 11.4477153,16 12,16 Z M10.591,14.868 L10.591,13.209 L11.851,13.209 C13.447,13.209 14.602,11.991 14.602,10.395 C14.602,8.799 13.447,7.581 11.851,7.581 C10.234,7.581 9.121,8.799 9.121,10.395 L7.336,10.395 C7.336,7.875 9.31,5.922 11.851,5.922 C14.392,5.922 16.387,7.875 16.387,10.395 C16.387,12.915 14.392,14.868 11.851,14.868 L10.591,14.868 Z" fill="#000000"/>
-                    </g>
-                </svg><!--end::Svg Icon-->
-            </span>
-            </a>
-
             <div class="dropdown">
                 <a href="#" class="btn btn-icon btn-aside btn-lg" data-toggle="dropdown" data-offset="0px,0px" aria-expanded="false">
                     <img class="w-30px rounded" src="<?php echo $this->events->apply_filters('user_menu_card_avatar_src', '');?>" alt="<?php echo $this->events->apply_filters('user_menu_card_avatar_alt', '');?>">
@@ -97,7 +90,7 @@
                     <!--begin::Nav-->
                     <ul class="navi navi-hover py-4">
                         <li class="navi-section text-uppercase">
-                        <?php echo $this->users->current->username;?>    
+                        <?php echo $this->user_model->current->username;?>    
                         </li>
 
                         <?php echo xss_clean($this->events->apply_filters('after_user_card', ''));?>
