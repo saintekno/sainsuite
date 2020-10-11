@@ -878,11 +878,13 @@ class Aauth {
 	 */
 	public function list_users($group_par = false, $limit = false, $offset = false, $include_banneds = false, $sort = false) {
 
+        $select = "*, aauth_users.id as user_id ";
+
 		// if group_par is given
 		if ($group_par != false) {
 
 			$group_par = $this->get_group_id($group_par);
-			$this->aauth_db->select('*')
+			$this->aauth_db->select($select)
 				->from($this->config_vars['users'])
 				->join($this->config_vars['user_to_group'], $this->config_vars['users'] . ".id = " . $this->config_vars['user_to_group'] . ".user_id")
 				->where($this->config_vars['user_to_group'] . ".group_id", $group_par);
@@ -890,8 +892,10 @@ class Aauth {
 			// if group_par is not given, lists all users
 		} else {
 
-			$this->aauth_db->select('*')
-				->from($this->config_vars['users']);
+			$this->aauth_db->select($select)
+				->from($this->config_vars['users'])
+                ->join($this->config_vars['user_to_group'], $this->config_vars['users'] . ".id = " . $this->config_vars['user_to_group'] . ".user_id")
+                ->join($this->config_vars[ 'groups' ], $this->config_vars[ 'groups' ] . '.id = ' . $this->config_vars['user_to_group']. '.group_id') ;
 		}
 
 		// banneds
@@ -2526,7 +2530,7 @@ class Aauth {
 		}
 
 		// if var not set, set
-		 if ($this->get_user_var($key,$user_id) ===false) {
+		if ($this->get_user_var($key,$user_id) ===false) {
 
 			$data = array(
 				'data_key' => $key,

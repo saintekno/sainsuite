@@ -70,7 +70,7 @@ $lang[ 'fetch-error-from-auth' ] = function () {
 };
 
 // User Edition
-$lang[ 'user-updated' ]       = __('User settings\'s has been updated.');
+$lang[ 'user-updated' ]       = __('User settings has been updated.');
 $lang[ 'user-deleted' ]       = __('The user has been deleted.');
 $lang[ 'pass-change-error' ]  = __('The new password cannot match the old one, please use another password.');
 $lang[ 'old-pass-incorrect' ] = __('Your old password is not correct.');
