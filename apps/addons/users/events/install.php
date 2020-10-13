@@ -18,8 +18,8 @@ class Users_Install extends CI_model
     {
         if ($namespace === 'users' && $this->options_model->get('users_installed') == null) {
             // Install Tables
-            $this->install_tables();
-            $this->final_config();
+            // $this->install_tables();
+            // $this->final_config();
         }
     }
 

@@ -5,6 +5,7 @@
             <label class="font-size-lg text-dark font-weight-bold"><?php echo riake('label', $col);?>:</label>
             <input class="form-control" <?php echo $disabled === true ? 'disabled="disabled"' : '';?>
                 type="<?php echo $type;?>" 
+                id="<?php echo $id;?>" 
                 name="<?php echo riake('name', $col);?>" 
                 placeholder="<?php echo riake('placeholder', $col);?>"
                 value="<?php echo strip_tags( xss_clean( $value ) );?>"/>
@@ -15,6 +16,7 @@
     <div class="col-12">
         <label class="font-size-lg text-dark font-weight-bold"><?php echo riake('label', $_item);?>:</label>
         <input class="form-control" <?php echo $disabled === true ? 'disabled="disabled"' : '';?>
+            id="<?php echo $id;?>" 
             type="<?php echo $type;?>" 
             name="<?php echo riake('name', $_item);?>" 
             placeholder="<?php echo riake('placeholder', $_item);?>"

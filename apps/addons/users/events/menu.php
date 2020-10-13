@@ -16,7 +16,7 @@ class Users_Menu extends CI_model
      * Load Dashboard Menu
      * [New Permission Ready]
     **/
-    public function system_menu()
+    public function system_menu($system)
     {
         if (
             User::can('create.users') ||

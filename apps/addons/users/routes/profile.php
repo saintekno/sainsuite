@@ -18,11 +18,10 @@ class UsersProfileController extends CI_Model
         $this->form_validation->set_rules('user_email', __('User Email', 'aauth'), 'valid_email');
         $this->form_validation->set_rules('old_pass', __('Old Pass', 'aauth'), 'min_length[6]');
         $this->form_validation->set_rules('password', __('Password', 'aauth'), 'min_length[6]');
-        $this->form_validation->set_rules('confirm', __('Confirm', 'aauth'), 'matches[password]');
 
         if ($this->form_validation->run()) {
             $exec = $this->user_model->edit(
-                $this->users->auth->get_user_id(),
+                $this->aauth->get_user_id(),
                 $this->input->post('user_email'),
                 $this->input->post('password'),
                 $this->input->post('userprivilege'),
@@ -33,11 +32,11 @@ class UsersProfileController extends CI_Model
 
             $custom_fields = $this->events->apply_filters('custom_user_meta', array());
             foreach (force_array($custom_fields) as $key => $value) {
-                $this->aauth->set_user_var($key, strip_tags( xss_clean( $value ) ), $this->users->auth->get_user_id());
+                $this->aauth->set_user_var($key, strip_tags( xss_clean( $value ) ), $this->aauth->get_user_id());
             }            
             
-            $this->users->refresh_user_meta();
-            $this->notice->push_notice_array($exec);
+            $this->user_model->refresh_user_meta();
+            $this->notice->push_notice($exec);
         }
         
 		Polatan::set_title(__( 'My Profile', 'users' ));

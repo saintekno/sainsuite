@@ -69,6 +69,7 @@
                 <i class="fab fa-github"></i>
             </a>
 
+            <?php if ( User::can('manage.core')) : ?>
 			<a href="<?php echo site_url('admin/addons'); ?>" class="btn btn-icon btn-aside btn-lg mb-1 position-relative" onclick="myAside()" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="<?php _e('addons');?>">
 				<span class="svg-icon svg-icon-light svg-icon-xxl"><!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
 					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -79,7 +80,8 @@
 						</g>
 					</svg><!--end::Svg Icon-->
 				</span>
-			</a>
+            </a>
+            <?php endif; ?>
 
             <div class="dropdown">
                 <a href="#" class="btn btn-icon btn-aside btn-lg" data-toggle="dropdown" data-offset="0px,0px" aria-expanded="false">

@@ -1,5 +1,7 @@
 <!--begin::Container-->
 <div class="container">
+    <?php echo $this->events->apply_filters('gui_before_cols', '');?>
+
     <?php if (!empty($this->events->has_filter('aside_menu'))) :?>
 
         <div class="d-flex flex-row">

@@ -66,7 +66,7 @@ class UsersHomeController extends CI_Model
         $this->events->add_filter( 'toolbar_menu', function( $final ) {
 			$final[] = array(
 				'title'   => __('Return to the list'),
-				'icon'    => 'svg/add.svg',
+				'icon'    => 'ki-plus',
 				'button'  => 'btn-light-primary',
 				'href'    => site_url([ 'admin', 'users' ])
 			);
@@ -104,7 +104,7 @@ class UsersHomeController extends CI_Model
         $this->events->add_filter( 'toolbar_menu', function( $final ) {
 			$final[] = array(
 				'title'   => __('Add A user'),
-				'icon'    => 'svg/add.svg',
+				'icon'    => 'ki-plus',
 				'button'  => 'btn-light-primary',
 				'href'    => site_url([ 'admin', 'users', 'create' ])
 			);
@@ -183,7 +183,7 @@ class UsersHomeController extends CI_Model
         $this->events->add_filter( 'toolbar_menu', function( $final ) {
 			$final[] = array(
 				'title'   => __('Return to the list'),
-				'icon'    => 'svg/add.svg',
+				'icon'    => 'ki-plus',
 				'button'  => 'btn-light-primary',
 				'href'    => site_url([ 'admin', 'users' ])
 			);

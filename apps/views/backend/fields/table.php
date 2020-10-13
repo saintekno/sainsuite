@@ -1,6 +1,6 @@
 <!--begin::Table-->
 <div class="table-responsive">
-    <table class="table table-head-custom table-vertical-center"
+    <table class="table table-head-custom table-vertical-center kt_datatable"
         id="kt_advance_table_widget_2">
         <thead>
             <tr class="text-uppercase">
@@ -18,12 +18,6 @@
                 <?php endforeach;?>
             </tr>
             <?php endforeach;?>
-        <?php else:?>
-            <tr>
-                <td colspan="<?php echo count(force_array(riake('thead', $_item)));?>">
-                    <?php echo __('Empty table');?>
-                </td>
-            </tr>
         <?php endif;?>
         </tbody>
     </table>

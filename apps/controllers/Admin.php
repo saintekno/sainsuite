@@ -25,30 +25,6 @@ class Admin extends MY_Controller
 	// --------------------------------------------------------------------
 
     /**
-     * Index
-     *
-     * @return void
-     */
-	public function index()
-	{
-        $this->events->add_filter('toolbar_menu', function ($menus)
-        {
-            $menus[] = array(
-                    'title'  => __('Graphic Report'),
-                    'icon'   => 'svg/Thunder-move.svg',
-                    'button' => 'btn-white btn-hover-primary',
-                    'href'   => site_url('admin')
-            );
-            return $menus;
-        } );
-
-        Polatan::set_title(sprintf(__('Dashboard &mdash; %s'), get('signature')));
-        $this->events->apply_filters('dashboard_home', $this->load->view( 'backend/home'));
-	}
-
-	// --------------------------------------------------------------------
-
-    /**
      * Rmap Controller
      *
      * @param [type] $page
@@ -107,6 +83,24 @@ class Admin extends MY_Controller
         }
     }
 
+	// --------------------------------------------------------------------
+
+    /**
+     * Index
+     *
+     * @return void
+     */
+	public function index()
+	{
+        Polatan::set_title(sprintf(__('Dashboard &mdash; %s'), get('signature')));
+
+        if (! empty($this->events->has_filter('load_dashboard_home'))) :
+            $this->events->do_action('load_dashboard_home');
+        else :
+            $this->load->view( 'backend/home');
+        endif;
+	}
+
     // --------------------------------------------------------------------
     
     /**
@@ -121,6 +115,10 @@ class Admin extends MY_Controller
      */
     public function addons($page = 'list', $arg2 = null, $arg3 = null, $arg4 = null, $arg5 = null)
     {
+        if (! User::can('manage.core')) {
+            return show_error( __( 'You\'re not allowed to see that page' ) );
+        }
+        
         if ($page === 'list') 
         {
             // Can user access.addons ?
@@ -435,10 +433,6 @@ class Admin extends MY_Controller
      */
     public function about($page = 'home',  $version = null)
     {
-        if (! User::can('manage.core')) {
-            return show_error( __( 'You\'re not allowed to see that page' ) );
-        }
-
         $this->events-> add_filter('gui_page_title', function () { // disabling header
             return;
         });

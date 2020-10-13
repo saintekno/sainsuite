@@ -3,6 +3,7 @@ $saver_enabled = riake('gui_saver', $meta);
 
 foreach (force_array(riake('items', $meta)) as $_item) {
     $name           =    @$_item[ 'name' ];
+    $id             =    @$_item[ 'id' ];
     $type           =    @$_item[ 'type' ];
     $placeholder    =    @$_item[ 'placeholder' ];
     $value          =    @$_item[ 'value' ];
@@ -31,6 +32,10 @@ foreach (force_array(riake('items', $meta)) as $_item) {
     elseif ($type == 'table') 
     {
         include( dirname( __FILE__ ) . '/fields/table.php' );                            
+    }
+    elseif ( $type == 'file-input') 
+    {
+        include( dirname( __FILE__ ) . '/fields/file-input.php' );               
     }
     elseif ($type == 'dom') 
     {

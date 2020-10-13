@@ -235,7 +235,7 @@ class Menu
         foreach (self::$toolbar_menus_core as $menu_namespace => $current_menu) { 
             ?>
             <a href="<?php echo riake('href', $current_menu); ?>" class="btn <?php echo riake('button', $current_menu); ?> font-weight-bolder btn-sm ml-2">
-                <i class="ki ki-plus icon-1x p-0"></i>
+                <i class="ki <?php echo riake('icon', $current_menu); ?> icon-1x p-0"></i>
                 <span class="d-none d-md-inline"><?php echo riake('title', $current_menu); ?></span> 
             </a>
             <?php

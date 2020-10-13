@@ -24,12 +24,14 @@ class Admin_Model extends CI_Model
             'icon'  => 'svg/Bookmark.svg',
             'title' => __('About'),
         );
-
-        $setting_menu[ 'system' ][] = array(
-            'title' => __('System'),
-            'icon'  => 'svg/Settings-2.svg',
-            'href'  => site_url('admin/settings')
-        );
+        
+        if (User::can('manage.core')) {
+            $setting_menu[ 'system' ][] = array(
+                'title' => __('System'),
+                'icon'  => 'svg/Settings-2.svg',
+                'href'  => site_url('admin/settings')
+            );
+        }
 
         $setting_menu[ 'theme' ][] = array(
             'title' => __('Themes'),

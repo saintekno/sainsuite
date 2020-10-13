@@ -54,7 +54,7 @@ $this->polatan->add_item(array(
 // load custom field for user creatin
 
 $this->events->do_action('load_users_custom_fields', array(
-    'mode'           => 'profile',
+    'mode'           => 'edit',
     'groups'         => array(),
     'meta_namespace' => 'user_profile',
     'col_id'         => 1,

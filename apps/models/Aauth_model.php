@@ -28,7 +28,6 @@ class Aauth_model extends CI_Model
         $this->events->add_filter('signin_logo', array( $this, 'signin_logo' ));
         $this->events->add_filter('dashboard_body_class', array( $this, 'dashboard_body_class' ), 5, 1);
         $this->events->add_filter('user_menu_name', array( $this, 'user_menu_name' ));
-        $this->events->add_filter('custom_user_meta', array( $this, 'custom_user_meta' ), 10, 1);
         $this->events->add_filter('user_menu_card_avatar_src', function () {
             return User::get_gravatar_url();
         });
@@ -93,22 +92,6 @@ class Aauth_model extends CI_Model
         $last    =    $this->user_model->get_meta('last-name');
         $full    =    trim(ucwords(substr($name, 0, 1)) . '.' . ucwords($last));
         return $full == '.' ? $user_name : $full;
-    }
-    
-    /**
-    * Adds custom meta for user
-    *
-    * @access : public
-    * @param : Array
-    * @return : Array
-    **/
-    
-    public function custom_user_meta($fields)
-    {
-        $fields[ 'first-name' ] = ($fname = $this->input->post('first-name')) ? $fname : '';
-        $fields[ 'last-name' ]  = ($lname = $this->input->post('last-name')) ? $lname : '';
-        $fields[ 'theme-skin' ] = ($skin = $this->input->post('theme-skin')) ? $skin : 'skin-blue';
-        return $fields;
     }
     
     public function registration_rules()
