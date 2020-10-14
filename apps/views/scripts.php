@@ -50,6 +50,6 @@
     <?php endif;?>
 
     <?php if ($this->notice->output_notice(true)):?>
-        toastr.error('<?php echo $this->notice->output_notice();?>');
+        toastr.info('<?php echo $this->notice->output_notice();?>');
     <?php endif;?>
 </script>

@@ -18,6 +18,7 @@ class UsersProfileController extends CI_Model
         $this->form_validation->set_rules('user_email', __('User Email', 'aauth'), 'valid_email');
         $this->form_validation->set_rules('old_pass', __('Old Pass', 'aauth'), 'min_length[6]');
         $this->form_validation->set_rules('password', __('Password', 'aauth'), 'min_length[6]');
+        $this->form_validation->set_rules('confirm', __('Confirm', 'aauth'), 'matches[password]');
 
         if ($this->form_validation->run()) {
             $exec = $this->user_model->edit(
@@ -36,7 +37,7 @@ class UsersProfileController extends CI_Model
             }            
             
             $this->user_model->refresh_user_meta();
-            $this->notice->push_notice($exec);
+            $this->notice->push_notice_array($exec);
         }
         
 		Polatan::set_title(__( 'My Profile', 'users' ));

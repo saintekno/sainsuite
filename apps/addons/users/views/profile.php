@@ -12,7 +12,7 @@ $this->polatan->add_meta(array(
     ),
     'footer'    =>    array(
         'submit'    =>    array(
-            'label' => __('Edit User', 'aauth')
+            'label' => __('Edit User')
         )
     ),
     'type' => 'card'
@@ -24,10 +24,9 @@ $this->polatan->add_meta(array(
     'title'     => __( 'Connected Applications' , 'aauth'),
     'namespace' => 'user_apps',
     'gui_saver' => false,
-    'form'    => array(
+    'form'      => array(
         'action' => null
-    ),
-    'type' => 'card'
+    )
 ));
 
 // User name
@@ -49,32 +48,19 @@ $this->polatan->add_item(array(
     'value' => $this->user_model->current->email
 ), 'user_profile', 1);
 
-// add to a group
-
-// load custom field for user creatin
-
-$this->events->do_action('load_users_custom_fields', array(
-    'mode'           => 'edit',
-    'groups'         => array(),
-    'meta_namespace' => 'user_profile',
-    'col_id'         => 1,
-    'gui'            => $this->polatan,
-    'user_id'        => $this->user_model->current->id
-));
-
 // user password
 
 $this->polatan->add_item(array(
     'type'  => 'password',
     'label' => __('Old Password', 'aauth'),
     'name'  => 'old_pass',
-), 'user_apps', 2);
+), 'user_profile', 1);
 
 $this->polatan->add_item(array(
     'type'  => 'password',
     'label' => __('New Password', 'aauth'),
     'name'  => 'password',
-), 'user_apps', 2);
+), 'user_profile', 1);
 
 // user password config
 
@@ -82,7 +68,18 @@ $this->polatan->add_item(array(
     'type'  => 'password',
     'label' => __('Confirm New', 'aauth'),
     'name'  => 'confirm',
-), 'user_apps', 2);
+), 'user_profile', 1);
+
+// load custom field for user creatin
+
+$this->events->do_action('load_users_custom_fields', array(
+    'mode'           => 'profile',
+    'groups'         => array(),
+    'meta_namespace' => 'user_profile',
+    'col_id'         => 1,
+    'gui'            => $this->polatan,
+    'user_id'        => $this->user_model->current->id
+));
 
 $this->polatan->add_item( array(
     'type'    => 'dom',
