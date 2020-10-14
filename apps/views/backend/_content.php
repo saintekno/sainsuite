@@ -110,7 +110,7 @@
         <div class="row">
         <?php foreach (force_array($this->polatan->get_cols()) as $col_id => $col_data):?>
             <?php if( $col_data ):?>
-            <div class="col-<?php echo ceil(riake('width', $col_data, 1) * 3) ;?>">
+            <div class="col-sm-12 col-xs-12 col-md-<?php echo ceil(riake('width', $col_data, 1) * 3) ;?>">
                 <?php foreach (force_array(riake('metas', $col_data)) as $meta) : ?>
                     
                     <?php if (riake('type', $meta) == 'welcome') :?>
