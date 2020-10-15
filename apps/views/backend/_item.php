@@ -13,12 +13,6 @@ foreach (force_array(riake('items', $meta)) as $_item) {
     $disabled       =    @$_item[ 'disabled' ];
     $description    =    @$_item[ 'description' ];
     $active         =    @$_item[ 'active' ];
-
-    // fetch option from dashboard
-    if ($saver_enabled && ! in_array($type, array( 'html-list', 'dom', 'file-input', 'html-error', 'table', 'buttons' ))) 
-    {
-        $value = strip_tags( xss_clean( ($db_value = $this->options_model->get($name)) ? $db_value : $value ) );
-    }
     
     if (in_array($type, array( 'text', 'password', 'email', 'tel' ))) 
     { 

@@ -58,16 +58,16 @@ $this->polatan->add_item(array(
 
 $this->polatan->add_item(array(
     'type'  => 'password',
-    'label' => __('New Password', 'aauth'),
-    'name'  => 'password',
-), 'user_profile', 1);
-
-// user password config
-
-$this->polatan->add_item(array(
-    'type'  => 'password',
-    'label' => __('Confirm New', 'aauth'),
-    'name'  => 'confirm',
+    'cols'  => array(
+        [
+            'label' => __('New Password', 'aauth'),
+            'name'  => 'password',
+        ],
+        [
+            'label' => __('Confirm New', 'aauth'),
+            'name'  => 'confirm',
+        ]
+    )
 ), 'user_profile', 1);
 
 // load custom field for user creatin

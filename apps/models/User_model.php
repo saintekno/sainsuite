@@ -97,7 +97,7 @@ class User_model extends CI_Model
     {
         $user_creation_status = $this->aauth->create_user($email, $password, $username);
         if (! $user_creation_status) {
-            return false;
+            return 'unexpected-error';
         }
 
         // bind user to a speciifc group
