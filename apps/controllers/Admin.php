@@ -70,8 +70,8 @@ class Admin extends MY_Controller
             $Routes->error(function($request, \Exception $exception) {
                 $this->session->set_flashdata('info_message', 
                     sprintf( 
-                        __( '%s<br>Code : %s'  ),
-                        $exception->getMessage(),
+                        __( 'Demo : %s'  ),
+                        // $exception->getMessage(),
                         $exception->getCode()
                     )
                 );

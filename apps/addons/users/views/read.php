@@ -27,7 +27,7 @@ $this->polatan->add_meta(array(
 ));
 
 $this->polatan->add_item(array(
-    'type'  => 'table',
+    'type'  => 'default-table',
     'thead' => array( __('Username', 'aauth'), __('Role', 'aauth'), __('Email', 'aauth'),  __('Activity', 'aauth'), __( 'Status' , 'aauth'), __('Actions', 'aauth') ),
     'tbody' => $complete_users
 ), 'user-list', 1);

@@ -6,19 +6,6 @@ class UsersHomeController extends CI_Model
     public function __construct()
     {
         parent::__construct();
-
-        // Asidebar
-        $this->events->add_filter( 'aside_menu', function( $final ) {
-			$final[] = array(
-				'title' => __('Users'),
-				'href' => site_url([ 'admin', 'users' ])
-			);
-			$final[] = array(
-				'title' => __('Permission'),
-				'href' => site_url([ 'admin', 'users', 'permissions' ])
-			);
-			return $final;
-        });
     }
 
     public function create()
@@ -97,7 +84,8 @@ class UsersHomeController extends CI_Model
 		$config_vars = $this->config->item('pagination');
         $config_vars['base_url'] = site_url(array( 'admin', 'users' )) . '/';
         $config_vars['total_rows'] = $this->aauth_model->count_users();
-        $config_vars['per_page'] = 2;
+        $config_vars['per_page'] = 10;
+        $config_vars['use_page_numbers'] = TRUE;
         $this->pagination->initialize($config_vars);
 
         // Toolbar

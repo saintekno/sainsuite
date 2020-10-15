@@ -33,6 +33,10 @@ foreach (force_array(riake('items', $meta)) as $_item) {
     {
         include( dirname( __FILE__ ) . '/fields/table.php' );                            
     }
+    elseif ($type == 'default-table') 
+    {
+        include( dirname( __FILE__ ) . '/fields/default-table.php' );                            
+    }
     elseif ( $type == 'file-input') 
     {
         include( dirname( __FILE__ ) . '/fields/file-input.php' );               
