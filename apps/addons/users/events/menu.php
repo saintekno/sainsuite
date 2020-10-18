@@ -8,7 +8,6 @@ class Users_Menu extends CI_model
 		parent::__construct();
 		$this->events->add_filter( 'system_menu', array( $this, 'system_menu' ));
 		$this->events->add_filter( 'after_user_card', array( $this, 'after_user_card' ));
-		// $this->events->add_filter( 'report_menu', array( $this, 'report_menu' ), 15);
 		// $this->events->add_filter( 'setting_menu', array( $this, 'setting_menu' ), 15);
     }
 

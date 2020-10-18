@@ -84,7 +84,7 @@ class UsersHomeController extends CI_Model
 		$config_vars = $this->config->item('pagination');
         $config_vars['base_url'] = site_url(array( 'admin', 'users' )) . '/';
         $config_vars['total_rows'] = $this->aauth_model->count_users();
-        $config_vars['per_page'] = 2;
+        $config_vars['per_page'] = 10;
         $config_vars['use_page_numbers'] = TRUE;
         $this->pagination->initialize($config_vars);
 

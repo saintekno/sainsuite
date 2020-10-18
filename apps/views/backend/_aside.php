@@ -5,7 +5,7 @@
 	<div class="aside-primary d-flex flex-column align-items-center flex-row-auto">
 
         <!--begin::Brand-->
-		<div class="aside-brand d-flex flex-column align-items-center flex-column-auto py-3 py-lg-5 my-5">
+		<div class="aside-brand d-flex flex-column align-items-center flex-column-auto py-7">
 
             <!--begin::Logo-->
             <a href="<?php echo site_url('admin'); ?>">
@@ -13,14 +13,14 @@
             </a>
 
             <!--begin::Aside Toggle-->
-            <span class="aside-toggle btn btn-icon btn-primary btn-hover-primary shadow-sm" id="kt_aside_toggle" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Toggle Aside">
+            <span class="aside-toggle btn btn-icon btn-light btn-hover-primary shadow border" id="kt_aside_toggle" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Toggle Aside">
                 <i class="ki ki-bold-arrow-back icon-sm"></i>
             </span>
             <!--end::Aside Toggle-->
         </div>
 
         <!--begin::Nav Wrapper-->
-		<div class="aside-nav d-flex flex-column align-items-center flex-column-fluid py-5 scroll scroll-pull">
+		<div class="aside-nav d-flex flex-column align-items-center flex-column-fluid scroll scroll-pull">
 
             <!--begin::Nav-->
             <ul class="nav flex-column" role="tablist" id="myTab">
@@ -62,12 +62,7 @@
         </div>
 
         <!--begin::Footer-->
-		<div class="aside-footer d-flex flex-column align-items-center flex-column-auto py-4 py-lg-10">
-
-            <a href="https://github.com/saintekno/sainsuite" target="_blank" class="btn btn-icon btn-hover-transparent-light btn-aside btn-lg" aria-expanded="false"
-                data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="<?php _e('github');?>">
-                <i class="fab fa-github"></i>
-            </a>
+		<div class="aside-footer d-flex flex-column align-items-center flex-column-auto py-7">
 
             <?php if ( User::can('manage.core')) : ?>
 			<a href="<?php echo site_url('admin/addons'); ?>" class="btn btn-icon btn-aside btn-lg mb-1 position-relative" onclick="myAside()" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="<?php _e('addons');?>">
@@ -83,17 +78,48 @@
             </a>
             <?php endif; ?>
 
-            <div class="dropdown">
+            <div class="dropdown" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Help Center">
                 <a href="#" class="btn btn-icon btn-aside btn-lg" data-toggle="dropdown" data-offset="0px,0px" aria-expanded="false">
-                    <img class="w-30px rounded" src="<?php echo $this->events->apply_filters('user_menu_card_avatar_src', '');?>" alt="<?php echo $this->events->apply_filters('user_menu_card_avatar_alt', '');?>">
+                <span class="svg-icon svg-icon-light svg-icon-xxl"><!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24"/>
+                            <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"/>
+                            <path d="M12,16 C12.5522847,16 13,16.4477153 13,17 C13,17.5522847 12.5522847,18 12,18 C11.4477153,18 11,17.5522847 11,17 C11,16.4477153 11.4477153,16 12,16 Z M10.591,14.868 L10.591,13.209 L11.851,13.209 C13.447,13.209 14.602,11.991 14.602,10.395 C14.602,8.799 13.447,7.581 11.851,7.581 C10.234,7.581 9.121,8.799 9.121,10.395 L7.336,10.395 C7.336,7.875 9.31,5.922 11.851,5.922 C14.392,5.922 16.387,7.875 16.387,10.395 C16.387,12.915 14.392,14.868 11.851,14.868 L10.591,14.868 Z" fill="#000000"/>
+                        </g>
+                    </svg><!--end::Svg Icon-->
+                </span>
                 </a>
                 <!--begin::Dropdown-->
                 <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-left">
                     <!--begin::Nav-->
                     <ul class="navi navi-hover py-4">
-                        <li class="navi-section text-uppercase">
-                        <?php echo $this->user_model->current->username;?>    
+                        <?php Menu::load_help_menu();  ?>
+                    </ul>
+                    <!--end::Nav-->
+                </div>
+                <!--end::Dropdown-->
+            </div>
+
+            <div class="dropdown">
+                <a href="#" class="symbol symbol-30 symbol-circle pt-4" data-toggle="dropdown" data-offset="0px,0px" aria-expanded="false">
+                    <img src="<?php echo $this->events->apply_filters('user_menu_card_avatar_src', '');?>" alt="<?php echo $this->events->apply_filters('user_menu_card_avatar_alt', '');?>">
+                </a>
+                <!--begin::Dropdown-->
+                <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-md dropdown-menu-left">
+                    <!--begin::Nav-->
+                    <ul class="navi navi-hover py-4">
+                        <li class="navi-section">
+                            <div class="d-flex flex-column">
+                                <span class="text-uppercase">
+                                    <?php echo $this->user_model->current->username;?>
+                                </span>
+                                <div class="text-muted mt-1">
+                                    <?php echo $this->user_model->current->email;?>
+                                </div>
+                            </div>
                         </li>
+                        <div class="dropdown-divider"></div>
 
                         <?php echo xss_clean($this->events->apply_filters('after_user_card', ''));?>
 
@@ -116,14 +142,16 @@
 	<div class="aside-secondary d-flex flex-row-fluid">
 
         <!--begin::Workspace-->
-        <div class="aside-workspace scroll scroll-push my-2">
+        <div class="aside-workspace scroll scroll-push">
 
             <!--begin::Tab Content-->
             <div class="tab-content">
 
-                <h3 class="p-3 p-lg-5 my-5 my-lg-7 text-light"><?php echo $this->options_model->get('site_name');?></h3>
+                <div class="tab-title px-4 pt-5">
+					<h2 class="text-light pl-4 pt-5 pb-6 font-weight-light"><?php echo $this->options_model->get('site_name');?></h2>
+				</div>
 
-                <div class="tab-pane p-3 px-lg-5 fade show active" id="kt_aside_tab_1">
+                <div class="tab-pane px-4 pb-3 fade show active" id="kt_aside_tab_1">
 
                     <!--begin::List-->
                     <div class="list list-hover">
@@ -132,7 +160,7 @@
                 </div>
 
                 <!--begin::Tab Pane-->
-                <div class="tab-pane p-3 px-lg-5 py-lg-5 fade" id="kt_aside_tab_2">
+                <div class="tab-pane px-4 pb-3 fade" id="kt_aside_tab_2">
                     <!--begin::Aside Menu-->
                     <div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper">
                         <!--begin::Menu Container-->
@@ -141,10 +169,6 @@
                             <ul class="menu-nav pt-0">
                                 <?php Menu::load_setting_menu();  ?>
                             </ul>
-                            <ul class="menu-nav">
-                                <?php Menu::load_report_menu();  ?>
-                            </ul>
-                            <!--end::Menu Nav-->
                         </div>
                         <!--end::Menu Container-->
                     </div>

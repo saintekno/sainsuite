@@ -70,7 +70,7 @@
                 <input type="hidden" name="gui_saver_ref" value="<?php echo urlencode(current_url());?>" />
                 <input type="hidden" name="gui_saver_expiration_time" value="<?php echo gmt_to_local(time(), 'UTC') + GUI_EXPIRE;?>" />
                 <div class="box-body">
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label><?php echo __('Open registration');?></label>
                         <select class="form-control" name="site_registration">
                             <?php
@@ -105,7 +105,7 @@
                             ?>
                         </select>
                         <p class="help-block"><?php echo __( 'Each new account will have to check the verification email in order to validate their account.' );?></p>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label><?php echo __('Enable Developer mode ?');?></label>
                         <select class="form-control" name="webdev_mode">

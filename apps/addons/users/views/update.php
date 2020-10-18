@@ -1,6 +1,6 @@
 <?php
 
-$this->polatan->col_width(1, 4);
+$this->polatan->col_width(1, 2);
 
 $this->polatan->add_meta(array(
     'col_id'    => 1,

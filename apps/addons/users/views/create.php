@@ -3,7 +3,7 @@
 /**
  * Col Width
  */
-$this->polatan->col_width(1, 4);
+$this->polatan->col_width(1, 2);
 
 /**
  * Meta
