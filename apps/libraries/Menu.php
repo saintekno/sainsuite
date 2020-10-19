@@ -196,11 +196,13 @@ class Menu
                 $custom_style = (riake('href', $current_menu) == current_url()) ? 'active' : '';
                 ?>
                 <!--begin::Item-->
-                <a href="<?php echo riake('href', $current_menu);?>" class="list-item hoverable p-3 mb-2 <?php echo $custom_style;?>">
+                <a href="<?php echo riake('href', $current_menu);?>" class="list-item d-block p-2 mb-2 <?php echo $custom_style;?>">
                     <div class="d-flex align-items-center">
-                        <span class="svg-icon mr-4">
-                            <img src="<?php echo asset_url(riake('icon', $current_menu));?>" />
-                        </span>
+                        <div class="symbol symbol-35 mr-4">
+                            <span class="symbol-label">
+                                <img src="<?php echo asset_url(riake('icon', $current_menu));?>" />
+                            </span>
+                        </div>    
 
                         <div class="d-flex flex-column flex-grow-1 mr-2">
                             <span class="text-light mb-0"><?php echo riake('title', $current_menu);?></span>
@@ -261,14 +263,11 @@ class Menu
     {
         foreach (self::$aside_menu_core as $menu_namespace => $current_menu) { 
             ?>
-            <li class="navi-item">
-            <a href="<?php echo riake('href', $current_menu); ?>" class="navi-link px-2">
-                <span class="navi-bullet">
-                    <i class="bullet"></i>
+            <a href="<?php echo riake('href', $current_menu); ?>" class="nav-item">
+                <span class="nav-label px-10">
+                    <span class="nav-title text-dark-75 font-weight-bold font-size-h5"><?php echo riake('title', $current_menu); ?></span>
                 </span>
-                <span class="navi-text"><?php echo riake('title', $current_menu); ?></span> 
             </a>
-            </li>
             <?php
         }
     }
