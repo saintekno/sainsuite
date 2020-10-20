@@ -59,14 +59,7 @@
         <!--end::Login-->
     </div>
     <!--end::Main-->
-	
-    <script>
-    <?php if ($errors = $this->aauth->get_errors_array()) :
-        foreach ($errors as $error) : ?>
-            toastr.error('<?php echo $error;?>');
-        <?php endforeach ;
-    endif; ?>
-    </script>
+
     <?php echo $this->events->do_action( 'common_footer' );?>
 </BODY>
 </HTML>

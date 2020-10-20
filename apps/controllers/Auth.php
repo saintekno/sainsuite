@@ -48,7 +48,7 @@ class Auth extends MY_Controller
                     redirect( $url );
                 }
             }
-            // $this->notice->push_notice($this->lang->line($exec));
+            $this->notice->push_notice($this->lang->line($exec));
         }
 		
 		Polatan::set_title(sprintf(__('Sign In &mdash; %s'), get('app_name')));

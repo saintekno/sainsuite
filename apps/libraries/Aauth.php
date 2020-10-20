@@ -357,10 +357,13 @@ class Aauth {
 
 				return true;
 			}
+			else {
+				$this->error($this->CI->lang->line('aauth_error_login_failed_all'));
+				return false;
+			}
 		}
 		// if not matches
 		else {
-
 			$this->error($this->CI->lang->line('aauth_error_login_failed_all'));
 			return false;
 		}
