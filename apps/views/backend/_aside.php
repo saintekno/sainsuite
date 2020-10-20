@@ -148,7 +148,7 @@
             <div class="tab-content">
 
                 <div class="tab-title px-4 pt-5">
-					<h2 class="text-light pl-4 pt-5 pb-6 font-weight-light"><?php echo $this->options_model->get('site_name');?></h2>
+					<h2 class="text-light pl-4 pt-5 pb-6 font-weight-light font-size-h2"><?php echo $this->options_model->get('site_name');?></h2>
 				</div>
 
                 <div class="tab-pane px-4 pb-3 fade show active" id="kt_aside_tab_1">

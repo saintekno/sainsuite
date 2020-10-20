@@ -135,6 +135,7 @@ class Update_Model extends CI_Model
     public function install($stage, $zipball = null)
     {
         $Do_zip = APPPATH . 'temp/sainsuite.zip';
+        $dircore = APPPATH . 'temp/core';
 
         if ($stage === 1 && $zipball != null) 
         { 
@@ -156,12 +157,12 @@ class Update_Model extends CI_Model
                 $zip = new ZipArchive;
                 if ($zip->open($Do_zip)) 
                 {
-                    if (is_dir(APPPATH . 'temp/core')) 
+                    if (is_dir($dircore)) 
                     {
-                        Filer::drop(APPPATH . 'temp/core'); // if any update failed, we drop temp/core before
+                        Filer::drop($dircore); // if any update failed, we drop temp/core before
                     }
-                    mkdir(APPPATH . 'temp/core');
-                    $zip->extractTo(APPPATH . 'temp/core');
+                    mkdir($dircore);
+                    $zip->extractTo($dircore);
                     $zip->close();
                 }
                 unlink($Do_zip); // removing zip file
@@ -173,36 +174,62 @@ class Update_Model extends CI_Model
         elseif ($stage === 3) 
         { 
             // updating itself
-            if (is_dir(APPPATH . 'temp/core')) 
+            if (is_dir($dircore)) 
             { 
                 // looping internal dir
-                $dir = opendir(APPPATH . 'temp/core');
-                while (false !== ($file = readdir($dir))) 
-                {
-                    if (!in_array($file, array( '.', '..' ))) 
-                    { 
-                        $dirs = $file;
-                        break;
+                $dirs = '';
+                if ($dir = opendir($dircore)) {
+                    while (false !== ($file = readdir($dir))) 
+                    {
+                        if (!in_array($file, array( '.', '..' ))) 
+                        { 
+                            $dirs = $file;
+                            break;
+                        }
                     }
                 }
-
-                $diroot = opendir(APPPATH . 'temp/core/' . $dirs);
-                while (false !== ($files = readdir($diroot))) 
+                
+                if ($diroot = opendir($dircore . '/' . $dirs)) 
                 {
-                    if ($files == basename(BASEPATH)) 
-                    { 
-                        Filer::extractor(APPPATH . 'temp/core/' . $dirs .'/'. $files, BASEPATH);
-                    }
-                    elseif ($files == basename(APPPATH)) 
-                    { 
-                        Filer::extractor(APPPATH . 'temp/core/' . $dirs .'/'. $files, APPPATH);
-                    }
-                    elseif ($files == basename(FCPATH)) 
-                    { 
-                        Filer::extractor(APPPATH . 'temp/core/' . $dirs .'/'. $files, FCPATH);
+                    while (false !== ($files = readdir($diroot))) 
+                    {
+                        if (! in_array($files, array( '.', '..' ))) 
+                        { 
+                            if ($files == basename(BASEPATH)) 
+                            { 
+                                Filer::extractor(APPPATH . 'temp/core/' . $dirs .'/'. $files, BASEPATH);
+                            }
+                            elseif ($files == basename(APPPATH)) 
+                            { 
+                                Filer::extractor(APPPATH . 'temp/core/' . $dirs .'/'. $files, APPPATH);
+                            }
+                            elseif ($files == basename(FCPATH)) 
+                            { 
+                                if ($dipublic = opendir($dircore . '/' . $dirs .'/'. $files)) 
+                                {
+                                    while (false !== ($filesx = readdir($dipublic))) 
+                                    {
+                                        if (! in_array($filesx, array( '.', '..' ))) 
+                                        { 
+                                            Filer::extractor(APPPATH . 'temp/core/' . $dirs .'/'. $files .'/'. $filesx, FCPATH . $filesx);
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
-                // Filer::drop(APPPATH . 'temp/core'); // if any update failed, we drop temp/core before
+            }
+            return array(
+                'code' => 'instaling'
+            );
+        }
+        elseif ($stage === 4) 
+        { 
+            // updating itself
+            if (is_dir($dircore)) 
+            { 
+                Filer::drop($dircore); // if any update failed, we drop temp/core before
                 return array(
                     'code' => 'update-done'
                 );

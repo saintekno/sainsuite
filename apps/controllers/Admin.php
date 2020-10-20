@@ -452,6 +452,9 @@ class Admin extends MY_Controller
         elseif ($page === 'install') {
             echo json_encode($this->update_model->install(3));
         } 
+        elseif ($page === 'updated') {
+            echo json_encode($this->update_model->install(4));
+        } 
         else {
             $this->load->library('markdown');
             Polatan::set_title(sprintf(__('About &mdash; %s'), get('signature')));

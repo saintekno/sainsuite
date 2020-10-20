@@ -11,9 +11,10 @@ class Filer
     public static function drop($source)
     {
         if (is_dir($source)) {
-            if ($open    =    opendir($source)) {
-                while (($content    =    readdir($open)) !== false) {
-                    if (is_file($source. '/' . $content)) {
+            if ($open = opendir($source)) {
+                
+                while (($content = readdir($open)) !== false) {
+                    if (is_file($source. '/' . $content) && !in_array($content, array('..', '.'))) {
                         unlink($source . '/' . $content);
                     }
                     if (is_dir($source . '/' . $content) && !in_array($content, array('..', '.'))) {
@@ -37,15 +38,15 @@ class Filer
     
     public static function extractor($source, $destination, $dir_limit = 10)
     {
-        if (!is_dir($destination)) {
-            mkdir($destination);
-        }
         if (is_file($source)) {
             copy($source, $destination);
             unlink($source);
         }
         if (is_dir($source)) {
-            if ($open    =    opendir($source)) {
+            if (!is_dir($destination)) {
+                mkdir($destination);
+            }
+            if ($open = opendir($source)) {
                 while (($content    =    readdir($open)) !== false) {
                     if (is_file($source . '/' . $content)) {
                         copy($source . '/' . $content, $destination . '/' . $content);
@@ -64,9 +65,9 @@ class Filer
                 }
                 closedir($open);
             }
-        }
-        if (!rmdir($source)) {
-            self::drop($source);
+            if (!rmdir($source)) {
+                self::drop($source);
+            }
         }
     }
     
@@ -81,11 +82,11 @@ class Filer
     public static function file_copy($source, $destination)
     {
         if (is_file($source)) {
-            $file_content    =    file_get_contents($source);
+            $file_content = file_get_contents($source);
             
             // Checks if all directory exists
-            $path_explode    =    explode('/', $destination);
-            $path_progressive    =    '';
+            $path_explode = explode('/', $destination);
+            $path_progressive = '';
             foreach ($path_explode as $index => $file) {
                 // last index is not handled
                 if ($index < count($path_explode) - 1) {
@@ -110,18 +111,27 @@ class Filer
     
     public static function copy($source, $destination, $dir_limit = 10)
     {
-        if (!is_dir($destination)) {
-            mkdir($destination);
-        }
-        if (is_dir($source)) {
-            if ($open    =    opendir($source)) {
-                while (($content    =    readdir($open)) !== false) {
-                    if (is_file($source . '/' . $content)) {
+        if (is_dir($source)) 
+        {
+            if (!is_dir($destination)) 
+            {
+                mkdir($destination);
+            }
+
+            if ($open = opendir($source)) 
+            {
+                while (($content = readdir($open)) !== false) 
+                {
+                    if (is_file($source . '/' . $content)) 
+                    {
                         copy($source . '/' . $content, $destination . '/' . $content);
                     }
-                    if (is_dir($source . '/' . $content) && !in_array($content, array('..', '.'))) {
-                        if ($dir_limit > 0) {
-                            if (!is_dir($destination . '/' . $content)) {
+                    if (is_dir($source . '/' . $content) && !in_array($content, array('..', '.'))) 
+                    {
+                        if ($dir_limit > 0) 
+                        {
+                            if (!is_dir($destination . '/' . $content)) 
+                            {
                                 mkdir($destination . '/' . $content);
                             }
                             self::copy($source . '/' . $content, $destination . '/' . $content, $dir_limit-1);

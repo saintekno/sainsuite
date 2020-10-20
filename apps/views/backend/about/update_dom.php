@@ -72,6 +72,27 @@ else
                         if( typeof data.code != 'undefined' )
                         {
                             if( data.code != 'error-occured' ){
+                                $('#extract').removeClass('spinner spinner-darker-success pl-10');
+                                $('#extract').addClass('font-weight-bold');
+                                stage(4);
+                            } else {
+                                $('#update').append( '<div><?php _e('An error occured during extraction...'); ?></div>' );
+                            }
+                        }
+                    },
+                    dataType : 'json'
+                });
+            }
+            else if( int == 4 )
+            {
+                $.ajax( '<?php echo site_url(array( 'admin', 'about', 'updated' )); ?>',{
+                    beforeSend: function(){
+                        $('#update').append( '<div class="spinner spinner-darker-success pl-10"><?php _e('Release...'); ?></div>' );
+                    },
+                    success: function( data ){
+                        if( typeof data.code != 'undefined' )
+                        {
+                            if( data.code != 'error-occured' ){
                                 document.location = '<?php echo site_url(array( 'admin', 'about' )); ?>';
                             } else {
                                 $('#update').append( '<div><?php _e('An error occured during extraction...'); ?></div>' );
