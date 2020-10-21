@@ -203,7 +203,7 @@ class Update_Model extends CI_Model
                             { 
                                 Filer::extractor(APPPATH . 'temp/core/' . $dirs .'/'. $files, APPPATH);
                             }
-                            elseif ($files == basename(FCPATH)) 
+                            elseif ($files == basename(FCPATH) || $files == 'public') 
                             { 
                                 if ($dipublic = opendir($dircore . '/' . $dirs .'/'. $files)) 
                                 {
