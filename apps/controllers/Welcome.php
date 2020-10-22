@@ -10,6 +10,10 @@ class Welcome extends MY_Controller
 
 	public function index()
 	{
-        $this->events->do_action('load_frontend', $this->load->view( 'frontend/'.theme().'/home') );
+        if (! empty($this->events->has_filter('load_frontend'))) :
+            $this->events->do_action('load_frontend');
+        else :
+            $this->load->view( 'frontend/'.theme().'/home' );
+        endif;
 	}
 }
