@@ -106,6 +106,18 @@ class Polatan
     {
         return $this->cols;
     }
+
+    /**
+     * Get Col
+     *
+     * @param int Col Id
+     * @return bool
+    **/
+
+    public function get_col($col_id)
+    {
+        return riake($col_id, $this->cols);
+    }
     
     /**
      * Add Meta to gui

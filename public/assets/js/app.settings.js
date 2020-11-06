@@ -73,12 +73,89 @@ var offcanvas = function () {
             //closeBy: 'kt_user_profile_aside_close',
             toggleBy: 'kt_subheader_mobile_toggle'
         });
-	}
+    }
+    
+    var menuAside = function(){
+        $('#kt_aside').on('click', '.aside-primary a', function() {
+            var $this = $(this);
+            var linkId = $this.attr('href');
+            localStorage.removeItem("menuAside");
+            localStorage.removeItem("menuNavheader");
+            localStorage.setItem("menuAside", linkId);
+        });
+
+        var selectedLinkId = localStorage.getItem("menuAside");
+        var menuNavheader = localStorage.getItem("menuNavheader");
+
+        if (selectedLinkId !== null) {
+            $('.aside-primary a[href="'+ selectedLinkId +'"]').tab("show");
+        }
+
+        if (menuNavheader == null) {
+            $('.navheader-nav a[href="'+ selectedLinkId +'"]').addClass("active");
+        }
+
+        if (selectedLinkId == 'app' || selectedLinkId == 'settings') {
+            $('#kt_body').removeClass('aside-minimize');
+            $('.aside-toggle').removeClass('d-none');
+        }
+    }
+
+    var menuAside2 = function(){
+        $('#kt_aside_tab_1').on('click', '.list a', function() {
+            var $this = $(this);
+            var linkId = $this.attr('href');
+            
+            $this.find('a').removeClass("active");
+            $this.addClass("active");
+
+            localStorage.setItem("menuAside2", linkId);
+        });
+
+        var selectedLinkId = localStorage.getItem("menuAside2");
+
+        if (selectedLinkId !== null) {
+            $('.list a[href="'+ selectedLinkId +'"]').trigger("click");
+        }
+    }
+
+    var menuNavheader = function(){
+        $('#kt_header').on('click', '.navheader-nav a', function() {
+            var $this = $(this);
+            var linkId = $this.attr('href');
+            
+            $this.find('a').removeClass("active");
+            $this.addClass("active");
+            
+            localStorage.setItem("menuNavheader", linkId);
+        });
+        
+        var selectedLinkId = localStorage.getItem("menuNavheader");
+        
+        if (selectedLinkId !== null) {
+            $('.navheader-nav a[href="'+ selectedLinkId +'"]').trigger("click");
+        }
+    }
+
+    var cekClass = function() {
+        if ($(".navheader-nav .nav-item").length) {
+            $('#kt_body').addClass('header-fixed');
+            $('#kt_header').removeClass('d-none');
+        }
+        if ($(".toolbar_menu a").length) {
+            $('#kt_body').addClass('subheader-enabled');
+            $('#kt_subheader').removeClass('d-none');
+        }
+    }
 
 	return {
 		// public functions
 		init: function() {
 			_initAside();
+            menuAside();
+            menuAside2();
+            menuNavheader();
+            cekClass();
 		}
 	};
 }();

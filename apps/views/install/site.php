@@ -20,7 +20,6 @@
 		<div class="col-xl-6">
 			<!--begin::Input-->
 			<div class="form-group">
-				<label class="font-size-h6 font-weight-bolder text-dark"><?php echo __( 'Site Name' );?></label>
 				<input type="text"
 					class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
 					name="site_name" placeholder="<?php echo __( 'Site Name' );?>" value="<?php echo set_value('site_name'); ?>" />
@@ -30,7 +29,6 @@
 		<div class="col-xl-6">
 			<!--begin::Select-->
 			<div class="form-group">
-				<label class="font-size-h6 font-weight-bolder text-dark"><?php echo __( 'Language' );?></label>
 				<select name="lang" class="form-control form-control-solid h-auto py-7 px-5 border-0 rounded-lg font-size-h6">
 				<?php
 				foreach (get_instance()->config->item('supported_languages') as $key => $value)  : ?>
@@ -47,7 +45,6 @@
 		<div class="col-xl-6">
 			<!--begin::Input-->
 			<div class="form-group">
-				<label class="font-size-h6 font-weight-bolder text-dark"><?php echo __( 'User Name' );?></label>
 				<input type="text"
 					class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
 					name="username" placeholder="<?php echo __( 'User Name' );?>" value="<?php echo set_value('username'); ?>" />
@@ -57,7 +54,6 @@
 		<div class="col-xl-6">
 			<!--begin::Input-->
 			<div class="form-group">
-				<label class="font-size-h6 font-weight-bolder text-dark"><?php echo __( 'Email' );?></label>
 				<input type="text"
 					class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
 					name="email" placeholder="<?php echo __( 'Email' );?>" value="<?php echo set_value('email'); ?>" />
@@ -72,8 +68,7 @@
 		<div class="col-xl-6">
 			<!--begin::Input-->
 			<div class="form-group">
-				<label class="font-size-h6 font-weight-bolder text-dark"><?php echo __( 'Password' );?></label>
-				<input type="text"
+				<input type="password"
 					class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
 					name="password" placeholder="<?php echo __( 'Password' );?>" value="<?php echo set_value('password'); ?>" />
 			</div>
@@ -82,8 +77,7 @@
 		<div class="col-xl-6">
 			<!--begin::Input-->
 			<div class="form-group">
-				<label class="font-size-h6 font-weight-bolder text-dark"><?php echo __( 'Password confirm' );?></label>
-				<input type="text"
+				<input type="password"
 					class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
 					name="confirm" placeholder="<?php _e('Password confirm');?>" value="<?php echo set_value('confirm'); ?>" />
 			</div>

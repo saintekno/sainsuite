@@ -111,3 +111,12 @@ function url_slug($str, $options = array())
     
     return $options['lowercase'] ? mb_strtolower($str, 'UTF-8') : $str;
 }
+/**
+ * Return api URL
+ * @param array current route schem
+ * @return string;
+ */
+
+function url_api( $url ) {
+    return site_url( array_merge([ 'api' ], $url ) );
+}

@@ -10,6 +10,8 @@ class Users_Action extends CI_model
         // $this->events->add_action( 'load_dashboard', [ $this, 'load_dashboard' ] );
         // $this->events->add_action( 'load_frontend', [ $this, 'load_frontend' ]  );
         $this->events->add_action('load_users_custom_fields', array( $this, 'user_custom_fields' ));
+        $this->events->add_action('registration_rules', array( $this, 'registration_rules' ));
+        $this->events->add_action('app_init', array($this, 'check_login'));
     }
     
     /**
@@ -22,7 +24,7 @@ class Users_Action extends CI_model
     
     public function user_custom_fields($config)
     {
-        if ( $config[ 'mode' ] === 'edit' ) {
+        if ( $config[ 'mode' ] === 'edit' || $config[ 'mode' ] === 'profile' ) {
             $this->polatan->add_item([
                 'type'      =>      'text',
                 'cols'      => array(
@@ -65,6 +67,29 @@ class Users_Action extends CI_model
         ), $config[ 'meta_namespace' ], $config[ 'col_id' ]);
 
         unset( $skin, $config );
+    }
+    
+    public function registration_rules()
+    {
+        $this->form_validation->set_rules('username', __('User Name' ), 'required|min_length[5]');
+        $this->form_validation->set_rules('email', __('Email' ), 'valid_email|required');
+        $this->form_validation->set_rules('password', __('Password' ), 'required|min_length[6]');
+        $this->form_validation->set_rules('confirm', __('Confirm' ), 'matches[password]');
+    }
+
+    /**
+     * go login
+     *
+     * @return redirect route login
+     */
+    public function check_login()
+    {
+        if (in_array($this->uri->segment(1), $this->config->item('admin_route'))) 
+        {
+            if (! $this->aauth->is_loggedin() || ! $this->aauth->get_user()) {
+                redirect($this->config->item('login_route') . '?notice=login-required&redirect=' . urlencode(current_url()) );
+            }
+        }
     }
 }
 new Users_Action;

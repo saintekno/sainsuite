@@ -3,11 +3,11 @@
     
     <?php echo __('Please provide your user email in order to get recovery email' ); ?>
     <div class="input-group">
-    <span class="input-group-addon" id="basic-addon1"><?php _e('User email or Pseudo' ); ?></span>
-    <input type="text" class="form-control" placeholder="<?php _e('User email or Pseudo' ); ?>" aria-describedby="basic-addon1" name="user_email">
-    <span class="input-group-btn">
-    <button class="btn btn-default" type="submit"><?php _e('Get recovery Email' ); ?></button>
-    </span>
+        <span class="input-group-addon" id="basic-addon1"><?php _e('User email or Pseudo' ); ?></span>
+        <input type="text" class="form-control" placeholder="<?php _e('User email or Pseudo' ); ?>" aria-describedby="basic-addon1" name="user_email">
+        <span class="input-group-btn">
+        <button class="btn btn-default" type="submit"><?php _e('Get recovery Email' ); ?></button>
+        </span>
     </div>
 </form>
 <!-- // Should checks whether a login page is enabled -->

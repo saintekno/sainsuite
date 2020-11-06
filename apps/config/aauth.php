@@ -85,9 +85,9 @@ $config_aauth = array();
 $config_aauth["default"] = array(
  'no_permission'                  => false,
 
- 'admin_group'                    => 'master',
- 'default_group'                  => 'admin',
- 'public_group'                   => 'user',
+ 'admin_group'                    => 'admin',
+ 'default_group'                  => 'member',
+ 'public_group'                   => 'public',
 
  'db_profile'                     => 'default',
 
@@ -122,7 +122,7 @@ $config_aauth["default"] = array(
  'totp_two_step_login_active'     => false,
  'totp_two_step_login_redirect'   => '/auth/twofactor_verification/',
 
- 'max_login_attempt'              => 10,
+ 'max_login_attempt'              => 5,
  'max_login_attempt_time_period'  => "1 minutes",
  'remove_successful_attempts'     => true,
 
@@ -137,7 +137,7 @@ $config_aauth["default"] = array(
  'reset_password_link'            => '/auth/reset_password/',
 
  'hash'                           => 'sha256',
- 'use_password_hash'              => false,
+ 'use_password_hash'              => true,
  'password_hash_algo'             => PASSWORD_DEFAULT,
  'password_hash_options'          => array(),
 

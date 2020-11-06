@@ -1,0 +1,27 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+## [3.4.0] - 2020-11-07
+### Added
+- Penambahan Controller API
+- penambahan fungsi currency
+- penambahan fungsi active menu
+- penambahan fungsi url api
+- penambahan event after_db_setup setelah instalasi table db
+
+### Changed
+- menggunakan password hash
+- menggunakan date berdasarkan timezone
+- tampilan error route
+- batasan login maximal 5
+
+### Removed
+- Hapus Model Aauth
+- Hapus views home
+
+### Fixed
+- Peningkatan style responsive
+- Peningkatan library Aauth
+- Peningkatan library Menu
+- Peningkatan library User
+- Peningkatan Model User

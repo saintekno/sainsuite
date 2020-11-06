@@ -103,6 +103,7 @@ $autoload['helper'] = array(
     'core', 
     'form', 
     'url', 
+    'url_slug', 
     'security',
     'request'
 );

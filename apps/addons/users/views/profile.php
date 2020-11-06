@@ -36,7 +36,7 @@ $this->polatan->add_item(array(
     'label'    => __('User Name', 'aauth'),
     'name'     => 'username',
     'disabled' => true,
-    'value'    => $this->user_model->current->username
+    'value'    => User::get()->username
 ), 'user_profile', 1);
 
 // User email
@@ -45,7 +45,7 @@ $this->polatan->add_item(array(
     'type'  => 'text',
     'label' => __('User Email', 'aauth'),
     'name'  => 'user_email',
-    'value' => $this->user_model->current->email
+    'value' => User::get()->email
 ), 'user_profile', 1);
 
 // user password
@@ -78,7 +78,7 @@ $this->events->do_action('load_users_custom_fields', array(
     'meta_namespace' => 'user_profile',
     'col_id'         => 1,
     'gui'            => $this->polatan,
-    'user_id'        => $this->user_model->current->id
+    'user_id'        => User::get()->id
 ));
 
 $this->polatan->add_item( array(

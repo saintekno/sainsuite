@@ -154,8 +154,8 @@
                                     </div>
                                 </td>
                                 <td class="pr-0 text-right">
-                                    <?php
-                                    if (isset($_addon[ 'application' ][ 'main' ])) { // if the module has a main file, it can be activated
+                                    <?php if( !$_addon[ 'application' ][ 'readonly' ] ) : ?>
+                                    <?php if (isset($_addon[ 'application' ][ 'main' ])) { // if the module has a main file, it can be activated
                                         if (! Addons::is_active($addon_namespace, true)) {?>
                                             <a href="<?php echo site_url(array( 'admin', 'addons', 'enable', $addon_namespace ));?>" 
                                             class="btn btn-sm btn-light-success font-weight-bolder text-uppercase my-1" data-action="enable">
@@ -170,11 +170,10 @@
                                             <?php
                                         }
                                     }?>
+                                    <?php endif;?>
                                     
                                     <?php if (intval(riake('webdev_mode', $Options)) == true):?>
-                                    <?php if( !$_addon[ 'application' ][ 'readonly' ] ) : ?>
-                                    <div class="dropdown dropdown-inline" data-toggle="tooltip"
-                                        title="<?php echo __( 'Options' );?>" data-placement="left">
+                                    <div class="dropdown dropdown-inline">
                                         <a href="#"
                                             class="btn btn-clean btn-hover-light-primary btn-sm btn-icon"
                                             data-toggle="dropdown" aria-haspopup="true"
@@ -185,26 +184,26 @@
                                             <!--begin::Navigation-->
                                             <ul class="navi navi-hover">
                                                 <li class="navi-item">
+                                                <a href="<?php echo site_url(['admin','addabout']); ?>"
+                                                    class="navi-link">
+                                                    <span class="navi-icon">
+                                                    <i class="fas fa-info-circle"></i> 
+                                                    </span>
+                                                    <span class="navi-text">
+                                                    <?php _e('About');?>
+                                                    </span>
+                                                </a>
+                                                </li>
+                                                <?php if( !$_addon[ 'application' ][ 'readonly' ] ) : ?>
+                                                <li class="navi-item">
                                                     <a href="<?php echo site_url(array( 'admin', 'addons', 'extract', $addon_namespace ));?>" class="navi-link">
-                                                        <span class="navi-icon"><i class="flaticon2-rocket-1"></i></span>
+                                                        <span class="navi-icon"><i class="fas fa-archive"></i></span>
                                                         <span class="navi-text">
                                                         <?php _e('Extract');?>
                                                         </span>
                                                     </a>
                                                 </li>
-                                                <?php if( !$_addon[ 'application' ][ 'readonly' ] ) : ?>
                                                 <li class="navi-separator mt-3 opacity-70"></li>
-                                                <li class="navi-item">
-                                                <a href="<?php echo site_url(array( 'admin', 'addons', 'remove', $addon_namespace ));?>"
-                                                    class="navi-link">
-                                                    <span class="navi-icon">
-                                                    <i class="fa fa-trash"></i>
-                                                    </span>
-                                                    <span class="navi-text">
-                                                    <?php _e('Remove');?>
-                                                    </span>
-                                                </a>
-                                                </li>
                                                 <?php endif; ?>
 
                                                 <?php
@@ -215,7 +214,6 @@
                                                 );
 
                                                 if( $hasMigration ):?>
-                                                <li class="navi-separator mt-3 opacity-70"></li>
                                                 <li class="navi-item">
                                                 <a href="<?php echo site_url([ 'admin', 'addons', 'migrate', $addon_namespace, $last_version ]);?>"  
                                                     class="navi-link">
@@ -226,13 +224,27 @@
                                                     <?php _e('Migrate');?>
                                                     </span>
                                                 </a>
+                                                <li class="navi-separator mt-3 opacity-70"></li>
                                                 </li>
                                                 <?php endif;?>
+                                                
+                                                <?php if( !$_addon[ 'application' ][ 'readonly' ] ) : ?>
+                                                <li class="navi-item">
+                                                <a href="<?php echo site_url(array( 'admin', 'addons', 'remove', $addon_namespace ));?>"
+                                                    class="navi-link">
+                                                    <span class="navi-icon">
+                                                    <i class="fa fa-trash text-danger"></i>
+                                                    </span>
+                                                    <span class="navi-text">
+                                                    <?php _e('Remove');?>
+                                                    </span>
+                                                </a>
+                                                </li>
+                                                <?php endif; ?>
                                             </ul>
                                             <!--end::Navigation-->
                                         </div>
                                     </div>
-                                    <?php endif;?>
                                     <?php endif;?>
                                 </td>
                             </tr>
@@ -283,7 +295,7 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFile" name="extension_zip"/>
+                                    <input type="file" class="custom-file-input" id="customFile" name="extension_zip" required/>
                                     <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>
                                 <div class="input-group-append">

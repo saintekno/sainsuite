@@ -21,7 +21,6 @@ class MY_Controller extends CI_Controller
 
             // Load Language
             $this->load->model('options_model');
-            $this->load->model('aauth_model');
 
             //init active addons
             Addons::init('actives'); 
@@ -59,9 +58,6 @@ class MY_Controller extends CI_Controller
                 redirect('install');
             }
 
-            // Load Assets/JS
-            $this->_load_assets();
-
             // Add Common content
             $this->events->add_action( 'common_header', [ $this, '_common_header' ] );
             $this->events->add_action( 'common_footer', [ $this, '_common_footer' ] );
@@ -70,31 +66,25 @@ class MY_Controller extends CI_Controller
 
     public function _common_header()
     {
+        // Enqueueing header
+        $this->enqueue->css_namespace( 'common_header' );
+        $this->enqueue->css('plugins.bundle');
+        $this->enqueue->css('style.bundle');
         $this->enqueue->load_css( 'common_header' );
+
+        $this->enqueue->js_namespace( 'common_header' );
+        $this->enqueue->js('plugins.bundle');
+        $this->enqueue->js('scripts.bundle');
         $this->enqueue->load_js( 'common_header' );
     }
 
     public function _common_footer()
     {
-        $this->enqueue->load_js( 'common_footer' );
-        $this->load->view('scripts');
-    }
-
-    /**
-     * Load Assets (css & JS)
-     */
-    public function _load_assets()
-    {
-        // Enqueueing header
-        $this->enqueue->css_namespace( 'common_header' );
-        $this->enqueue->css('plugins.bundle');
-        $this->enqueue->css('style.bundle');
-        $this->enqueue->js_namespace( 'common_header' );
-        $this->enqueue->js('plugins.bundle');
-        $this->enqueue->js('scripts.bundle');
-
         // Enqueueing footer
         $this->enqueue->js_namespace( 'common_footer' );
+        $this->enqueue->js('angular.min', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/');
         $this->enqueue->js('app.settings');
+        $this->enqueue->load_js( 'common_footer' );
+        $this->load->view('scripts');
     }
 }

@@ -12,4 +12,4 @@ $Routes->match([ 'get', 'post' ], 'users/edit/{id}', 'UsersHomeController@update
 
 $Routes->match([ 'get', 'post' ], 'users/profile', 'UsersProfileController@index' );
 
-$Routes->match([ 'get', 'post' ], 'users/groups', 'UsersHomeController@groups' );
+$Routes->match([ 'get', 'post' ], 'users/group', 'GroupsHomeController@read' );

@@ -17,7 +17,7 @@
 		<!--begin::Nav-->
 		<div class="nav nav-dark order-1 order-md-2">
 			<a href="<?php echo site_url('admin/about'); ?>" class="nav-link p-0">
-			<?php echo $this->events->apply_filters( 'dashboard_footer_right', sprintf( __( 'You\'re using %s %s' ), get( 'app_name' ), get('version') ) );?>
+			<?php echo $this->events->apply_filters( 'dashboard_footer_right', sprintf( __( '%s %s' ), get( 'app_name' ), get('version') ) );?>
 			</a>
 		</div>
 

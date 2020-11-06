@@ -52,4 +52,10 @@
     <?php if ($this->notice->output_notice(true)):?>
         toastr.info('<?php echo $this->notice->output_notice();?>');
     <?php endif;?>
+
+    /**
+    * Introducing Angular
+    **/
+    var App = angular.module( 'SainSuite', <?php echo json_encode( ( Array ) $this->events->apply_filters( 'dashboard_dependencies', array() ) );?> );
+
 </script>

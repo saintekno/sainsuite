@@ -81,4 +81,4 @@ $lang[ 'group-created' ]        = __('Group has been created.');
 $lang[ 'group-not-found' ]      = __('This group does\'nt exists or has been deleted.');
 $lang[ 'unknow-group' ]         = __('Unknow group.');
 $lang[ 'updated' ]              = __('Group has been updated.');
-$lang[ 'cant-delete-yourself' ] = __( 'You can\'t delete your own  account.' );
+$lang[ 'cant-delete-yourself' ] = __( 'You cant delete your own  account.' );

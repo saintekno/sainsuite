@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 use Pecee\SimpleRouter\SimpleRouter as Route;
+use Pecee\SimpleRouter\Exceptions\NotFoundHttpException;
 
 class Admin extends MY_Controller 
 {
@@ -12,14 +13,8 @@ class Admin extends MY_Controller
         $this->load->model('admin_model');
         $this->load->model('update_model');
 
-        // $this->_assets_admin();
-
         // Loading Admin Menu
         $this->events->do_action( 'load_dashboard' );
-    }
-    
-    public function _assets_admin()
-    {
     }
 
 	// --------------------------------------------------------------------
@@ -65,17 +60,13 @@ class Admin extends MY_Controller
                     }
                 }
             });
-    
-            // Show Errors
+
             $Routes->error(function($request, \Exception $exception) {
-                $this->session->set_flashdata('info_message', 
-                    sprintf( 
-                        __( 'Demo : %s'  ),
-                        // $exception->getMessage(),
-                        $exception->getCode()
-                    )
-                );
-                redirect('admin');
+                if($exception instanceof NotFoundHttpException && $exception->getCode() == 404) {
+                    // return 
+                    $this->session->set_flashdata('info_message', $exception->getMessage());
+                    return redirect(site_url('admin'));
+                }
             });
             
             // Start Route
@@ -97,7 +88,7 @@ class Admin extends MY_Controller
         if (! empty($this->events->has_filter('load_dashboard_home'))) :
             $this->events->do_action('load_dashboard_home');
         else :
-            $this->load->view( 'backend/home');
+            $this->polatan->output();
         endif;
 	}
 
@@ -114,20 +105,13 @@ class Admin extends MY_Controller
      * @return void
      */
     public function addons($page = 'list', $arg2 = null, $arg3 = null, $arg4 = null, $arg5 = null)
-    {
-        if (! User::can('manage.core')) {
-            return show_error( __( 'You\'re not allowed to see that page' ) );
-        }
-        
+    {        
         if ($page === 'list') 
         {
             // Can user access.addons ?
-            if (! User::can('install.addons') ||
-                ! User::can('update.addons') ||
-                ! User::can('delete.addons') ||
-                ! User::can('toggle.addons')
-            ) {
-                return show_error( __( 'You\'re not allowed to see that page' ) );
+            if (! User::control('read.addons')) {
+                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                return redirect(site_url('admin'));
             }
 
             Polatan::set_title(sprintf(__('Addons List &mdash; %s'), get('signature')));
@@ -135,6 +119,12 @@ class Admin extends MY_Controller
         }
         elseif ($page === 'install_zip') 
         {
+            // Can user access.addons ?
+            if (! User::control('install.addons')) {
+                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                return redirect(site_url('admin'));
+            }
+
             if (isset($_FILES[ 'extension_zip' ])) 
             {
                 $notice = Addons::install('extension_zip');
@@ -163,6 +153,12 @@ class Admin extends MY_Controller
         }
         elseif ($page === 'enable') 
         {
+            // Can user access.addons ?
+            if (! User::control('toggle.addons')) {
+                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                return redirect(site_url('admin'));
+            }
+
             Addons::enable($arg2);
 
             Addons::init('unique', $arg2);
@@ -173,6 +169,12 @@ class Admin extends MY_Controller
         }
         elseif ($page === 'disable') 
         {
+            // Can user access.addons ?
+            if (! User::control('toggle.addons')) {
+                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                return redirect(site_url('admin'));
+            }
+
             Addons::disable($arg2);
 
             $this->events->do_action('do_disable_addon', $arg2);
@@ -188,6 +190,12 @@ class Admin extends MY_Controller
         }
         elseif ($page === 'remove') 
         {
+            // Can user access.addons ?
+            if (! User::control('delete.addons')) {
+                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                return redirect(site_url('admin'));
+            }
+
             Addons::init('unique', $arg2);
             
             $this->events->do_action('do_remove_addon', $arg2);
@@ -198,12 +206,24 @@ class Admin extends MY_Controller
         }
         elseif ($page === 'extract') 
         {
+            // Can user access.addons ?
+            if (! User::control('extract.addons')) {
+                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                return redirect(site_url('admin'));
+            }
+
             Addons::extract($arg2);
 
             $this->events->do_action('do_extract_addon', $arg2);
         }
         elseif ($page == 'migrate') 
         {
+            // Can user access.addons ?
+            if (! User::control('update.addons')) {
+                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                return redirect(site_url('admin'));
+            }
+
             if ( $arg3 === null ) {
                 $arg3 = get_option( 'migration_' . $arg2, '1.0', $arg2);
             }
@@ -228,6 +248,12 @@ class Admin extends MY_Controller
         }
         elseif ($page == 'exec') 
         {
+            // Can user access.addons ?
+            if (! User::control('install.addons')) {
+                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                return redirect(site_url('admin'));
+            }
+
             $addon = Addons::get($arg2);
             
             ob_start();
@@ -308,16 +334,18 @@ class Admin extends MY_Controller
         if ($page === 'list') 
         {
             // Can user access.addons ?
-            if (! User::can('install.addons') ||
-                ! User::can('update.addons') ||
-                ! User::can('delete.addons') ||
-                ! User::can('toggle.addons')
+            if (! User::control('install.addons') ||
+                ! User::control('update.addons') ||
+                ! User::control('delete.addons') ||
+                ! User::control('toggle.addons')
             ) {
-                return show_error( __( 'You\'re not allowed to see that page' ) );
+                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                return redirect(site_url('admin'));
             }
 
             Polatan::set_title(sprintf(__('Themes List &mdash; %s'), get('signature')));
-            $this->load->view( 'backend/theme/index' );
+            $this->polatan->output();
+            // $this->load->view( 'backend/theme/index' );
         }
         elseif ($page === 'install_zip') 
         {
@@ -373,8 +401,9 @@ class Admin extends MY_Controller
         if (in_array($mode, array( 'save', 'merge' ))) 
         {
             // Can user extract modules ?
-            if (! User::can('create.options')) {
-                return show_error( __( 'You\'re not allowed to see that page' ) );
+            if (! User::control('edit.options')) {
+                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                return redirect(site_url('admin'));
             }
 
             if (! $this->input->post('gui_saver_ref') && ! $this->input->post('gui_json')) {
@@ -412,11 +441,11 @@ class Admin extends MY_Controller
     public function settings()
     {
         // Can user access modules ?
-        if (! User::can('create.options') &&
-            ! User::can('edit.options') &&
-            ! User::can('delete.options')
+        if (! User::control('create.options') &&
+            ! User::control('read.options')
         ) {
-            return show_error( __( 'You\'re not allowed to see that page' ) );
+            $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+            return redirect(site_url('admin'));
         }
 
         Polatan::set_title(sprintf(__('Settings &mdash; %s'), get('signature')));
@@ -458,7 +487,8 @@ class Admin extends MY_Controller
         else {
             $this->load->library('markdown');
             Polatan::set_title(sprintf(__('About &mdash; %s'), get('signature')));
-            $data['check'] = $this->update_model->check();
+            // Can user access modules ?
+            $data['check'] = (! User::control('manage.core') ) ? false : $this->update_model->check();
             $this->load->view( 'backend/about/index', $data );
         }
     }

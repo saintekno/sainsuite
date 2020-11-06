@@ -7,9 +7,37 @@ class Users_Menu extends CI_model
     {
 		parent::__construct();
 		$this->events->add_filter( 'system_menu', array( $this, 'system_menu' ));
-		$this->events->add_filter( 'after_user_card', array( $this, 'after_user_card' ));
-		// $this->events->add_filter( 'setting_menu', array( $this, 'setting_menu' ), 15);
+        $this->events->add_filter( 'after_user_card', array( $this, 'after_user_card' ));
+        
+        if (activate_menu('users') || activate_menu('permission')) {
+            $this->events->add_filter( 'aside_menu', array( $this, '_aside_menu' ));
+        }
     }
+
+	public function _aside_menu($final) {
+        $final[] = array(
+            'title' => __('Users'),
+            'href' => site_url([ 'admin', 'users' ]),
+            'icon' => 'la la-user',
+            'permission' => 'read.users'
+        );
+        $final[] = array(
+            'title' => __('Group'),
+            'href' => site_url([ 'admin', 'users', 'group' ]),
+            'icon' => 'la la-user-friends',
+            'permission' => 'read.users'
+        );
+        if( Addons::is_active( 'permission' ) ) 
+        {
+            $final[] = array(
+                'title' => __('Permission'),
+                'href' => site_url([ 'admin', 'permission' ]),
+                'icon' => 'la la-user-check',
+                'permission' => 'manage.core'
+            );
+        }
+        return $final;
+	}
 
     /**
      * Load Dashboard Menu
@@ -17,11 +45,7 @@ class Users_Menu extends CI_model
     **/
     public function system_menu($system)
     {
-        if (
-            User::can('create.users') ||
-            User::can('edit.users') ||
-            User::can('delete.users')
-        ) {
+        if ( User::control('read.users') ) {
             $system[] = array(
                 'title' => __('Users', 'aauth'),
                 'icon'  => 'svg/Group.svg',

@@ -1,6 +1,37 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+function activate_menu($controller) {
+    $CI = get_instance();
+    $method = $CI->router->fetch_method();
+    return $controller == $method ? true : '';
+}
+
+if (! function_exists('currency')) {
+    function currency($price = "") {
+        global $Options;
+        $CI	=&	get_instance();
+        $CI->load->database();
+        if ($price != "") {
+            $currency_code = @$Options[ 'system_currency' ];
+            $position = @$Options[ 'currency_position' ];
+
+            $CI->db->where('code', $currency_code);
+            $symbol = $CI->db->get('currency')->row()->symbol;
+
+            if ($position == 'right') {
+                return $price.$symbol;
+            }elseif ($position == 'right-space') {
+                return $price.' '.$symbol;
+            }elseif ($position == 'left') {
+                return $symbol.$price;
+            }elseif ($position == 'left-space') {
+                return $symbol.' '.$price;
+            }
+        }
+    }
+}
+
 // --------------------------------------------------------------------
 
 function theme()

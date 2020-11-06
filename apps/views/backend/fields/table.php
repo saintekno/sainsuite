@@ -18,6 +18,10 @@
                 <?php endforeach;?>
             </tr>
             <?php endforeach;?>
+        <?php else : ?>
+            <tr>
+                <td>data empty</td>
+            </tr>
         <?php endif;?>
         </tbody>
     </table>

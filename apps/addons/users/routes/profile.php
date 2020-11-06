@@ -10,7 +10,7 @@ class UsersProfileController extends CI_Model
     
     public function index()
     {		
-        if (! User::can('edit.profile')) {
+        if (! User::control('edit.profile')) {
             return show_error( __( 'Access denied. You\'re not allowed to see this page.', 'aauth' ) );
         }
 

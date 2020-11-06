@@ -40,6 +40,12 @@ $this->polatan->add_item(array(
 
 $this->polatan->add_item(array(
     'type'  => 'password',
+    'label' => __('Old Password', 'aauth'),
+    'name'  => 'old_pass',
+), 'edit_user', 1);
+
+$this->polatan->add_item(array(
+    'type'  => 'password',
     'cols' => array(
         [
             'label' => __('New Password', 'aauth'),

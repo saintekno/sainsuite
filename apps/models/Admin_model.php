@@ -9,8 +9,8 @@ class Admin_Model extends CI_Model
         $this->events->add_action('load_dashboard', array( $this, 'set_help_menu' ));
         $this->events->add_action('load_dashboard', array( $this, 'set_setting_menu' ));
         $this->events->add_action('load_dashboard', array( $this, 'set_app_menu' ));
-        $this->events->add_action('load_dashboard', array( $this, 'set_toolbar_menu' ));
         $this->events->add_action('load_dashboard', array( $this, 'set_system_menu' ));
+        $this->events->add_action('load_dashboard', array( $this, 'set_aside_menu' ));
     }
 
     /**
@@ -19,21 +19,15 @@ class Admin_Model extends CI_Model
     **/
     public function set_setting_menu()
     {
-        $setting_menu['system'][ 'about' ][] = array(
-            'href'  => site_url('admin/about'),
-            'icon'  => 'svg/Bookmark.svg',
-            'title' => __('About'),
-        );
-        
-        if (User::can('manage.core')) {
-            $setting_menu['system'][ 'settings' ][] = array(
-                'title' => __('Settings'),
+        if (User::control('read.options')) {
+            $setting_menu['settings'][ 'system' ][] = array(
+                'title' => __('System'),
                 'icon'  => 'svg/Settings-2.svg',
                 'href'  => site_url('admin/settings'),
             );
         }
 
-        $setting_menu['system'][ 'themes' ][] = array(
+        $setting_menu['appearance'][ 'themes' ][] = array(
             'title' => __('Themes'),
             'icon'  => 'svg/Layout-left-panel-1.svg',
             'href'  => site_url('admin/themes')
@@ -53,7 +47,7 @@ class Admin_Model extends CI_Model
     public function set_help_menu()
     {
         $setting_menu['help'][] = array(
-            'href'  => site_url(),
+            'href'  => site_url(['admin', 'doc']),
             'title' => __('Documentation'),
         );
         
@@ -65,19 +59,19 @@ class Admin_Model extends CI_Model
 
         $setting_menu['help'][] = array(
             'title' => __('API'),
-            'href'  => site_url()
+            'href'  => site_url(['admin', 'api'])
         );
         $setting_menu['Information'][] = array(
-            'href'  => site_url(),
+            'href'  => site_url(['admin', 'blog']),
             'title' => __('Blog'),
         );
 
         $setting_menu['Legal'][] = array(
             'title' => __('Term of service'),
-            'href'  => site_url()
+            'href'  => site_url(['admin', 'tos'])
         );
         $setting_menu['Legal'][] = array(
-            'href'  => site_url(),
+            'href'  => site_url(['admin', 'policy']),
             'title' => __('Privacy policy'),
         );
         
@@ -114,10 +108,10 @@ class Admin_Model extends CI_Model
      * Load Dashboard Menu
      * [New Permission Ready]
     **/
-    public function set_toolbar_menu()
+    public function set_aside_menu()
     {
-        foreach ($this->events->apply_filters('toolbar_menu', []) as $namespace) {
-            Menu::add_toolbar_menu($namespace);
-        };
+        foreach ($this->events->apply_filters('aside_menu', []) as $namespace) {
+            Menu::add_aside_menu($namespace);
+        }; 
     }
 }

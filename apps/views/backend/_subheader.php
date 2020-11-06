@@ -1,6 +1,6 @@
-<div class="subheader py-2 subheader-solid" id="kt_subheader">
+<div class="subheader d-none py-2 subheader-solid" id="kt_subheader">
     <div class="container d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-        <div class="d-flex align-items-center flex-wrap mr-2">
+        <div class="d-none d-md-flex align-items-center flex-wrap mr-2">
             <!-- <button class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none" id="kt_subheader_mobile_toggle">
                 <span></span>
             </button> -->
@@ -27,7 +27,7 @@
             </ul>
         </div>
 
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center toolbar_menu">
             <?php 
             foreach ($this->events->apply_filters('toolbar_menu', []) as $namespace) {
                 Menu::add_toolbar_menu($namespace);
@@ -37,20 +37,3 @@
         </div>
     </div>
 </div>
-
-<?php if (!empty($this->events->has_filter('aside_menu'))) :?>
-<div class="navheader mt-n1 mt-lg-n4 mb-5 bg-white" id="kt_navheader">
-    <div class="container flex-wrap flex-sm-nowrap">
-        <!--begin::Nav-->
-        <div class="navheader-nav nav flex-grow-1">
-            <?php 
-            foreach ($this->events->apply_filters('aside_menu', []) as $namespace) {
-                Menu::add_aside_menu($namespace);
-            }; 
-            Menu::load_aside_menu();
-            ?>
-        </div>
-        <!--end::Nav-->
-    </div>
-</div>
-<?php endif;?>

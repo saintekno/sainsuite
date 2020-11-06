@@ -88,6 +88,7 @@ class Menu
                 <li class="menu-item <?php echo $class . ' ' . $custom_ul_style;?>" <?php echo $attr;?>>
                 <?php
                 $custom_style = '';
+
                 foreach ($current_menu as $menu) 
                 {
                     if ($class != '') 
@@ -109,20 +110,6 @@ class Menu
                                 <i class="menu-arrow"></i>
                                 
                                 <ul class="menu-subnav">
-                                    <?php if ( @$menu[ 'disable' ] == null ) : // is used to disable menu title showed as first submenu.?>
-                                    <li class="menu-item <?php echo $custom_style;?>" aria-haspopup="true"> 
-                                        <a href="<?php echo @$menu[ 'route' ] ? site_url( 'admin' . implode('/', $menu[ 'route' ] ) ) : @$menu[ 'href' ];?>" class="menu-link">
-                                            <i class="menu-bullet menu-bullet-line">
-                                                <span></span>
-                                            </i>
-                                            <span class="menu-text"><?php echo @$menu[ 'title'];?></span>
-                                            <?php if ( @$menu[ 'notices_nbr' ] == true):?>
-                                            <small class="label pull-right bg-yellow"><?php echo $menu[ 'notices_nbr' ];?></small>
-                                            <?php endif;?>                 
-                                        </a> 
-                                    </li>	
-                                    <?php endif;?>
-                        <!-- // after the first child, all are included as sub-menu -->
                         <?php else : ?>
                             <li class="menu-item <?php echo $custom_style;?>" aria-haspopup="true"> 
                                 <a href="<?php echo @$menu[ 'route' ] ? site_url( 'admin' . implode('/', $menu[ 'route' ] ) ) : @$menu[ 'href' ];?>" class="menu-link">
@@ -193,10 +180,9 @@ class Menu
     {
         if (self::$apps_menus_core) :
             foreach (self::$apps_menus_core as $menu_namespace => $current_menu) { 
-                $custom_style = (riake('href', $current_menu) == current_url()) ? 'active' : '';
                 ?>
                 <!--begin::Item-->
-                <a href="<?php echo riake('href', $current_menu);?>" class="list-item d-block p-2 mb-2 <?php echo $custom_style;?>">
+                <a href="<?php echo riake('href', $current_menu);?>" class="list-item d-block p-2 mb-2">
                     <div class="d-flex align-items-center">
                         <div class="symbol symbol-35 mr-4">
                             <span class="symbol-label">
@@ -237,7 +223,8 @@ class Menu
             ?>
             <!--begin::Item-->
             <li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="<?php echo riake('title', $current_menu); ?>">
-                <a href="<?php echo riake('href', $current_menu); ?>" class="nav-link btn btn-icon btn-clean btn-lg">
+                <a href="<?php echo riake('href', $current_menu); ?>" 
+                    class="btn btn-aside btn-icon btn-clean btn-lg">
                     <span class="svg-icon svg-icon-xl">
                     <?php include asset_path().riake('icon', $current_menu);?>
                     </span>
@@ -252,7 +239,7 @@ class Menu
         foreach (self::$toolbar_menus_core as $menu_namespace => $current_menu) { 
             ?>
             <a href="<?php echo riake('href', $current_menu); ?>" class="btn <?php echo riake('button', $current_menu); ?> font-weight-bolder btn-sm ml-2">
-                <i class="ki <?php echo riake('icon', $current_menu); ?> icon-1x p-0"></i>
+                <i class="<?php echo riake('icon', $current_menu); ?> icon-1x p-0"></i>
                 <span class="d-none d-md-inline"><?php echo riake('title', $current_menu); ?></span> 
             </a>
             <?php
@@ -261,14 +248,25 @@ class Menu
 
     public static function load_aside_menu()
     {
+        $loop_index = 0;
         foreach (self::$aside_menu_core as $menu_namespace => $current_menu) { 
+
+            if( @$current_menu[ 'permission' ] != null ) {
+                if( ! User::control( $current_menu[ 'permission' ] ) ) {
+                    continue;
+                }
+            }
             ?>
             <a href="<?php echo riake('href', $current_menu); ?>" class="nav-item">
                 <span class="nav-label px-10">
-                    <span class="nav-title text-dark-75 font-weight-bold font-size-h5"><?php echo riake('title', $current_menu); ?></span>
+                    <span class="nav-title text-dark-75 font-weight-bold font-size-h5">
+                        <i class="<?php echo riake('icon', $current_menu); ?> icon-xl mr-2"></i>    
+                        <?php echo riake('title', $current_menu); ?>
+                    </span>
                 </span>
             </a>
             <?php
+            $loop_index++; // increment loop_index
         }
     }
 }

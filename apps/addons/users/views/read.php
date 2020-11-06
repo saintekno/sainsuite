@@ -5,7 +5,7 @@ $complete_users = array();
 foreach ($users as $user) {
     $complete_users[] = array(
         '<a href="' . site_url(array( 'admin', 'users', 'edit', $user->user_id )) . '" 
-            class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg"><i class="fas fa-pen"></i> ' . $user->username . '</a>' ,
+            class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg"><i class="fas fa-pen-square text-dark"></i> ' . $user->username . '</a>' ,
         $user->definition,
         $user->email ,
         $user->last_login,

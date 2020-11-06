@@ -75,7 +75,7 @@
     <body>
         <div class="flex-center position-ref full-height">
             <div class="top-right links">
-                <?php if (User::is_connected()) : ?>
+                <?php if (User::is_loggedin()) : ?>
                 <a href="<?=site_url('admin')?>" class="dropdown-toggle" data-toggle="dropdown">
                     <img class="img-circle user-image" alt="<?php echo $this->events->apply_filters('user_menu_card_avatar_alt', '');?>" src="<?php echo $this->events->apply_filters('user_menu_card_avatar_src', '');?>"/>
                     <span class="hidden-xs"><?php echo xss_clean($this->events->apply_filters('user_menu_name', $this->config->item('default_user_names')));?></span> 

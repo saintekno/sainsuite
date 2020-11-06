@@ -23,7 +23,6 @@
 		<div class="col-xl-6">
 			<!--begin::Input-->
 			<div class="form-group">
-				<label class="font-size-h6 font-weight-bolder text-dark"><?php echo __( 'Host Name' );?></label>
 				<input type="text"
 					class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
 					name="_ht_name" placeholder="<?php echo __( 'Host Name' );?>" value="<?php echo set_value('_ht_name', 'localhost'); ?>" />
@@ -33,7 +32,6 @@
 		<div class="col-xl-6">
 			<!--begin::Select-->
 			<div class="form-group">
-				<label class="font-size-h6 font-weight-bolder text-dark"><?php echo __( 'Database Driver' );?></label>
 				<select name="_db_driv" placeholder="<?php _e('Database Driver');?>" class="form-control form-control-solid h-auto py-7 px-5 border-0 rounded-lg font-size-h6">
 					<option value=""><?php _e('Select database driver');?></option>
 					<option <?php echo set_select('_db_driv', 'mysqli', true);?> value="mysqli"><?php _e('MySQLi');?></option> 
@@ -48,7 +46,6 @@
 		<div class="col-xl-6">
 			<!--begin::Input-->
 			<div class="form-group">
-				<label class="font-size-h6 font-weight-bolder text-dark"><?php echo __( 'Database Name' );?></label>
 				<input type="text"
 					class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
 					name="_db_name" placeholder="<?php echo __( 'Database Name' );?>" value="<?php echo set_value('_db_name'); ?>" />
@@ -58,7 +55,6 @@
 		<div class="col-xl-6">
 			<!--begin::Input-->
 			<div class="form-group">
-				<label class="font-size-h6 font-weight-bolder text-dark"><?php echo __( 'Database Prefix' );?></label>
 				<input type="text"
 					class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
 					name="_db_pref" placeholder="<?php echo __( 'Database Prefix' );?>" value="<?php echo set_value('_db_pref', 'sain_'); ?>" />
@@ -73,7 +69,6 @@
 		<div class="col-xl-6">
 			<!--begin::Input-->
 			<div class="form-group">
-				<label class="font-size-h6 font-weight-bolder text-dark"><?php echo __( 'User Name' );?></label>
 				<input type="text"
 					class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
 					name="_uz_name" placeholder="<?php echo __( 'User Name' );?>" value="<?php echo set_value('_uz_name', 'root'); ?>" />
@@ -83,7 +78,6 @@
 		<div class="col-xl-6">
 			<!--begin::Input-->
 			<div class="form-group">
-				<label class="font-size-h6 font-weight-bolder text-dark"><?php echo __( 'User Password' );?></label>
 				<input type="text"
 					class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
 					name="_uz_pwd" placeholder="<?php _e('User Password');?>" value="<?php echo set_value('_uz_pwd'); ?>" />

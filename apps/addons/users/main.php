@@ -15,6 +15,11 @@ class Users_Addons extends CI_model
         parent::__construct();
         
         $this->lang->load_lines(dirname(__FILE__) . '/language/*.php');
+
+        $this->load->library('aauth');
+        $this->load->library('user');
+        
+        $this->load->model('user_model');
     }
 }
 new Users_Addons;

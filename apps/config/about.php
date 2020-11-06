@@ -26,7 +26,7 @@ $config[ 'supported_languages' ] = array(
 |--------------------------------------------------------------------------
 */
 $config[ 'app_name' ] = 'sainsuite';
-$config[ 'version' ] = '3.3.6';
+$config[ 'version' ] = '3.4.0';
 $config[ 'signature' ] = $config[ 'app_name' ] . ' ' . $config[ 'version' ];
 
 /*
@@ -47,6 +47,7 @@ $config['img_path']      = 'img/';
 | Site Time Zone
 |--------------------------------------------------------------------------
 */
+date_default_timezone_set('Asia/Jakarta');
 $config[ 'site_timezone' ] = [
     'Asia/Jakarta' => '(UTC+07:00) Asia &mdash; Jakarta',
 ];

@@ -82,7 +82,6 @@ class Install_Model extends CI_Model
         $this->load->database($config);
 
         $this->load->model('options_model');
-        $this->load->model('aauth_model');
 
         // Before settings tables
         // Used internaly to load module only when database connection is established.
@@ -106,6 +105,9 @@ class Install_Model extends CI_Model
             'database_prefix' => $database_prefix,
             'install_model'   => $this
         ));
+
+        // After settings tables
+        $this->events->do_action('after_db_setup');
 
         // Creating Database File
         $this->create_config_file($config);

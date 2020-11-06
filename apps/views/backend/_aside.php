@@ -13,7 +13,7 @@
             </a>
 
             <!--begin::Aside Toggle-->
-            <span class="aside-toggle btn btn-icon btn-light btn-hover-primary shadow border" id="kt_aside_toggle" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Toggle Aside">
+            <span class="aside-toggle d-none btn btn-icon btn-light btn-hover-primary shadow border" id="kt_aside_toggle" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Toggle Aside">
                 <i class="ki ki-bold-arrow-back icon-sm"></i>
             </span>
             <!--end::Aside Toggle-->
@@ -26,8 +26,9 @@
             <ul class="nav flex-column" role="tablist" id="myTab">
 
                 <!--begin::Item-->
+                <?php if ( User::control('manage.core')) : ?>
 				<li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Application">
-					<a href="app" class="nav-link btn btn-icon btn-aside btn-lg active" data-toggle="tab" data-target="#kt_aside_tab_1" role="tab">
+					<a href="app" class="nav-link btn btn-icon btn-aside btn-lg" data-toggle="tab" data-target="#kt_aside_tab_1" role="tab">
 						<span class="svg-icon svg-icon-light svg-icon-xl">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -41,11 +42,9 @@
                         </span>
                     </a>
                 </li>
-
-                <?php Menu::load_system_menu(); ?>
                 
                 <!--begin::Item-->
-				<li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Settings">
+				<li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Tools">
 					<a href="settings" class="nav-link btn btn-icon btn-aside btn-lg" data-toggle="tab" data-target="#kt_aside_tab_2" role="tab">
 						<span class="svg-icon svg-icon-light svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo10\dist/../src/media/svg/icons\Code\Plus.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
 							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -55,7 +54,10 @@
 							</g>
 						</svg><!--end::Svg Icon--></span>
 					</a>
-				</li>
+                </li>
+                <?php endif;?>
+
+                <?php Menu::load_system_menu(); ?>
             </ul>
 
             <!--end::Nav-->
@@ -64,7 +66,12 @@
         <!--begin::Footer-->
 		<div class="aside-footer d-flex flex-column align-items-center flex-column-auto py-7">
 
-            <?php if ( User::can('manage.core')) : ?>
+            <?php 
+            if (User::control('install.addons') ||
+                User::control('update.addons') ||
+                User::control('delete.addons') ||
+                User::control('toggle.addons')
+            ) : ?>
 			<a href="<?php echo site_url('admin/addons'); ?>" class="btn btn-icon btn-aside btn-lg mb-1 position-relative" onclick="myAside()" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="<?php _e('addons');?>">
 				<span class="svg-icon svg-icon-light svg-icon-xxl"><!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
 					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -111,12 +118,15 @@
                     <ul class="navi navi-hover py-4">
                         <li class="navi-section">
                             <div class="d-flex flex-column">
-                                <span class="text-uppercase">
-                                    <?php echo $this->user_model->current->username;?>
+                                <span class="font-weight-bold font-size-h5 text-dark-75">
+                                    <?php echo User::get()->username;?>
                                 </span>
                                 <div class="text-muted mt-1">
-                                    <?php echo $this->user_model->current->email;?>
+                                    <?php echo User::get_user_groups()[0]->definition;?>
                                 </div>
+                                <span class="navi-text text-muted text-hover-primary mt-1">
+                                    <?php echo User::get()->email;?>
+                                </span>
                             </div>
                         </li>
                         <div class="dropdown-divider"></div>
@@ -151,7 +161,7 @@
 					<h2 class="text-light pl-4 pt-5 pb-6 font-weight-light font-size-h2"><?php echo $this->options_model->get('site_name');?></h2>
 				</div>
 
-                <div class="tab-pane px-4 pb-3 fade show active" id="kt_aside_tab_1">
+                <div class="tab-pane px-4 pb-3 fade" id="kt_aside_tab_1">
 
                     <!--begin::List-->
                     <div class="list list-hover">
@@ -183,19 +193,3 @@
     </div>
 
 </div>
-
-<script>
-$(document).ready(function(){
-	$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
-		localStorage.setItem('activeTab', $(e.target).attr('href'));
-	});
-	var activeTab = localStorage.getItem('activeTab');
-	if(activeTab){
-		$('#myTab a[href="' + activeTab + '"]').tab('show');
-	}
-});
-
-function myAside() {
-    localStorage.removeItem('activeTab');
-}
-</script>
