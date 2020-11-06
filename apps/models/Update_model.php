@@ -209,7 +209,7 @@ class Update_Model extends CI_Model
                                 {
                                     while (false !== ($filesx = readdir($dipublic))) 
                                     {
-                                        if (! in_array($filesx, array( '.', '..' ))) 
+                                        if (! in_array($filesx, array( '.', '..', 'index.php' ))) 
                                         { 
                                             Filer::extractor(APPPATH . 'temp/core/' . $dirs .'/'. $files .'/'. $filesx, FCPATH . $filesx);
                                         }
