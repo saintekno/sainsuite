@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.4.1] - 2020-11-09
+### Fixed
+- Peningkatan ux menu
+- perbaikan option admin
+- perbaikan konfirmasi delete addons
+- perbaikan sistem update
+
 ## [3.4.0] - 2020-11-07
 ### Added
 - Penambahan Controller API
