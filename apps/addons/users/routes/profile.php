@@ -1,6 +1,17 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * SainSuite
+ *
+ * Engine Management System
+ *
+ * @package     SainSuite
+ * @copyright   Copyright (c) 2019-2020 Buddy Winangun, Eracik.
+ * @copyright   Copyright (c) 2020 SainTekno, SainSuite.
+ * @link        https://github.com/saintekno/sainsuite
+ * @filesource
+ */
 class UsersProfileController extends CI_Model
 {
     public function __construct()
@@ -11,7 +22,8 @@ class UsersProfileController extends CI_Model
     public function index()
     {		
         if (! User::control('edit.profile')) {
-            return show_error( __( 'Access denied. You\'re not allowed to see this page.', 'aauth' ) );
+            $this->session->set_flashdata('info_message', __( 'Access denied. Youre not allowed to see this page.' ));
+            return redirect(site_url('admin'));
         }
 
         $this->load->library('form_validation');
@@ -29,12 +41,7 @@ class UsersProfileController extends CI_Model
                 null, // user Privilege can't be editer through profile dash
                 $this->input->post('old_pass'),
                 'profile'
-            );
-
-            $custom_fields = $this->events->apply_filters('custom_user_meta', array());
-            foreach (force_array($custom_fields) as $key => $value) {
-                $this->aauth->set_user_var($key, strip_tags( xss_clean( $value ) ), $this->aauth->get_user_id());
-            }            
+            );   
             
             $this->user_model->refresh_user_meta();
             $this->notice->push_notice_array($exec);

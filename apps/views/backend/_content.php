@@ -1,7 +1,7 @@
 <?php if (empty($this->polatan->get_col(1))) : ?>
 
 <div class="d-flex flex-column-fluid flex-lg-center">
-    <div class="d-flex flex-column justify-content-center align-items-center">
+    <div class="d-flex flex-column justify-content-center align-items-center px-5 text-center">
         <img class="w-150px" src="<?php echo asset_url('svg/empty-state.svg'); ?>"/>
         <h3 class="display-4 font-weight-bold my-7">Welcome to SainSuite! Let's get started</h3>
         <p class="font-weight-bold font-size-lg opacity-80">
@@ -57,10 +57,10 @@
 
                     <?php if (in_array($meta_type = riake('type', $meta), array( 'card' ))) : ?>
                     <div class="card card-custom">
-                        <?php if ($footer = riake('header', $meta)) : ?>
+                        <?php if (riake('title', $meta)) : ?>
                         <div class="card-header">
                             <div class="card-title">
-                                <?php if ($icon):?>
+                                <?php if (riake('icon', $meta)):?>
                                 <span class="card-icon">
                                     <i class="flaticon2-line-chart text-primary"></i>
                                 </span>

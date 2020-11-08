@@ -231,6 +231,7 @@
                                                 <?php if( !$_addon[ 'application' ][ 'readonly' ] ) : ?>
                                                 <li class="navi-item">
                                                 <a href="<?php echo site_url(array( 'admin', 'addons', 'remove', $addon_namespace ));?>"
+                                                    onclick="return confirm( '<?php echo 'Would you like to delete this account ?'; ?>' )" 
                                                     class="navi-link">
                                                     <span class="navi-icon">
                                                     <i class="fa fa-trash text-danger"></i>

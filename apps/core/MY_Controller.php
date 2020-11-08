@@ -1,6 +1,17 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * SainSuite
+ *
+ * Engine Management System
+ *
+ * @package     SainSuite
+ * @copyright   Copyright (c) 2019-2020 Buddy Winangun, Eracik.
+ * @copyright   Copyright (c) 2020 SainTekno, SainSuite.
+ * @link        https://github.com/saintekno/sainsuite
+ * @filesource
+ */
 class MY_Controller extends CI_Controller
 {
     public function __construct()
@@ -83,7 +94,7 @@ class MY_Controller extends CI_Controller
         // Enqueueing footer
         $this->enqueue->js_namespace( 'common_footer' );
         $this->enqueue->js('angular.min', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/');
-        $this->enqueue->js('app.settings');
+        $this->enqueue->js('settings');
         $this->enqueue->load_js( 'common_footer' );
         $this->load->view('scripts');
     }

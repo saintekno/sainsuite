@@ -53,6 +53,27 @@
         toastr.info('<?php echo $this->notice->output_notice();?>');
     <?php endif;?>
 
+    function checkRequiredFields() {
+        var pass = 1;
+        $('form.required-form').find('input, select').each(function(){
+            if($(this).prop('required')){
+                if ($(this).val() === "") {
+                    pass = 0;
+                }
+            }
+        });
+
+        if (pass === 1) {
+            $('form.required-form').submit();
+        }else {
+            error_required_field();
+        }
+    }
+
+    function error_required_field() {
+        toastr.error("<?php _e('please_fill_all_the_required_fields'); ?>");
+    }
+    
     /**
     * Introducing Angular
     **/

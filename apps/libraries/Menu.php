@@ -1,6 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * SainSuite
+ *
+ * Engine Management System
+ *
+ * @package     SainSuite
+ * @copyright   Copyright (c) 2019-2020 Buddy Winangun, Eracik.
+ * @copyright   Copyright (c) 2020 SainTekno, SainSuite.
+ * @link        https://github.com/saintekno/sainsuite
+ * @filesource
+ */
 class Menu 
 {
     public static $setting_menus_core = array();
@@ -76,10 +87,6 @@ class Menu
                         $custom_ul_style = 'menu-item-open menu-item-here';
                         $attr = 'data-menu-toggle="hover"'; 
                     }
-                    else if (riake('href', $_menu) == current_url()) {
-                        $custom_ul_style = 'menu-item-active';
-                        $attr = '';
-                    }
                 }
                 $class = is_array($current_menu) && count($current_menu) > 1 ? 'menu-item-submenu' : '';
                 
@@ -87,13 +94,10 @@ class Menu
                 ?>
                 <li class="menu-item <?php echo $class . ' ' . $custom_ul_style;?>" <?php echo $attr;?>>
                 <?php
-                $custom_style = '';
-
                 foreach ($current_menu as $menu) 
                 {
                     if ($class != '') 
                     {
-                        $custom_style = (riake('href', $menu) == current_url()) ? 'menu-item-active' : '';
                         // First child, set a default page and first sub-menu.
                         if ($loop_index == 0) : ?>
                             <a href="javascript:void(0)" class="menu-link btn btn-hover-dark menu-toggle"> 
@@ -111,7 +115,7 @@ class Menu
                                 
                                 <ul class="menu-subnav">
                         <?php else : ?>
-                            <li class="menu-item <?php echo $custom_style;?>" aria-haspopup="true"> 
+                            <li class="menu-item" aria-haspopup="true"> 
                                 <a href="<?php echo @$menu[ 'route' ] ? site_url( 'admin' . implode('/', $menu[ 'route' ] ) ) : @$menu[ 'href' ];?>" class="menu-link">
                                     <i class="menu-bullet menu-bullet-line">
                                         <span></span>

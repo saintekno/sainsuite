@@ -1,14 +1,24 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * SainSuite
+ *
+ * Engine Management System
+ *
+ * @package     SainSuite
+ * @copyright   Copyright (c) 2019-2020 Buddy Winangun, Eracik.
+ * @copyright   Copyright (c) 2020 SainTekno, SainSuite.
+ * @link        https://github.com/saintekno/sainsuite
+ * @filesource
+ */
+
 global $Routes;
 
-$Routes->get( 'users/{page_id?}', 'UsersHomeController@read' )
-->where([ 'page_id' => '[0-9]+' ]);
-
-$Routes->match([ 'get', 'post' ], 'users/create', 'UsersHomeController@create' );
+$Routes->get( 'users/{page_id?}', 'UsersHomeController@index' )->where([ 'page_id' => '[0-9]+' ]);
+$Routes->match([ 'get', 'post' ], 'users/add', 'UsersHomeController@add' );
+$Routes->match([ 'get', 'post' ], 'users/edit/{id}', 'UsersHomeController@edit' );
 $Routes->match([ 'get', 'post' ], 'users/delete/{id}', 'UsersHomeController@delete' );
-$Routes->match([ 'get', 'post' ], 'users/edit/{id}', 'UsersHomeController@update' );
 
 $Routes->match([ 'get', 'post' ], 'users/profile', 'UsersProfileController@index' );
 

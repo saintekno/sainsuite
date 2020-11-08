@@ -1,6 +1,17 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * SainSuite
+ *
+ * Engine Management System
+ *
+ * @package     SainSuite
+ * @copyright   Copyright (c) 2019-2020 Buddy Winangun, Eracik.
+ * @copyright   Copyright (c) 2020 SainTekno, SainSuite.
+ * @link        https://github.com/saintekno/sainsuite
+ * @filesource
+ */
 class User_model extends CI_Model
 {
     public function __construct()
@@ -57,7 +68,7 @@ class User_model extends CI_Model
     {
         $user_creation_status = $this->aauth->create_user($email, $password, $username);
         if (! $user_creation_status) {
-            return 'unexpected-error';
+            return $this->aauth->get_errors_array();
         }
 
         // bind user to a speciifc group
@@ -137,6 +148,11 @@ class User_model extends CI_Model
                 $this->aauth->ban_user($user_id);
             }
         }
+
+        $custom_fields = $this->events->apply_filters('custom_user_meta', array());
+        foreach ( force_array($custom_fields) as $key => $value) {
+            $this->aauth->set_user_var($key, strip_tags( xss_clean( $value ) ), $user_id);
+        } 
 
         return $return;
     }

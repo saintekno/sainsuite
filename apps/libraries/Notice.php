@@ -1,6 +1,17 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * SainSuite
+ *
+ * Engine Management System
+ *
+ * @package     SainSuite
+ * @copyright   Copyright (c) 2019-2020 Buddy Winangun, Eracik.
+ * @copyright   Copyright (c) 2020 SainTekno, SainSuite.
+ * @link        https://github.com/saintekno/sainsuite
+ * @filesource
+ */
 class Notice
 {
     private $notice;
@@ -39,10 +50,10 @@ class Notice
     {
         if (is_array($notice_array)) {
             foreach (force_array($notice_array) as $notice) {
-                $this->push_notice(get_instance()->lang->line($notice));
+                $this->push_notice($notice);
             }
         } else {
-            $this->push_notice(get_instance()->lang->line($notice_array));
+            $this->push_notice($notice_array);
         }
     }
     

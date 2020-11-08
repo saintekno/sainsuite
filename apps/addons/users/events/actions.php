@@ -1,6 +1,17 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * SainSuite
+ *
+ * Engine Management System
+ *
+ * @package     SainSuite
+ * @copyright   Copyright (c) 2019-2020 Buddy Winangun, Eracik.
+ * @copyright   Copyright (c) 2020 SainTekno, SainSuite.
+ * @link        https://github.com/saintekno/sainsuite
+ * @filesource
+ */
 class Users_Action extends CI_model
 {
     public function __construct()
@@ -9,7 +20,7 @@ class Users_Action extends CI_model
         
         // $this->events->add_action( 'load_dashboard', [ $this, 'load_dashboard' ] );
         // $this->events->add_action( 'load_frontend', [ $this, 'load_frontend' ]  );
-        $this->events->add_action('load_users_custom_fields', array( $this, 'user_custom_fields' ));
+        $this->events->add_action('load_users_custom_fields', array( $this, 'load_users_custom_fields' ));
         $this->events->add_action('registration_rules', array( $this, 'registration_rules' ));
         $this->events->add_action('app_init', array($this, 'check_login'));
     }
@@ -22,7 +33,7 @@ class Users_Action extends CI_model
     * @return : Array
     **/
     
-    public function user_custom_fields($config)
+    public function load_users_custom_fields($config)
     {
         if ( $config[ 'mode' ] === 'edit' || $config[ 'mode' ] === 'profile' ) {
             $this->polatan->add_item([

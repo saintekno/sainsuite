@@ -15,7 +15,7 @@
     <?php $this->events->do_action( 'common_header' );?>
 </HEAD>
 <BODY id="kt_body" 
-    class="header-mobile-fixed aside-enabled aside-fixed subheader-fixed aside-secondary-enabled aside-minimize page-loading" 
+    class="header-mobile-fixed aside-fixed aside-minimize" 
     <?php echo xss_clean($this->events->apply_filters('dashboard_body_attrs', 'ng-app="SainSuite"'));?>>
 
     <?php include('_header-mobile.php'); ?>
