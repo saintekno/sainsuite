@@ -31,7 +31,24 @@ class User_model extends CI_Model
     public function refresh_user_meta()
     {
         global $User_Options;
-        $User_Options = $this->aauth->get_user_var(null, $this->aauth->get_user_id());
+        $User_Options = $this->get();
+    }
+
+    public function get()
+    {
+        // fetch data
+        $user_option = $this->aauth->get_user_vars($this->aauth->get_user_id());
+
+        $key_value = array();
+        foreach ($user_option as $_option) 
+        {
+            $value = riake('value', $_option);
+            $value = is_array($array = json_decode($value, true)) ? $array : $value; // converting array to JSON
+            $value = in_array($value, array( 'true', 'false' )) ? $value === 'true' ? true : false : $value;  // Converting Bool to string
+
+            $key_value[ riake('data_key', $_option) ] = $value;
+        }
+        return $key_value;
     }
 
     /**

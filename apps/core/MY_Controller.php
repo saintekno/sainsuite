@@ -94,6 +94,8 @@ class MY_Controller extends CI_Controller
         // Enqueueing footer
         $this->enqueue->js_namespace( 'common_footer' );
         $this->enqueue->js('angular.min', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/');
+		$this->enqueue->js('underscore-min', 'https://cdn.jsdelivr.net/npm/underscore@1.11.0/');
+		$this->enqueue->js('heartcode-canvasloader-min', 'https://cdn.jsdelivr.net/canvasloader-ui/0.9/');
         $this->enqueue->js('settings');
         $this->enqueue->load_js( 'common_footer' );
         $this->load->view('scripts');

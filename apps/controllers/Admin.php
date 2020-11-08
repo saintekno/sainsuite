@@ -410,37 +410,56 @@ class Admin extends MY_Controller
      */
     public function options($mode = 'list')
     {
-        if (in_array($mode, array( 'save', 'merge' ))) 
-        {
-            // Can user extract modules ?
-            if (! User::control('edit.options')) {
+        if (in_array($mode, array( 'save_user_meta', 'merge_user_meta' ))) {
+            if (! User::control('edit.profile')) 
+            {
                 $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
                 return redirect(site_url('admin'));
             }
 
-            if (! $this->input->post('gui_saver_ref') && ! $this->input->post('gui_json')) {
-                // if JSON mode is enabled redirect is disabled
-                redirect(array( 'admin', 'options' ));
-            }
-
-            if ($this->input->post('gui_saver_expiration_time') > gmt_to_local(time(), 'UTC')) 
+            if ($this->input->post('gui_saver_expiration_time') >  gmt_to_local(time(), 'UTC')) 
             {
+                $content = array();
                 // loping post value
-                global $Options;
-                foreach ($_POST as $key => $value) {
-                    if (! in_array($key, array( 'gui_saver_ref', 'gui_saver_expiration_time' ))) {
-                        $this->options_model->set(
-                            $key, 
-                            $this->input->post($key)
-                        );
-                    }
-                };
+                foreach ($_POST as $key => $value) 
+                {
+                    if (! in_array($key, array( 'gui_saver_option_namespace', 'gui_saver_ref', 'gui_saver_expiration_time', 'gui_saver_use_namespace', 'user_id' ))) 
+                    {
+                        if ($mode == 'merge_user_meta' && is_array($value)) 
+                        {
+                            $options = $this->aauth->get_user_var($key);
+                            $options = array_merge(force_array($options), $value);
+                        }
 
-                $ref = @$_SERVER[ 'HTTP_REFERER' ] === null ? $this->input->post('gui_saver_ref') : $_SERVER[ 'HTTP_REFERER' ];
-                $hasQuery = strpos( $ref, '?' );
-                redirect( $ref . ( $hasQuery === false ? '?' : '&' ) . 'notice=option-saved');
+                        // save only when it's not an array
+                        if (! is_array($_POST[ $key ])) {
+                            if ($this->input->post('gui_saver_use_namespace') === 'true') {
+                                $content[ $key ] = ($mode == 'merge') ? $options : $this->input->post($key);
+                            } 
+                            else {
+                                if ($mode == 'merge_user_meta' && is_array($value)) {
+                                    $this->aauth->set_user_var($key, $options, $this->input->post('user_id'));
+                                } else {
+                                    $this->aauth->set_user_var($key, $this->input->post($key), $this->input->post('user_id'));
+                                }
+                            }
+                        } 
+                        else {
+                            if ($this->input->post('gui_saver_use_namespace') === 'true') {
+                                $content[ $key ] = ($mode == 'merge') ? $options : xss_clean($_POST[ $key ]);
+                            } 
+                            else {
+                                if ($mode == 'merge_user_meta' && is_array($value)) {
+                                    $this->aauth->set_user_var($key, $options, $this->input->post('user_id'));
+                                } else {
+                                    $this->aauth->set_user_var($key, xss_clean($_POST[ $key ]), $this->input->post('user_id'));
+                                }
+                            }
+                        }
+                    }
+                }
             }
-        } 
+        }
     }
 
     // --------------------------------------------------------------------

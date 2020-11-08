@@ -58,6 +58,8 @@
                 <?php endif;?>
 
                 <?php Menu::load_system_menu(); ?>
+
+                <div id="sain-spinner" class="ml-1"></div>
             </ul>
 
             <!--end::Nav-->
@@ -72,7 +74,7 @@
                 User::control('delete.addons') ||
                 User::control('toggle.addons')
             ) : ?>
-			<a href="<?php echo site_url('admin/addons'); ?>" class="btn btn-icon btn-aside btn-lg mb-1 position-relative" onclick="myAside()" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="<?php _e('addons');?>">
+			<a href="<?php echo site_url('admin/addons'); ?>" class="btn btn-icon btn-aside btn-lg mb-1 position-relative" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="<?php _e('addons');?>">
 				<span class="svg-icon svg-icon-light svg-icon-xxl"><!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
 					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
 						<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">

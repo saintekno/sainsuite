@@ -2655,7 +2655,7 @@ class Aauth {
 
 		$query = $this->aauth_db->get( $this->config_vars['user_variables'] );
 
-		return $query->result();
+		return $query->result_array();
 
 	}
 

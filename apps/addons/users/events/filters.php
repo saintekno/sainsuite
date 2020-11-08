@@ -22,7 +22,6 @@ class Users_Filters extends CI_model
         // $this->events->add_filter( 'dashboard_footer_right', [ $this->filters, 'dashboard_footer_right' ] );
         // $this->events->add_filter( 'dashboard_footer_text', [ $this->filters, 'dashboard_footer_text' ] );
         $this->events->add_filter('custom_user_meta', array( $this, 'custom_user_meta' ), 10, 1);
-
         $this->events->add_filter('signin_logo', array( $this, 'signin_logo' ));
         $this->events->add_filter('dashboard_body_class', array( $this, 'dashboard_body_class' ), 5, 1);
         $this->events->add_filter('user_menu_name', array( $this, 'user_menu_name' ));
@@ -62,19 +61,12 @@ class Users_Filters extends CI_model
     public function dashboard_body_class($class)
     {
         global $User_Options;
+        $class = '';
         // skin is defined by default
-        $class = ($db_skin = riake('theme-skin', $User_Options)) ? $db_skin : $class; // weird ??? lol
-
-        unset($db_skin);
-
+        // $class .= ($db_skin = riake('theme-skin', $User_Options)) ? $db_skin : $class;
+        
         // get user sidebar status
-        $sidebar = riake('dashboard-sidebar', $User_Options);
-        if ($sidebar == true) {
-            $class .= ' ' . $sidebar;
-        } 
-        else {
-            $class .= ' sidebar-expanded';
-        }
+        $class .= ($sidebar = riake('dashboard-sidebar', $User_Options)) ? $sidebar : 'aside-minimize';
         return $class;
     }
 
