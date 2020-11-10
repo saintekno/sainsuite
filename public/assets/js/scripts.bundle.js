@@ -9423,8 +9423,9 @@ var KTLayoutAside = function() {
 
             $(asideTabs).find('a[data-toggle="tab"]').on('click', function (e) {
                 if (KTUtil.hasClass(_body, 'aside-minimize')) {
-                	KTUtil.removeClass(_body, 'aside-minimize');
+                    KTUtil.removeClass(_body, 'aside-minimize');
                 	KTUtil.removeClass(KTUtil.getById('kt_aside_toggle'), 'aside-toggle-active');
+                	KTUtil.addClass(_body, 'aside-secondary-enabled');
                 }
             });
         }
@@ -9454,10 +9455,18 @@ var KTLayoutAside = function() {
     
     var menuAside = function(){
 
+        var selectedLinkId = localStorage.getItem("menuAside");
         var menuNavheader = localStorage.getItem("menuNavheader");
         var menuAside1 = localStorage.getItem("menuAside1");
         var menuAside2 = localStorage.getItem("menuAside2");
         
+        $('#kt_aside').on('click', '.aside-primary a', function() {
+            var linkId = $(this).attr('href');
+            localStorage.clear();
+            localStorage.setItem("menuNavheader", linkId);
+            localStorage.setItem("menuAside", linkId);
+        });
+
         $('#kt_header').on('click', '.navheader-nav a', function() {
             var $this = $(this);
             var linkId = $this.attr('href');
@@ -9497,6 +9506,10 @@ var KTLayoutAside = function() {
             localStorage.setItem("menuAside2", linkId);
         });
 
+        if (selectedLinkId !== null) {
+            $('.aside-primary a[href="'+ selectedLinkId +'"]').tab("show");
+        }
+        
         if (menuAside1 !== null) {
             $('.list a[href="'+ menuAside1 +'"]').trigger("click");
         }

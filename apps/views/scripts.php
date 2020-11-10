@@ -87,18 +87,8 @@
     sain.suite = function(){
         $this =	this;
         this.sidebar =	new function() {
-            
-            $('#myTab').on('click', 'a[data-toggle="tab"]', function (e) {
-                //save the latest tab; use cookies if you like 'em better:
-                $('#kt_body').addClass('aside-secondary-enabled');
-            });
 
             $('#kt_aside').on('click', '.aside-primary a', function() {
-                var linkId = $(this).attr('href');
-                localStorage.clear();
-                localStorage.setItem("menuNavheader", linkId);
-                localStorage.setItem("menuAside", linkId);
-
                 if( $( '#kt_body' ).hasClass( 'aside-secondary-enabled' ) ) {
                     $this.options.save( 'dashboard-sidebar' , 'aside-minimize' , sain.user.id );
                     $('#myTab a[data-toggle="tab"]').on('show.bs.tab', function(){
@@ -129,9 +119,6 @@
             }
         }
         var selectedLinkId = localStorage.getItem("menuAside");
-        if (selectedLinkId !== null) {
-            $('.aside-primary a[href="'+ selectedLinkId +'"]').tab("show");
-        }
         if (selectedLinkId == 'app' || selectedLinkId == 'tool') {
             $('.aside-toggle').removeClass('d-none');
         }

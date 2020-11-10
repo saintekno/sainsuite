@@ -1,6 +1,6 @@
 <?php if (empty($this->polatan->get_col(1))) : ?>
 
-<div class="d-flex flex-column-fluid flex-lg-center">
+<div class="d-flex flex-column-fluid flex-center">
     <div class="d-flex flex-column justify-content-center align-items-center px-5 text-center">
         <img class="w-150px" src="<?php echo asset_url('svg/empty-state.svg'); ?>"/>
         <h3 class="display-4 font-weight-bold my-7">Welcome to SainSuite! Let's get started</h3>
