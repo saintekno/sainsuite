@@ -32,16 +32,6 @@
                 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 
                     <?php include('_subheader.php'); ?>
-
-                    <?php if (function_exists('validation_errors')) {
-                        if (validation_errors()) : ?>
-                        <div class="container">
-                            <div class="alert alert-danger" role="alert">
-                                <?php echo strip_tags(validation_errors())?>
-                            </div>
-                        </div>
-                        <?php endif; ?>
-                    <?php } ?>
                         
                     <?php include('_content.php'); ?>
 

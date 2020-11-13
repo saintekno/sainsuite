@@ -33,26 +33,6 @@
         toastr.error("<?php _e('please_fill_all_the_required_fields'); ?>");
     }
 
-    <?php if ($this->session->flashdata('info_message') != ""):?>
-        toastr.info('<?php echo $this->session->flashdata("info_message");?>');
-    <?php endif;?>
-
-    <?php if ($this->session->flashdata('error_message') != ""):?>
-        toastr.error('<?php echo $this->session->flashdata("error_message");?>');
-    <?php endif;?>
-
-    <?php if ($this->session->flashdata('flash_message') != ""):?>
-        toastr.success('<?php echo $this->session->flashdata("flash_message");?>');
-    <?php endif;?>
-
-    <?php if (notice_from_url() != ""):?>
-        toastr.success('<?php echo notice_from_url();?>');
-    <?php endif;?>
-
-    <?php if ($this->notice->output_notice(true)):?>
-        toastr.info('<?php echo $this->notice->output_notice();?>');
-    <?php endif;?>
-
     function checkRequiredFields() {
         var pass = 1;
         $('form.required-form').find('input, select').each(function(){
@@ -70,9 +50,17 @@
         }
     }
 
-    function error_required_field() {
-        toastr.error("<?php _e('please_fill_all_the_required_fields'); ?>");
-    }
+    <?php if ($this->session->flashdata('info_message') != ""):?>
+        toastr.info('<?php echo $this->session->flashdata("info_message");?>');
+    <?php endif;?>
+
+    <?php if ($this->session->flashdata('error_message') != ""):?>
+        toastr.error('<?php echo $this->session->flashdata("error_message");?>');
+    <?php endif;?>
+
+    <?php if ($this->session->flashdata('flash_message') != ""):?>
+        toastr.success('<?php echo $this->session->flashdata("flash_message");?>');
+    <?php endif;?>
 
     /**
      * Option
@@ -81,20 +69,32 @@
     sain.form_expire = '<?php echo gmt_to_local(time(), 'UTC') + GUI_EXPIRE;?>';
     sain.user =	{ id : '<?php echo User::id();?>' }
     sain.dashboard_url = '<?php echo site_url(array( 'admin' ));?>';
-    sain.csrf_data = {
-        '<?php echo $this->security->get_csrf_token_name();?>' : '<?php echo $this->security->get_csrf_hash();?>'
-    };
+    sain.csrf_data = { '<?php echo $this->security->get_csrf_token_name();?>' : '<?php echo $this->security->get_csrf_hash();?>' };
     sain.suite = function(){
         $this =	this;
         this.sidebar =	new function() {
+            var menuAside = localStorage.getItem("menuAside");
+            var url = window.location.href;
+            $('#kt_aside').on('click', '.aside-primary a', function(e) {
+                var linkId = $(this).attr('href');
+                var target = $(this).data('target');
 
-            $('#kt_aside').on('click', '.aside-primary a', function() {
+                if (menuAside != null) {
+                    if (menuAside == target) { 
+                        e.preventDefault();
+                        return
+                    } else if (menuAside == linkId && url.indexOf(linkId) > -1) { 
+                        e.preventDefault();
+                        return
+                    }
+                } 
+
                 if( $( '#kt_body' ).hasClass( 'aside-secondary-enabled' ) ) {
                     $this.options.save( 'dashboard-sidebar' , 'aside-minimize' , sain.user.id );
                     $('#myTab a[data-toggle="tab"]').on('show.bs.tab', function(){
                         $this.options.save( 'dashboard-sidebar' , 'aside-secondary-enabled' , sain.user.id );
                     });
-                } else	{
+                } else {
                     $this.options.save( 'dashboard-sidebar' , 'aside-minimize' , sain.user.id );
                 }
             });
@@ -105,7 +105,6 @@
                 eval( 'Objdata = { "' + key + '" : value, "user_id" : user_id }' );
                 Objdata.gui_saver_expiration_time =	sain.form_expire;
                 // Objdata = _.extend( sain.csrf_data, Objdata );
-                console.log(Objdata);
                 $.ajax({
                     url : sain.dashboard_url + '/options/save_user_meta?mode=json',
                     data: Objdata,
@@ -118,6 +117,7 @@
                 });
             }
         }
+
         var selectedLinkId = localStorage.getItem("menuAside");
         if (selectedLinkId == 'app' || selectedLinkId == 'tool') {
             $('.aside-toggle').removeClass('d-none');
@@ -127,7 +127,6 @@
         this.int =	0;
         this.timeOutToClose;
         this.show =	function(){
-            
             this.int++;
             if( $( '#canvasLoader' ).length > 0 ) {
                 clearTimeout( this.timeOutToClose );
@@ -146,7 +145,6 @@
             }
         }
         this.hide =	function(){
-
             this.int--;
             if( this.int == 0 ){
                 this.timeOutToClose	=	setTimeout( function(){
@@ -159,6 +157,9 @@
     }
 
     $(document).ready(function(){
+        "use strict";
+        new sain.suite();
+
         $( document ).ajaxComplete(function() {
             sain.loader.hide();
         });
@@ -169,15 +170,9 @@
             sain.loader.show();
         });
     });
-
-    $(document).ready(function(){
-        "use strict";
-        new sain.suite();
-    });
     
     /**
     * Introducing Angular
     **/
     var App = angular.module( 'SainSuite', <?php echo json_encode( ( Array ) $this->events->apply_filters( 'admin_dependencies', array() ) );?> );
-
 </script>

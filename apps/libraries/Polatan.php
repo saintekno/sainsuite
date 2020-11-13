@@ -28,6 +28,7 @@ class Polatan
         4 => array(),
     );
 
+    private static $page_name;
     private static $page_title = 'Untitled Page';
     private static $page_description;
     
@@ -38,6 +39,30 @@ class Polatan
 
 		// get main CI object
         $this->CI = & get_instance();
+    }
+
+    /**
+     * Set Page
+     *
+     * @access : public
+     * @param : string
+     * @return : void
+    **/
+    
+    public static function set_page($page)
+    {
+        self::$page_name = $page;
+    }
+    
+    /**
+     * 	Get Page
+     * @access : public
+     * @return : string
+    **/
+    
+    public static function get_page()
+    {
+        return self::$page_name;
     }
 
     /**
@@ -188,6 +213,8 @@ class Polatan
     **/
     public function output()
     {
-        $this->CI->load->view('backend/index');
+        ($this->CI->aauth->is_loggedin())
+            ? $this->CI->load->view('backend/index')
+            : $this->CI->load->view('frontend/index');
     }
 }

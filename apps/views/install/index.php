@@ -127,7 +127,25 @@
                     </div>
 
                     <div class="login-form">
-                    <?php include $page_name.'.php'; ?>
+                        <?php if (function_exists('validation_errors')) {
+                            if (validation_errors()) : ?>
+                            <div class="alert alert-danger" role="alert">
+                                <?php echo strip_tags(validation_errors())?>
+                            </div>
+                            <?php endif; ?>
+                        <?php } ?>
+                        <?php if ($this->notice->output_notice(true)):?>
+                            <div class="alert alert-danger" role="alert">
+                                <?php echo $this->notice->output_notice();?>
+                            </div>
+                        <?php endif;?>
+                        <?php if (notice_from_url() != ""):?>
+                            <div class="alert alert-danger" role="alert">
+                                <?php echo notice_from_url();?>
+                            </div>
+                        <?php endif;?>
+
+                        <?php include $page_name.'.php'; ?>
                     </div>
                 </div>
                 <!--begin::Content-->

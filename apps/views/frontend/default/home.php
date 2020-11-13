@@ -42,7 +42,7 @@
             }
             .title {
                 font-family: 'Montserrat Alternates', sans-serif;
-                font-size: 84px;
+                font-size: 3rem !important;
                 font-weight: 600;
             }
             .links > a {
@@ -54,9 +54,9 @@
                 text-decoration: none;
                 text-transform: uppercase;
             }
-            @media (max-width: 576px) {
+            @media (min-width: 768px) {
                 .title {
-                    font-size: 3rem;
+                    font-size: 7rem !important;
                 }
             }
             .m-b-md {
@@ -90,9 +90,12 @@
                 <?php echo $this->options_model->get('site_name');?>
                 </div>
 
-                <span class="subtitle"><?php echo $this->events->apply_filters( 'dashboard_footer_right', sprintf( __( 'You\'re using %s %s' ), get( 'app_name' ), get('version') ) );?></span>
+                <span class="subtitle">
+                    <small><?php echo date('Y') ?></small> &copy;
+                    <?php echo $this->events->apply_filters( 'dashboard_footer_right', sprintf( __( '%s %s' ), get( 'app_name' ), get('version') ) );?>
+                </span>
                 <div class="links">
-                    <a href="#"><?php echo date('Y'). ' &copy; Powered by SainTekno';?></a>
+                    <a href="http://saintekno.id/">Powered by SainTekno</a>
                 </div>
             </div>
         </div>

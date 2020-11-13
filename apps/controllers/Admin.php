@@ -76,8 +76,8 @@ class Admin extends MY_Controller
             $Routes->error(function($request, \Exception $exception) {
                 if($exception instanceof NotFoundHttpException && $exception->getCode() == 404) {
                     // return 
-                    $this->session->set_flashdata('info_message', $exception->getMessage());
-                    return redirect(site_url('admin'));
+                    $this->session->set_flashdata('error_message', $exception->getMessage());
+                    redirect(site_url('admin/page404'));
                 }
             });
             
@@ -522,5 +522,20 @@ class Admin extends MY_Controller
             $data['check'] = (! User::control('manage.core') ) ? false : $this->update_model->check();
             $this->load->view( 'backend/about/index', $data );
         }
+    }
+
+    // --------------------------------------------------------------------
+
+    /**
+     * About controller
+     * [New Permission Ready]
+     *
+     * @access public
+     */
+    public function page404()
+    {
+        Polatan::set_title(sprintf(__('404 &mdash; %s'), get('signature')));
+        Polatan::set_page('404');
+        $this->polatan->output();
     }
 }

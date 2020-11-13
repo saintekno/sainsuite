@@ -15,14 +15,6 @@
                 <a href="<?php echo site_url('register'); ?>" class="text-primary font-weight-bolder"><?php _e('Sign Up'); ?></a>
             </div>
         <?php endif; ?>
-        
-        <?php if (function_exists('validation_errors')) {
-            if (validation_errors()) : ?>
-                <div class="alert alert-danger" role="alert">
-                    <?php echo strip_tags(validation_errors())?>
-                </div>
-            <?php endif; ?>
-        <?php } ?>
     </div>
     <!--begin::Title-->
 

@@ -1,4 +1,33 @@
-<?php if (empty($this->polatan->get_col(1))) : ?>
+<?php if ($this->polatan->get_page() === '404') : ?>
+<div class="d-flex flex-column-fluid flex-center">
+    <div class="d-flex flex-column justify-content-center align-items-center px-5 text-center">
+        <!--begin::Content-->
+        <div class="d-flex flex-column flex-row-fluid text-center">
+            <h1 class="display-1 font-weight-boldest mb-12">Oops...</h1>
+            <p class="display-4 font-weight-bold">
+                Looks like something went wrong.
+            </p>
+            <p>
+                <?php if ($this->session->flashdata('info_message') != ""):?>
+                    <?php echo $this->session->flashdata("info_message");?></br>
+                    We're working on it
+                <?php endif;?>
+
+                <?php if ($this->session->flashdata('error_message') != ""):?>
+                    <?php echo $this->session->flashdata("error_message");?></br>
+                    We're working on it
+                <?php endif;?>
+
+                <?php if ($this->session->flashdata('flash_message') != ""):?>
+                    <?php echo $this->session->flashdata("flash_message");?></br>
+                    We're working on it
+                <?php endif;?>
+            </p>
+        </div>
+        <!--end::Content-->
+    </div>
+</div>
+<?php elseif (empty($this->polatan->get_col(1))) : ?>
 
 <div class="d-flex flex-column-fluid flex-center">
     <div class="d-flex flex-column justify-content-center align-items-center px-5 text-center">

@@ -37,3 +37,27 @@
         </div>
     </div>
 </div>
+
+<?php if (function_exists('validation_errors')) {
+    if (validation_errors()) : ?>
+    <div class="container">
+        <div class="alert alert-danger" role="alert">
+            <?php echo strip_tags(validation_errors())?>
+        </div>
+    </div>
+    <?php endif; ?>
+<?php } ?>
+<?php if ($this->notice->output_notice(true)):?>
+    <div class="container">
+        <div class="alert alert-danger" role="alert">
+            <?php echo $this->notice->output_notice();?>
+        </div>
+    </div>
+<?php endif;?>
+<?php if (notice_from_url() != ""):?>
+    <div class="container">
+        <div class="alert alert-danger" role="alert">
+            <?php echo notice_from_url();?>
+        </div>
+    </div>
+<?php endif;?>

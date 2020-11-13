@@ -6,12 +6,6 @@
 		<div class="text-muted font-weight-bold font-size-h4">
 		<?php _e('Define site settings');?>
 		</div>
-
-		<?php if (validation_errors()) : ?>
-			<div class="alert alert-danger" role="alert">
-				<?php echo strip_tags(validation_errors())?>
-			</div>
-		<?php endif; ?>
 	</div>
 	<!--begin::Title-->
 

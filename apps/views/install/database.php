@@ -6,8 +6,7 @@
 		<div class="text-muted font-weight-bold font-size-h4">
 		<?php _e('Please enter your database details in order to proceed to installation. ');?>
 		</div>
-
-		<?php echo $this->notice->output_notice();?>
+		
 		<?php echo form_error('_ht_name', '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="fa fa-times"></i></button><i style="font-size:18px;margin-right:5px;" class="fa fa-warning"></i> <span>', '</span></div>');?>
 		<?php echo form_error('_uz_name', '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="fa fa-times"></i></button><i style="font-size:18px;margin-right:5px;" class="fa fa-warning"></i> <span>', '</span></div>');?>
 		<?php echo form_error('_uz_pwd', '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="fa fa-times"></i></button><i style="font-size:18px;margin-right:5px;" class="fa fa-warning"></i> <span>', '</span></div>');?>
