@@ -164,7 +164,22 @@
             <div class="tab-content">
 
                 <div class="tab-title px-4 pt-5">
-					<h2 class="text-light pl-4 pt-5 pb-6 font-weight-light font-size-h2"><?php echo $this->options_model->get('site_name');?></h2>
+                    <h2 class="text-light pl-4 pt-5 pb-6 font-weight-light font-size-h2">
+                        <?php
+                        $title = $this->options_model->get('site_name');
+                        $pecah = explode(" ", $title);
+                        $jml = count($pecah);
+
+                        if ($jml > 2) {
+                            for ($i=0; $i<=$jml-1; $i++){
+                                $title[$i] = strtoupper(substr($pecah[$i], 0, 1));
+                                echo $title[$i];
+                            }
+                        } else {
+                            echo $title;
+                        }
+                        ?>
+                    </h2>
 				</div>
 
                 <div class="tab-pane px-4 pb-3 fade" id="kt_aside_tab_1">

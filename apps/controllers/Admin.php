@@ -410,7 +410,38 @@ class Admin extends MY_Controller
      */
     public function options($mode = 'list')
     {
-        if (in_array($mode, array( 'save_user_meta', 'merge_user_meta' ))) {
+        if (in_array($mode, array( 'save', 'merge' ))) 
+        {
+            // Can user extract modules ?
+            if (! User::control('edit.options')) {
+                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                return redirect(site_url('admin'));
+            }
+
+            if (! $this->input->post('gui_saver_ref') && ! $this->input->post('gui_json')) {
+                // if JSON mode is enabled redirect is disabled
+                redirect(array( 'admin', 'options' ));
+            }
+
+            if ($this->input->post('gui_saver_expiration_time') > gmt_to_local(time(), 'UTC')) 
+            {
+                // loping post value
+                global $Options;
+                foreach ($_POST as $key => $value) {
+                    if (! in_array($key, array( 'gui_saver_ref', 'gui_saver_expiration_time' ))) {
+                        $this->options_model->set(
+                            $key, 
+                            $this->input->post($key)
+                        );
+                    }
+                };
+
+                $ref = @$_SERVER[ 'HTTP_REFERER' ] === null ? $this->input->post('gui_saver_ref') : $_SERVER[ 'HTTP_REFERER' ];
+                $hasQuery = strpos( $ref, '?' );
+                redirect( $ref . ( $hasQuery === false ? '?' : '&' ) . 'notice=option-saved');
+            }
+        } 
+        elseif (in_array($mode, array( 'save_user_meta', 'merge_user_meta' ))) {
             if (! User::control('edit.profile')) 
             {
                 $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));

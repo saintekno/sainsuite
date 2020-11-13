@@ -9493,6 +9493,7 @@ var KTLayoutAside = function() {
             $('.aside-primary a[href="'+ menuAside +'"]').addClass("active");
         } else {
             $('.aside-primary a[data-target="'+ menuAside +'"]').tab("show");
+            $('.aside-toggle').removeClass('d-none');
         }   
 
         if (menuToggle != null) {

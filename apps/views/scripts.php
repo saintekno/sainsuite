@@ -117,11 +117,6 @@
                 });
             }
         }
-
-        var selectedLinkId = localStorage.getItem("menuAside");
-        if (selectedLinkId == 'app' || selectedLinkId == 'tool') {
-            $('.aside-toggle').removeClass('d-none');
-        }
     };
     sain.loader = new function(){
         this.int =	0;

@@ -14,7 +14,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  */
 // System
 $lang[ 'database-installed' ]  = __('Database has been installed');
-$lang[ 'sainsuite-installed' ]    = __('System has been installed');
+$lang[ 'system-installed' ]    = __('System has been installed');
 $lang[ 'database-not-found' ]  = __('SainSuite can\'t access to the database.');
 $lang[ 'unable-to-connect' ]   = __('SainSuite cannot connect to your database host.');
 $lang[ 'error-occured' ]       = __('An error occured.');

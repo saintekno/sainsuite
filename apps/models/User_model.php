@@ -40,7 +40,7 @@ class User_model extends CI_Model
         $user_option = $this->aauth->get_user_vars($this->aauth->get_user_id());
 
         $key_value = array();
-        foreach ($user_option as $_option) 
+        foreach (force_array($user_option) as $_option) 
         {
             $value = riake('value', $_option);
             $value = is_array($array = json_decode($value, true)) ? $array : $value; // converting array to JSON

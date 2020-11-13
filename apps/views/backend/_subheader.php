@@ -42,7 +42,7 @@
     if (validation_errors()) : ?>
     <div class="container">
         <div class="alert alert-danger" role="alert">
-            <?php echo strip_tags(validation_errors())?>
+            <?php echo str_replace('.', '<br>', strip_tags(validation_errors()))?>
         </div>
     </div>
     <?php endif; ?>
@@ -56,7 +56,7 @@
 <?php endif;?>
 <?php if (notice_from_url() != ""):?>
     <div class="container">
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-success" role="alert">
             <?php echo notice_from_url();?>
         </div>
     </div>

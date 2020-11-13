@@ -42,7 +42,7 @@
             }
             .title {
                 font-family: 'Montserrat Alternates', sans-serif;
-                font-size: 3rem !important;
+                font-size: 2.5rem !important;
                 font-weight: 600;
             }
             .links > a {
@@ -56,7 +56,7 @@
             }
             @media (min-width: 768px) {
                 .title {
-                    font-size: 7rem !important;
+                    font-size: 5rem !important;
                 }
             }
             .m-b-md {

@@ -1,22 +1,5 @@
 <form class="form" id="kt_login_singin_form" method="post" autocomplete="off">
     <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
-    
-    <!--begin::Title-->
-    <div class="pb-5 pb-lg-15">
-        <h3 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg"><?php _e('Sign In');?></h3>
-        <p class="text-muted mb-4"><?php echo $this->events->apply_filters('signin_notice_message', $this->lang->line('signin-notice-message'));?></p>
-        
-        <?php
-        global $Options;
-        // Should checks whether a registration is enabled
-        if (intval(riake('site_registration', $Options)) == true) : ?>
-            <div class="text-muted font-weight-bold font-size-h4">
-                <?php _e('New Here?');?>
-                <a href="<?php echo site_url('register'); ?>" class="text-primary font-weight-bolder"><?php _e('Sign Up'); ?></a>
-            </div>
-        <?php endif; ?>
-    </div>
-    <!--begin::Title-->
 
     <!--begin::Form group-->
     <div class="form-group">
