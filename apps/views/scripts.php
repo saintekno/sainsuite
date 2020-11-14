@@ -74,10 +74,13 @@
         $this =	this;
         this.sidebar =	new function() {
             var menuAside = localStorage.getItem("menuAside");
+            var menuAside1 = localStorage.getItem("menuAside1");
+            var menuAside2 = localStorage.getItem("menuAside2");
             var url = window.location.href;
             $('#kt_aside').on('click', '.aside-primary a', function(e) {
                 var linkId = $(this).attr('href');
                 var target = $(this).data('target');
+                var toggle = $(this).data('toggle');
 
                 if (menuAside != null) {
                     if (menuAside == target) { 
@@ -89,14 +92,12 @@
                     }
                 } 
 
-                if( $( '#kt_body' ).hasClass( 'aside-secondary-enabled' ) ) {
+                if(toggle == null) {
                     $this.options.save( 'dashboard-sidebar' , 'aside-minimize' , sain.user.id );
-                    $('#myTab a[data-toggle="tab"]').on('show.bs.tab', function(){
-                        $this.options.save( 'dashboard-sidebar' , 'aside-secondary-enabled' , sain.user.id );
-                    });
-                } else {
-                    $this.options.save( 'dashboard-sidebar' , 'aside-minimize' , sain.user.id );
-                }
+                } 
+            });
+            $('#kt_aside').on('click', '.aside-secondary a', function() {
+                $this.options.save( 'dashboard-sidebar' , 'aside-secondary-enabled' , sain.user.id );
             });
         }
 
@@ -130,7 +131,7 @@
                     if( $( '#sain-spinner' ).length > 0 ) {
                         var cl = new CanvasLoader( 'sain-spinner' );
                         cl.setColor('#ffffff'); // default is '#000000'
-                        cl.setDiameter(35); // default is 40
+                        cl.setDiameter(39); // default is 40
                         cl.setDensity(56); // default is 40
                         cl.setSpeed(3); // default is 2
                         cl.show(); // Hidden by default
@@ -142,7 +143,7 @@
         this.hide =	function(){
             this.int--;
             if( this.int == 0 ){
-                this.timeOutToClose	=	setTimeout( function(){
+                this.timeOutToClose	= setTimeout( function(){
                     $('#sain-spinner').fadeOut(500, function(){
                         $(this).html('').show();
                     })

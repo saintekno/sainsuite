@@ -20,7 +20,9 @@ class Users_Menu extends CI_model
 		$this->events->add_filter( 'system_menu', array( $this, 'system_menu' ));
         $this->events->add_filter( 'after_user_card', array( $this, 'after_user_card' ));
         
-        if (activate_menu('users') || activate_menu('permission')) {
+        if ((activate_menu('users') || activate_menu('permission')) 
+            && $this->uri->segment(3) != 'profile'
+            && User::control('read.users')) {
             $this->events->add_filter( 'aside_menu', array( $this, '_aside_menu' ));
         }
     }

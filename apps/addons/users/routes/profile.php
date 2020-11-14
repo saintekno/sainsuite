@@ -44,7 +44,7 @@ class UsersProfileController extends CI_Model
             );   
             
             $this->user_model->refresh_user_meta();
-            $this->notice->push_notice_array($exec);
+            $this->session->set_flashdata('flash_message', $this->lang->line($exec));
         }
         
 		Polatan::set_title(__( 'My Profile', 'users' ));

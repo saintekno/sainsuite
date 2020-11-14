@@ -75,7 +75,6 @@ class Admin extends MY_Controller
 
             $Routes->error(function($request, \Exception $exception) {
                 if($exception instanceof NotFoundHttpException && $exception->getCode() == 404) {
-                    // return 
                     $this->session->set_flashdata('error_message', $exception->getMessage());
                     redirect(site_url('admin/page404'));
                 }
@@ -565,6 +564,10 @@ class Admin extends MY_Controller
      */
     public function page404()
     {
+        if ($this->session->flashdata('error_message') == ""):
+            return redirect(site_url('admin'));
+        endif;
+        
         Polatan::set_title(sprintf(__('404 &mdash; %s'), get('signature')));
         Polatan::set_page('404');
         $this->polatan->output();

@@ -9,11 +9,12 @@
 
             <!--begin::Logo-->
             <a href="<?php echo site_url('admin'); ?>">
+                <div id="sain-spinner" class="position-absolute"></div>
                 <img alt="<?php echo get('app_name');?>" src="<?php echo $this->events->apply_filters( 'dashboard_logo_small', upload_url().'system/logo-light-sm.png' ); ?>" class="max-h-40px" />
             </a>
 
             <!--begin::Aside Toggle-->
-            <span class="aside-toggle d-none btn btn-icon btn-light btn-hover-primary shadow border" id="kt_aside_toggle" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Toggle Aside">
+            <span class="aside-toggle d-none btn btn-icon btn-light shadow-sm border mt-n2" id="kt_aside_toggle">
                 <i class="ki ki-bold-arrow-back icon-sm"></i>
             </span>
             <!--end::Aside Toggle-->
@@ -60,8 +61,6 @@
                 <?php endif;?>
 
                 <?php Menu::load_system_menu(); ?>
-
-                <div id="sain-spinner" class="ml-1"></div>
             </ul>
 
             <!--end::Nav-->
@@ -77,7 +76,7 @@
                 User::control('toggle.addons')
             ) : ?>
             <div data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="<?php _e('addons');?>">
-                <a href="<?php echo site_url('admin/addons'); ?>" class="btn btn-icon btn-aside btn-lg mb-1 position-relative d-none d-lg-flex">
+                <a href="<?php echo site_url('admin/addons'); ?>" class="btn btn-icon btn-aside btn-lg mb-1 position-relative">
                     <span class="svg-icon svg-icon-xxl"><!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -183,7 +182,6 @@
 				</div>
 
                 <div class="tab-pane px-4 pb-3 fade" id="kt_aside_tab_1">
-
                     <!--begin::List-->
                     <div class="list list-hover">
                         <?php Menu::load_apps_menu(); ?>

@@ -12,14 +12,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @link        https://github.com/saintekno/sainsuite
  * @filesource
  */
-
-include_once(dirname(__FILE__) . '/events/actions.php');
-include_once(dirname(__FILE__) . '/events/install.php');
-include_once(dirname(__FILE__) . '/events/filters.php');
-
-if (get_instance()->install_model->is_installed()) {
-    include_once(dirname(__FILE__) . '/events/menu.php');
-}
 class Users_Addons extends CI_model
 {
     public function __construct()
@@ -35,3 +27,11 @@ class Users_Addons extends CI_model
     }
 }
 new Users_Addons;
+
+include_once(dirname(__FILE__) . '/events/actions.php');
+include_once(dirname(__FILE__) . '/events/install.php');
+include_once(dirname(__FILE__) . '/events/filters.php');
+
+if (get_instance()->install_model->is_installed()) {
+    include_once(dirname(__FILE__) . '/events/menu.php');
+}

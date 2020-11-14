@@ -9463,6 +9463,25 @@ var KTLayoutAside = function() {
         var hostname = window.location.hostname;
         
         // kt_aside
+        $('#kt_header_mobile').on('click', 'a', function(e) {
+            var linkId = $(this).attr('href');
+            var target = $(this).data('target');
+            var targetDropdown = $(this).parentsUntil('.dropdown').last().attr('id');
+            
+            if (menuAside != null && menuAside == linkId && url.indexOf(linkId) > -1) { 
+                e.preventDefault();
+                return
+            }
+            
+            if(target == null) {
+                localStorage.clear();
+                localStorage.setItem("menuAside", linkId);
+                if (targetDropdown != null) {
+                    localStorage.setItem("menuToggle", targetDropdown);
+                }
+            }
+        });
+
         $('#kt_aside').on('click', '.aside-primary a', function(e) {
             var linkId = $(this).attr('href');
             var target = $(this).data('target');
@@ -9477,12 +9496,9 @@ var KTLayoutAside = function() {
                     return
                 }
             }
-            localStorage.clear();
             
-            if (target) {
-                localStorage.setItem("menuAside", target);
-                localStorage.setItem("menuToggle", target);
-            } else {    
+            if(target == null) {
+                localStorage.clear();
                 localStorage.setItem("menuAside", linkId);
                 if (targetDropdown != null) {
                     localStorage.setItem("menuToggle", targetDropdown);
@@ -9491,12 +9507,13 @@ var KTLayoutAside = function() {
         });
         if (menuAside != null && menuAside.indexOf(hostname) > -1) {
             $('.aside-primary a[href="'+ menuAside +'"]').addClass("active");
-        } else {
+        } else if (menuAside != null) {
             $('.aside-primary a[data-target="'+ menuAside +'"]').tab("show");
             $('.aside-toggle').removeClass('d-none');
         }   
 
         if (menuToggle != null) {
+            $('#kt_header_mobile a[data-target="'+ menuToggle +'"]').addClass("active");
             $('.aside-primary a[data-target="'+ menuToggle +'"]').addClass("active");
         } else if (menuAside != null && url.indexOf(menuAside) <= -1) {
             localStorage.clear();
@@ -9528,6 +9545,7 @@ var KTLayoutAside = function() {
         $('#kt_aside_tab_1').on('click', '.list a', function(e) {
             var $this = $(this);
             var linkId = $this.attr('href');
+            var tabpane = $this.parentsUntil('.tab-content').last().attr('id');
 
             if (url == linkId) { 
                 e.preventDefault();
@@ -9536,7 +9554,10 @@ var KTLayoutAside = function() {
             $this.find('a').removeClass("active");
             $this.addClass("active");
 
+            localStorage.clear();
             localStorage.setItem("menuAside1", linkId);
+            localStorage.setItem("menuAside", "#"+tabpane);
+            localStorage.setItem("menuToggle", "#"+tabpane);
         });
         if (url.indexOf(menuAside1) > -1) {
             $('.list a[href="'+ menuAside1 +'"]').addClass("active");
@@ -9546,6 +9567,7 @@ var KTLayoutAside = function() {
         $('#kt_aside_tab_2').on('click', '.menu-nav li', function(e) {
             var $this = $(this);
             var linkId = $this.find('a').attr('href');
+            var tabpane = $this.parentsUntil('.tab-content').last().attr('id');
 
             if (url == linkId) { 
                 e.preventDefault();
@@ -9554,7 +9576,10 @@ var KTLayoutAside = function() {
             $this.find('li').removeClass("menu-item-active");
             $this.addClass("menu-item-active");
             
+            localStorage.clear();
             localStorage.setItem("menuAside2", linkId);
+            localStorage.setItem("menuAside", "#"+tabpane);
+            localStorage.setItem("menuToggle", "#"+tabpane);
         });
         if (url.indexOf(menuAside2) > -1) {
             $('.menu-nav li a[href="'+ menuAside2 +'"]').trigger("click");
