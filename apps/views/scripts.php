@@ -96,9 +96,8 @@
             });
             $('#kt_aside').on('click', '.aside-secondary a', function(e) {
                 if (menuAside != null && menuAside == linkId && url.indexOf(linkId) > -1) { 
-                        e.preventDefault();
-                        return
-                    }
+                    e.preventDefault();
+                    return;
                 } 
                 $this.options.save( 'dashboard-sidebar' , 'aside-secondary-enabled' , sain.user.id );
             });
