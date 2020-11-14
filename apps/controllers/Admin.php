@@ -558,7 +558,7 @@ class Admin extends MY_Controller
     // --------------------------------------------------------------------
 
     /**
-     * About controller
+     * page404 controller
      * [New Permission Ready]
      *
      * @access public
