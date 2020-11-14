@@ -74,8 +74,6 @@
         $this =	this;
         this.sidebar =	new function() {
             var menuAside = localStorage.getItem("menuAside");
-            var menuAside1 = localStorage.getItem("menuAside1");
-            var menuAside2 = localStorage.getItem("menuAside2");
             var url = window.location.href;
             $('#kt_aside').on('click', '.aside-primary a', function(e) {
                 var linkId = $(this).attr('href');
@@ -96,7 +94,12 @@
                     $this.options.save( 'dashboard-sidebar' , 'aside-minimize' , sain.user.id );
                 } 
             });
-            $('#kt_aside').on('click', '.aside-secondary a', function() {
+            $('#kt_aside').on('click', '.aside-secondary a', function(e) {
+                if (menuAside != null && menuAside == linkId && url.indexOf(linkId) > -1) { 
+                        e.preventDefault();
+                        return
+                    }
+                } 
                 $this.options.save( 'dashboard-sidebar' , 'aside-secondary-enabled' , sain.user.id );
             });
         }
