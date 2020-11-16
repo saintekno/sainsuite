@@ -95,6 +95,7 @@
                 } 
             });
             $('#kt_aside').on('click', '.aside-secondary a', function(e) {
+                var linkId = $(this).attr('href');
                 if (menuAside != null && menuAside == linkId && url.indexOf(linkId) > -1) { 
                     e.preventDefault();
                     return;
