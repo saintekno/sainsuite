@@ -22,4 +22,7 @@ $Routes->match([ 'get', 'post' ], 'users/delete/{id}', 'UsersHomeController@dele
 
 $Routes->match([ 'get', 'post' ], 'users/profile', 'UsersProfileController@index' );
 
-$Routes->match([ 'get', 'post' ], 'users/group', 'GroupsHomeController@read' );
+$Routes->match([ 'get', 'post' ], 'users/group', 'GroupsHomeController@index' );
+$Routes->match([ 'get', 'post' ], 'users/group/add', 'GroupsHomeController@add' );
+$Routes->match([ 'get', 'post' ], 'users/group/delete/{id}', 'GroupsHomeController@delete' );
+$Routes->match([ 'get', 'post' ], 'users/group/edit/{id}', 'GroupsHomeController@edit' );

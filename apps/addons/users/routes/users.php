@@ -19,6 +19,12 @@ class UsersHomeController extends CI_Model
         parent::__construct();
     }
 
+    /**
+     * read users
+     *
+     * @param integer $index
+     * @return void
+     */
     public function index( $index = 1 )
     {
         if ( ! User::control('read.users') ) {
@@ -60,12 +66,17 @@ class UsersHomeController extends CI_Model
             $data['users'] = $this->aauth->list_users( false, $config_vars['per_page'], ( intval( $index ) - 1 ) * $config_vars['per_page'], true);
         }
         else {
-            $data['users'] = $this->aauth->list_users( $user_group[0]->name, $config_vars['per_page'], ( intval( $index ) - 1 ) * $config_vars['per_page'], true);
+            $data['users'] = $this->aauth->list_users( $this->aauth->config_vars['member_group'], $config_vars['per_page'], ( intval( $index ) - 1 ) * $config_vars['per_page'], true);
         }
 
-        $this->load->addon_view( 'users', 'read', $data );
+        $this->load->addon_view( 'users', 'users/read', $data );
     }
 
+    /**
+     * Add user
+     *
+     * @return void
+     */
     public function add()
     {
         if (! User::control('create.users')) {
@@ -121,7 +132,7 @@ class UsersHomeController extends CI_Model
         
         // Data
 		$data['groups'] = $this->aauth->list_groups();
-        $this->load->addon_view( 'users', 'create', $data );
+        $this->load->addon_view( 'users', 'users/create', $data );
     }
 
     /**
@@ -198,11 +209,11 @@ class UsersHomeController extends CI_Model
 		$data['groups'] = $groups;
 		$data['user'] = $user;
 		$data['user_group'] = $user_group;
-        $this->load->addon_view( 'users', 'update', $data );
+        $this->load->addon_view( 'users', 'users/update', $data );
     }
 
     /**
-     * Delete users
+     * Delete user
      * @return redirect
      */
 

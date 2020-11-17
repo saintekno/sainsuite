@@ -14,8 +14,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |   ['no_permission']                   If user don't have permisssion to see the page he will be redirected the page spesificed.
 |
 |   ['admin_group']                     Name of admin group
-|   ['default_group']                   Name of default group, the new user is added in it
-|   ['public_group']                    Name of Public group , people who not logged in
+|   ['member_group']                    Name of member group, the new user is added in it
+|   ['user_group']                      Name of User group , people who not logged in
 |
 |   ['db_profile']                      The configuration database profile (definied in config/database.php)
 |
@@ -86,8 +86,8 @@ $config_aauth["default"] = array(
  'no_permission'                  => false,
 
  'admin_group'                    => 'admin',
- 'default_group'                  => 'member',
- 'public_group'                   => 'public',
+ 'member_group'                  => 'member',
+ 'user_group'                   => 'user',
 
  'db_profile'                     => 'default',
 

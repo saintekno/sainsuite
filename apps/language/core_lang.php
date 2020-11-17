@@ -12,7 +12,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @link        https://github.com/saintekno/sainsuite
  * @filesource
  */
-// System
+
+ // System
 $lang[ 'database-installed' ]  = __('Database has been installed');
 $lang[ 'system-installed' ]    = __('System has been installed');
 $lang[ 'database-not-found' ]  = __('SainSuite can\'t access to the database.');
@@ -32,6 +33,7 @@ $lang[ 'wrong-password-or-credentials' ] = __('Wrong Password or User Name');
 $lang[ 'login-required' ]                = __('Login is required.');
 $lang[ 'assets-builded' ]                = __( 'The assets files has been builded' );
 $lang[ 'assets-published' ]              = __( 'The assets files has been published' );
+
 // Registration
 $lang[ 'username-used' ]          = __('Username is already used by another user.');
 $lang[ 'email-used' ]             = __('This email is already used.');
@@ -39,9 +41,11 @@ $lang[ 'email-already-taken' ]    = __('This email seems to be already taken.');
 $lang[ 'username-already-taken' ] = __('This username seems to be already taken.');
 $lang[ 'user-created' ]           = __('The user has been successfully created.');
 $lang[ 'account-activated' ]      = __('Your Account has been activated. Please Sign-up');
+
 // Recovery
 $lang[ 'unknow-email' ]        = __('Unknow email address');
 $lang[ 'recovery-email-send' ] = __('The recovery email has been send. Please check your email, open the recovery email and follow the instructions.');
+
 // Logout
 $lang[ 'logout-required' ] = __('You must logout first to access that page.');
 

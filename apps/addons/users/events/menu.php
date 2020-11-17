@@ -34,12 +34,15 @@ class Users_Menu extends CI_model
             'icon' => 'la la-user',
             'permission' => 'read.users'
         );
-        $final[] = array(
-            'title' => __('Group'),
-            'href' => site_url([ 'admin', 'users', 'group' ]),
-            'icon' => 'la la-user-friends',
-            'permission' => 'read.users'
-        );
+        if (User::control('read.group')) 
+        {
+            $final[] = array(
+                'title' => __('Group'),
+                'href' => site_url([ 'admin', 'users', 'group' ]),
+                'icon' => 'la la-user-friends',
+                'permission' => 'read.users'
+            );
+        }
         if( Addons::is_active( 'permission' ) ) 
         {
             $final[] = array(

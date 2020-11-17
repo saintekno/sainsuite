@@ -220,6 +220,12 @@ class Users_Install extends CI_model
         $this->aauth->create_perm('edit.users', __('Edit Users'));
         $this->aauth->create_perm('delete.users', __('Delete Users'));
 
+        // Group Permissions
+        $this->aauth->create_perm('read.group', __('Read Group'));
+        $this->aauth->create_perm('create.group', __('Create Group'));
+        $this->aauth->create_perm('edit.group', __('Edit Group'));
+        $this->aauth->create_perm('delete.group', __('Delete Group'));
+
         // Profile Permission
         $this->aauth->create_perm('edit.profile', __('Create Options'));
 
@@ -242,6 +248,8 @@ class Users_Install extends CI_model
         $this->aauth->allow_group('member', 'extract.addons');
 
         $this->aauth->allow_group('member', 'read.users');
+        $this->aauth->allow_group('member', 'create.users');
+        
         $this->aauth->allow_group('member', 'edit.profile');
 
         // Users

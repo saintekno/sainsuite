@@ -774,7 +774,7 @@ class Aauth {
 			$user_id = $this->aauth_db->insert_id();
 
 			// set default group
-			// $this->add_member($user_id, $this->config_vars['default_group']);
+			// $this->add_member($user_id, $this->config_vars['member_group']);
 
 			// if verification activated
 			if($this->config_vars['verification'] && !$this->is_admin()){
@@ -1208,7 +1208,7 @@ class Aauth {
 
 		if( !$user_id) { $user_id = $this->CI->session->userdata('id'); }
 		if( !$user_id){
-			$this->aauth_db->where('name', $this->config_vars['public_group']);
+			$this->aauth_db->where('name', $this->config_vars['user_group']);
 			$query = $this->aauth_db->get($this->config_vars['groups']);
 		}else if($user_id){
 			$this->aauth_db->join($this->config_vars['groups'], "id = group_id");
@@ -1509,8 +1509,12 @@ class Aauth {
 	 * @return object Array of groups
 	 */
 	public function list_groups() {
-		$group_id = $this->get_group_id($this->config_vars['admin_group']);
-		$this->aauth_db->where('id !=', $group_id);
+		$group_id1 = $this->get_group_id($this->config_vars['admin_group']);
+		$group_id2 = $this->get_group_id($this->config_vars['member_group']);
+		$group_id3 = $this->get_group_id($this->config_vars['user_group']);
+		$this->aauth_db->where('id !=', $group_id1);
+		$this->aauth_db->where('id !=', $group_id2);
+		$this->aauth_db->where('id !=', $group_id3);
 		$query = $this->aauth_db->get($this->config_vars['groups']);
 		return $query->result();
 	}
@@ -1889,7 +1893,7 @@ class Aauth {
 		else {
 			// if public is allowed or he is admin
 			if ( $this->is_admin( $this->CI->session->userdata('id')) 
-				OR $this->is_group_allowed($perm_id, $this->config_vars['public_group']) )
+				OR $this->is_group_allowed($perm_id, $this->config_vars['user_group']) )
 			{return true;}
 
 			// if is not login

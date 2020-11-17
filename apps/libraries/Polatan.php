@@ -36,7 +36,6 @@ class Polatan
 	 * Constructor
 	 */
 	public function __construct() {
-
 		// get main CI object
         $this->CI = & get_instance();
     }
@@ -48,7 +47,6 @@ class Polatan
      * @param : string
      * @return : void
     **/
-    
     public static function set_page($page)
     {
         self::$page_name = $page;
@@ -59,7 +57,6 @@ class Polatan
      * @access : public
      * @return : string
     **/
-    
     public static function get_page()
     {
         return self::$page_name;
@@ -74,7 +71,6 @@ class Polatan
      * @param : string
      * @return : void
     **/
-    
     public static function set_title($title)
     {
         self::$page_title = $title;
@@ -85,7 +81,6 @@ class Polatan
      * @access : public
      * @return : string
     **/
-    
     public static function get_title()
     {
         return self::$page_title;
@@ -98,7 +93,6 @@ class Polatan
      * @param : string page description
      * @return : void
     **/
-    
     public static function set_description($description)
     {
         self::$page_description = $description;
@@ -110,7 +104,6 @@ class Polatan
      * @access : public
      * @return : string page description
     **/
-    
     public static function get_description()
     {
         return self::$page_description;
@@ -125,7 +118,6 @@ class Polatan
      * @param : int width
      * @return : void
     **/
-
     public function col_width($col_id, $width)
     {
         if (in_array($col_id, array( 1, 2, 3, 4 ))) {
@@ -149,7 +141,6 @@ class Polatan
      * @param int Col Id
      * @return bool
     **/
-
     public function get_col($col_id)
     {
         return riake($col_id, $this->cols);
@@ -165,7 +156,6 @@ class Polatan
      * @param int col id
      * @return void
     **/
-
     public function add_meta($namespace, $title = 'Unamed', $type = 'default', $col_id = 1)
     {
         if (in_array($col_id, array( 1, 2, 3, 4 ))) 
@@ -198,7 +188,6 @@ class Polatan
      * @param int Col id
      * @return void
     **/
-
     public function add_item($config, $metanamespace, $col_id)
     {
         if (in_array($col_id, array( 1, 2, 3, 4 )) && riake('type', $config)) {

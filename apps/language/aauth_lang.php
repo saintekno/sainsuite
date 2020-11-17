@@ -27,8 +27,6 @@ $lang['aauth_email_reset_text']    = __("To reset your password click on (or cop
 $lang['aauth_email_reset_success_subject']      = __('Successful Pasword Reset');
 $lang['aauth_email_reset_success_new_password'] = __('Your password has successfully been reset. Your new password is : ');
 
-/* Error Messages */
-
 // Account creation errors
 $lang['aauth_error_email_exists']       = __('Email address already exists on the system. If you forgot your password, you can click the link below.');
 $lang['aauth_error_username_exists']    = __('Account already exists on the system with that username. Please enter a different username, or if you forgot your password, please click the link below.');
@@ -66,8 +64,6 @@ $lang['aauth_info_already_subgroup'] = __('Subgroup is already member of group')
 $lang['aauth_info_group_exists']     = __('Group name already exists');
 $lang['aauth_info_perm_exists']      = __('Permission name already exists');
 
-$lang[ 'group-updated' ] = __('The group has been updated');
-
 $lang[ 'fetch-error-from-auth' ] = function () {
     $errors_array = get_instance()->aauth->get_errors_array();
     $notice_array = get_instance()->aauth->get_infos_array();
@@ -91,5 +87,6 @@ $lang[ 'group-already-exists' ] = __('A group with this name already exists. Ple
 $lang[ 'group-created' ]        = __('Group has been created.');
 $lang[ 'group-not-found' ]      = __('This group does\'nt exists or has been deleted.');
 $lang[ 'unknow-group' ]         = __('Unknow group.');
-$lang[ 'updated' ]              = __('Group has been updated.');
-$lang[ 'cant-delete-yourself' ] = __( 'You cant delete your own  account.' );
+$lang[ 'group-updated' ]        = __('Group has been updated.');
+$lang[ 'group-deleted' ]        = __('Group has been Deleted.');
+$lang[ 'cant-delete-yourself' ] = __('You cant delete your own  account.' );

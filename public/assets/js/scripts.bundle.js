@@ -9533,10 +9533,10 @@ var KTLayoutAside = function() {
             
             localStorage.setItem("menuNavheader", linkId);
         });
-        if (menuNavheader !== url) {
-            $('.navheader-nav a[href="'+ url.replace(/\/$/, "") +'"]').addClass("active");
-        } else if (url.indexOf(menuNavheader) > -1) {
+        if (menuNavheader != null && url.indexOf(menuNavheader) > -1) {
             $('.navheader-nav a[href="'+ menuNavheader +'"]').addClass("active");
+        } else if (menuNavheader != null && menuNavheader.indexOf(url) <= -1) {
+            $('.navheader-nav a[href="'+ url.replace(/\/$/, "") +'"]').addClass("active");
         } else {
             $('.navheader-nav a').first().addClass("active");
         }
