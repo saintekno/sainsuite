@@ -9515,7 +9515,7 @@ var KTLayoutAside = function() {
         if (menuToggle != null) {
             $('#kt_header_mobile a[data-target="'+ menuToggle +'"]').addClass("active");
             $('.aside-primary a[data-target="'+ menuToggle +'"]').addClass("active");
-        } else if (menuAside != null && url.indexOf(menuAside) <= -1) {
+        } else if (menuNavheader == null && url.indexOf(menuAside) <= -1) {
             localStorage.clear();
         }
         

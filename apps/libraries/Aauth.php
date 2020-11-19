@@ -1510,11 +1510,7 @@ class Aauth {
 	 */
 	public function list_groups() {
 		$group_id1 = $this->get_group_id($this->config_vars['admin_group']);
-		$group_id2 = $this->get_group_id($this->config_vars['member_group']);
-		$group_id3 = $this->get_group_id($this->config_vars['user_group']);
 		$this->aauth_db->where('id !=', $group_id1);
-		$this->aauth_db->where('id !=', $group_id2);
-		$this->aauth_db->where('id !=', $group_id3);
 		$query = $this->aauth_db->get($this->config_vars['groups']);
 		return $query->result();
 	}

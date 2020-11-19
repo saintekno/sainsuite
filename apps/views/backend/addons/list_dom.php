@@ -172,7 +172,6 @@
                                     }?>
                                     <?php endif;?>
                                     
-                                    <?php if (intval(riake('webdev_mode', $Options)) == true):?>
                                     <div class="dropdown dropdown-inline">
                                         <a href="#"
                                             class="btn btn-clean btn-hover-light-primary btn-sm btn-icon"
@@ -194,7 +193,7 @@
                                                     </span>
                                                 </a>
                                                 </li>
-                                                <?php if( !$_addon[ 'application' ][ 'readonly' ] ) : ?>
+                                                <?php if (intval(riake('webdev_mode', $Options)) == true):?>
                                                 <li class="navi-item">
                                                     <a href="<?php echo site_url(array( 'admin', 'addons', 'extract', $addon_namespace ));?>" class="navi-link">
                                                         <span class="navi-icon"><i class="fas fa-archive"></i></span>
@@ -246,7 +245,6 @@
                                             <!--end::Navigation-->
                                         </div>
                                     </div>
-                                    <?php endif;?>
                                 </td>
                             </tr>
                             <?php

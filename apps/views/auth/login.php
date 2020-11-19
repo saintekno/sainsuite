@@ -1,3 +1,6 @@
+<?php
+global $Options;
+?>
 <form class="form" id="kt_login_singin_form" method="post" autocomplete="off">
     <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
 
@@ -5,7 +8,10 @@
     <div class="form-group">
         <label class="font-size-h6 font-weight-bolder text-dark"><?php _e('Email or User Name' ) ?></label>
         <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0"
-            type="text" name="username_or_email" autocomplete="off" />
+            type="text" 
+            id="form-username"
+            name="username_or_email" 
+            autocomplete="off" />
     </div>
     <!--end::Form group-->
 
@@ -15,7 +21,6 @@
             <label class="font-size-h6 font-weight-bolder text-dark pt-5"><?php _e('Password' ) ?></label>
 
             <?php
-            global $Options;
             // Should checks whether a registration is enabled
             if (intval(riake('site_registration', $Options)) == true) : ?>
                 <a href="<?php echo site_url('auth', 'recovery') ; ?>"
@@ -25,7 +30,10 @@
             <?php endif; ?>
         </div>
         <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0"
-            type="password" name="password" autocomplete="off" />
+            type="password" 
+            id="form-password"
+            name="password" 
+            autocomplete="off" />
     </div>
     <!--end::Form group-->
 
@@ -37,6 +45,9 @@
     <!--begin::Action-->
     <div class="pb-lg-0 pb-5">
         <button type="submit" id="kt_login_singin_form_submit_button" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3"><?php _e('Sign In' ) ?></button>
+        <?php
+        // Should checks whether a registration is enabled
+        if (intval(riake('site_registration', $Options)) == true) : ?>
         <button type="button"
             class="btn btn-light-primary font-weight-bolder px-8 py-4 my-3 font-size-lg">
             <span class="svg-icon svg-icon-md">
@@ -60,6 +71,23 @@
                 <!--end::Svg Icon-->
             </span> Sign in with Google
         </button>
+        <?php endif; ?>
     </div>
     <!--end::Action-->
 </form>
+                      
+<hr>
+<h5 class="box-title mt-5">Demo account login credentials</h5>
+<div class="d-block py-2">
+    <div class="btn-group btn-group-sm">
+        <a href="javascript:;" data-email="demohrd@gmail.com" data-password="111111" type="button" class="btn bt-sm btn-outline-secondary copy-login"><i class="fa fa-clipboard"></i> Admin</a>
+    </div>
+</div>
+<script>
+    $('.copy-login').click(function () {
+        var email = $(this).data('email');
+        var password = $(this).data('password');
+        $('#form-username').val(email);
+        $('#form-password').val(password);
+    })
+</script>

@@ -21,11 +21,6 @@ class UsersProfileController extends CI_Model
     
     public function index()
     {		
-        if (! User::control('edit.profile')) {
-            $this->session->set_flashdata('info_message', __( 'Access denied. Youre not allowed to see this page.' ));
-            return redirect(site_url('admin'));
-        }
-
         $this->load->library('form_validation');
         $this->form_validation->set_rules('user_email', __('User Email', 'aauth'), 'valid_email');
         $this->form_validation->set_rules('old_pass', __('Old Pass', 'aauth'), 'min_length[6]');

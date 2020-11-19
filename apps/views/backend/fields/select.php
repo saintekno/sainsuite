@@ -12,13 +12,11 @@
             if ($saver_enabled === true  && in_array(riake('action', riake('form', $meta)), array( null, false ))) {
                 // control check
                 $selected = $db_value == $value ? 'selected="selected"' : '';
-            } 
-            else {
+            } else {
                 if (! is_array($active = riake('active', $_item))) {
                     // control check
                     $selected = $active == $value ? 'selected="selected"' : '';
-                } 
-                else {
+                } else {
                     $selected = in_array($value, $active) ? 'selected="selected"' : '';
                 }
             }

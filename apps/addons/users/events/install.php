@@ -232,9 +232,6 @@ class Users_Install extends CI_model
         /**
          * Assign Permission to Groups
         **/
-        // Administrators
-        $this->aauth->allow_group('admin', 'manage.core');
-
         // Member
         $this->aauth->allow_group('member', 'create.options');
         $this->aauth->allow_group('member', 'edit.options');

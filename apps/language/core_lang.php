@@ -77,3 +77,7 @@ $lang[ 'fetch-from-upload' ] = function () {
         }
     }
 };
+
+$lang[ 'created' ] = __('The Data has been successfully created.');
+$lang[ 'updated' ] = __('The Data has been updated.');
+$lang[ 'deleted' ] = __('The Data has been deleted.');

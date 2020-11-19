@@ -27,6 +27,19 @@ class Admin extends MY_Controller
 
         // Loading Admin Menu
         $this->events->do_action( 'load_dashboard' );
+
+        $this->_dashboard_assets();
+    }
+    
+    /**
+     * Assets login
+     */
+    public function _dashboard_assets()
+    {
+        $this->enqueue->css_namespace( 'common_header' );
+        $this->enqueue->addon_css('datatables', 'datatables.bundle');
+        $this->enqueue->js_namespace( 'common_footer' );
+        $this->enqueue->addon_js('datatables', 'datatables.bundle');
     }
 
 	// --------------------------------------------------------------------

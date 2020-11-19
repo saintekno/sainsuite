@@ -72,7 +72,7 @@
                 <input type="hidden" name="gui_saver_ref" value="<?php echo urlencode(current_url());?>" />
                 <input type="hidden" name="gui_saver_expiration_time" value="<?php echo gmt_to_local(time(), 'UTC') + GUI_EXPIRE;?>" />
                 <div class="box-body">
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                         <label><?php echo __('Open registration');?></label>
                         <select class="form-control" name="site_registration">
                             <?php
@@ -90,7 +90,7 @@
                         </select>
                         <p class="help-block"></p>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label><?php echo __('Require validation');?></label>
                         <select class="form-control" name="require_validation">
                             <?php
@@ -108,6 +108,9 @@
                         </select>
                         <p class="help-block"><?php echo __( 'Each new account will have to check the verification email in order to validate their account.' );?></p>
                     </div> -->
+                    <?php
+                    global $Options;
+                    if (intval(riake('webdev_mode', $Options)) == true):?>
                     <div class="form-group">
                         <label><?php echo __('Enable Developer mode ?');?></label>
                         <select class="form-control" name="webdev_mode">
@@ -126,6 +129,7 @@
                         </select>
                         <p class="help-block"><?php echo __('Tools like module package will be enabled.');?></p>
                     </div>
+                    <?php endif; ?>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary"><?php echo __('Save Advanced');?></button>
                     </div>

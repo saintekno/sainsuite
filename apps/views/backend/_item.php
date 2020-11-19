@@ -4,6 +4,7 @@ $saver_enabled = riake('gui_saver', $meta);
 foreach (force_array(riake('items', $meta)) as $_item) {
     $name           =    @$_item[ 'name' ];
     $id             =    @$_item[ 'id' ];
+    $class          =    @$_item[ 'class' ];
     $type           =    @$_item[ 'type' ];
     $placeholder    =    @$_item[ 'placeholder' ];
     $value          =    @$_item[ 'value' ];
