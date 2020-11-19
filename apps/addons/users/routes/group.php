@@ -17,6 +17,8 @@ class GroupsHomeController extends CI_Model
     public function __construct()
     {
         parent::__construct();
+
+        $this->events->add_filter( 'aside_menu', array( new Users_Menu, '_aside_menu' ));
     }
 
     /**
