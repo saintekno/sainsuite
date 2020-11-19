@@ -107,9 +107,7 @@
                         </select>
                         <p class="help-block"><?php echo __( 'Each new account will have to check the verification email in order to validate their account.' );?></p>
                     </div> -->
-                    <?php
-                    global $Options;
-                    if (intval(riake('webdev_mode', $Options)) == true):?>
+                    <?php if ( User::control( 'manage.core' ) ) : ?>
                     <div class="form-group">
                         <label><?php echo __('Enable Developer mode ?');?></label>
                         <select class="form-control" name="webdev_mode">
@@ -127,6 +125,23 @@
                             ?>
                         </select>
                         <p class="help-block"><?php echo __('Tools like module package will be enabled.');?></p>
+                    </div>
+                    <div class="form-group">
+                        <label><?php echo __('Enable Demo ?');?></label>
+                        <select class="form-control" name="demo_mode">
+                            <?php
+                            $options = array(
+                                0 => __('No'),
+                                1 => __('Yes')
+                            );
+                            foreach (force_array($options) as $value => $text) {
+                                $selected = $this->options_model->get('demo_mode') == $value ? 'selected="selected"' : '';
+                                ?>
+                                <option <?php echo $selected;?> value="<?php echo xss_clean( strip_tags( $value ) );?>"> <?php echo $text;?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
                     </div>
                     <?php endif; ?>
                     <div class="form-group">

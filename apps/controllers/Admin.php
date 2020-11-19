@@ -563,7 +563,7 @@ class Admin extends MY_Controller
             $this->load->library('markdown');
             Polatan::set_title(sprintf(__('About &mdash; %s'), get('signature')));
             // Can user access modules ?
-            $data['check'] = (! User::control('manage.version') ) ? false : $this->update_model->check();
+            $data['check'] = (! User::control('manage.core') ) ? false : $this->update_model->check();
             $this->load->view( 'backend/about/index', $data );
         }
     }

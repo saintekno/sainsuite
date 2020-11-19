@@ -75,7 +75,10 @@ global $Options;
     </div>
     <!--end::Action-->
 </form>
-                      
+
+<?php
+// Should checks whether a registration is enabled
+if (intval(riake('demo_mode', $Options)) == true) : ?>              
 <hr>
 <h5 class="box-title mt-5">Demo account login credentials</h5>
 <div class="d-block py-2">
@@ -91,3 +94,4 @@ global $Options;
         $('#form-password').val(password);
     })
 </script>
+<?php endif; ?>

@@ -200,7 +200,7 @@ class Users_Install extends CI_model
         **/
         // Core Permission
         $this->aauth->create_perm('manage.core', __('Manage Core'));
-        $this->aauth->create_perm('manage.version', __('Manage Version'));
+        $this->aauth->create_perm('manage.menu', __('Manage Menu'));
 
         // Options Permissions
         $this->aauth->create_perm('create.options', __('Create Options'));
@@ -250,7 +250,7 @@ class Users_Install extends CI_model
         
         $this->aauth->allow_group('member', 'edit.profile');
 
-        $this->aauth->allow_group('member', 'manage.core');
+        $this->aauth->allow_group('member', 'manage.menu');
 
         // Users
         $this->aauth->allow_group('user', 'edit.profile');

@@ -35,9 +35,9 @@ class Users_Menu extends CI_model
             'permission' => 'read.group'
         );
 
-        $this->events->apply_filters('aside_menu_users', $menu);
+        $aside_menu = $this->events->apply_filters('aside_menu_users', $menu);
         
-        return $menu;
+        return $aside_menu;
 	}
 
     /**

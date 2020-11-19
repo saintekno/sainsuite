@@ -27,7 +27,7 @@
             <ul class="nav flex-column" role="tablist" id="myTab">
 
                 <!--begin::Item-->
-                <?php if ( User::control('manage.core')) : ?>
+                <?php if ( User::control('manage.menu')) : ?>
                 <?php if ( Menu::$apps_menus_core ) : ?>
 				<li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Application">
 					<a class="nav-link btn btn-icon btn-aside btn-lg" data-toggle="tab" data-target="#kt_aside_tab_1" role="tab">
