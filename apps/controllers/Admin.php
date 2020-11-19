@@ -29,6 +29,9 @@ class Admin extends MY_Controller
         $this->events->do_action( 'load_dashboard' );
 
         $this->_dashboard_assets();
+        $this->events->add_action( 'common_footer', function(){
+            $this->load->view('backend/script');
+        });
     }
     
     /**
@@ -38,9 +41,12 @@ class Admin extends MY_Controller
     {
         $this->enqueue->css_namespace( 'common_header' );
         $this->enqueue->addon_css('datatables', 'datatables.bundle');
+        
         $this->enqueue->js_namespace( 'common_footer' );
+        $this->enqueue->js('angular.min', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/');
+		$this->enqueue->js('underscore-min', 'https://cdn.jsdelivr.net/npm/underscore@1.11.0/');
+		$this->enqueue->js('heartcode-canvasloader-min', 'https://cdn.jsdelivr.net/canvasloader-ui/0.9/');
         $this->enqueue->addon_js('datatables', 'datatables.bundle');
-        $this->load->view('backend/script');
     }
 
 	// --------------------------------------------------------------------
