@@ -1,13 +1,6 @@
 <!--begin::Form-->
 <form method="post" class="form px-10" autocomplete="off" >
 	<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
-	<!--begin::Title-->
-	<div class="pt-lg-0 pt-5 pb-15">
-		<div class="text-muted font-weight-bold font-size-h4">
-		<?php _e('Define site settings');?>
-		</div>
-	</div>
-	<!--begin::Title-->
 
 	<!--begin::Row-->
 	<div class="row">

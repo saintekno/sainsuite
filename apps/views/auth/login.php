@@ -10,8 +10,7 @@ global $Options;
         <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0"
             type="text" 
             id="form-username"
-            name="username_or_email" 
-            autocomplete="off" />
+            name="username_or_email" />
     </div>
     <!--end::Form group-->
 
@@ -32,8 +31,7 @@ global $Options;
         <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0"
             type="password" 
             id="form-password"
-            name="password" 
-            autocomplete="off" />
+            name="password" />
     </div>
     <!--end::Form group-->
 
