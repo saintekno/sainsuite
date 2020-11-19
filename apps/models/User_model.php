@@ -18,7 +18,7 @@ class User_model extends CI_Model
     {
         parent::__construct();
 
-        if ($this->aauth->is_loggedin()) {
+        if ($this->aauth->is_loggedin() && $this->install_model->is_installed()) {
             $this->refresh_user_meta();
         } 
     }

@@ -98,6 +98,7 @@ class MY_Controller extends CI_Controller
 		$this->enqueue->js('heartcode-canvasloader-min', 'https://cdn.jsdelivr.net/canvasloader-ui/0.9/');
         $this->enqueue->js('settings');
         $this->enqueue->load_js( 'common_footer' );
-        $this->load->view('scripts');
+        
+        $this->load->view('notify');
     }
 }

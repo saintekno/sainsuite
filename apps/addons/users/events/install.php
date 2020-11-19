@@ -20,8 +20,8 @@ class Users_Install extends CI_model
 
         // Installation
         $this->events->add_action('after_db_setup', [ $this, 'enable' ] );
-        $this->events->add_action('settings_tables', array( $this, 'sql' ));
         $this->events->add_action('settings_tables', array( $this, 'settings_tables' ));
+        $this->events->add_action('settings_final_config', array( $this, 'permissions' ));
         $this->events->add_action('settings_final_config', array( $this, 'final_config' ));
         $this->events->add_action('settings_setup', array( $this, 'registration_rules' ));
     }
@@ -41,36 +41,8 @@ class Users_Install extends CI_model
         // Defaut options_model
         $this->options_model->set('users_installed', true, 'users');
     }
-
-    /**
-     * Final Config
-     *
-     * @return void
-    **/
-    public function final_config()
-    {
-        // Creating Master & Groups
-        $create_user = $this->user_model->create_admin(
-            $this->input->post('email'),
-            $this->input->post('password'),
-            $this->input->post('username')
-        );
-        
-        if ($create_user != 'user-created') {
-            $this->events->add_filter('validating_setup', array( $this, 'preparing_errors' ));
-        }
-    }
     
-    public function preparing_errors()
-    {
-        if (is_array($this->aauth->errors)) {
-            foreach ($this->aauth->errors as $error) {
-                $this->notice->push_notice($error);
-            }
-        }
-    }
-    
-    public function sql($config)
+    public function settings_tables($config)
     {
         extract($config);
 
@@ -187,7 +159,7 @@ class Users_Install extends CI_model
      *
      * @return void
     **/
-    public function settings_tables()
+    public function permissions()
     {
         // Only create if group does'nt exists (it's optional)
         // Creating admin Group
@@ -254,6 +226,34 @@ class Users_Install extends CI_model
 
         // Users
         $this->aauth->allow_group('user', 'edit.profile');
+    }
+
+    /**
+     * Final Config
+     *
+     * @return void
+    **/
+    public function final_config()
+    {
+        // Creating Master & Groups
+        $create_user = $this->user_model->create_admin(
+            $this->input->post('email'),
+            $this->input->post('password'),
+            $this->input->post('username')
+        );
+        
+        if ($create_user != 'user-created') {
+            $this->events->add_filter('validating_setup', array( $this, 'preparing_errors' ));
+        }
+    }
+    
+    public function preparing_errors()
+    {
+        if (is_array($this->aauth->errors)) {
+            foreach ($this->aauth->errors as $error) {
+                $this->notice->push_notice($error);
+            }
+        }
     }
 }
 new Users_Install;

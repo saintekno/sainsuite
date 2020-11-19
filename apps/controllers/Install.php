@@ -103,15 +103,13 @@ class Install extends MY_Controller
     {
         // checks if SainSuite is not installed
         if (! $this->install_model->is_installed()):
-            redirect('install' . ( $_GET[ 'lang' ] ? '?lang=' . $_GET[ 'lang' ] : '') );
+            redirect('install');
         endif;
 
         $this->events->add_filter('install_current3', function(){ return 'current'; });
 
         $this->events->do_action('settings_setup');
-        
         $this->form_validation->set_rules('site_name', __('Site Name'), 'required');
-
         if ($this->form_validation->run()) 
         {
             $exec = $this->install_model->final_configuration();

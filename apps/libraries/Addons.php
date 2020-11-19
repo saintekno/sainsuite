@@ -53,9 +53,7 @@ class Addons
             $init_file = $addon[ 'application' ][ 'main' ];
 
             // Load every addon when on install mode
-            if ( ! isset($init_file)
-                && ! is_file($init_file)
-            ) { 
+            if ( ! isset($init_file) && ! is_file($init_file) ) { 
                 return;
             }
 

@@ -40,6 +40,7 @@ class Admin extends MY_Controller
         $this->enqueue->addon_css('datatables', 'datatables.bundle');
         $this->enqueue->js_namespace( 'common_footer' );
         $this->enqueue->addon_js('datatables', 'datatables.bundle');
+        $this->load->view('backend/script');
     }
 
 	// --------------------------------------------------------------------

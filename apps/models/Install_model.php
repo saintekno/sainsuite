@@ -87,8 +87,10 @@ class Install_Model extends CI_Model
         }
 
         $this->db->close();
+
         // Setting database name
         $config['database'] = $database_name;
+
         // Reconnect
         $this->load->database($config);
 
@@ -109,19 +111,18 @@ class Install_Model extends CI_Model
             `value` text,
             `app` varchar(100) NOT NULL,
             PRIMARY KEY (`id`)
-		);
-		");
+        );");
 
         $this->events->do_action('settings_tables', array(
             'database_prefix' => $database_prefix,
             'install_model'   => $this
         ));
 
-        // After settings tables
-        $this->events->do_action('after_db_setup');
-
         // Creating Database File
         $this->create_config_file($config);
+
+        // After settings tables
+        $this->events->do_action('after_db_setup');
 
         return 'database-installed';
     }
