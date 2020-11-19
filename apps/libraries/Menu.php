@@ -74,7 +74,11 @@ class Menu
             </li>
 
             <?php
-            foreach ($current_menux as $menu_namespace => $current_menu) {
+            foreach ($current_menux as $menu_namespace => $current_menu) 
+            {
+                if( @$current_menu[ 'permission' ] != null && ! User::control( $current_menu[ 'permission' ] ) ) {
+                    continue;
+                }
                 $custom_ul_style = '';
                 $attr = '';
                 // Preloop, to check if this menu has an  active child
@@ -167,7 +171,11 @@ class Menu
             </li>
 
             <?php
-            foreach ($current_menux as $menu_namespace => $current_menu) {
+            foreach ($current_menux as $menu_namespace => $current_menu) 
+            {
+                if( @$current_menu[ 'permission' ] != null && ! User::control( $current_menu[ 'permission' ] ) ) {
+                    continue;
+                }
                 ?>
                 <li class="navi-item font-size-xs">
                     <a href="<?php echo riake('href', $current_menu);?>" <?php echo (riake('target', $current_menu)) ? 'target="_blank"' : '';?> class="navi-link pb-0">
@@ -183,7 +191,11 @@ class Menu
     public static function load_apps_menu()
     {
         if (self::$apps_menus_core) :
-            foreach (self::$apps_menus_core as $menu_namespace => $current_menu) { 
+            foreach (self::$apps_menus_core as $menu_namespace => $current_menu) 
+            {
+                if( @$current_menu[ 'permission' ] != null && ! User::control( $current_menu[ 'permission' ] ) ) {
+                    continue;
+                } 
                 ?>
                 <!--begin::Item-->
                 <a href="<?php echo riake('href', $current_menu);?>" class="list-item d-block p-2 mb-2">
@@ -223,7 +235,11 @@ class Menu
 
     public static function load_system_menu()
     {
-        foreach (self::$system_menus_core as $menu_namespace => $current_menu) { 
+        foreach (self::$system_menus_core as $menu_namespace => $current_menu) 
+        { 
+            if( @$current_menu[ 'permission' ] != null && ! User::control( $current_menu[ 'permission' ] ) ) {
+                continue;
+            }
             ?>
             <!--begin::Item-->
             <li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="<?php echo riake('title', $current_menu); ?>">
@@ -240,7 +256,11 @@ class Menu
 
     public static function load_toolbar_menu()
     {
-        foreach (self::$toolbar_menus_core as $menu_namespace => $current_menu) { 
+        foreach (self::$toolbar_menus_core as $menu_namespace => $current_menu) 
+        { 
+            if( @$current_menu[ 'permission' ] != null && ! User::control( $current_menu[ 'permission' ] ) ) {
+                continue;
+            }
             ?>
             <a href="<?php echo riake('href', $current_menu); ?>" class="btn <?php echo riake('button', $current_menu); ?> font-weight-bolder btn-sm ml-2">
                 <i class="<?php echo riake('icon', $current_menu); ?> icon-1x p-0"></i>
@@ -253,12 +273,10 @@ class Menu
     public static function load_aside_menu()
     {
         $loop_index = 0;
-        foreach (self::$aside_menu_core as $menu_namespace => $current_menu) { 
-
-            if( @$current_menu[ 'permission' ] != null ) {
-                if( ! User::control( $current_menu[ 'permission' ] ) ) {
-                    continue;
-                }
+        foreach (self::$aside_menu_core as $menu_namespace => $current_menu) 
+        { 
+            if( @$current_menu[ 'permission' ] != null && ! User::control( $current_menu[ 'permission' ] ) ) {
+                continue;
             }
             ?>
             <a href="<?php echo riake('href', $current_menu); ?>" class="nav-item">

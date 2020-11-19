@@ -29,7 +29,7 @@ class UsersHomeController extends CI_Model
     {
         if ( ! User::control('read.users') ) {
             $this->session->set_flashdata('info_message', __( 'Access denied. Youre not allowed to see this page.' ));
-            return redirect(site_url('admin'));
+            redirect(site_url('admin/page404'));
 		}
 
         // Pagination
@@ -43,17 +43,16 @@ class UsersHomeController extends CI_Model
         $this->pagination->initialize($config_vars);
 
         // Toolbar
-        if ( User::control('create.users') ) {
-            $this->events->add_filter( 'toolbar_menu', function( $final ) {
-                    $final[] = array(
-                        'title'   => __('Add A user'),
-                        'icon'    => 'ki ki-plus',
-                        'button'  => 'btn-light-primary',
-                        'href'    => site_url([ 'admin', 'users', 'add' ])
-                    );
-                return $final;
-            });
-        };
+        $this->events->add_filter( 'toolbar_menu', function( $final ) {
+                $final[] = array(
+                    'title'   => __('Add A user'),
+                    'icon'    => 'ki ki-plus',
+                    'button'  => 'btn-light-primary',
+                    'href'    => site_url([ 'admin', 'users', 'add' ]),
+                    'permission' => 'create.users'
+                );
+            return $final;
+        });
         
         // Title
 		Polatan::set_title(sprintf(__('Users &mdash; %s', 'users'), get('signature')));
@@ -81,7 +80,7 @@ class UsersHomeController extends CI_Model
     {
         if (! User::control('create.users')) {
             $this->session->set_flashdata('info_message', __( 'Access denied. Youre not allowed to see this page.' ));
-            return redirect(site_url('admin'));
+            redirect(site_url('admin/page404'));
         }
 
         $this->load->library('form_validation');
@@ -149,14 +148,14 @@ class UsersHomeController extends CI_Model
 
         if (! User::control('edit.users')) {
             $this->session->set_flashdata('info_message', __( 'Access denied. Youre not allowed to see this page.' ));
-            return redirect(site_url('admin'));
+            redirect(site_url('admin/page404'));
         }
         
         // User Goup
         $user = $this->aauth->get_user($index);
         if (! $user) {
             $this->session->set_flashdata('info_message', __( 'Unknow user. The use you attempted to edit has not been found.' ));
-            return redirect(site_url('admin'));
+            redirect(site_url('admin/page404'));
         }
         
         $user_group = farray($this->aauth->get_user_groups($user->id));
@@ -221,7 +220,7 @@ class UsersHomeController extends CI_Model
     {
         if (! User::control('delete.users')) {
             $this->session->set_flashdata('info_message', __( 'Access denied. Youre not allowed to see this page.' ));
-            return redirect(site_url('admin'));
+            redirect(site_url('admin/page404'));
         }
 
         $user = $this->aauth->get_user($index);

@@ -19,40 +19,25 @@ class Users_Menu extends CI_model
 		parent::__construct();
 		$this->events->add_filter( 'system_menu', array( $this, 'system_menu' ));
         $this->events->add_filter( 'after_user_card', array( $this, 'after_user_card' ));
-        
-        if ((activate_menu('users') || activate_menu('permission')) 
-            && $this->uri->segment(3) != 'profile'
-            && User::control('read.users')) {
-            $this->events->add_filter( 'aside_menu', array( $this, '_aside_menu' ));
-        }
     }
 
-	public function _aside_menu($final) {
-        $final[] = array(
+	public function _aside_menu($menu) {
+        $menu[] = array(
             'title' => __('Users'),
             'href' => site_url([ 'admin', 'users' ]),
             'icon' => 'la la-user',
             'permission' => 'read.users'
         );
-        if (User::control('read.group')) 
-        {
-            $final[] = array(
-                'title' => __('Group'),
-                'href' => site_url([ 'admin', 'users', 'group' ]),
-                'icon' => 'la la-user-friends',
-                'permission' => 'read.users'
-            );
-        }
-        if( Addons::is_active( 'permission' ) ) 
-        {
-            $final[] = array(
-                'title' => __('Permission'),
-                'href' => site_url([ 'admin', 'permission' ]),
-                'icon' => 'la la-user-check',
-                'permission' => 'manage.core'
-            );
-        }
-        return $final;
+        $menu[] = array(
+            'title' => __('Group'),
+            'href' => site_url([ 'admin', 'users', 'group' ]),
+            'icon' => 'la la-user-friends',
+            'permission' => 'read.group'
+        );
+
+        foreach ($this->events->apply_filters('aside_menu_users', $menu) as $namespace) {
+            Menu::add_aside_menu($namespace);
+        }; 
 	}
 
     /**
@@ -61,13 +46,12 @@ class Users_Menu extends CI_model
     **/
     public function system_menu($system)
     {
-        if ( User::control('read.users') ) {
-            $system[] = array(
-                'title' => __('Users', 'aauth'),
-                'icon'  => 'svg/Group.svg',
-                'href'  => site_url('admin/users'),
-            );
-        };
+        $system[] = array(
+            'title' => __('Users', 'aauth'),
+            'icon'  => 'svg/Group.svg',
+            'href'  => site_url('admin/users'),
+            'permission' => 'read.users'
+        );
 
         return $system;
     }

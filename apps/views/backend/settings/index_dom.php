@@ -59,7 +59,6 @@
         </div>
     </div>
      
-    <?php if ( User::control('manage.core') ) : ?>
     <div class="card">
         <div class="card-header" id="headingTwo2">
             <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseTwo2">
@@ -137,6 +136,5 @@
             </form>
         </div>
     </div>
-    <?php endif; ?>
 </div>
 <!--end::Accordion-->

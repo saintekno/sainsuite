@@ -31,17 +31,16 @@ class GroupsHomeController extends CI_Model
 		}
 
         // Toolbar
-        if ( User::control('create.group') ) {
-            $this->events->add_filter( 'toolbar_menu', function( $final ) {
-                $final[] = array(
-                    'title'   => __('Add A group'),
-                    'icon'    => 'ki ki-plus',
-                    'button'  => 'btn-light-primary',
-                    'href'    => site_url([ 'admin', 'users', 'group', 'add' ])
-                );
-                return $final;
-            });
-        };
+        $this->events->add_filter( 'toolbar_menu', function( $final ) {
+            $final[] = array(
+                'title'   => __('Add A group'),
+                'icon'    => 'ki ki-plus',
+                'button'  => 'btn-light-primary',
+                'href'    => site_url([ 'admin', 'users', 'group', 'add' ]),
+                'permission' => 'create.group'
+            );
+            return $final;
+        });
         
         // Title
 		Polatan::set_title(sprintf(__('Group &mdash; %s', 'group'), get('signature')));

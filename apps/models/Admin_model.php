@@ -29,13 +29,12 @@ class Admin_Model extends CI_Model
     **/
     public function set_setting_menu()
     {
-        if (User::control('read.options')) {
-            $setting_menu['settings'][ 'system' ][] = array(
-                'title' => __('System'),
-                'icon'  => 'svg/Settings-2.svg',
-                'href'  => site_url('admin/settings'),
-            );
-        }
+        $setting_menu['settings'][ 'system' ][] = array(
+            'title' => __('System'),
+            'icon'  => 'svg/Settings-2.svg',
+            'href'  => site_url('admin/settings'),
+            'permission' => 'read.options'
+        );
 
         $setting_menu['appearance'][ 'themes' ][] = array(
             'title' => __('Themes'),
@@ -80,6 +79,7 @@ class Admin_Model extends CI_Model
             'title' => __('Term of service'),
             'href'  => site_url(['admin', 'tos'])
         );
+        
         $setting_menu['Legal'][] = array(
             'href'  => site_url(['admin', 'policy']),
             'title' => __('Privacy policy'),
