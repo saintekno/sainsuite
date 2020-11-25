@@ -1,6 +1,33 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.6.0] - 2020-11-25
+### Added
+- Penambahan item separator di library polatan
+- Penambahan item table-datatable di library polatan
+- Penambahan item accordions di library polatan
+- Penambahan item input image di library polatan
+- Penambahan item textarea di library polatan
+- Penambahan fungsi mode skin dashboard
+- Penambahan fungsi multibahasa dengan library sepia/po-parser
+- Penambahan event oauth_client
+- Penambahan fitur login dengan sosmed google
+
+### Changed
+- Perubahan CI_Model ke MY_Addon
+- Perubahan Class Addon ke MY_Addon
+- Perubahan event common header ke dashboard_header pada laman admin
+- Peningkatan url delete users
+- Peningkatan fungsi addon_view
+- Peningkatan fungsi library polatan
+- Peningkatan konfirmasi delete dengan sweet alert
+
+### Fixed
+- Perbaikan nama event enable addon
+- Perbaikan fitur lupa password
+- Perbaikan fitur register
+- Perbaikan fungsi kirim email dengan smtp google
+
 ## [3.5.4] - 2020-11-15
 ### Added
 - Penambahan library Breadcrumb
@@ -55,3 +82,10 @@ All notable changes to this project will be documented in this file.
 - Peningkatan library Menu
 - Peningkatan library User
 - Peningkatan Model User
+
+## [3.3.0] - 2020-10-12
+## [3.2.0] - 2020-10-01
+## [3.1.0] - 2020-09-29
+## [3.0.0] - 2020-09-27
+## [2.0.0] - 2019-08-28
+## [1.0.0] - 2019-06-15
