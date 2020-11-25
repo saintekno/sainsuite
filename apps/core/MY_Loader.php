@@ -22,7 +22,7 @@ class MY_Loader extends CI_Loader
 	// --------------------------------------------------------------------
 
     /**
-     * Module View
+     * Addon View
      *
      * @param string addon namespace
      * @param string path

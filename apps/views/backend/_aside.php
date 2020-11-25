@@ -116,6 +116,7 @@
             <div class="dropdown pt-1">
                 <a class="btn btn-icon btn-aside btn-lg symbol symbol-30 symbol-circle d-none d-lg-flex" data-toggle="dropdown" data-target="user" data-offset="0px,0px" aria-expanded="false">
                     <img src="<?php echo $this->events->apply_filters('user_menu_card_avatar_src', '');?>" alt="<?php echo $this->events->apply_filters('user_menu_card_avatar_alt', '');?>">
+                    <i class="symbol-badge bg-success mt-3 mr-3 <?php echo ($this->events->apply_filters('dashboard_skin_class', 'skin-dark') == 'skin-dark') ? 'border-dark' : '';?>"></i>
                 </a>
                 <!--begin::Dropdown-->
                 <div id="user" class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-md dropdown-menu-left">
@@ -163,7 +164,7 @@
             <div class="tab-content">
 
                 <div class="tab-title px-4 pt-5">
-                    <h2 class="text-light pl-4 pt-5 pb-6 font-weight-light font-size-h2">
+                    <h2 class="menu-text pl-4 pt-5 pb-6 font-weight-light font-size-h2">
                         <?php
                         $title = $this->options_model->get('site_name');
                         $pecah = explode(" ", $title);

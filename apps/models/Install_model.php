@@ -97,7 +97,7 @@ class Install_Model extends CI_Model
         $this->load->model('options_model');
 
         // Before settings tables
-        // Used internaly to load module only when database connection is established.
+        // Used internaly to load addon only when database connection is established.
         $this->events->do_action('before_db_setup', array(
             'database_prefix' => $database_prefix,
             'install_model'   => $this

@@ -79,10 +79,16 @@ class User
      * @return string
     **/
 
-    public static function get_gravatar_url()
+    public static function get_user_image_url($user_id = 0)
     {
-        $current_user = get_instance()->aauth->get_user();
-        return self::get_gravatar($current_user->email, 90);
+        global $User_Options;
+        if (file_exists(upload_path().'user_image/'.$user_id.'.jpg'))
+            return upload_url().'user_image/'.$user_id.'.jpg';
+        elseif (riake('picture', $User_Options))
+            return riake('picture', $User_Options);
+        else
+            $current_user = get_instance()->aauth->get_user();
+            return self::get_gravatar($current_user->email, 90);
     }
 
     /**
@@ -110,5 +116,11 @@ class User
             $url .= ' />';
         }
         return $url;
+    }
+
+    public static function upload_user_image($user_id) {
+        if (isset($_FILES['user_image']) && $_FILES['user_image']['name'] != "") {
+            move_uploaded_file($_FILES['user_image']['tmp_name'], upload_path().'user_image/'.$user_id.'.jpg');
+        }
     }
 }

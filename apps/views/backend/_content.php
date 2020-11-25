@@ -1,4 +1,5 @@
 <?php if ($this->polatan->get_page() === '404') : ?>
+
 <div class="d-flex flex-column-fluid flex-center">
     <div class="d-flex flex-column justify-content-center align-items-center px-5 text-center">
         <!--begin::Content-->
@@ -27,6 +28,7 @@
         <!--end::Content-->
     </div>
 </div>
+
 <?php elseif (empty($this->polatan->get_col(1))) : ?>
 
 <div class="d-flex flex-column-fluid flex-center">
@@ -37,11 +39,12 @@
         Get started building your personal projects, testing out ideas, and more in your spontaner workspace.
         </p>
     </div>
-</div><!--begin::Container-->
+</div>
 
 <?php else : ?>
 
 <div class="container">
+    
     <?php echo $this->events->apply_filters('gui_before_cols', '');?>
 
     <div class="row">
@@ -52,39 +55,42 @@
 
                 <?php
                 // enable gui form saver
-                $icon          = riake('icon', $meta, false);
                 $form_expire   = gmt_to_local(time(), 'UTC') + GUI_EXPIRE;
+                $class         = riake('classes', riake('form', $meta), 'required-form');
+                $icon          = riake('icon', $meta, false);
                 $ref           = urlencode(current_url());
-                $use_namespace = riake('use_namespace', $meta, false);
-                $class         = riake('classes', riake('form', $meta));
                 $id            = riake('id', riake('form', $meta));
                 $action        = riake('action', riake('form', $meta), site_url(array( 'admin', 'options', 'save' )));
                 $method        = riake('method', riake('form', $meta), 'POST');
                 $enctype       = riake('enctype', riake('form', $meta), 'multipart/form-data');
                 $namespace     = riake('namespace', $meta);
+                $use_namespace = riake('use_namespace', $meta, false);
                 ?>
 
                 <?php if ( riake('gui_saver', $meta)) :?>
                 <form ng-non-bindable 
                     class="form <?php echo $class;?>" 
                     id="<?php echo $id;?>"
-                    action="<?php echo $action;?>" enctype="<?php echo $enctype;?>" method="<?php echo $method;?>">
+                    action="<?php echo $action;?>" 
+                    enctype="<?php echo $enctype;?>" 
+                    method="<?php echo $method;?>">
                     <input type="hidden" name="gui_saver_user_id" value="<?php echo @$meta[ 'user_id' ];?>" />
                     <input type="hidden" name="gui_saver_ref" value="<?php echo $ref;?>" />
                     <input type="hidden" name="gui_saver_option_namespace" value="<?php echo riake('namespace', $meta);?>" />
                     <input type="hidden" name="gui_saver_expiration_time" value="<?php echo $form_expire;?>" />
                     <input type="hidden" name="gui_saver_use_namespace" value="<?php echo $use_namespace ? 'true' : 'false';?>" />
                     <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
-                
                 <?php elseif (in_array($action, array( null, false ), true)) :?>
                 <form ng-non-bindable 
                     class="form <?php echo $class;?>" 
                     id="<?php echo $id;?>"
-                    enctype="<?php echo $enctype;?>" method="<?php echo $method;?>">
+                    enctype="<?php echo $enctype;?>" 
+                    method="<?php echo $method;?>">
                     <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
                 <?php endif; ?>
 
                     <?php if (in_array($meta_type = riake('type', $meta), array( 'card' ))) : ?>
+
                     <div class="card card-custom">
                         <?php if (riake('title', $meta)) : ?>
                         <div class="card-header">
@@ -114,18 +120,21 @@
                             <div class="row">
                                 <?php if ($footer_submit = riake('submit', $footer)) :?>
                                 <div class="col-lg-6">
-                                    <button type="submit" class="btn btn-primary mr-2"><?php echo riake('label', $footer_submit);?></button>
+                                    <button type="submit" onclick="checkRequiredFields()" class="btn btn-primary mr-2"><?php echo riake('label', $footer_submit);?></button>
                                 </div>
                                 <?php endif; ?>
                             </div>
                         </div>
                         <?php endif;?>
                     </div>
+                    
                     <?php else : ?>
+                    
                     <?php echo $this->load->view('backend/_item', array(
                         'namespace' => $namespace,
                         'meta' => $meta
                     ), true);?>
+                    
                     <?php endif; ?>
 
                 <?php if (riake('gui_saver', $meta) || in_array($action, array( null, false ), true) ) :?>
@@ -139,5 +148,5 @@
     </div>
 
 </div>
-<!--end::Container-->
+
 <?php endif;?>

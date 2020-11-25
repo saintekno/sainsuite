@@ -1,16 +1,23 @@
-<form method="post" autocomplete="off">
+<!--begin::Title-->
+<div class="pb-5 pb-lg-15">
+    <h3 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Forgotten Password ?</h3>
+    <p class="text-muted font-weight-bold font-size-h4">Enter your email to reset your password</p>
+</div>
+<!--end::Title-->
+
+<form method="post" id="kt_login_singin_form" autocomplete="off" class="form required-form">
     <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
-    
-    <?php echo __('Please provide your user email in order to get recovery email' ); ?>
-    <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1"><?php _e('User email or Pseudo' ); ?></span>
-        <input type="text" class="form-control" placeholder="<?php _e('User email or Pseudo' ); ?>" aria-describedby="basic-addon1" name="user_email">
-        <span class="input-group-btn">
-        <button class="btn btn-default" type="submit"><?php _e('Get recovery Email' ); ?></button>
-        </span>
+
+    <!--begin::Form group-->
+    <div class="form-group fv-plugins-icon-container">
+        <input class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" type="email" placeholder="Email" name="user_email" required>
     </div>
+    <!--end::Form group-->
+
+    <!--begin::Form group-->
+    <div class="form-group d-flex flex-wrap">
+        <button type="submit" onclick="checkRequiredFields()" id="kt_login_singin_form_submit_button" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-4">Submit</button>
+        <a href="<?php echo site_url(array( 'login' ));?>" id="kt_login_forgot_cancel" class="btn btn-light-primary font-weight-bolder font-size-h6 px-8 py-4 my-3">Cancel</a>
+    </div>
+    <!--end::Form group-->
 </form>
-<!-- // Should checks whether a login page is enabled -->
-<a class="btn btn-primary" href="<?php echo site_url(array( 'sign-in' ));?>"><?php _e('Sign In');?></a>
-<!-- // Should checks whether a registration is enabled -->
-<a class="btn btn-default" href="<?php echo site_url(array( 'sign-up' ));?>" class="text-center"><?php _e('Sign Up');?></a>

@@ -61,8 +61,11 @@ class Auth extends MY_Controller
             }
             $this->notice->push_notice($this->lang->line($exec));
         }
-		
-		Polatan::set_title(sprintf(__('Sign In &mdash; %s'), get('app_name')));
+
+        $this->events->do_action('oauth_client');
+
+        Polatan::set_title(sprintf(__('Sign In &mdash; %s'), get('app_name')));
+        
 		$data['page_name'] = 'login';
 		$this->load->view('auth/index', $data);
 	}
@@ -85,7 +88,7 @@ class Auth extends MY_Controller
                 ( @$Options[ 'require_validation' ] == 1 ? 1 : 0 )
             );
     
-            if ($exec === 'user-created') {
+            if ($exec === 'created') {
                 redirect(array( 'login?notice=' . $exec ));
             }
         }
@@ -101,12 +104,13 @@ class Auth extends MY_Controller
     public function logout()
     {
         // doing log_user_out
-        if ($this->aauth->logout() == null) {
-            if (($redir = riake('redirect', $_GET)) != false) {
-                redirect(array( 'login?redirect=' . urlencode($redir) ));
-            } else {
+        if ($this->aauth->logout() == null) 
+        {
+            if (($redir = riake('redirect', $_GET)) == false) :
                 redirect(array( 'login' ));
-            }
+            endif;
+
+            redirect(array( 'login?redirect=' . urlencode($redir) ));
         }
     }
     
@@ -119,15 +123,16 @@ class Auth extends MY_Controller
         $this->form_validation->set_rules('user_email', __('User Email'), 'required|valid_email');
         if ($this->form_validation->run()) 
         {
-            if ($this->aauth->user_exist_by_email($this->input->post('user_email'))) 
-            {
-                $this->aauth->remind_password($this->input->post('user_email'));
+            if ( ! $this->aauth->user_exist_by_email($this->input->post('user_email'))) :
+                $this->notice->push_notice($this->lang->line('unknow-user'));
+            endif;
+
+            if ( $this->aauth->remind_password($this->input->post('user_email')) ) :
                 redirect(array( 'login?notice=recovery-email-send' ));
-            }
-            $this->notice->push_notice($this->lang->line('unknow-user'));
+            endif;
         }
 
-        Polatan::set_title(sprintf(__('Recover Password &mdash; %s'), get('core_signature')));
+        Polatan::set_title(sprintf(__('Recover Password &mdash; %s'), get('app_name')));
         $data['page_name'] = 'recovery';
 		$this->load->view('auth/index', $data);
     }
@@ -139,11 +144,11 @@ class Auth extends MY_Controller
     **/
     public function reset_password($ver_code)
     {
-        if ($this->aauth->reset_password($ver_code)) 
-        {
-            redirect(array( 'login?notice=new-password-created' ));
-        }
-        redirect(array( 'login?notice=error-occured' ));
+        if ( ! $this->aauth->reset_password($ver_code)) :
+            redirect(array( 'login?notice=error-occured' ));
+        endif;
+
+        redirect(array( 'login?notice=new-password-created' ));
     }
     
     /**
@@ -151,14 +156,14 @@ class Auth extends MY_Controller
     **/
     public function verification($user_id, $ver_code)
     {
-        $user = $this->aauth->get_user($user_id);
-        if ($user) {
-            if ($this->aauth->verify_user($user_id, $ver_code)) 
-            {
-                redirect(array( 'login?notice=account-activated' ));
-            }
+        if ( ! $this->aauth->get_user($user_id)) :
+            redirect(array( 'login?notice=unknow-user' ));
+        endif;
+
+        if ( ! $this->aauth->verify_user($user_id, $ver_code)) :
             redirect(array( 'login?notice=error-occured' ));
-        }
-        redirect(array( 'login?notice=unknow-user' ));
+        endif;
+
+        redirect(array( 'login?notice=account-activated' ));
     }
 }

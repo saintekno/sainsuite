@@ -69,7 +69,7 @@ class Menu
         foreach ($core_menus as $menu_namespacex => $current_menux) 
         { ?>
             <li class="menu-section px-4 m-0">
-                <h4 class="menu-text text-light"><?php _e($menu_namespacex);?></h4>
+                <h4 class="menu-text menu-text"><?php _e($menu_namespacex);?></h4>
                 <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
             </li>
 
@@ -104,7 +104,7 @@ class Menu
                     {
                         // First child, set a default page and first sub-menu.
                         if ($loop_index == 0) : ?>
-                            <a href="javascript:void(0)" class="menu-link btn btn-hover-dark menu-toggle"> 
+                            <a href="javascript:void(0)" class="menu-link menu-toggle"> 
                                 <span class="svg-icon menu-icon">
                                 <?php include asset_path().riake('icon', $menu, 'svg/tambah.svg');?>
                                 </span>
@@ -138,7 +138,7 @@ class Menu
                     } 
                     else { 
                         ?>
-                        <a href="<?php echo riake('href', $menu, '#');?>" class="menu-link btn btn-hover-dark"> 
+                        <a href="<?php echo riake('href', $menu, '#');?>" class="menu-link"> 
                             <span class="svg-icon menu-icon">
                             <?php include asset_path().riake('icon', $menu, 'svg/Library.svg');?>
                             </span>
@@ -207,7 +207,7 @@ class Menu
                         </div>    
 
                         <div class="d-flex flex-column flex-grow-1 mr-2">
-                            <span class="text-light mb-0"><?php echo riake('title', $current_menu);?></span>
+                            <span class="menu-text mb-0"><?php echo riake('title', $current_menu);?></span>
                         </div>
                     </div>
                 </a>

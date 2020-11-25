@@ -12,7 +12,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @link        https://github.com/saintekno/sainsuite
  * @filesource
  */
-class UsersProfileController extends CI_Model
+class UsersProfileController extends MY_Addon
 {
     public function __construct()
     {
@@ -40,11 +40,12 @@ class UsersProfileController extends CI_Model
             
             $this->user_model->refresh_user_meta();
             $this->session->set_flashdata('flash_message', $this->lang->line($exec));
+            redirect(current_url(), 'refresh');
         }
         
-		Polatan::set_title(__( 'My Profile', 'users' ));
+		Polatan::set_title(__( 'My Profile' ));
         
         $data[ 'apps' ] = '';
-        $this->load->addon_view( 'users', 'profile', $data );
+        $this->addon_view( 'users', 'profile', $data );
     }
 }

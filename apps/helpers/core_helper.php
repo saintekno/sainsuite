@@ -19,6 +19,8 @@ function activate_menu($controller) {
     return $controller == $method ? true : '';
 }
 
+// --------------------------------------------------------------------
+
 if (! function_exists('currency')) {
     function currency($price = "") {
         global $Options;
@@ -49,7 +51,7 @@ if (! function_exists('currency')) {
 function theme()
 {
     global $Options;
-    if (! Addons::is_active(@$Options[ 'site_theme' ], true)) : return 'default';
+    if (! MY_Addon::is_active(@$Options[ 'site_theme' ], true)) : return 'default';
     endif;
 
     return @$Options[ 'site_theme' ] ;
@@ -324,69 +326,5 @@ if (! function_exists('get'))
                 return get_instance()->config->item('app_name');
             break;
         }
-    }
-}
-
-// --------------------------------------------------------------------
-
-if (! function_exists('translate')) 
-{
-    // Alias of "translate"
-    function __($code, $templating = 'core')
-    {
-        return translate($code, $templating);
-    }
-
-    // Alias of __, but echo instead
-    function _e($code, $templating = 'core')
-    {
-        echo __($code, $templating);
-    }
-
-    // Echo Translation filtered with addslashes
-    function _s($code, $templating = 'core' )
-    {
-        return addslashes(__($code, $templating));
-    }
-
-    /**
-     * Get translated text
-    **/
-    function translate($code, $textdomain = 'core')
-    {
-        $instance = get_instance();
-        global $Options, $LangFileHandler, $PoParsed;
-
-        $text_domains = $instance->config->item('text_domain');
-
-        if (in_array($textdomain, array_keys($text_domains))) 
-        {
-            // $module = Modules::get( $text_domain );
-            $lang_file = $text_domains[ $textdomain ] . '/' . $instance->config->item('site_language') . '.po';
-
-            if (is_file($lang_file)) 
-            {
-                if (! isset($LangFileHandler[ $textdomain ])) 
-                {
-                    $LangFileHandler[ $textdomain ] = new Sepia\PoParser\SourceHandler\FileSystem($lang_file);
-                    $PoParsed[ $textdomain ] = new Sepia\PoParser\Parser($LangFileHandler[ $textdomain ]);
-                    $PoParsed[ $textdomain ]->parse();
-                    $PoParsed[ $textdomain ]->AllEntries = $PoParsed[ $textdomain ]->entries();
-
-                    foreach ($PoParsed[ $textdomain ]->AllEntries as $key => $entry) 
-                    {
-                        $newKey = str_replace('<##EOL##>', '', $key);
-                        if ($key !== $newKey) 
-                        {
-                            $PoParsed[ $textdomain ]->AllEntries[ $newKey ] = $entry;
-                            unset($PoParsed[ $textdomain ]->AllEntries[ $key ]); //unset key
-                        }
-                    }
-                }
-
-                return implode('', riake('msgstr', riake($code, $PoParsed[ $textdomain ]->AllEntries, array( 'msgstr' => array( $code ) ))));
-            }
-        }
-        return $code;
     }
 }

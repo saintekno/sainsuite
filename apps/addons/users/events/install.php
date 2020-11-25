@@ -12,14 +12,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @link        https://github.com/saintekno/sainsuite
  * @filesource
  */
-class Users_Install extends CI_model
+class Users_Install extends MY_Addon
 {
     public function __construct()
     {
         parent::__construct();
 
         // Installation
-        $this->events->add_action('after_db_setup', [ $this, 'enable' ] );
+        $this->events->add_action('after_db_setup', [ $this, 'enable_addon' ] );
         $this->events->add_action('settings_tables', array( $this, 'settings_tables' ));
         $this->events->add_action('settings_final_config', array( $this, 'permissions' ));
         $this->events->add_action('settings_final_config', array( $this, 'final_config' ));
@@ -34,9 +34,9 @@ class Users_Install extends CI_model
         $this->form_validation->set_rules('confirm', __('Confirm' ), 'matches[password]');
     }
 
-    public function enable()
+    public function enable_addon()
     {
-        Addons::enable('users');
+        MY_Addon::enable('users');
 
         // Defaut options_model
         $this->options_model->set('users_installed', true, 'users');
@@ -242,7 +242,7 @@ class Users_Install extends CI_model
             $this->input->post('username')
         );
         
-        if ($create_user != 'user-created') {
+        if ($create_user != 'created') {
             $this->events->add_filter('validating_setup', array( $this, 'preparing_errors' ));
         }
     }

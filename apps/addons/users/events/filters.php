@@ -12,7 +12,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @link        https://github.com/saintekno/sainsuite
  * @filesource
  */
-class Users_Filters extends CI_model
+class Users_Filters extends MY_Addon
 {
     public function __construct()
     {
@@ -23,10 +23,11 @@ class Users_Filters extends CI_model
         // $this->events->add_filter( 'dashboard_footer_text', [ $this->filters, 'dashboard_footer_text' ] );
         $this->events->add_filter('custom_user_meta', array( $this, 'custom_user_meta' ), 10, 1);
         $this->events->add_filter('signin_logo', array( $this, 'signin_logo' ));
+        $this->events->add_filter('dashboard_skin_class', array( $this, 'dashboard_skin_class' ), 5, 1);
         $this->events->add_filter('dashboard_body_class', array( $this, 'dashboard_body_class' ), 5, 1);
         $this->events->add_filter('user_menu_name', array( $this, 'user_menu_name' ));
         $this->events->add_filter('user_menu_card_avatar_src', function () {
-            return User::get_gravatar_url();
+            return User::get_user_image_url(User::id());
         });
     }
     
@@ -42,7 +43,7 @@ class Users_Filters extends CI_model
     {
         $fields[ 'first-name' ] = ($fname = $this->input->post('first-name')) ? $fname : '';
         $fields[ 'last-name' ] = ($lname = $this->input->post('last-name')) ? $lname : '';
-        $fields[ 'theme-skin' ] = ($skin = $this->input->post('theme-skin')) ? $skin : 'skin-blue';
+        $fields[ 'theme-skin' ] = ($skin = $this->input->post('theme-skin')) ? $skin : 'skin-dark';
         return $fields;
     }
 
@@ -52,21 +53,32 @@ class Users_Filters extends CI_model
     }
 
     /**
+     * Get dashboard sidebar for current user
+     *
+     * @access : public
+     * @param : string
+     * @return : string
+    **/
+    public function dashboard_body_class()
+    {
+        global $User_Options;        
+        // get user sidebar status
+        $class = ($sidebar = riake('dashboard-sidebar', $User_Options)) ? $sidebar : 'aside-minimize';
+        return $class;
+    }
+
+    /**
      * Get dashboard skin for current user
      *
      * @access : public
      * @param : string
      * @return : string
     **/
-    public function dashboard_body_class($class)
+    public function dashboard_skin_class($class)
     {
         global $User_Options;
-        $class = '';
         // skin is defined by default
-        // $class .= ($db_skin = riake('theme-skin', $User_Options)) ? $db_skin : $class;
-        
-        // get user sidebar status
-        $class .= ($sidebar = riake('dashboard-sidebar', $User_Options)) ? $sidebar : 'aside-minimize';
+        $class = ($db_skin = riake('theme-skin', $User_Options)) ? $db_skin : $class;
         return $class;
     }
 

@@ -13,8 +13,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @filesource
  */
 
-$config[ 'controllers_requiring_installation' ] = array( 'admin' , 'login' , 'logout' , 'register' );
-$config[ 'reserved_controllers' ] = array( 'admin' , 'login', 'logout' , 'register' , 'install' );
+$config[ 'controllers_requiring_installation' ] = array( 'admin' , 'login' , 'recovery' , 'register' );
+$config[ 'reserved_controllers' ] = array( 'admin' , 'login', 'recovery' , 'register' , 'install' );
 $config[ 'admin_route' ] = array('admin');
 $config[ 'login_route' ] = 'login';
 

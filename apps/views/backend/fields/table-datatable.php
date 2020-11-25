@@ -51,7 +51,6 @@ var initTable1 = function() {
 
 return {
 
-    //main function to initiate the module
     init: function() {
         initTable1();
     },

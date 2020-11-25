@@ -17,6 +17,9 @@ class Admin_Model extends CI_Model
     public function __construct()
     {
         parent::__construct();
+        
+        $this->events->add_action( 'load_dashboard_homes', [ $this, 'load_dashboard_homes' ] );
+
         $this->events->add_action('load_dashboard', array( $this, 'set_help_menu' ));
         $this->events->add_action('load_dashboard', array( $this, 'set_setting_menu' ));
         $this->events->add_action('load_dashboard', array( $this, 'set_app_menu' ));
@@ -112,5 +115,16 @@ class Admin_Model extends CI_Model
         foreach ($this->events->apply_filters('system_menu', []) as $namespace) {
             Menu::add_system_menu($namespace);
         }
+    }
+
+    /**
+     * Dashboard UI
+     *
+     * @return void
+     */
+    public function load_dashboard_homes()
+    {
+        Polatan::set_title(sprintf(__('Dashboard &mdash; %s'), get('signature')));
+        $this->polatan->output();
     }
 }

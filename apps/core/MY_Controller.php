@@ -22,7 +22,8 @@ class MY_Controller extends CI_Controller
         $this->lang->load_lines(APPPATH . '/language/*.php');
         
         // Load Addons
-        Addons::load(ADDONSPATH);
+        include_once( APPPATH . 'core/MY_Addon.php' );
+        MY_Addon::load( ADDONSPATH );
 
         // if is installed, setup is always loaded
         if ( $this->install_model->is_installed() ) 
@@ -34,7 +35,7 @@ class MY_Controller extends CI_Controller
             $this->load->model('options_model');
 
             //init active addons
-            Addons::init('actives'); 
+            MY_Addon::init('actives'); 
             
             // language is set on dashboard
             $this->options_model->defineLanguage();
@@ -46,9 +47,9 @@ class MY_Controller extends CI_Controller
         elseif ($this->uri->segment(1) === 'install' && $this->uri->segment(2) === 'database') 
         {
 			$this->events->add_action('before_db_setup', function () {
-				// this hook let modules being called during installation
+				// this hook let addons being called during installation
 				// Only when site name is being defined
-				Addons::init('all');
+				MY_Addon::init('all');
             });
         }
         
@@ -95,7 +96,6 @@ class MY_Controller extends CI_Controller
         $this->enqueue->js_namespace( 'common_footer' );
         $this->enqueue->js('settings');
         $this->enqueue->load_js( 'common_footer' );
-        
         $this->load->view('notify');
     }
 }

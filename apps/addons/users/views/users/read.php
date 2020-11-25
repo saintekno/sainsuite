@@ -22,9 +22,11 @@ foreach ($users as $user) {
         $user->banned   ==  1 ? __( 'Unactive' , 'aauth') : __( 'Active' , 'aauth'),
         '<a href="' . site_url(array( 'admin', 'users', 'edit', $user->user_id )) . '" 
             class="btn btn-icon btn-light btn-hover-primary btn-sm"><i class="fas fa-pen"></i></a>
-        <a onclick="return confirm( \'' . _s( 'Would you like to delete this account ?', 'aauth' ) . '\' )" 
-            href="' . site_url(array( 'admin', 'users', 'delete', $user->user_id )) . '"
-            class="btn btn-icon btn-light btn-hover-danger btn-sm"><i class="fas fa-trash-alt"></i></a>' ,
+        <button class="btn btn-icon btn-light btn-hover-danger btn-sm"
+            data-head=\'' . _s( 'Would you like to delete this account ?', 'aauth' ) . '\'
+            data-url=\'' . site_url(array( 'admin', 'users', 'delete', $user->user_id )) . '\'
+            onclick="deleteConfirmation(this)"><i class="fas fa-trash-alt"></i></button>' ,
+            
     );
 }
 
@@ -38,7 +40,7 @@ $this->polatan->add_meta(array(
 ));
 
 $this->polatan->add_item(array(
-    'type'  => 'default-table',
+    'type'  => 'table-default',
     'thead' => array( 
         __('Username', 'aauth'), 
         __('Email', 'aauth'),  

@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * SainSuite
@@ -12,7 +12,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @link        https://github.com/saintekno/sainsuite
  * @filesource
  */
-class Addons 
+
+class MY_Addon extends CI_Model
 {
     private static $addons;
     
@@ -24,6 +25,16 @@ class Addons
 
     private static $allowed_app_folders = array( 'controllers', 'models', 'libraries', 'helpers', 'config' );
 
+    public function __construct()
+    {
+        parent::__construct();
+        //Codeigniter : Write Less Do More
+    }
+
+    public function addon_view( $namespace, $view, $params = array(), $return = false )
+    {
+        return $this->load->addon_view( $namespace, $view, $params, $return );
+    }
     /**
      * Init
      */
@@ -139,7 +150,7 @@ class Addons
             // addon namespace is used as text domain
             if (isset($config[ 'application' ][ 'language' ])) 
             {
-                if (is_dir($language_path = $addon_path . '/' . $namespace . '/' . $config[ 'application' ][ 'language' ])) 
+                if (is_dir($language_path = ADDONSPATH . $namespace . '/' . $config[ 'application' ][ 'language' ])) 
                 {
                     $text_domain = get_instance()->config->item('text_domain');
                     $text_domain[ $namespace ] = $language_path;

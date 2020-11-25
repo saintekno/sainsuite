@@ -20,9 +20,10 @@ foreach ($groups as $row) {
         $row->definition ,
         '<a href="' . site_url(array( 'admin', 'users', 'group', 'edit', $row->id )) . '" 
             class="btn btn-icon btn-light btn-hover-primary btn-sm"><i class="fas fa-pen"></i></a>
-        <a onclick="return confirm( \'' . _s( 'Would you like to delete this account ?', 'aauth' ) . '\' )" 
-            href="' . site_url(array( 'admin', 'users', 'group', 'delete', $row->id )) . '"
-            class="btn btn-icon btn-light btn-hover-danger btn-sm"><i class="fas fa-trash-alt"></i></a>' ,
+        <button class="btn btn-icon btn-light btn-hover-danger btn-sm"
+            data-head=\'' . _s( 'Would you like to delete this account ?', 'aauth' ) . '\'
+            data-url=\'' . site_url(array( 'admin', 'users', 'group', 'delete', $row->id )) . '\'
+            onclick="deleteConfirmation(this)"><i class="fas fa-trash-alt"></i></button>' ,
     );
 }
 
@@ -44,7 +45,7 @@ $this->polatan->add_meta(array(
  * Item
  */
 $this->polatan->add_item(array(
-    'type'  => 'table',
+    'type'  => 'table-datatable',
     'thead' => array(
         'Name',
         'Definition',

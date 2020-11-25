@@ -61,7 +61,6 @@ $autoload['packages'] = array();
 $autoload['libraries'] = array(
     'breadcrumb',
     'polatan',
-    'addons', 
     'notice', 
     'events', 
     'enqueue', 
@@ -104,9 +103,10 @@ $autoload['helper'] = array(
     'core', 
     'form', 
     'url', 
+    'request',
     'url_slug', 
     'security',
-    'request'
+    'multilanguage'
 );
 
 /*

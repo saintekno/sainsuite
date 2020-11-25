@@ -12,10 +12,10 @@
     
     <title><?php echo Polatan::get_title();?></title>
     
-    <?php $this->events->do_action( 'common_header' );?>
+    <?php $this->events->do_action( 'dashboard_header' );?>
 </HEAD>
 <BODY id="kt_body" 
-    class="header-mobile-fixed aside-fixed <?php echo xss_clean($this->events->apply_filters('dashboard_body_class', 'skin'));?>" 
+    class="header-mobile-fixed aside-fixed <?php echo xss_clean($this->events->apply_filters('dashboard_body_class', ''));?>" 
     <?php echo xss_clean($this->events->apply_filters('dashboard_body_attrs', 'ng-app="SainSuite"'));?>>
 
     <?php include('_header-mobile.php'); ?>
@@ -46,6 +46,6 @@
 
     <?php include('_scrolltop.php'); ?>
     <?php include('_modal.php'); ?>
-    <?php $this->events->do_action( 'common_footer' );?>
+    <?php $this->events->do_action( 'dashboard_footer' );?>
 </BODY>
 </HTML>

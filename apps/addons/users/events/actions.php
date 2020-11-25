@@ -12,14 +12,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @link        https://github.com/saintekno/sainsuite
  * @filesource
  */
-class Users_Action extends CI_model
+class Users_Action extends MY_Addon
 {
     public function __construct()
     {
         parent::__construct();
-        
-        // $this->events->add_action( 'load_dashboard', [ $this, 'load_dashboard' ] );
-        // $this->events->add_action( 'load_frontend', [ $this, 'load_frontend' ]  );
+
         $this->events->add_action('load_users_custom_fields', array( $this, 'load_users_custom_fields' ));
         $this->events->add_action('registration_rules', array( $this, 'registration_rules' ));
         $this->events->add_action('app_init', array($this, 'check_login'));
@@ -35,49 +33,45 @@ class Users_Action extends CI_model
     
     public function load_users_custom_fields($config)
     {
-        if ( $config[ 'mode' ] === 'edit' || $config[ 'mode' ] === 'profile' ) {
-            $this->polatan->add_item([
-                'type'      =>      'text',
-                'cols'      => array(
-                    [
-                        'name'      =>      'first-name',
-                        'label'     =>      __('First Name', 'aauth'),
-                        'value'     =>      $this->aauth->get_user_var( 'first-name', $config[ 'user_id' ] ),
-                    ],
-                    [
-                        'name'      =>      'last-name',
-                        'label'     =>      __('Last Name', 'aauth'),
-                        'value'     =>      $this->aauth->get_user_var( 'last-name', $config[ 'user_id' ] ),
-                    ]
-                )
-            ], $config[ 'meta_namespace' ], $config[ 'col_id' ]);
+        $this->polatan->add_item([
+            'type' => 'separator',
+        ], $config[ 'meta_namespace' ], $config[ 'col_id' ]);
 
-            $skin = $this->aauth->get_user_var( 'theme-skin', $config[ 'user_id' ]);
-        } 
-        else {
-            $this->polatan->add_item([
-                'type'      =>      'text',
-                'cols'      => array(
-                    [
-                        'name'      =>      'first-name',
-                        'label'     =>      __('First Name', 'aauth'),
-                        'user_id'   =>      @$config[ 'user_id' ],
-                    ],
-                    [
-                        'name'      =>      'last-name',
-                        'label'     =>      __('Last Name', 'aauth'),
-                        'user_id'   =>      @$config[ 'user_id' ],
-                    ]
-                )
-            ], $config[ 'meta_namespace' ], $config[ 'col_id' ]);
-        }              
-        
-        riake( 'gui', $config )->add_item(array(
-            'type'        =>    'dom',
-            'content'    =>   $this->load->addon_view( 'users', 'custom-fields', compact( 'config' ), true )
+        $this->polatan->add_item([
+            'type' => 'text',
+            'cols' => array(
+                [
+                    'name'  => 'first-name',
+                    'label' => __('First Name', 'aauth'),
+                    'value' => ($config[ 'user_id' ] == null) 
+                        ? set_value('first-name') 
+                        : set_value('first-name', $this->aauth->get_user_var( 'first-name', $config[ 'user_id' ] )),
+                ],
+                [
+                    'name'  => 'last-name',
+                    'label' => __('Last Name', 'aauth'),
+                    'value' => ($config[ 'user_id' ] == null)
+                        ? set_value('last-name') 
+                        : set_value('last-name', $this->aauth->get_user_var( 'last-name', $config[ 'user_id' ] )),
+                ]
+            )
+        ], $config[ 'meta_namespace' ], $config[ 'col_id' ]);
+
+        $this->polatan->add_item( array(
+            'type'  => 'input-image',
+            'accept' => '.png, .jpg, .jpeg',
+            'label' => __('user_image'),
+            'name'  => 'user_image',
+            'id'  => 'user_image',
+            'value' => ($config[ 'user_id' ] != null) ? $config[ 'user_id' ] : '',
         ), $config[ 'meta_namespace' ], $config[ 'col_id' ]);
 
-        unset( $skin, $config );
+        riake( 'gui', $config )->add_item(array(
+            'type' => 'dom',
+            'content' => $this->addon_view( 'users', 'custom-fields', compact( 'config' ), true )
+        ), $config[ 'meta_namespace' ], $config[ 'col_id' ]);
+
+        unset( $config );
     }
     
     public function registration_rules()

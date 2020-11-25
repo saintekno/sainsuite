@@ -25,7 +25,7 @@ class Curl
         if (function_exists('curl_init')) {
             $this->co = curl_init();
         } else {
-            throw new Exception( 'The CURL module is not enabled : curl_is_not_set' );
+            throw new Exception( 'The CURL addon is not enabled : curl_is_not_set' );
         }
     }
 

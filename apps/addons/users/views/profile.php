@@ -30,34 +30,23 @@ $this->polatan->add_meta(array(
     'type' => 'card'
 ));
 
-// Connected Apps
-$this->polatan->add_meta(array(
-    'col_id'    => 2,
-    'title'     => __( 'Connected Applications' , 'aauth'),
-    'namespace' => 'user_apps',
-    'gui_saver' => false,
-    'form'      => array(
-        'action' => null
-    )
-));
-
 // User name
 
 $this->polatan->add_item(array(
     'type'     => 'text',
-    'label'    => __('User Name', 'aauth'),
-    'name'     => 'username',
-    'disabled' => true,
-    'value'    => User::get()->username
-), 'user_profile', 1);
-
-// User email
-
-$this->polatan->add_item(array(
-    'type'  => 'text',
-    'label' => __('User Email', 'aauth'),
-    'name'  => 'user_email',
-    'value' => User::get()->email
+    'cols'  => array(
+        [
+            'label'    => __('User Name', 'aauth'),
+            'name'     => 'username',
+            'disabled' => true,
+            'value'    => set_value('username', User::get()->username) 
+        ],
+        [
+            'label' => __('User Email', 'aauth'),
+            'name'  => 'user_email',
+            'value'    => set_value('user_email', User::get()->email) 
+        ]
+    )
 ), 'user_profile', 1);
 
 // user password
@@ -85,17 +74,26 @@ $this->polatan->add_item(array(
 // load custom field for user creatin
 
 $this->events->do_action('load_users_custom_fields', array(
-    'mode'           => 'profile',
-    'groups'         => array(),
     'meta_namespace' => 'user_profile',
     'col_id'         => 1,
     'gui'            => $this->polatan,
     'user_id'        => User::get()->id
 ));
 
+// Connected Apps
+$this->polatan->add_meta(array(
+    'col_id'    => 2,
+    'title'     => __( 'Connected Applications' , 'aauth'),
+    'namespace' => 'user_apps',
+    'gui_saver' => false,
+    'form'      => array(
+        'action' => null
+    )
+));
+
 $this->polatan->add_item( array(
     'type'    => 'dom',
-    'content' => $this->load->addon_view( 'users', 'app-list', array(
+    'content' => $this->addon_view( 'users', 'app-list', array(
         'apps' => $apps
     ), true )
 ), 'user_apps',  2 );

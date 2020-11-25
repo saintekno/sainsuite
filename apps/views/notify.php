@@ -1,4 +1,41 @@
 <script>
+    function deleteConfirmation (el) {
+        var url = $(el).data('url');
+        var header = $(el).data('head');
+        Swal.fire({
+            title: header,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: true
+        }).then(function(result) {
+            if (result.value) {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    success: function(data) {
+                        $(el).closest('tr').css('background','tomato');
+                        $(el).closest('tr').fadeOut(800,function(){
+                            $(this).remove();
+                        });
+                        Swal.fire(
+                            "Deleted!",
+                            "Your file has been deleted.",
+                            "success"
+                        )
+                    }
+                });
+            } else if (result.dismiss === "cancel") {
+                Swal.fire(
+                    "Cancelled",
+                    "Your imaginary file is safe :)",
+                    "error"
+                )
+            }
+        });
+    }
+
     toastr.options = {
         "closeButton": false,
         "debug": false,
@@ -16,18 +53,6 @@
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     };
-
-    function notify(message) {
-        toastr.info(message);
-    }
-
-    function success_notify(message) {
-        toastr.success(message);
-    }
-
-    function error_notify(message) {
-        toastr.error(message);
-    }
 
     function error_required_field() {
         toastr.error("<?php _e('please_fill_all_the_required_fields'); ?>");

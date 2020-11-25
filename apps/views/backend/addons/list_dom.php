@@ -117,7 +117,7 @@
     <div class="card-body py-0">
         <?php
         global $Options;
-        $addons = Addons::get();
+        $addons = MY_Addon::get();
         if ($addons) : ?>
         <!--begin::Table-->
         <div class="table-responsive">
@@ -155,8 +155,8 @@
                                 </td>
                                 <td class="pr-0 text-right">
                                     <?php if( !$_addon[ 'application' ][ 'readonly' ] ) : ?>
-                                    <?php if (isset($_addon[ 'application' ][ 'main' ])) { // if the module has a main file, it can be activated
-                                        if (! Addons::is_active($addon_namespace, true)) {?>
+                                    <?php if (isset($_addon[ 'application' ][ 'main' ])) { // if the addon has a main file, it can be activated
+                                        if (! MY_Addon::is_active($addon_namespace, true)) {?>
                                             <a href="<?php echo site_url(array( 'admin', 'addons', 'enable', $addon_namespace ));?>" 
                                             class="btn btn-sm btn-light-success font-weight-bolder text-uppercase my-1" data-action="enable">
                                                 <i class="fa fa-toggle-on"></i> Enable
@@ -206,7 +206,7 @@
                                                 <?php endif; ?>
 
                                                 <?php
-                                                $hasMigration = Addons::migration_files( 
+                                                $hasMigration = MY_Addon::migration_files( 
                                                     $addon_namespace, 
                                                     $last_version, 
                                                     $addon_version

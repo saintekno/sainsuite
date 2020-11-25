@@ -81,7 +81,7 @@ class User_model extends CI_Model
      * @return: bool
     **/
 
-    public function create($email, $password, $username, $group_par, $user_status = '1')
+    public function create($email, $password, $username, $group_par, $user_status = 1)
     {
         $user_creation_status = $this->aauth->create_user($email, $password, $username);
         if (! $user_creation_status) {
@@ -90,6 +90,7 @@ class User_model extends CI_Model
 
         // bind user to a speciifc group
         $user_id = $this->aauth->get_user_id($email);
+
         // Send Verification
         $this->aauth->send_verification($user_id);
 
@@ -98,7 +99,7 @@ class User_model extends CI_Model
         $this->aauth->add_member($user_id, $group_par);
 
         // User Status
-        if ($user_status == '0') {
+        if ($user_status == 0) {
             $user = $this->aauth->get_user($user_id);
             if( $user ) {
                 $this->aauth->verify_user($user_id, $user->verification_code);
@@ -111,7 +112,9 @@ class User_model extends CI_Model
             $this->aauth->set_user_var($key, $value, $user_id);
         }
 
-        return 'user-created';
+        User::upload_user_image($user_id);
+
+        return 'created';
     }
 
     /***
@@ -123,7 +126,7 @@ class User_model extends CI_Model
 
     public function edit($user_id, $email, $password, $group_id, $user_group, $old_password = null, $mode = 'edit', $user_status = '0')
     {
-        $return = 'user-updated';
+        $return = 'updated';
         // old password has been defined
         if ($old_password != null) 
         {
@@ -168,8 +171,10 @@ class User_model extends CI_Model
 
         $custom_fields = $this->events->apply_filters('custom_user_meta', array());
         foreach ( force_array($custom_fields) as $key => $value) {
-            $this->aauth->set_user_var($key, strip_tags( xss_clean( $value ) ), $user_id);
+            $this->aauth->set_user_var($key, strip_tags( $value ), $user_id);
         } 
+
+        User::upload_user_image($user_id);
 
         return $return;
     }
@@ -201,7 +206,7 @@ class User_model extends CI_Model
             $user = $this->aauth->get_user($admin_id);
             $this->aauth->verify_user($admin_id, $user->verification_code);
             
-            return 'user-created';
+            return 'created';
         }
         return 'unexpected-error';
     }

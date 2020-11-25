@@ -12,7 +12,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @link        https://github.com/saintekno/sainsuite
  * @filesource
  */
-class UsersHomeController extends CI_Model
+class UsersHomeController extends MY_Addon
 {
     public function __construct()
     {
@@ -57,7 +57,7 @@ class UsersHomeController extends CI_Model
         });
         
         // Title
-		Polatan::set_title(sprintf(__('Users &mdash; %s', 'users'), get('signature')));
+		Polatan::set_title(sprintf(__('Users &mdash; %s'), get('signature')));
         
         // Data
         $index = empty( $index ) ? 1 : $index;
@@ -70,7 +70,7 @@ class UsersHomeController extends CI_Model
             $data['users'] = $this->aauth->list_users( $this->aauth->config_vars['member_group'], $config_vars['per_page'], ( intval( $index ) - 1 ) * $config_vars['per_page'], true);
         }
 
-        $this->load->addon_view( 'users', 'users/read', $data );
+        $this->addon_view( 'users', 'users/read', $data );
     }
 
     /**
@@ -106,7 +106,7 @@ class UsersHomeController extends CI_Model
                 $this->input->post('user_status' )
             );
             
-            if ($exec == 'user-created') 
+            if ($exec == 'created') 
             {
                 redirect(array( 'admin', 'users?notice=' . $exec ));
                 exit;
@@ -129,11 +129,11 @@ class UsersHomeController extends CI_Model
         });
         
         // Title
-		Polatan::set_title(sprintf(__('Users &mdash; %s', 'users'), get('signature')));
+		Polatan::set_title(sprintf(__('Users &mdash; %s'), get('signature')));
         
         // Data
 		$data['groups'] = $this->aauth->list_groups();
-        $this->load->addon_view( 'users', 'users/create', $data );
+        $this->addon_view( 'users', 'users/form', $data );
     }
 
     /**
@@ -188,7 +188,7 @@ class UsersHomeController extends CI_Model
                 $this->input->post( 'user_status' )
             );
 
-            $this->session->set_flashdata('flash_message', $this->lang->line('user-updated'));
+            $this->session->set_flashdata('flash_message', $this->lang->line('updated'));
             redirect(current_url(), 'refresh');
         }
 
@@ -204,13 +204,13 @@ class UsersHomeController extends CI_Model
         });
         
         // Title
-		Polatan::set_title(sprintf(__('Users &mdash; %s', 'users'), get('signature')));
+		Polatan::set_title(sprintf(__('Users &mdash; %s'), get('signature')));
         
         // Data
 		$data['groups'] = $groups;
 		$data['user'] = $user;
 		$data['user_group'] = $user_group;
-        $this->load->addon_view( 'users', 'users/update', $data );
+        $this->addon_view( 'users', 'users/form', $data );
     }
 
     /**
@@ -218,7 +218,7 @@ class UsersHomeController extends CI_Model
      * @return redirect
      */
 
-    public function delete( $index )
+    public function delete( $index, $redirect = 'users' )
     {
         if (! User::control('delete.users')) {
             $this->session->set_flashdata('info_message', __( 'Access denied. Youre not allowed to see this page.' ));
@@ -233,7 +233,7 @@ class UsersHomeController extends CI_Model
 
         if ($user) {
             $this->aauth->delete_user($index);
-            redirect(array( 'admin', 'users?notice=user-deleted' ));
+            redirect(array( 'admin', $redirect.'?notice=deleted' ));
         }
     }
 }

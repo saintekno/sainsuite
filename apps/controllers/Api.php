@@ -69,11 +69,11 @@ class Api extends MY_Controller
 				'prefix' => substr( request()->getHeader( 'script-name' ), 0, -10 ) . '/api' 
 			], function() use ( $page, $Routes ) 
 			{
-				$addons = Addons::get();
+				$addons = MY_Addon::get();
 					
 				foreach( force_array($addons) as $namespace => $addon )  
 				{
-					if( ! Addons::is_active( $namespace ) ) {
+					if( ! MY_Addon::is_active( $namespace ) ) {
 						continue;
 					}
 

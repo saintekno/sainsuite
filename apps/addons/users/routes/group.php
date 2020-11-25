@@ -12,7 +12,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @link        https://github.com/saintekno/sainsuite
  * @filesource
  */
-class GroupsHomeController extends CI_Model
+class GroupsHomeController extends MY_Addon
 {
     public function __construct()
     {
@@ -48,7 +48,7 @@ class GroupsHomeController extends CI_Model
 		Polatan::set_title(sprintf(__('Group &mdash; %s', 'group'), get('signature')));
         
         $data['groups'] = $this->aauth->list_groups();
-        $this->load->addon_view( 'users', 'group/read', $data );
+        $this->addon_view( 'users', 'group/read', $data );
     }
 
     /**
@@ -85,7 +85,7 @@ class GroupsHomeController extends CI_Model
             );
 
             if ($exec) {
-                redirect(array( 'admin', 'users', 'group?notice=group-created'));
+                redirect(array( 'admin', 'users', 'group?notice=created'));
             } else {
                 $this->notice->push_notice_array($this->aauth->get_infos_array());
             }
@@ -94,7 +94,7 @@ class GroupsHomeController extends CI_Model
         // Title
 		Polatan::set_title(sprintf(__('Group &mdash; %s', 'group'), get('signature')));
         
-        $this->load->addon_view( 'users', 'group/add' );
+        $this->addon_view( 'users', 'group/form' );
     }
 
     /**
@@ -133,7 +133,7 @@ class GroupsHomeController extends CI_Model
             );
 
             if ($exec) {
-                $this->session->set_flashdata('flash_message', $this->lang->line('group-updated'));
+                $this->session->set_flashdata('flash_message', $this->lang->line('updated'));
                 redirect(current_url(), 'refresh');
             } else {
                 $this->notice->push_notice_array($this->lang->line('unexpected-error'));
@@ -144,7 +144,7 @@ class GroupsHomeController extends CI_Model
 		Polatan::set_title(sprintf(__('Group &mdash; %s', 'group'), get('signature')));
         
         $data['group'] = $this->aauth->get_group($index);
-        $this->load->addon_view( 'users', 'group/edit', $data );
+        $this->addon_view( 'users', 'group/form', $data );
     }
 
     /**
@@ -160,6 +160,6 @@ class GroupsHomeController extends CI_Model
         }
 
         $exec = $this->aauth->delete_group($index);
-        redirect(array( 'admin', 'users', 'group?notice=group-deleted'));
+        redirect(array( 'admin', 'users', 'group?notice=deleted'));
     }
 }

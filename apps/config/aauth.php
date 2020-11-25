@@ -86,8 +86,8 @@ $config_aauth["default"] = array(
  'no_permission'                  => false,
 
  'admin_group'                    => 'admin',
- 'member_group'                  => 'member',
- 'user_group'                   => 'user',
+ 'member_group'                   => 'member',
+ 'user_group'                     => 'user',
 
  'db_profile'                     => 'default',
 
@@ -104,7 +104,7 @@ $config_aauth["default"] = array(
 
  'remember'                       => ' +3 days',
 
- 'max'                            => 13,
+ 'max'                            => 30,
  'min'                            => 3,
 
  'additional_valid_chars'         => array(),
@@ -129,7 +129,7 @@ $config_aauth["default"] = array(
  'login_with_name'                => true,
 
  'email'                          => 'sainteknoid@gmail.com',
- 'name'                           => 'Buddy Winangun',
+ 'name'                           => 'SAINTEKNO',
  'email_config'                   => false,
 
  'verification'                   => false,
@@ -145,7 +145,7 @@ $config_aauth["default"] = array(
  'pm_cleanup_max_age'             => "3 months",
 );
 
-$config['aauth'] = $config_aauth['default'];
+$config['aauth'] = get_instance()->events->apply_filters('config_aauth', $config_aauth['default']);
 
 /* End of file aauth.php */
 /* Location: ./application/config/aauth.php */

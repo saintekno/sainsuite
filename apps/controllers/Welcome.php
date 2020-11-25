@@ -17,14 +17,13 @@ class Welcome extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
+        $this->load->model('welcome_model');
 	}
 
 	public function index()
 	{
-        if (! empty($this->events->has_filter('load_frontend'))) :
-            $this->events->do_action('load_frontend');
-        else :
-            $this->load->view( 'frontend/'.theme().'/home' );
-        endif;
+		$this->events->do_action(
+			$this->events->apply_filters('load_frontend', 'load_frontend_home')
+		);
 	}
 }

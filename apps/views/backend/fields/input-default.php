@@ -1,21 +1,30 @@
 <div class="form-group row">
     <?php if (riake('cols', $_item)) :?>
-        <?php foreach (force_array(riake('cols', $_item)) as $col) : ?>
-        <div class="col-<?php echo count(riake('cols', $_item, 1)) * 3 ;?>">
+        <?php 
+        foreach (force_array(riake('cols', $_item)) as $col) : 
+        $count_cols = count(riake('cols', $_item));
+        ?>
+        <div class="col-<?php echo ($count_cols * 3) * 12 / ($count_cols * 3) / $count_cols ;?>">
             <label class="font-size-lg text-dark font-weight-bold"><?php echo riake('label', $col);?>:</label>
-            <input class="form-control <?php echo riake('class', $col);?>" <?php echo $disabled === true ? 'disabled="disabled"' : '';?>
+            <input class="form-control 
+                <?php echo riake('class', $col);?>" 
+                <?php echo $disabled === true ? 'disabled="disabled"' : '';?>
+                <?php echo $required === true ? 'required' : '';?>
                 type="<?php echo $type;?>" 
                 id="<?php echo riake('id', $col);?>" 
                 name="<?php echo riake('name', $col);?>" 
                 placeholder="<?php echo riake('placeholder', $col);?>"
                 value="<?php echo riake('value', $col);?>" />
-            <span class="form-text text-muted"><?php echo riake('description', $col);?></span>
+            <span class="form-text text-muted"><?php echo xss_clean($description);?></span>
         </div>
         <?php endforeach; ?>
     <?php else :?>
     <div class="col-12">
         <label class="font-size-lg text-dark font-weight-bold"><?php echo riake('label', $_item);?>:</label>
-        <input class="form-control <?php echo $class;?>" <?php echo $disabled === true ? 'disabled="disabled"' : '';?>
+        <input class="form-control 
+            <?php echo $class;?>" 
+            <?php echo $disabled === true ? 'disabled="disabled"' : '';?>
+            <?php echo $required === true ? 'required' : '';?>
             id="<?php echo $id;?>" 
             type="<?php echo $type;?>" 
             name="<?php echo riake('name', $_item);?>" 
@@ -26,6 +35,7 @@
     <?php endif;?>
 </div>
 
+<?php if (riake('datepicker', $_item)) :?>
 <script>
 var KTBootstrapDatepicker = function () {
 
@@ -62,7 +72,6 @@ var KTBootstrapDatepicker = function () {
         }).attr("readonly", "readonly").css({"cursor":"pointer", "background":"white"});
     }
 
-
     return {
         // public functions
         init: function() {
@@ -78,3 +87,4 @@ jQuery(document).ready(function() {
     KTBootstrapDatepicker.init();
 });
 </script>
+<?php endif;?>

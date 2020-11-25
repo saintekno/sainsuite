@@ -6,6 +6,7 @@
         "author": "saintekno",
         "description": "Users by SainTekno",
         "main": "main.php",
+        "language": "language",
         "readonly": true
     }
 }

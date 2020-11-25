@@ -27,26 +27,47 @@ class Admin extends MY_Controller
 
         // Loading Admin Menu
         $this->events->do_action( 'load_dashboard' );
-
-        $this->_dashboard_assets();
-        $this->events->add_action( 'common_footer', function(){
-            $this->load->view('backend/script');
-        });
-    }
-    
-    /**
-     * Assets login
-     */
-    public function _dashboard_assets()
-    {
-        $this->enqueue->css_namespace( 'common_header' );
-        $this->enqueue->addon_css('datatables', 'datatables.bundle');
         
-        $this->enqueue->js_namespace( 'common_footer' );
+        // Load CSS and JS
+        $this->events->add_action( 'dashboard_header', array( $this, '_dashboard_header' ), 1 );
+        $this->events->add_action( 'dashboard_footer', array( $this, '_dashboard_footer' ), 1 );
+    }
+
+    /**
+     *  Dashboard header
+     *  @param void
+     *  @return void
+    **/
+
+    public function _dashboard_header()
+    {
+        $this->events->do_action( 'common_header' );
+
+        $this->enqueue->css_namespace( 'dashboard_header' );
+        $this->enqueue->addon_css('datatables', 'datatables.bundle');
+        ($this->events->apply_filters('dashboard_skin_class', 'skin-light') == 'skin-light') 
+            ? $this->enqueue->css('skin/light') 
+            : $this->enqueue->css('skin/dark');
+        $this->enqueue->load_css( 'dashboard_header' );
+    }
+
+    /**
+     *  Dashboard Footer
+     *  @param void
+     *  @return void
+    **/
+
+    public function _dashboard_footer()
+    {
+        $this->enqueue->js_namespace( 'dashboard_footer' );
         $this->enqueue->js('angular.min', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/');
 		$this->enqueue->js('underscore-min', 'https://cdn.jsdelivr.net/npm/underscore@1.11.0/');
 		$this->enqueue->js('heartcode-canvasloader-min', 'https://cdn.jsdelivr.net/canvasloader-ui/0.9/');
         $this->enqueue->addon_js('datatables', 'datatables.bundle');
+        $this->enqueue->load_js( 'dashboard_footer' );
+
+        $this->load->view('backend/script');
+        $this->events->do_action( 'common_footer' );
     }
 
 	// --------------------------------------------------------------------
@@ -74,11 +95,11 @@ class Admin extends MY_Controller
                 'prefix' => substr( request()->getHeader( 'script-name' ), 0, -10 ) . '/admin' 
             ], function() use ( $page, $Routes ) {
 
-                $addons = Addons::get();
+                $addons = MY_Addon::get();
                 
                 foreach( force_array($addons) as $namespace => $addon ) 
                 {
-					if( Addons::is_active( $namespace ) ) 
+					if( MY_Addon::is_active( $namespace ) ) 
 					{
                         if( is_dir( $dir = ADDONSPATH . $namespace . '/routes/' ) ) {
                             foreach( glob( $dir . "*.php") as $filename) {
@@ -114,13 +135,9 @@ class Admin extends MY_Controller
      */
 	public function index()
 	{
-        Polatan::set_title(sprintf(__('Dashboard &mdash; %s'), get('signature')));
-
-        if (! empty($this->events->has_filter('load_dashboard_home'))) :
-            $this->events->do_action('load_dashboard_home');
-        else :
-            $this->polatan->output();
-        endif;
+		$this->events->do_action(
+			$this->events->apply_filters('load_dashboard_home', 'load_dashboard_homes')
+		);
 	}
 
     // --------------------------------------------------------------------
@@ -158,7 +175,7 @@ class Admin extends MY_Controller
 
             if (isset($_FILES[ 'extension_zip' ])) 
             {
-                $notice = Addons::install('extension_zip');
+                $notice = MY_Addon::install('extension_zip');
                 // it means that addon has been installed
                 if (is_array($notice)) 
                 {
@@ -190,9 +207,9 @@ class Admin extends MY_Controller
                 redirect(site_url('admin/page404'));
             }
 
-            Addons::enable($arg2);
+            MY_Addon::enable($arg2);
 
-            Addons::init('unique', $arg2);
+            MY_Addon::init('unique', $arg2);
 
             $this->events->do_action('do_enable_addon', $arg2);
 
@@ -206,7 +223,7 @@ class Admin extends MY_Controller
                 redirect(site_url('admin/page404'));
             }
 
-            Addons::disable($arg2);
+            MY_Addon::disable($arg2);
 
             $this->events->do_action('do_disable_addon', $arg2);
 
@@ -215,7 +232,7 @@ class Admin extends MY_Controller
         }
         elseif ($page === 'sync') 
         {
-            Addons::sync($arg2);
+            MY_Addon::sync($arg2);
             
             redirect(array( 'admin', 'addons?notice=addon-sync' ));
         }
@@ -227,11 +244,11 @@ class Admin extends MY_Controller
                 redirect(site_url('admin/page404'));
             }
 
-            Addons::init('unique', $arg2);
+            MY_Addon::init('unique', $arg2);
             
             $this->events->do_action('do_remove_addon', $arg2);
 
-            Addons::uninstall($arg2);
+            MY_Addon::uninstall($arg2);
 
             redirect(array( 'admin', 'addons?notice=addon-removed' ));
         }
@@ -243,7 +260,7 @@ class Admin extends MY_Controller
                 redirect(site_url('admin/page404'));
             }
 
-            Addons::extract($arg2);
+            MY_Addon::extract($arg2);
 
             $this->events->do_action('do_extract_addon', $arg2);
         }
@@ -259,7 +276,7 @@ class Admin extends MY_Controller
                 $arg3 = get_option( 'migration_' . $arg2, '1.0', $arg2);
             }
 
-            $addon = Addons::get($arg2);
+            $addon = MY_Addon::get($arg2);
             $migrate_file = ADDONSPATH . $addon[ 'application' ][ 'namespace' ] . '/migrate.php';
 
 			if (! $addon) {
@@ -267,7 +284,7 @@ class Admin extends MY_Controller
             }
 
             $data['migrate_file'] = $migrate_file;
-            $data['migrate_data'] = json_encode( array_keys( Addons::migration_files( 
+            $data['migrate_data'] = json_encode( array_keys( MY_Addon::migration_files( 
                 $addon[ 'application'][ 'namespace' ], 
                 $arg3, 
                 $addon[ 'application'][ 'version' ] 
@@ -285,7 +302,7 @@ class Admin extends MY_Controller
                 redirect(site_url('admin/page404'));
             }
 
-            $addon = Addons::get($arg2);
+            $addon = MY_Addon::get($arg2);
             
             ob_start();
             $migration_array = include_once(ADDONSPATH . $addon[ 'application' ][ 'namespace' ] . '/migrate.php');
@@ -384,9 +401,9 @@ class Admin extends MY_Controller
         }
         elseif ($page === 'enable') 
         {
-            Addons::enable($arg2);
+            MY_Addon::enable($arg2);
 
-            Addons::init('unique', $arg2);
+            MY_Addon::init('unique', $arg2);
 
             $this->events->do_action('do_enable_addon', $arg2);
 
@@ -394,7 +411,7 @@ class Admin extends MY_Controller
         }
         elseif ($page === 'disable') 
         {
-            Addons::disable($arg2);
+            MY_Addon::disable($arg2);
 
             $this->events->do_action('do_disable_addon', $arg2);
 
@@ -403,17 +420,17 @@ class Admin extends MY_Controller
         }
         elseif ($page === 'remove') 
         {
-            Addons::init('unique', $arg2);
+            MY_Addon::init('unique', $arg2);
             
             $this->events->do_action('do_remove_addon', $arg2);
 
-            Addons::uninstall($arg2);
+            MY_Addon::uninstall($arg2);
 
             redirect(array( 'admin', 'addons?notice=addon-removed' ));
         }
         elseif ($page === 'extract') 
         {
-            Addons::extract($arg2);
+            MY_Addon::extract($arg2);
 
             $this->events->do_action('do_extract_addon', $arg2);
         }
@@ -431,7 +448,7 @@ class Admin extends MY_Controller
     {
         if (in_array($mode, array( 'save', 'merge' ))) 
         {
-            // Can user extract modules ?
+            // Can user extract addons ?
             if (! User::control('edit.options')) {
                 $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
                 redirect(site_url('admin/page404'));
@@ -522,7 +539,7 @@ class Admin extends MY_Controller
     **/
     public function settings()
     {
-        // Can user access modules ?
+        // Can user access addons ?
         if (! User::control('create.options') &&
             ! User::control('read.options')
         ) {
@@ -569,7 +586,7 @@ class Admin extends MY_Controller
         else {
             $this->load->library('markdown');
             Polatan::set_title(sprintf(__('About &mdash; %s'), get('signature')));
-            // Can user access modules ?
+            // Can user access addons ?
             $data['check'] = (! User::control('manage.core') ) ? false : $this->update_model->check();
             $this->load->view( 'backend/about/index', $data );
         }
@@ -585,8 +602,10 @@ class Admin extends MY_Controller
      */
     public function page404()
     {
-        if ($this->session->flashdata('error_message') == ""):
-            return redirect(site_url('admin'));
+        if ( $this->session->flashdata('error_message') == ""
+            && $this->session->flashdata('info_message') == ""
+            && $this->session->flashdata('flash_message') == ""
+        ) : return redirect(site_url('admin'));
         endif;
         
         Polatan::set_title(sprintf(__('404 &mdash; %s'), get('signature')));

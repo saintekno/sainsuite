@@ -24,7 +24,7 @@ class Options_Model extends CI_Model
     }
 
     /**
-     * Is being loader after active modules has been loaded
+     * Is being loader after active addons has been loaded
     **/
     public function init()
     {
@@ -37,7 +37,7 @@ class Options_Model extends CI_Model
     **/
     public function defineLanguage()
     {
-        get_instance()->config->set_item('site_language', $this->events->apply_filters( 'site_language', $this->get( 'site_language', 'en_US' ) ) );
+        get_instance()->config->set_item('site_language', $this->events->apply_filters( 'site_language', $this->get( 'site_language' ) ) );
     }
 
     /**
@@ -49,7 +49,7 @@ class Options_Model extends CI_Model
      * @param : string
      * @param : vars
      * @param : int user_id
-     * @param : string script context ([app_namespace]/[app_type]), example : 'blogster/module' , 'avera/theme'
+     * @param : string script context ([app_namespace]/[app_type]), example : 'blogster/addon' , 'avera/theme'
      * @return : void
     **/
     public function set($key, $value, $app = 'system')

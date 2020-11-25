@@ -28,8 +28,8 @@ $lang['aauth_email_reset_success_subject']      = __('Successful Pasword Reset')
 $lang['aauth_email_reset_success_new_password'] = __('Your password has successfully been reset. Your new password is : ');
 
 // Account creation errors
-$lang['aauth_error_email_exists']       = __('Email address already exists on the system. If you forgot your password, you can click the link below.');
-$lang['aauth_error_username_exists']    = __('Account already exists on the system with that username. Please enter a different username, or if you forgot your password, please click the link below.');
+$lang['aauth_error_email_exists']       = __('Email address already exists on the system.');
+$lang['aauth_error_username_exists']    = __('Account already exists on the system with that username. Please enter a different username.');
 $lang['aauth_error_email_invalid']      = __('Invalid email address');
 $lang['aauth_error_password_invalid']   = __('Invalid password');
 $lang['aauth_error_username_invalid']   = __('Invalid Username');
@@ -75,18 +75,3 @@ $lang[ 'fetch-error-from-auth' ] = function () {
         echo $notice;
     }
 };
-
-// User Edition
-$lang[ 'user-updated' ]       = __('User settings has been updated.');
-$lang[ 'user-deleted' ]       = __('The user has been deleted.');
-$lang[ 'pass-change-error' ]  = __('The new password cannot match the old one, please use another password.');
-$lang[ 'old-pass-incorrect' ] = __('Your old password is not correct.');
-
-// Group
-$lang[ 'group-already-exists' ] = __('A group with this name already exists. Please choose another name.');
-$lang[ 'group-created' ]        = __('Group has been created.');
-$lang[ 'group-not-found' ]      = __('This group does\'nt exists or has been deleted.');
-$lang[ 'unknow-group' ]         = __('Unknow group.');
-$lang[ 'group-updated' ]        = __('Group has been updated.');
-$lang[ 'group-deleted' ]        = __('Group has been Deleted.');
-$lang[ 'cant-delete-yourself' ] = __('You cant delete your own  account.' );

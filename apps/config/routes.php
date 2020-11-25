@@ -13,3 +13,4 @@ $route['translate_uri_dashes'] = FALSE;
 $route[ 'login' ]    = 'auth';
 $route[ 'logout' ]   = 'auth/logout';
 $route[ 'register' ] = 'auth/register';
+$route[ 'recovery' ] = 'auth/recovery';

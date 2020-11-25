@@ -25,45 +25,28 @@
                 <!--begin::Wrapper-->
                 <div class="login-content d-flex flex-column pt-lg-0 pt-12">
                     <!--begin::Logo-->
-                    <a href="<?php echo site_url();?>" class="login-logo pb-5">
-                        <img alt="<?php echo get('app_name');?>" src="<?php echo $this->events->apply_filters( 'signin_logo', upload_url().'system/logo-light-sm.png' ); ?>" class="max-h-30px" />
+                    <a href="<?php echo site_url();?>" class="login-logo pb-xl-20 pb-15">
+                        <img alt="<?php echo get('app_name');?>" src="<?php echo $this->events->apply_filters( 'signin_logo', upload_url().'system/logo-light-sm.png' ); ?>" class="max-h-40px" />
                     </a>
                     <!--end::Logo-->
-    
-                    <!--begin::Title-->
-                    <div class="pb-5 pb-lg-10">
-                        <h3 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg"><?php _e('Sign In');?></h3>
-                        <p class="text-muted mb-4"><?php echo $this->events->apply_filters('signin_notice_message', $this->lang->line('signin-notice-message'));?></p>
-                        
-                        <?php
-                        global $Options;
-                        // Should checks whether a registration is enabled
-                        if (intval(riake('site_registration', $Options)) == true) : ?>
-                            <div class="text-muted font-weight-bold font-size-h4">
-                                <?php _e('New Here?');?>
-                                <a href="<?php echo site_url('register'); ?>" class="text-primary font-weight-bolder"><?php _e('Sign Up'); ?></a>
-                            </div>
-                        <?php endif; ?>
                     
-                        <?php if (function_exists('validation_errors')) {
-                            if (validation_errors()) : ?>
-                            <div class="alert alert-danger" role="alert">
-                                <?php echo str_replace('.', '<br>', strip_tags(validation_errors()))?>
-                            </div>
-                            <?php endif; ?>
-                        <?php } ?>
-                        <?php if ($this->notice->output_notice(true)):?>
-                            <div class="alert alert-danger" role="alert">
-                                <?php echo $this->notice->output_notice();?>
-                            </div>
-                        <?php endif;?>
-                        <?php if (notice_from_url() != ""):?>
-                            <div class="alert alert-success" role="alert">
-                                <?php echo notice_from_url();?>
-                            </div>
-                        <?php endif;?>
-                    </div>
-                    <!--begin::Title-->
+                    <?php if (function_exists('validation_errors')) {
+                        if (validation_errors()) : ?>
+                        <div class="alert alert-danger" role="alert">
+                            <?php echo str_replace('.', '<br>', strip_tags(validation_errors()))?>
+                        </div>
+                        <?php endif; ?>
+                    <?php } ?>
+                    <?php if ($this->notice->output_notice(true)):?>
+                        <div class="alert alert-danger" role="alert">
+                            <?php echo $this->notice->output_notice();?>
+                        </div>
+                    <?php endif;?>
+                    <?php if (notice_from_url() != ""):?>
+                        <div class="alert alert-success" role="alert">
+                            <?php echo notice_from_url();?>
+                        </div>
+                    <?php endif;?>
 
                     <!--begin::Signin-->
                     <div class="login-form">
