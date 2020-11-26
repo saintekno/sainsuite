@@ -24,7 +24,7 @@ foreach ($users as $user) {
         '<a href="' . site_url(array( 'admin', 'users', 'edit', $user->user_id )) . '" 
             class="btn btn-icon btn-light btn-hover-primary btn-sm btn-edit"><i class="fas fa-pen"></i></a>
         <button class="btn btn-icon btn-light btn-hover-danger btn-sm btn-delete"
-            data-head=\'' . _s( 'Would you like to delete this account ?', 'aauth' ) . '\'
+            data-head=\'' . _s( 'Would you like to delete this account?', 'aauth' ) . '\'
             data-url=\'' . site_url(array( 'admin', 'users', 'delete', $user->user_id )) . '\'
             onclick="deleteConfirmation(this)"><i class="fas fa-trash-alt"></i></button>' ,
             

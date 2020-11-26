@@ -2,7 +2,7 @@
     $('#delete_all').click(function(){
         Swal.fire({
             title: 'Would you like to delete all ?',
-            icon: "warning",
+            icon: "question",
             showCancelButton: true,
             confirmButtonText: "Yes, delete it!",
             cancelButtonText: "No, cancel!",
@@ -54,7 +54,7 @@
         var header = $(el).data('head');
         Swal.fire({
             title: header,
-            icon: "warning",
+            icon: "question",
             showCancelButton: true,
             confirmButtonText: "Yes, delete it!",
             cancelButtonText: "No, cancel!",
