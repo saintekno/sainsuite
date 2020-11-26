@@ -68,23 +68,3 @@ global $Options;
     </div>
     <!--end::Action-->
 </form>
-
-<?php
-// Should checks whether a registration is enabled
-if (intval(riake('demo_mode', $Options)) == true) : ?>              
-<hr>
-<h5 class="box-title mt-5">Demo account login credentials</h5>
-<div class="d-block py-2">
-    <div class="btn-group btn-group-sm">
-        <a href="javascript:;" data-email="demohrd@gmail.com" data-password="111111" type="button" class="btn bt-sm btn-outline-secondary copy-login"><i class="fa fa-clipboard"></i> Admin</a>
-    </div>
-</div>
-<script>
-    $('.copy-login').click(function () {
-        var email = $(this).data('email');
-        var password = $(this).data('password');
-        $('#form-username').val(email);
-        $('#form-password').val(password);
-    })
-</script>
-<?php endif; ?>

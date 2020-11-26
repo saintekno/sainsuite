@@ -243,16 +243,7 @@ class Users_Install extends MY_Addon
         );
         
         if ($create_user != 'created') {
-            $this->events->add_filter('validating_setup', array( $this, 'preparing_errors' ));
-        }
-    }
-    
-    public function preparing_errors()
-    {
-        if (is_array($this->aauth->errors)) {
-            foreach ($this->aauth->errors as $error) {
-                $this->notice->push_notice($error);
-            }
+            $this->events->add_filter('validating_setup', $this->notice->push_notice_array($this->aauth->errors));
         }
     }
 }

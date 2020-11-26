@@ -194,9 +194,8 @@ class Admin extends MY_Controller
                         redirect(array( 'admin', 'addons', 'list?highlight=' . @$notice[ 'namespace' ] . '&notice=' . $notice[ 'msg' ] . (isset($notice[ 'extra' ]) ? '&extra=' . $notice[ 'extra' ] : '') . '#addon-' . $notice[ 'namespace' ] ));
                     }
                 } 
-                else {
-                    $this->notice->push_notice($this->lang->line($notice));
-                }
+
+                $this->notice->push_notice_array($notice);
             }
         }
         elseif ($page === 'enable') 

@@ -47,6 +47,11 @@ class GroupsHomeController extends MY_Addon
         // Title
 		Polatan::set_title(sprintf(__('Group &mdash; %s', 'group'), get('signature')));
         
+        // BreadCrumb
+        $this->breadcrumb->add(__('Home'), site_url('admin'));
+        $this->breadcrumb->add(__('Group'), site_url('admin/users/group'));
+        
+        $data['breadcrumbs'] = $this->breadcrumb->render();
         $data['groups'] = $this->aauth->list_groups();
         $this->addon_view( 'users', 'group/read', $data );
     }
@@ -67,7 +72,7 @@ class GroupsHomeController extends MY_Addon
 			$final[] = array(
 				'title'   => __('Back to the list'),
 				'icon'    => 'ki ki-long-arrow-back',
-				'button'  => 'btn-light-primary',
+				'button'  => 'btn-light',
 				'href'    => site_url([ 'admin', 'users', 'group' ])
 			);
 			return $final;
@@ -86,15 +91,21 @@ class GroupsHomeController extends MY_Addon
 
             if ($exec) {
                 redirect(array( 'admin', 'users', 'group?notice=created'));
-            } else {
-                $this->notice->push_notice_array($this->aauth->get_infos_array());
-            }
+            } 
+            
+            $this->notice->push_notice_array($exec);
         }
         
         // Title
 		Polatan::set_title(sprintf(__('Group &mdash; %s', 'group'), get('signature')));
         
-        $this->addon_view( 'users', 'group/form' );
+        // BreadCrumb
+        $this->breadcrumb->add(__('Home'), site_url('admin'));
+        $this->breadcrumb->add(__('Group'), site_url('admin/users/group'));
+        $this->breadcrumb->add(__('Add New'), site_url('admin/users/group/add'));
+        
+        $data['breadcrumbs'] = $this->breadcrumb->render();
+        $this->addon_view( 'users', 'group/form', $data );
     }
 
     /**
@@ -114,7 +125,7 @@ class GroupsHomeController extends MY_Addon
 			$final[] = array(
 				'title'   => __('Back to the list'),
 				'icon'    => 'ki ki-long-arrow-back',
-				'button'  => 'btn-light-primary',
+				'button'  => 'btn-light',
 				'href'    => site_url([ 'admin', 'users', 'group' ])
 			);
 			return $final;
@@ -143,6 +154,12 @@ class GroupsHomeController extends MY_Addon
         // Title
 		Polatan::set_title(sprintf(__('Group &mdash; %s', 'group'), get('signature')));
         
+        // BreadCrumb
+        $this->breadcrumb->add(__('Home'), site_url('admin'));
+        $this->breadcrumb->add(__('Group'), site_url('admin/users/group'));
+        $this->breadcrumb->add(__('Edit'), site_url('admin/users/group/edit'));
+        
+        $data['breadcrumbs'] = $this->breadcrumb->render();
         $data['group'] = $this->aauth->get_group($index);
         $this->addon_view( 'users', 'group/form', $data );
     }

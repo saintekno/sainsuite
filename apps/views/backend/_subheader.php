@@ -30,7 +30,7 @@
     if (validation_errors()) : ?>
     <div class="container">
         <div class="alert alert-danger" role="alert">
-            <?php echo str_replace('.', '<br>', strip_tags(validation_errors()))?>
+            <?php echo strip_tags(validation_errors())?>
         </div>
     </div>
     <?php endif; ?>

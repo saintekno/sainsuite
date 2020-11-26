@@ -33,7 +33,7 @@
                     <?php if (function_exists('validation_errors')) {
                         if (validation_errors()) : ?>
                         <div class="alert alert-danger" role="alert">
-                            <?php echo str_replace('.', '<br>', strip_tags(validation_errors()))?>
+                            <?php echo strip_tags(validation_errors())?>
                         </div>
                         <?php endif; ?>
                     <?php } ?>

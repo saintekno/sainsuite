@@ -262,11 +262,18 @@ class Menu
                 continue;
             }
             ?>
+            <?php if (riake('search', $current_menu)) : ?>
+            <div class="input-icon">
+                <input type="text" class="form-control form-control-sm form-control-solid" placeholder="Search..." id="search_query" />
+                <span><i class="flaticon2-search-1 text-muted"></i></span>
+            </div>
+            <?php else : ?>
             <a href="<?php echo riake('href', $current_menu); ?>" class="btn <?php echo riake('button', $current_menu); ?> font-weight-bolder btn-sm ml-2">
                 <i class="<?php echo riake('icon', $current_menu); ?> icon-1x p-0"></i>
                 <span class="d-none d-md-inline"><?php echo riake('title', $current_menu); ?></span> 
             </a>
             <?php
+            endif;
         }
     }
 

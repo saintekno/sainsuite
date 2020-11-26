@@ -34,7 +34,7 @@
 var KTBootstrapSelect = function () {
 
     // Private functions
-    var demos = function () {
+    var selects = function () {
         // minimum setup
         $('.kt-selectpicker').selectpicker();
     }
@@ -42,7 +42,7 @@ var KTBootstrapSelect = function () {
     return {
         // public functions
         init: function() {
-            demos();
+            selects();
         }
     };
 }();

@@ -1020,6 +1020,13 @@ class Aauth {
 	 */
 	public function delete_user($user_id) {
 
+		if($this->is_admin($user_id)) : return;
+		endif;
+		
+        if (file_exists($file = upload_path().'user_image/'.$user_id.'.jpg')) :
+			unlink($file);
+		endif;
+
 		$this->aauth_db->trans_begin();
 
 		// delete from perm_to_user

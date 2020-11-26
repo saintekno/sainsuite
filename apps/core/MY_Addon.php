@@ -214,7 +214,7 @@ class MY_Addon extends CI_Model
                 {
                     if( ! self::is_active( $dependency[ '@attributes' ][ 'namespace' ], true ) ) 
                     {
-                        get_instance()->notice->push_notice(
+                        get_instance()->notice->push_notice_array(
                             sprintf(
                                 __( '<strong>%s</strong> has been disabled. This addon require <strong>%s</strong> to work properly.'),
                                 $addon[ 'application' ][ 'name' ],

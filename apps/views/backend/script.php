@@ -1,4 +1,91 @@
 <script>
+    $('#delete_all').click(function(){
+        Swal.fire({
+            title: 'Would you like to delete all ?',
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: true
+        }).then(function(result) {
+            if (result.value) {
+                // Get value from checked checkboxes
+                var ids_arr = [];
+                $("input[type=checkbox]:checked").each(function(){
+                    ids_arr.push($(this).val());
+                });
+
+                // Array length
+                var length = ids_arr.length;
+
+                if(length > 0){
+                    $.ajax({
+                        url: '<?= site_url(['admin', (isset($namespace)) ? $namespace : '', 'multidelete']) ?>',
+                        type: 'post',
+                        data: {ids: ids_arr},
+                        success: function(data) {
+                            // Remove <tr>
+                            $("input[type=checkbox]:checked").each(function(){
+                                $(this).closest('tr').fadeOut(1500,function(){
+                                    $('#kt_datatable_group_action_form').collapse('hide');
+                                    $(this).remove();
+                                });
+                            });
+                            Swal.fire(
+                                "Deleted!",
+                                "Your file has been deleted.",
+                                "success"
+                            )
+                        }
+                    });
+                }
+            } else if (result.dismiss === "cancel") {
+                Swal.fire(
+                    "Cancelled",
+                    "Your imaginary file is safe :)",
+                    "error"
+                )
+            }
+        });
+    });
+    
+    function deleteConfirmation (el) {
+        var url = $(el).data('url');
+        var header = $(el).data('head');
+        Swal.fire({
+            title: header,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: true
+        }).then(function(result) {
+            if (result.value) {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    success: function(data) {
+                        $(el).closest('tr').css('background','#F3F6F9');
+                        $(el).closest('tr').fadeOut(1500,function(){
+                            $(this).remove();
+                        });
+                        Swal.fire(
+                            "Deleted!",
+                            "Your file has been deleted.",
+                            "success"
+                        )
+                    }
+                });
+            } else if (result.dismiss === "cancel") {
+                Swal.fire(
+                    "Cancelled",
+                    "Your imaginary file is safe :)",
+                    "error"
+                )
+            }
+        });
+    }
+
     /**
      * Option
      */
@@ -106,6 +193,8 @@
             sain.loader.show();
         });
     });
+
+    var HOST_URL = '<?php echo site_url(array( 'admin' ));?>';
     
     /**
     * Introducing Angular

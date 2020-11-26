@@ -16,6 +16,7 @@ $complete_group = array();
 // adding group to complete_group array
 foreach ($groups as $row) {
     $complete_group[] = array(
+        $row->id,
         $row->name ,
         $row->definition ,
         '<a href="' . site_url(array( 'admin', 'users', 'group', 'edit', $row->id )) . '" 
@@ -45,13 +46,21 @@ $this->polatan->add_meta(array(
  * Item
  */
 $this->polatan->add_item(array(
-    'type'  => 'table-datatable',
+    'type'  => 'table-default',
     'thead' => array(
+        __('Checkall'), 
         'Name',
         'Definition',
-        'Action'
+        __('Actions') 
     ),
     'tbody' => $complete_group
 ), 'group-list', 1);
+
+/**
+ * Script
+ */
+$this->events->add_action( 'dashboard_footer', function() {
+    $this->load->addon_view( 'users', 'users/script');
+});
 
 $this->polatan->output();

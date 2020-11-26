@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.7.0] - 2020-11-26
+### Added
+- Penambahan fitur multidelete
+
+### Changed
+- Peningkatan UI UX 
+- Peningkatan fitur notice array
+- Peningkatan Item table default dengan polatan
+
 ## [3.6.0] - 2020-11-25
 ### Added
 - Penambahan item separator di library polatan

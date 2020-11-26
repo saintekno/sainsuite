@@ -86,7 +86,7 @@ class Install extends MY_Controller
                 redirect('install/site?notice=' . $exec . (riake('lang', $_GET) ? '&lang=' . $_GET[ 'lang' ] : '') );
             }
 
-            $this->notice->push_notice($this->lang->line($exec));
+            $this->notice->push_notice_array($exec);
         }
 
 		Polatan::set_title(sprintf(__('Database config &mdash; %s'), get('app_name')));
@@ -123,7 +123,7 @@ class Install extends MY_Controller
                 redirect('login?redirect=admin&notice=' . $exec . ( @$_GET[ 'lang' ] ? '&lang=' . $_GET[ 'lang' ] : '') );
             }
 
-            $this->notice->push_notice($this->lang->line($exec));
+            $this->notice->push_notice_array($exec);
         }
 
         Polatan::set_title(sprintf(__('Site & Master account &mdash; %s'), get('core_signature')));

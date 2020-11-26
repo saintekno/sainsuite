@@ -59,7 +59,8 @@ class Auth extends MY_Controller
                     redirect( $url );
                 }
             }
-            $this->notice->push_notice($this->lang->line($exec));
+
+            $this->notice->push_notice_array($exec);
         }
 
         $this->events->do_action('oauth_client');
@@ -91,6 +92,8 @@ class Auth extends MY_Controller
             if ($exec === 'created') {
                 redirect(array( 'login?notice=' . $exec ));
             }
+            
+            $this->notice->push_notice_array($exec);
         }
 		
 		Polatan::set_title(sprintf(__('Sign Up &mdash; %s'), get('app_name')));
@@ -124,7 +127,7 @@ class Auth extends MY_Controller
         if ($this->form_validation->run()) 
         {
             if ( ! $this->aauth->user_exist_by_email($this->input->post('user_email'))) :
-                $this->notice->push_notice($this->lang->line('unknow-user'));
+                $this->notice->push_notice_array('unknow-user');
             endif;
 
             if ( $this->aauth->remind_password($this->input->post('user_email')) ) :

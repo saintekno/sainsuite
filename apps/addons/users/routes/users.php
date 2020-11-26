@@ -47,6 +47,9 @@ class UsersHomeController extends MY_Addon
         // Toolbar
         $this->events->add_filter( 'toolbar_menu', function( $final ) {
                 $final[] = array(
+                    'search' => true
+                );
+                $final[] = array(
                     'title'   => __('Add A user'),
                     'icon'    => 'ki ki-plus',
                     'button'  => 'btn-light-primary',
@@ -59,16 +62,21 @@ class UsersHomeController extends MY_Addon
         // Title
 		Polatan::set_title(sprintf(__('Users &mdash; %s'), get('signature')));
         
+        // BreadCrumb
+        $this->breadcrumb->add(__('Home'), site_url('admin'));
+        $this->breadcrumb->add(__('Users'), site_url('admin/users'));
+
         // Data
         $index = empty( $index ) ? 1 : $index;
         $user_group = $this->aauth->get_user_groups();
-        $data['pagination'] = $this->pagination->create_links();
         if ($user_group[0]->name == $this->aauth->config_vars['admin_group']) {
             $data['users'] = $this->aauth->list_users( false, $config_vars['per_page'], ( intval( $index ) - 1 ) * $config_vars['per_page'], true);
         }
         else {
             $data['users'] = $this->aauth->list_users( $this->aauth->config_vars['member_group'], $config_vars['per_page'], ( intval( $index ) - 1 ) * $config_vars['per_page'], true);
         }
+        $data['breadcrumbs'] = $this->breadcrumb->render();
+        $data['pagination'] = $this->pagination->create_links();
 
         $this->addon_view( 'users', 'users/read', $data );
     }
@@ -111,10 +119,8 @@ class UsersHomeController extends MY_Addon
                 redirect(array( 'admin', 'users?notice=' . $exec ));
                 exit;
             }
-            else {
-                $this->notice->push_notice_array($exec);
-                // redirect(current_url(), 'refresh');
-            }
+
+            $this->notice->push_notice_array($exec);
         }
 
         // Toolbar
@@ -122,7 +128,7 @@ class UsersHomeController extends MY_Addon
 			$final[] = array(
 				'title'   => __('Back to the list'),
 				'icon'    => 'ki ki-long-arrow-back',
-				'button'  => 'btn-light-primary',
+				'button'  => 'btn-light',
 				'href'    => site_url([ 'admin', 'users' ])
 			);
 			return $final;
@@ -131,7 +137,13 @@ class UsersHomeController extends MY_Addon
         // Title
 		Polatan::set_title(sprintf(__('Users &mdash; %s'), get('signature')));
         
+        // BreadCrumb
+        $this->breadcrumb->add(__('Home') , site_url('admin'));
+        $this->breadcrumb->add(__('Users') , site_url('admin/users'));
+        $this->breadcrumb->add(__('Add New') , site_url('admin/users/add'));
+
         // Data
+        $data['breadcrumbs'] = $this->breadcrumb->render();
 		$data['groups'] = $this->aauth->list_groups();
         $this->addon_view( 'users', 'users/form', $data );
     }
@@ -197,7 +209,7 @@ class UsersHomeController extends MY_Addon
 			$final[] = array(
 				'title'   => __('Back to the list'),
 				'icon'    => 'ki ki-long-arrow-back',
-				'button'  => 'btn-light-primary',
+				'button'  => 'btn-light',
 				'href'    => site_url([ 'admin', 'users' ])
 			);
 			return $final;
@@ -206,7 +218,13 @@ class UsersHomeController extends MY_Addon
         // Title
 		Polatan::set_title(sprintf(__('Users &mdash; %s'), get('signature')));
         
+        // BreadCrumb
+        $this->breadcrumb->add(__('Home') , site_url('admin'));
+        $this->breadcrumb->add(__('Users') , site_url('admin/users'));
+        $this->breadcrumb->add(__('Edit') , site_url('admin/users/edit'));
+
         // Data
+        $data['breadcrumbs'] = $this->breadcrumb->render();
 		$data['groups'] = $groups;
 		$data['user'] = $user;
 		$data['user_group'] = $user_group;
@@ -235,5 +253,27 @@ class UsersHomeController extends MY_Addon
             $this->aauth->delete_user($index);
             redirect(array( 'admin', $redirect.'?notice=deleted' ));
         }
+    }
+
+    /**
+     * Delete user
+     * @return redirect
+     */
+
+    public function multidelete()
+    {
+        if (! User::control('delete.users')) {
+            $this->session->set_flashdata('info_message', __( 'Access denied. Youre not allowed to see this page.' ));
+            redirect(site_url('admin/page404'));
+        }
+
+        $ids = $this->input->post('ids');
+
+        foreach($ids as $id){
+            $this->aauth->delete_user($id);
+        }
+
+        echo 1;
+        exit;
     }
 }

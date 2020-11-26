@@ -19,6 +19,7 @@ $Routes->get( 'users/{page_id?}', 'UsersHomeController@index' )->where([ 'page_i
 $Routes->match([ 'get', 'post' ], 'users/add', 'UsersHomeController@add' );
 $Routes->match([ 'get', 'post' ], 'users/edit/{id}', 'UsersHomeController@edit' );
 $Routes->match([ 'get', 'post' ], 'users/delete/{id}/{redirect?}', 'UsersHomeController@delete' );
+$Routes->match([ 'get', 'post' ], 'users/multidelete', 'UsersHomeController@multidelete' );
 
 $Routes->match([ 'get', 'post' ], 'users/profile', 'UsersProfileController@index' );
 
@@ -26,3 +27,4 @@ $Routes->match([ 'get', 'post' ], 'users/group', 'GroupsHomeController@index' );
 $Routes->match([ 'get', 'post' ], 'users/group/add', 'GroupsHomeController@add' );
 $Routes->match([ 'get', 'post' ], 'users/group/delete/{id}', 'GroupsHomeController@delete' );
 $Routes->match([ 'get', 'post' ], 'users/group/edit/{id}', 'GroupsHomeController@edit' );
+$Routes->match([ 'get', 'post' ], 'users/group/multidelete', 'GroupsHomeController@multidelete' );
