@@ -55256,10 +55256,10 @@ code {
   border-radius: 0.85rem; }
 
 .navi.navi-hover .navi-item .navi-link:hover {
-  background-color: #ffffff; }
+  background-color: #F3F6F9; }
 
 .navi.navi-active .navi-item .navi-link.active {
-  background-color: #ffffff; }
+  background-color: #F3F6F9; }
 
 .navi.navi-accent .navi-item .navi-link {
   position: relative; }
@@ -60221,7 +60221,6 @@ body {
     -ms-flex-align: center;
     align-items: center;
     padding: 0 5px;
-    background-color: #181C32;
     height: 40px;
     min-height: 40px;
     position: relative;
@@ -60419,12 +60418,10 @@ body {
       .aside .aside-primary .btn.btn-icon.btn-lg .svg-icon svg, .aside .aside-primary .btn-group-lg > .btn.btn-icon .svg-icon svg {
         height: 26px;
         width: 26px; }
-  .aside .aside-secondary {
-    background-color: #1d223c; }
-    .aside .aside-secondary .aside-workspace {
-      width: 100%;
-      -ms-flex-negative: 1;
-      flex-shrink: 1; }
+  .aside .aside-secondary .aside-workspace {
+    width: 100%;
+    -ms-flex-negative: 1;
+    flex-shrink: 1; }
   .aside .aside-toggle {
     display: none; }
   .aside-secondary-enabled .aside {

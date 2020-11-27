@@ -39,10 +39,10 @@
                                         </div>
                                         <div class="wizard-label">
                                             <h3 class="wizard-title">
-                                            <?php echo _e("installation");?>
+                                            <?php _e("installation");?>
                                             </h3>
                                             <div class="wizard-desc">
-                                            <?php echo _e("wizard");?>
+                                            <?php _e("wizard");?>
                                             </div>
                                         </div>
                                         <span class="svg-icon pl-6">
@@ -75,10 +75,10 @@
                                         </div>
                                         <div class="wizard-label">
                                             <h3 class="wizard-title">
-                                            <?php echo _e("Database.");?>
+                                            <?php _e("Database.");?>
                                             </h3>
                                             <div class="wizard-desc">
-                                            <?php echo _e("Configuration.");?>
+                                            <?php _e("Configuration.");?>
                                             </div>
                                         </div>
                                         <span class="svg-icon pl-6">
@@ -111,10 +111,10 @@
                                         </div>
                                         <div class="wizard-label">
                                             <h3 class="wizard-title">
-                                            <?php echo _e("Site.");?>
+                                            <?php _e("Site.");?>
                                             </h3>
                                             <div class="wizard-desc">
-                                            <?php echo _e("Configuration.");?>
+                                            <?php _e("Configuration.");?>
                                             </div>
                                         </div>
                                     </div>

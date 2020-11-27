@@ -545,18 +545,24 @@ class Aauth {
 			$this->aauth_db->where('email', $email);
 			$this->aauth_db->update($this->config_vars['users'], $data);
 
-			$this->CI->load->library('email');
+			$this->CI->load->library('mailsender');
 			$this->CI->load->helper('url');
 
-			if(isset($this->config_vars['email_config']) && is_array($this->config_vars['email_config'])){
-				$this->CI->email->initialize($this->config_vars['email_config']);
-			}
+			$mailer = new MailSender();
+			// Set .html template
+			$mailer->setTemplateURL(APPPATH.'addons/oauth/email_remind.phtml');
 
-			$this->CI->email->from( $this->config_vars['email'], $this->config_vars['name']);
-			$this->CI->email->to($row->email);
-			$this->CI->email->subject($this->CI->lang->line('aauth_email_reset_subject'));
-			$this->CI->email->message($this->CI->lang->line('aauth_email_reset_text') . site_url() . $this->config_vars['reset_password_link'] . $ver_code );
-			$this->CI->email->send();
+			// Remplace strings patterns %var% on HTML template 
+			$mailer->compose(array(
+				'verification_text' => $this->CI->lang->line('aauth_email_reset_text'),
+				'username' => $row->username,
+				'kode' => $ver_code,
+				'url' => site_url() . $this->config_vars['reset_password_link'] . $ver_code
+			));
+
+			// Send email with from, to and Subject.
+			$subject = $this->CI->lang->line('aauth_email_reset_subject');
+			$mailer->send($row->email, $subject);
 
 			return true;
 		}
@@ -590,22 +596,25 @@ class Aauth {
 		 		$data['totp_secret'] = null;
 		 	}
 
-			$email = $row->email;
-
 			$this->aauth_db->where('id', $row->id);
 			$this->aauth_db->update($this->config_vars['users'] , $data);
 
-			$this->CI->load->library('email');
+			$this->CI->load->library('mailsender');
 
-			if(isset($this->config_vars['email_config']) && is_array($this->config_vars['email_config'])){
-				$this->CI->email->initialize($this->config_vars['email_config']);
-			}
+			$mailer = new MailSender();
+			// Set .html template
+			$mailer->setTemplateURL(APPPATH.'addons/oauth/email_reset.phtml');
 
-			$this->CI->email->from( $this->config_vars['email'], $this->config_vars['name']);
-			$this->CI->email->to($email);
-			$this->CI->email->subject($this->CI->lang->line('aauth_email_reset_success_subject'));
-			$this->CI->email->message($this->CI->lang->line('aauth_email_reset_success_new_password') . $pass);
-			$this->CI->email->send();
+			// Remplace strings patterns %var% on HTML template 
+			$mailer->compose(array(
+				'verification_text' => $this->CI->lang->line('aauth_email_reset_success_new_password'),
+				'username' => $row->username,
+				'kode' => $pass
+			));
+
+			// Send email with from, to and Subject.
+			$subject = $this->CI->lang->line('aauth_email_reset_success_subject');
+			$mailer->send($row->email, $subject);
 
 			return true;
 		}
@@ -716,7 +725,6 @@ class Aauth {
 	########################
 	# User Functions
 	########################
-
 	//tested
 	/**
 	 * Create user
@@ -736,6 +744,7 @@ class Aauth {
 				$valid = false;
 			}
 		}
+		
 		if ($this->user_exist_by_username($username) && $username != false) {
 			$this->error($this->CI->lang->line('aauth_error_username_exists'));
 			$valid = false;
@@ -745,24 +754,40 @@ class Aauth {
 			$this->error($this->CI->lang->line('aauth_error_email_exists'));
 			$valid = false;
 		}
+
 		$valid_email = (bool) filter_var($email, FILTER_VALIDATE_EMAIL);
 		if (!$valid_email){
 			$this->error($this->CI->lang->line('aauth_error_email_invalid'));
 			$valid = false;
 		}
+
 		if ( strlen($pass) < $this->config_vars['min'] OR strlen($pass) > $this->config_vars['max'] ){
 			$this->error($this->CI->lang->line('aauth_error_password_invalid'));
 			$valid = false;
 		}
+
 		if ($username != false && !ctype_alnum(str_replace($this->config_vars['additional_valid_chars'], '', $username))){
 			$this->error($this->CI->lang->line('aauth_error_username_invalid'));
 			$valid = false;
 		}
+		
 		if (!$valid) {
 			return false;
 		}
+		
+		$this->aauth_db->select('id');
+        $this->aauth_db->from($this->config_vars['users']);
+        $this->aauth_db->order_by('id', 'DESC');
+		$last_id = $this->aauth_db->get();
 
+		$config['id'] = ($last_id->num_rows() > 0) ? $last_id->row()->id : 0 ;
+        $config['digit'] = 4;
+        $config['tanggal'] = TRUE;
+		$this->CI->autonumber->config($config);
+		$user_id = $this->CI->autonumber->generate_id();
+		
 		$data = array(
+			'id' => $user_id,
 			'email' => $email,
 			'pass' => $this->hash_password($pass, 0), // Password cannot be blank but user_id required for salt, setting bad password for now
 			'username' => (!$username) ? '' : $username ,
@@ -771,7 +796,7 @@ class Aauth {
 
 		if ( $this->aauth_db->insert($this->config_vars['users'], $data )){
 
-			$user_id = $this->aauth_db->insert_id();
+			// $user_id = $this->aauth_db->insert_id();
 
 			// set default group
 			// $this->add_member($user_id, $this->config_vars['member_group']);
@@ -796,9 +821,9 @@ class Aauth {
 				$this->aauth_db->update($this->config_vars['users'], $data);
 			}
 
-			return $user_id;
-
-		} else {
+			return true;
+		} 
+		else {
 			return false;
 		}
 	}
@@ -995,19 +1020,25 @@ class Aauth {
 			$this->aauth_db->where('id', $user_id);
 			$this->aauth_db->update($this->config_vars['users'], $data);
 
-			$this->CI->load->library('email');
+			$this->CI->load->library('mailsender');
 			$this->CI->load->helper('url');
 
-			if(isset($this->config_vars['email_config']) && is_array($this->config_vars['email_config'])){
-				$this->CI->email->initialize($this->config_vars['email_config']);
-			}
+			$mailer = new MailSender();
+			// Set .html template
+			$mailer->setTemplateURL(APPPATH.'addons/oauth/email.phtml');
 
-			$this->CI->email->from( $this->config_vars['email'], $this->config_vars['name']);
-			$this->CI->email->to($row->email);
-			$this->CI->email->subject($this->CI->lang->line('aauth_email_verification_subject'));
-			$this->CI->email->message($this->CI->lang->line('aauth_email_verification_code') . $ver_code .
-				$this->CI->lang->line('aauth_email_verification_text') . site_url() .$this->config_vars['verification_link'] . $user_id . '/' . $ver_code );
-			$this->CI->email->send();
+			// Remplace strings patterns %var% on HTML template 
+			$mailer->compose(array(
+				'verification_code' => $this->CI->lang->line('aauth_email_verification_code'),
+				'verification_text' => $this->CI->lang->line('aauth_email_verification_text'),
+				'username' => $row->username,
+				'kode' => $ver_code,
+				'url' => site_url() .$this->config_vars['verification_link'] . $user_id . '/' . $ver_code
+			));
+
+			// Send email with from, to and Subject.
+			$subject = $this->CI->lang->line('aauth_email_verification_subject');
+			$mailer->send($row->email, $subject);
 		}
 	}
 

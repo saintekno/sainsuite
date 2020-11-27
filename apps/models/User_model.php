@@ -68,7 +68,8 @@ class User_model extends CI_Model
         if ( $this->aauth->is_loggedin()) {
             return 'user-logged-in';
         }
-        return 'fetch-error-from-auth';
+
+        return false;
     }
 
     /**
@@ -81,25 +82,19 @@ class User_model extends CI_Model
      * @return: bool
     **/
 
-    public function create($email, $password, $username, $group_par, $user_status = 1)
+    public function create($email, $password, $username, $group_par, $require_validation = 1)
     {
-        $user_creation_status = $this->aauth->create_user($email, $password, $username);
-        if (! $user_creation_status) {
-            return $this->aauth->get_errors_array();
-        }
+        $this->aauth->create_user($email, $password, $username);
 
         // bind user to a speciifc group
         $user_id = $this->aauth->get_user_id($email);
-
-        // Send Verification
-        $this->aauth->send_verification($user_id);
 
         // Adding to a group
         // refresh group
         $this->aauth->add_member($user_id, $group_par);
 
         // User Status
-        if ($user_status == 0) {
+        if ($require_validation == 0) {
             $user = $this->aauth->get_user($user_id);
             if( $user ) {
                 $this->aauth->verify_user($user_id, $user->verification_code);
@@ -114,7 +109,9 @@ class User_model extends CI_Model
 
         User::upload_user_image($user_id);
 
-        return 'created';
+        if ($user_id) {
+            return 'created';
+        }
     }
 
     /***
@@ -201,10 +198,6 @@ class User_model extends CI_Model
             
             // Send Verification
             $this->aauth->send_verification($admin_id);
-            
-            // Activate Master
-            $user = $this->aauth->get_user($admin_id);
-            $this->aauth->verify_user($admin_id, $user->verification_code);
             
             return 'created';
         }

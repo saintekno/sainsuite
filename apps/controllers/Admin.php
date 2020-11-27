@@ -461,7 +461,6 @@ class Admin extends MY_Controller
             if ($this->input->post('gui_saver_expiration_time') > gmt_to_local(time(), 'UTC')) 
             {
                 // loping post value
-                global $Options;
                 foreach ($_POST as $key => $value) {
                     if (! in_array($key, array( 'gui_saver_ref', 'gui_saver_expiration_time' ))) {
                         $this->options_model->set(

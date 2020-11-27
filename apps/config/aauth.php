@@ -120,7 +120,7 @@ $config_aauth["default"] = array(
  'totp_only_on_ip_change'         => false,
  'totp_reset_over_reset_password' => false,
  'totp_two_step_login_active'     => false,
- 'totp_two_step_login_redirect'   => '/auth/twofactor_verification/',
+ 'totp_two_step_login_redirect'   => 'auth/twofactor_verification/',
 
  'max_login_attempt'              => 5,
  'max_login_attempt_time_period'  => "1 minutes",
@@ -133,8 +133,8 @@ $config_aauth["default"] = array(
  'email_config'                   => false,
 
  'verification'                   => false,
- 'verification_link'              => '/auth/verification/',
- 'reset_password_link'            => '/auth/reset_password/',
+ 'verification_link'              => 'auth/verification/',
+ 'reset_password_link'            => 'auth/reset_password/',
 
  'hash'                           => 'sha256',
  'use_password_hash'              => true,

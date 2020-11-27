@@ -17,7 +17,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 // Account verification
 $lang['aauth_email_verification_subject'] = __('Account Verification');
 $lang['aauth_email_verification_code']    = __('Your verification code is: ');
-$lang['aauth_email_verification_text']    = __(" You can also click on (or copy and paste) the following link\n\n");
+$lang['aauth_email_verification_text']    = __("Thank you for registering on our site, your account details are as follows:\n\n");
 
 // Password reset
 $lang['aauth_email_reset_subject'] = __('Reset Password');
@@ -25,6 +25,7 @@ $lang['aauth_email_reset_text']    = __("To reset your password click on (or cop
 
 // Password reset success
 $lang['aauth_email_reset_success_subject']      = __('Successful Pasword Reset');
+$lang['aauth_email_reset_new_password'] = __('Your password has successfully been reset.');
 $lang['aauth_email_reset_success_new_password'] = __('Your password has successfully been reset. Your new password is : ');
 
 // Account creation errors
@@ -63,15 +64,3 @@ $lang['aauth_info_already_member']   = __('User is already member of group');
 $lang['aauth_info_already_subgroup'] = __('Subgroup is already member of group');
 $lang['aauth_info_group_exists']     = __('Group name already exists');
 $lang['aauth_info_perm_exists']      = __('Permission name already exists');
-
-$lang[ 'fetch-error-from-auth' ] = function () {
-    $errors_array = get_instance()->aauth->get_errors_array();
-    $notice_array = get_instance()->aauth->get_infos_array();
-    foreach ($errors_array as $_error) {
-        echo $_error;
-    }
-
-    foreach ($notice_array as $notice) {
-        echo $notice;
-    }
-};

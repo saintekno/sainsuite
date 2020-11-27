@@ -25,9 +25,11 @@
                 <!--begin::Wrapper-->
                 <div class="login-content d-flex flex-column pt-lg-0 pt-12">
                     <!--begin::Logo-->
-                    <a href="<?php echo site_url();?>" class="login-logo pb-xl-20 pb-15">
-                        <img alt="<?php echo get('app_name');?>" src="<?php echo $this->events->apply_filters( 'signin_logo', upload_url().'system/logo-light-sm.png' ); ?>" class="max-h-40px" />
-                    </a>
+                    <div class="login-logo pb-xl-10 pb-5">
+                        <a href="<?php echo site_url();?>">
+                            <img alt="<?php echo get('app_name');?>" src="<?php echo $this->events->apply_filters( 'signin_logo', upload_url().'system/logo-light-sm.png' ); ?>" class="max-h-40px" />
+                        </a>
+                    </div>
                     <!--end::Logo-->
                     
                     <?php if (function_exists('validation_errors')) {
@@ -49,7 +51,7 @@
                     <?php endif;?>
 
                     <!--begin::Signin-->
-                    <div class="login-form">
+                    <div class="login-form pt-5">
                         <?php include $page_name.'.php'; ?>
                     </div>
                     <!--end::Signin-->

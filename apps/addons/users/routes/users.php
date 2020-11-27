@@ -120,7 +120,7 @@ class UsersHomeController extends MY_Addon
                 exit;
             }
 
-            $this->notice->push_notice_array($exec);
+            $this->notice->push_notice_array($this->aauth->get_errors_array());
         }
 
         // Toolbar

@@ -164,7 +164,7 @@
                                             <?php
                                         } else {?>
                                             <a href="<?php echo site_url(array( 'admin', 'addons', 'disable', $addon_namespace ));?>" 
-                                            class="btn btn-sm btn-light-danger font-weight-bolder text-uppercase my-1" data-action="disable">
+                                            class="btn btn-sm btn-light-warning font-weight-bolder text-uppercase my-1" data-action="disable">
                                                 <i class="fa fa-toggle-off"></i> Disable
                                             </a>
                                             <?php
@@ -202,7 +202,6 @@
                                                         </span>
                                                     </a>
                                                 </li>
-                                                <li class="navi-separator mt-3 opacity-70"></li>
                                                 <?php endif; ?>
 
                                                 <?php
@@ -213,6 +212,7 @@
                                                 );
 
                                                 if( $hasMigration ):?>
+                                                <li class="navi-separator mt-3 opacity-70"></li>
                                                 <li class="navi-item">
                                                 <a href="<?php echo site_url([ 'admin', 'addons', 'migrate', $addon_namespace, $last_version ]);?>"  
                                                     class="navi-link">
@@ -223,15 +223,16 @@
                                                     <?php _e('Migrate');?>
                                                     </span>
                                                 </a>
-                                                <li class="navi-separator mt-3 opacity-70"></li>
                                                 </li>
                                                 <?php endif;?>
                                                 
                                                 <?php if( !$_addon[ 'application' ][ 'readonly' ] ) : ?>
+                                                <li class="navi-separator mt-3 opacity-70"></li>
                                                 <li class="navi-item">
-                                                <a href="<?php echo site_url(array( 'admin', 'addons', 'remove', $addon_namespace ));?>"
-                                                    onclick="return confirm( '<?php echo 'Would you like to delete this account ?'; ?>' )" 
-                                                    class="navi-link">
+                                                <a href="" class="navi-link"
+                                                    data-head="<?php _e( 'Would you like to delete this addon?');?>"
+                                                    data-url="<?php echo site_url(array( 'admin', 'addons', 'remove', $addon_namespace )); ?>"
+                                                    onclick="deleteConfirmation(this)">
                                                     <span class="navi-icon">
                                                     <i class="fa fa-trash text-danger"></i>
                                                     </span>

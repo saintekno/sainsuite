@@ -237,7 +237,7 @@ class MY_Model extends CI_Model
     //--------------------------------------------------------------------------
 
     /**
-     * BF_Model's constructor.
+     * MY_Model's constructor.
      *
      * Setup the DB connection if it doesn't exist, and setup the $before_insert
      * and $before_update observers.
@@ -391,8 +391,8 @@ class MY_Model extends CI_Model
     public function find_by($field = '', $value = '', $type = 'and')
     {
         if (empty($field) || ( ! is_array($field) && empty($value))) {
-            $this->error = lang('bf_model_find_error');
-            $this->logit('[' . get_class($this) . ': ' . __METHOD__ . '] ' . lang('bf_model_find_error'));
+            $this->error = lang('model_find_error');
+            $this->logit('[' . get_class($this) . ': ' . __METHOD__ . '] ' . lang('model_find_error'));
             return false;
         }
 
@@ -503,7 +503,7 @@ class MY_Model extends CI_Model
             return true;
         }
 
-        $this->error = sprintf(lang('bf_model_db_error'), $this->get_db_error_message());
+        $this->error = sprintf(lang('model_db_error'), $this->get_db_error_message());
         return false;
     }
 
@@ -544,7 +544,7 @@ class MY_Model extends CI_Model
             return true;
         }
 
-        $this->error = sprintf(lang('bf_model_db_error'), $this->get_db_error_message());
+        $this->error = sprintf(lang('model_db_error'), $this->get_db_error_message());
         return false;
     }
 
@@ -593,7 +593,7 @@ class MY_Model extends CI_Model
         }
 
         if ($this->db->update_batch($this->table_name, $data, $index) === false) {
-            $this->error = sprintf(lang('bf_model_db_error'), $this->get_db_error_message());
+            $this->error = sprintf(lang('model_db_error'), $this->get_db_error_message());
             return false;
         }
 
@@ -651,7 +651,7 @@ class MY_Model extends CI_Model
             return $result;
         }
 
-        $this->error = sprintf(lang('bf_model_db_error'), $this->get_db_error_message());
+        $this->error = sprintf(lang('model_db_error'), $this->get_db_error_message());
 
         return false;
     }
@@ -671,8 +671,8 @@ class MY_Model extends CI_Model
     public function is_unique($field = '', $value = '')
     {
         if (empty($field) || empty($value)) {
-            $this->error = lang('bf_model_unique_error');
-            $this->logit('[' . get_class($this) . ': ' . __METHOD__ . '] ' . lang('bf_model_unique_error'));
+            $this->error = lang('model_unique_error');
+            $this->logit('[' . get_class($this) . ': ' . __METHOD__ . '] ' . lang('model_unique_error'));
             return false;
         }
 
@@ -712,8 +712,8 @@ class MY_Model extends CI_Model
     public function count_by($field = '', $value = null)
     {
         if (empty($field)) {
-            $this->error = lang('bf_model_count_error');
-            $this->logit('[' . get_class($this) . ': ' . __METHOD__ . '] ' . lang('bf_model_count_error'));
+            $this->error = lang('model_count_error');
+            $this->logit('[' . get_class($this) . ': ' . __METHOD__ . '] ' . lang('model_count_error'));
             return false;
         }
 
@@ -733,8 +733,8 @@ class MY_Model extends CI_Model
     public function get_field($id = null, $field = '')
     {
         if (empty($id) || empty($field)) {
-            $this->error = lang('bf_model_fetch_error');
-            $this->logit('[' . get_class($this) . ': ' . __METHOD__ . '] ' . lang('bf_model_fetch_error'));
+            $this->error = lang('model_fetch_error');
+            $this->logit('[' . get_class($this) . ': ' . __METHOD__ . '] ' . lang('model_fetch_error'));
             return false;
         }
 
@@ -789,7 +789,7 @@ class MY_Model extends CI_Model
      * @param string       $value  The value to match the field against. If $field is an
      * array, this value is ignored.
      *
-     * @return BF_Model An instance of this class.
+     * @return MY_Model An instance of this class.
      */
     public function where($field = null, $value = null)
     {
@@ -818,7 +818,7 @@ class MY_Model extends CI_Model
      * @param string       $order The direction to order the results, case-insensitive
      * ('asc', 'desc', or 'random').
      *
-     * @return BF_Model An instance of this class.
+     * @return MY_Model An instance of this class.
      */
     public function order_by($field = null, $order = 'asc')
     {
@@ -852,7 +852,7 @@ class MY_Model extends CI_Model
      *
      * @param  bool $val If true, will temporarily use soft_deletes.
      *
-     * @return BF_Model An instance of this class to allow method chaining.
+     * @return MY_Model An instance of this class to allow method chaining.
      */
     public function soft_delete($val = true)
     {
@@ -863,7 +863,7 @@ class MY_Model extends CI_Model
     /**
      * Temporarily set the return type to an array.
      *
-     * @return BF_Model An instance of this class to allow method chaining.
+     * @return MY_Model An instance of this class to allow method chaining.
      */
     public function as_array()
     {
@@ -874,7 +874,7 @@ class MY_Model extends CI_Model
     /**
      * Temporarily set the return type to an object.
      *
-     * @return BF_Model An instance of this class to allow method chaining.
+     * @return MY_Model An instance of this class to allow method chaining.
      */
     public function as_object()
     {
@@ -885,7 +885,7 @@ class MY_Model extends CI_Model
     /**
      * Temporarily set the object return to a json object.
      *
-     * @return BF_Model An instance of this class to allow method chaining.
+     * @return MY_Model An instance of this class to allow method chaining.
      */
     public function as_json()
     {
@@ -898,7 +898,7 @@ class MY_Model extends CI_Model
      *
      * @param bool $return Whether insert will return the ID (true by default).
      *
-     * @return BF_Model An instance of this class to allow method chaining.
+     * @return MY_Model An instance of this class to allow method chaining.
      */
     public function return_insert_id($return = true)
     {
@@ -911,7 +911,7 @@ class MY_Model extends CI_Model
      *
      * @param bool $skip Whether to skip validation in the model (true by default).
      *
-     * @return BF_Model An instance of this class to allow method chaining.
+     * @return MY_Model An instance of this class to allow method chaining.
      */
     public function skip_validation($skip = true)
     {
@@ -1477,7 +1477,7 @@ class MY_Model extends CI_Model
      * @param string $select The select portion of the query.
      * @param bool   $escape Whether to escape the select portion of the query.
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function select($select = '*', $escape = null)
     {
@@ -1491,7 +1491,7 @@ class MY_Model extends CI_Model
      * @param string $select The field to put inside the max() portion of the query.
      * @param string $alias  An alias for the max() value.
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function select_max($select = '', $alias = '')
     {
@@ -1505,7 +1505,7 @@ class MY_Model extends CI_Model
      * @param string $select The field to put inside the min() portion of the query.
      * @param string $alias  An alias for the min() value.
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function select_min($select = '', $alias = '')
     {
@@ -1519,7 +1519,7 @@ class MY_Model extends CI_Model
      * @param string $select The field to put inside the avg() portion of the query.
      * @param string $alias  An alias for the avg() value.
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function select_avg($select = '', $alias = '')
     {
@@ -1533,7 +1533,7 @@ class MY_Model extends CI_Model
      * @param  string $select The field to put inside the sum() portion of the query.
      * @param  string $alias  An alias for the sum() value.
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function select_sum($select = '', $alias = '')
     {
@@ -1546,7 +1546,7 @@ class MY_Model extends CI_Model
      *
      * @param bool $val Whether to add the distinct clause (true by default).
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function distinct($val = true)
     {
@@ -1559,7 +1559,7 @@ class MY_Model extends CI_Model
      *
      * @param  string|array $from The from clause.
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function from($from)
     {
@@ -1575,7 +1575,7 @@ class MY_Model extends CI_Model
      * @param string $type   The type of join, case insensitive (valid values are
      * 'left', 'right', 'inner', 'outer', 'left outer', or 'right outer').
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function join($table, $cond, $type = '')
     {
@@ -1591,7 +1591,7 @@ class MY_Model extends CI_Model
      * @param string       $value  The value for the where clause if $key is a string.
      * @param bool         $escape Whether to escape identifiers.
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function or_where($key, $value = null, $escape = null)
     {
@@ -1605,7 +1605,7 @@ class MY_Model extends CI_Model
      * @param string|array $key    The key/field name or an array of key/value pairs.
      * @param string|array $values The value(s).
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function where_in($key = null, $values = null)
     {
@@ -1620,7 +1620,7 @@ class MY_Model extends CI_Model
      * @param string|array $key    The key/field name or an array of key/value pairs.
      * @param string|array $values The value(s).
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function or_where_in($key = null, $values = null)
     {
@@ -1634,7 +1634,7 @@ class MY_Model extends CI_Model
      * @param string|array $key    The key/field name or an array of key/value pairs.
      * @param string|array $values The value(s).
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function where_not_in($key = null, $values = null)
     {
@@ -1649,7 +1649,7 @@ class MY_Model extends CI_Model
      * @param string|array $key    The key/field name or an array of key/value pairs.
      * @param string|array $values The value(s).
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function or_where_not_in($key = null, $values = null)
     {
@@ -1666,7 +1666,7 @@ class MY_Model extends CI_Model
      * @param string       $side   The type of comparison to use, case insensitive
      * (valid values are 'none', 'before', 'after', anything else defaults to 'both').
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function like($field, $match = '', $side = 'both')
     {
@@ -1683,7 +1683,7 @@ class MY_Model extends CI_Model
      * @param string       $side   The type of comparison to use, case insensitive
      * (valid values are 'none', 'before', 'after', anything else defaults to 'both').
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function not_like($field, $match = '', $side = 'both')
     {
@@ -1700,7 +1700,7 @@ class MY_Model extends CI_Model
      * @param string       $side   The type of comparison to use, case insensitive
      * (valid values are 'none', 'before', 'after', anything else defaults to 'both').
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function or_like($field, $match = '', $side = 'both')
     {
@@ -1717,7 +1717,7 @@ class MY_Model extends CI_Model
      * @param string       $side   The type of comparison to use, case insensitive
      * (valid values are 'none', 'before', 'after', anything else defaults to 'both').
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function or_not_like($field, $match = '', $side = 'both')
     {
@@ -1730,7 +1730,7 @@ class MY_Model extends CI_Model
      *
      * @param string|array $by     The field(s) to group by.
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function group_by($by)
     {
@@ -1744,7 +1744,7 @@ class MY_Model extends CI_Model
      * @param string       $value  The value if $key is a string.
      * @param bool         $escape Whether to escape identifiers.
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function having($key, $value = null, $escape = null)
     {
@@ -1759,7 +1759,7 @@ class MY_Model extends CI_Model
      * @param string       $value  The value if $key is a string.
      * @param bool         $escape Whether to escape identifiers.
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function or_having($key, $value = null, $escape = null)
     {
@@ -1773,7 +1773,7 @@ class MY_Model extends CI_Model
      * @param int $value The limit value.
      * @param int $offset The offset value.
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function limit($value, $offset = 0)
     {
@@ -1786,7 +1786,7 @@ class MY_Model extends CI_Model
      *
      * @param int $offset The offset value.
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function offset($offset)
     {
@@ -1801,7 +1801,7 @@ class MY_Model extends CI_Model
      * @param mixed $value  The value if $key is a field name.
      * @param bool  $escape Whether to escape identifiers.
      *
-     * @return BF_Model
+     * @return MY_Model
      */
     public function set($key, $value = '', $escape = null)
     {

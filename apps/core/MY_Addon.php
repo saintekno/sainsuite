@@ -262,7 +262,7 @@ class MY_Addon extends CI_Model
      */
     public static function enable($addon_namespace)
     {
-        global $Options; // get Global Options
+        global $Options;
 
         $activated_addons = ( array ) @$Options[ 'actives_addons' ];
         if (! in_array($addon_namespace, $activated_addons)) 

@@ -1,6 +1,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.8.0] - 2020-11-26
+### Added
+- Penambahan fitur sending mail dengan phpmailer
+- Penambahan fitur autonumber
+
+### Changed
+- Perubahan table instalasi addon users
+
+### Fixed
+- Perbaikan notice error
+
 ## [3.7.0] - 2020-11-26
 ### Added
 - Penambahan fitur multidelete

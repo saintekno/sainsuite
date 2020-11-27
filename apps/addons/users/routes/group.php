@@ -93,7 +93,7 @@ class GroupsHomeController extends MY_Addon
                 redirect(array( 'admin', 'users', 'group?notice=created'));
             } 
             
-            $this->notice->push_notice_array($exec);
+            $this->notice->push_notice_array($this->aauth->get_errors_array());
         }
         
         // Title
@@ -146,9 +146,9 @@ class GroupsHomeController extends MY_Addon
             if ($exec) {
                 $this->session->set_flashdata('flash_message', $this->lang->line('updated'));
                 redirect(current_url(), 'refresh');
-            } else {
-                $this->notice->push_notice_array($this->lang->line('unexpected-error'));
-            }
+            } 
+            
+            $this->notice->push_notice_array($this->aauth->get_errors_array());
         }
         
         // Title

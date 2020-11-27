@@ -65,6 +65,7 @@ $autoload['libraries'] = array(
     'events', 
     'enqueue', 
     'session',
+    'autonumber',
     'filer',
 );
 

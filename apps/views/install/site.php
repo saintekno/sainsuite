@@ -9,7 +9,7 @@
 			<div class="form-group">
 				<input type="text"
 					class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
-					name="site_name" placeholder="<?php echo __( 'Site Name' );?>" value="<?php echo set_value('site_name'); ?>" />
+					name="site_name" placeholder="<?php _e( 'Site Name' );?>" value="<?php echo set_value('site_name'); ?>" />
 			</div>
 			<!--end::Input-->
 		</div>
@@ -34,7 +34,7 @@
 			<div class="form-group">
 				<input type="text"
 					class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
-					name="username" placeholder="<?php echo __( 'User Name' );?>" value="<?php echo set_value('username'); ?>" />
+					name="username" placeholder="<?php _e( 'User Name' );?>" value="<?php echo set_value('username'); ?>" />
 			</div>
 			<!--end::Input-->
 		</div>
@@ -43,7 +43,7 @@
 			<div class="form-group">
 				<input type="text"
 					class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
-					name="email" placeholder="<?php echo __( 'Email' );?>" value="<?php echo set_value('email'); ?>" />
+					name="email" placeholder="<?php _e( 'Email' );?>" value="<?php echo set_value('email'); ?>" />
 			</div>
 			<!--end::Input-->
 		</div>
@@ -57,7 +57,7 @@
 			<div class="form-group">
 				<input type="password"
 					class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
-					name="password" placeholder="<?php echo __( 'Password' );?>" value="<?php echo set_value('password'); ?>" />
+					name="password" placeholder="<?php _e( 'Password' );?>" value="<?php echo set_value('password'); ?>" />
 			</div>
 			<!--end::Input-->
 		</div>

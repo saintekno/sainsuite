@@ -202,8 +202,6 @@ class Polatan
     **/
     public function output()
     {
-        ($this->CI->aauth->is_loggedin())
-            ? $this->CI->load->view('backend/index')
-            : $this->CI->load->view('frontend/index');
+        $this->CI->load->view('backend/index');
     }
 }

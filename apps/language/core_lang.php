@@ -35,9 +35,10 @@ $lang[ 'email-used' ]             = __('This email is already used.');
 $lang[ 'email-already-taken' ]    = __('This email seems to be already taken.');
 $lang[ 'username-already-taken' ] = __('This username seems to be already taken.');
 $lang[ 'user-created' ]           = __('The user has been successfully created.');
-$lang[ 'account-activated' ]      = __('Your Account has been activated. Please Sign-up');
+$lang[ 'account-activated' ]      = __('Your Account has been activated.');
 
 // Recovery
+$lang[ 'unknow-user' ]        = __('Unknow user');
 $lang[ 'unknow-email' ]        = __('Unknow email address');
 $lang[ 'recovery-email-send' ] = __('The recovery email has been send. Please check your email, open the recovery email and follow the instructions.');
 
@@ -57,7 +58,7 @@ $lang[ 'unable-to-update' ]                = __('An error occured during update.
 $lang[ 'manifest-file-not-found' ]         = __('manifest file hasn\'t been found. This file is not a valid addon. Installation aborded !!!');
 $lang[ 'manifest-file-incorrect' ]         = __('manifest file incorrect. This file is not a valid addon. Installation aborded !!!');
 $lang[ 'migration-not-required' ]          = __('A migration is not required or has already been done.');
-$lang[ 'created' ]                         = __('The Data has been successfully created.');
+$lang[ 'created' ]                         = __('The Data has been successfully.');
 $lang[ 'updated' ]                         = __('The Data has been updated.');
 $lang[ 'deleted' ]                         = __('The Data has been deleted.');
 $lang[ 'cant-delete-yourself' ]            = __('You cant delete your own  account.' );

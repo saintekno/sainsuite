@@ -60,7 +60,7 @@ class Auth extends MY_Controller
                 }
             }
 
-            $this->notice->push_notice_array($exec);
+            $this->notice->push_notice_array($this->aauth->get_errors_array());
         }
 
         $this->events->do_action('oauth_client');
@@ -89,11 +89,11 @@ class Auth extends MY_Controller
                 ( @$Options[ 'require_validation' ] == 1 ? 1 : 0 )
             );
     
-            if ($exec === 'created') {
+            if ($exec == 'created') {
                 redirect(array( 'login?notice=' . $exec ));
             }
             
-            $this->notice->push_notice_array($exec);
+            $this->notice->push_notice_array($this->aauth->get_errors_array());
         }
 		
 		Polatan::set_title(sprintf(__('Sign Up &mdash; %s'), get('app_name')));
@@ -127,7 +127,7 @@ class Auth extends MY_Controller
         if ($this->form_validation->run()) 
         {
             if ( ! $this->aauth->user_exist_by_email($this->input->post('user_email'))) :
-                $this->notice->push_notice_array('unknow-user');
+                $this->notice->push_notice_array($this->aauth->get_errors_array());
             endif;
 
             if ( $this->aauth->remind_password($this->input->post('user_email')) ) :
@@ -148,10 +148,10 @@ class Auth extends MY_Controller
     public function reset_password($ver_code)
     {
         if ( ! $this->aauth->reset_password($ver_code)) :
-            redirect(array( 'login?notice=error-occured' ));
+            redirect(array( 'login?notice=aauth_error_vercode_invalid' ));
         endif;
 
-        redirect(array( 'login?notice=new-password-created' ));
+        redirect(array( 'login?notice=aauth_email_reset_new_password' ));
     }
     
     /**

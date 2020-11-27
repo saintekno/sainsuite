@@ -17,7 +17,11 @@ class Welcome extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-        $this->load->model('welcome_model');
+		$this->load->model('welcome_model');
+		
+		if (! get_instance()->install_model->is_installed()) : 
+			redirect('install');
+		endif;
 	}
 
 	public function index()

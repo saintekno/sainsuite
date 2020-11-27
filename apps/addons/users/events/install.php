@@ -28,10 +28,10 @@ class Users_Install extends MY_Addon
     
     public function registration_rules()
     {
-        $this->form_validation->set_rules('username', __('User Name' ), 'required|min_length[5]');
-        $this->form_validation->set_rules('email', __('Email' ), 'valid_email|required');
-        $this->form_validation->set_rules('password', __('Password' ), 'required|min_length[6]');
-        $this->form_validation->set_rules('confirm', __('Confirm' ), 'matches[password]');
+        $this->form_validation->set_rules('username', 'User Name', 'required|min_length[5]');
+        $this->form_validation->set_rules('email', 'Email', 'valid_email|required');
+        $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
+        $this->form_validation->set_rules('confirm', 'Confirm', 'matches[password]');
     }
 
     public function enable_addon()
@@ -76,7 +76,7 @@ class Users_Install extends MY_Addon
         $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_perm_to_user`;");
         $this->db->query("CREATE TABLE `{$database_prefix}aauth_perm_to_user` (
             `perm_id` int(11) unsigned NOT NULL,
-            `user_id` int(11) unsigned NOT NULL,
+            `user_id` VARCHAR(100) NOT NULL,
             PRIMARY KEY (`perm_id`,`user_id`)
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
         
@@ -84,8 +84,8 @@ class Users_Install extends MY_Addon
         $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_pms`;");
         $this->db->query("CREATE TABLE `{$database_prefix}aauth_pms` (
             `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-            `sender_id` int(11) unsigned NOT NULL,
-            `receiver_id` int(11) unsigned NOT NULL,
+            `sender_id` VARCHAR(100) NOT NULL,
+            `receiver_id` VARCHAR(100) NOT NULL,
             `title` varchar(255) NOT NULL,
             `message` text,
             `date_sent` datetime DEFAULT NULL,
@@ -99,27 +99,27 @@ class Users_Install extends MY_Addon
         // Auth User Table
         $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_users`;");
         $this->db->query("CREATE TABLE `{$database_prefix}aauth_users` (
-            `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-            `email` varchar(100) COLLATE utf8_general_ci NOT NULL,
-            `pass` varchar(64) COLLATE utf8_general_ci NOT NULL,
-            `username` varchar(100) COLLATE utf8_general_ci,
-            `banned` tinyint(1) DEFAULT '0',
-            `last_login` datetime DEFAULT NULL,
-            `last_activity` datetime DEFAULT NULL,
-            `date_created` datetime DEFAULT NULL,
-            `forgot_exp` text COLLATE utf8_general_ci,
-            `remember_time` datetime DEFAULT NULL,
-            `remember_exp` text COLLATE utf8_general_ci,
-            `verification_code` text COLLATE utf8_general_ci,
-            `totp_secret` varchar(16) COLLATE utf8_general_ci DEFAULT NULL,
-            `ip_address` text COLLATE utf8_general_ci,
+            `id` VARCHAR(100) NOT NULL,
+            `email` VARCHAR(100) NOT NULL,
+            `pass` VARCHAR(64) NOT NULL,
+            `username` VARCHAR(100) NULL DEFAULT NULL,
+            `banned` TINYINT(1) NULL DEFAULT '0',
+            `last_login` DATETIME NULL DEFAULT NULL,
+            `last_activity` DATETIME NULL DEFAULT NULL,
+            `date_created` DATETIME NULL DEFAULT NULL,
+            `forgot_exp` TEXT NULL,
+            `remember_time` DATETIME NULL DEFAULT NULL,
+            `remember_exp` TEXT NULL,
+            `verification_code` TEXT NULL,
+            `totp_secret` VARCHAR(16) NULL DEFAULT NULL,
+            `ip_address` TEXT NULL,
             PRIMARY KEY (`id`)
-          ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;");
+          ) COLLATE='utf8_general_ci' ENGINE=InnoDB ; ");
         
         // User Auth Group
         $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_user_to_group`;");
         $this->db->query("CREATE TABLE `{$database_prefix}aauth_user_to_group` (
-            `user_id` int(11) unsigned NOT NULL,
+            `user_id` VARCHAR(100) NOT NULL,
             `group_id` int(11) unsigned NOT NULL,
             PRIMARY KEY (`user_id`,`group_id`)
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
@@ -128,7 +128,7 @@ class Users_Install extends MY_Addon
         $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_user_variables`;");
         $this->db->query("CREATE TABLE `{$database_prefix}aauth_user_variables` (
             `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-            `user_id` int(11) unsigned NOT NULL,
+            `user_id` VARCHAR(100) NOT NULL,
             `data_key` varchar(100) NOT NULL,
             `value` text,
             PRIMARY KEY (`id`),
@@ -163,44 +163,44 @@ class Users_Install extends MY_Addon
     {
         // Only create if group does'nt exists (it's optional)
         // Creating admin Group
-        $this->aauth->create_group('admin', __('Admin Group'));
-        $this->aauth->create_group('member', __('member Group'));
-        $this->aauth->create_group('user', __('User Group'));
+        $this->aauth->create_group('admin', 'Admin Group');
+        $this->aauth->create_group('member', 'member Group');
+        $this->aauth->create_group('user', 'User Group');
 
         /**
          * Creating default permissions
         **/
         // Core Permission
-        $this->aauth->create_perm('manage.core', __('Manage Core'));
-        $this->aauth->create_perm('manage.menu', __('Manage Menu'));
+        $this->aauth->create_perm('manage.core', 'Manage Core');
+        $this->aauth->create_perm('manage.menu', 'Manage Menu');
 
         // Options Permissions
-        $this->aauth->create_perm('create.options', __('Create Options'));
-        $this->aauth->create_perm('edit.options', __('Edit Options'));
-        $this->aauth->create_perm('read.options', __('Read Options'));
+        $this->aauth->create_perm('create.options', 'Create Options');
+        $this->aauth->create_perm('edit.options', 'Edit Options');
+        $this->aauth->create_perm('read.options', 'Read Options');
 
         // Addons Permissions
-        $this->aauth->create_perm('read.addons', __('Read Addons'));
-        $this->aauth->create_perm('install.addons', __('Install Addons'));
-        $this->aauth->create_perm('update.addons', __('Update Addons'));
-        $this->aauth->create_perm('delete.addons', __('Delete Addons'));
-        $this->aauth->create_perm('toggle.addons', __('Enable/Disable Addons'));
-        $this->aauth->create_perm('extract.addons', __('Extract Addons'));
+        $this->aauth->create_perm('read.addons', 'Read Addons');
+        $this->aauth->create_perm('install.addons', 'Install Addons');
+        $this->aauth->create_perm('update.addons', 'Update Addons');
+        $this->aauth->create_perm('delete.addons', 'Delete Addons');
+        $this->aauth->create_perm('toggle.addons', 'Enable/Disable Addons');
+        $this->aauth->create_perm('extract.addons', 'Extract Addons');
 
         // Users Permissions
-        $this->aauth->create_perm('read.users', __('Read Users'));
-        $this->aauth->create_perm('create.users', __('Create Users'));
-        $this->aauth->create_perm('edit.users', __('Edit Users'));
-        $this->aauth->create_perm('delete.users', __('Delete Users'));
+        $this->aauth->create_perm('read.users', 'Read Users');
+        $this->aauth->create_perm('create.users', 'Create Users');
+        $this->aauth->create_perm('edit.users', 'Edit Users');
+        $this->aauth->create_perm('delete.users', 'Delete Users');
 
         // Group Permissions
-        $this->aauth->create_perm('read.group', __('Read Group'));
-        $this->aauth->create_perm('create.group', __('Create Group'));
-        $this->aauth->create_perm('edit.group', __('Edit Group'));
-        $this->aauth->create_perm('delete.group', __('Delete Group'));
+        $this->aauth->create_perm('read.group', 'Read Group');
+        $this->aauth->create_perm('create.group', 'Create Group');
+        $this->aauth->create_perm('edit.group', 'Edit Group');
+        $this->aauth->create_perm('delete.group', 'Delete Group');
 
         // Profile Permission
-        $this->aauth->create_perm('edit.profile', __('Create Options'));
+        $this->aauth->create_perm('edit.profile', 'Create Options');
 
         /**
          * Assign Permission to Groups
@@ -243,7 +243,7 @@ class Users_Install extends MY_Addon
         );
         
         if ($create_user != 'created') {
-            $this->events->add_filter('validating_setup', $this->notice->push_notice_array($this->aauth->errors));
+            $this->events->add_filter('validating_setup', $this->notice->push_notice_array($this->aauth->get_errors_array()));
         }
     }
 }
