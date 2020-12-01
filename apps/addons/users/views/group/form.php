@@ -22,7 +22,7 @@ $this->polatan->col_width(1, 2);
  */
 $this->polatan->add_meta(array(
     'col_id'    => 1,
-    'namespace' => 'form_group',
+    'namespace' => 'group',
     'gui_saver' => false,
     'form'      => array(
         'action' => null,
@@ -56,6 +56,6 @@ $this->polatan->add_item(array(
                 : set_value('definition'),
         ]
     )
-), 'form_group', 1);
+), 'group', 1);
 
 $this->polatan->output();
