@@ -28,6 +28,12 @@ var SainScript = function() {
                 width:70,
             },
             {
+                field: 'Avatar',
+                title: 'Avatar',
+                sortable: false,
+                width:50,
+            },
+            {
                 field: 'Email',
                 title: 'Email',
                 width: 270,

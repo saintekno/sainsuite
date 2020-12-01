@@ -9,7 +9,7 @@ $config['first_tag_open'] = '<span class="btn btn-icon btn-sm btn-light-primary 
 $config['first_tag_close'] = '</span>';
 
 $config['prev_link'] = '<i class="ki ki-bold-arrow-back icon-xs"></i>';
-$config['prev_tag_open'] = '<span class="btn btn-icon btn-sm btn-light mr-2 my-1">';
+$config['prev_tag_open'] = '<span class="btn btn-icon btn-sm btn-light-primary mr-2 my-1">';
 $config['prev_tag_close'] = '</span>';
  
 $config['last_link'] = '<i class="ki ki-bold-double-arrow-next icon-xs"></i>';
