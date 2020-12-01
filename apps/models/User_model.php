@@ -89,6 +89,12 @@ class User_model extends CI_Model
         // bind user to a speciifc group
         $user_id = $this->aauth->get_user_id($email);
 
+        if(! is_numeric($group_par)) {
+            if (! $this->aauth->get_group($group_par)) {
+                $this->aauth->create_group($group_par, ucwords($group_par.' group'));
+            }
+        }
+
         // Adding to a group
         // refresh group
         $this->aauth->add_member($user_id, $group_par);
@@ -100,6 +106,10 @@ class User_model extends CI_Model
                 $this->aauth->verify_user($user_id, $user->verification_code);
             }
         }
+
+        // add custom user vars
+        $custom_vars = $this->events->apply_filters('custom_user_vars', []);
+        $this->aauth->set_user_var('meta', json_encode($custom_vars), $user_id);
 
         // add custom user fields
         $custom_fields = $this->events->apply_filters('custom_user_meta', array());
@@ -165,6 +175,10 @@ class User_model extends CI_Model
                 $this->aauth->ban_user($user_id);
             }
         }
+
+        // add custom user vars
+        $custom_vars = $this->events->apply_filters('custom_user_vars', []);
+        $this->aauth->set_user_var('meta', json_encode($custom_vars), $user_id);
 
         $custom_fields = $this->events->apply_filters('custom_user_meta', array());
         foreach ( force_array($custom_fields) as $key => $value) {

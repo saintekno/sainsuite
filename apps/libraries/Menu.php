@@ -264,7 +264,7 @@ class Menu
             ?>
             <?php if (riake('search', $current_menu)) : ?>
             <div class="input-icon">
-                <input type="text" class="form-control form-control-sm form-control-solid" placeholder="Search..." id="search_query" />
+                <input type="text" name="<?php echo riake('name', $current_menu); ?>" class="form-control form-control-sm form-control-solid" placeholder="Search..." id="search_query" />
                 <span><i class="flaticon2-search-1 text-muted"></i></span>
             </div>
             <?php else : ?>

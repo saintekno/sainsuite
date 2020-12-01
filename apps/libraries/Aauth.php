@@ -947,6 +947,73 @@ class Aauth {
 
 		return $query->result();
 	}
+     
+    /* 
+     * Fetch records from the database 
+     * @param array filter data based on the passed parameters 
+     */ 
+    public function list_users_search($params = array(), $group_par = false)
+    { 
+        $select = "*, aauth_users.id as user_id ";
+
+		// if group_par is given
+		if ($group_par != false) {
+			$group_par = $this->get_group_id($group_par);
+			$this->aauth_db->select($select)
+				->from($this->config_vars['users'])
+				->join($this->config_vars['user_to_group'], $this->config_vars['users'] . ".id = " . $this->config_vars['user_to_group'] . ".user_id")
+                ->join($this->config_vars[ 'groups' ], $this->config_vars[ 'groups' ] . '.id = ' . $this->config_vars['user_to_group']. '.group_id')
+				->where($this->config_vars['user_to_group'] . ".group_id", $group_par);
+			// if group_par is not given, lists all users
+		} else {
+			$this->aauth_db->select($select)
+				->from($this->config_vars['users'])
+                ->join($this->config_vars['user_to_group'], $this->config_vars['users'] . ".id = " . $this->config_vars['user_to_group'] . ".user_id")
+                ->join($this->config_vars[ 'groups' ], $this->config_vars[ 'groups' ] . '.id = ' . $this->config_vars['user_to_group']. '.group_id') ;
+		}
+
+        if(array_key_exists("where", $params)){ 
+            foreach($params['where'] as $key => $val){ 
+                $this->aauth_db->where($key, $val); 
+            } 
+        } 
+		 
+        if(array_key_exists("search", $params)){ 
+            // Filter data by searched keywords 
+            if(!empty($params['search']['keywords'])){ 
+				$this->aauth_db->like('username', $params['search']['keywords']);
+				$this->aauth_db->or_like('email', $params['search']['keywords']);
+            } 
+        } 
+         
+        if(array_key_exists("returnType",$params) && $params['returnType'] == 'count'){ 
+            $result = $this->aauth_db->count_all_results(); 
+        }
+        else { 
+            if(array_key_exists("id", $params) || (array_key_exists("returnType", $params) && $params['returnType'] == 'single')){ 
+                if(!empty($params['id'])){ 
+                    $this->aauth_db->where($this->config_vars['users'] . ".id", $params['id']); 
+                } 
+                $query = $this->aauth_db->get(); 
+                $result = $query->row_array(); 
+			}
+			else{ 
+                $this->aauth_db->order_by($this->config_vars['users'] . ".id", 'desc'); 
+                if(array_key_exists("start",$params) && array_key_exists("limit",$params)){ 
+                    $this->aauth_db->limit($params['limit'],$params['start']); 
+				}
+				elseif(!array_key_exists("start",$params) && array_key_exists("limit",$params)){ 
+                    $this->aauth_db->limit($params['limit']); 
+                } 
+                 
+                $query = $this->aauth_db->get(); 
+                $result = ($query->num_rows() > 0)?$query->result():FALSE; 
+            } 
+        } 
+         
+        // Return fetched data 
+        return $result; 
+    } 
 
 	//tested
 	/**

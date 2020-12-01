@@ -14,7 +14,11 @@
 <!--end: Selected Rows Group Action Form-->
 
 <!--begin::Datatable-->
+<?php if ( count( force_array( riake('tbody', $_item ) ) ) > 0) :?>
 <table id="kt_datatable">
+<?php else : ?>
+<table>
+<?php endif;?>
     <thead>
         <tr class="text-uppercase">
             <?php foreach (force_array(riake('thead', $_item)) as $index => $_col) : ?>

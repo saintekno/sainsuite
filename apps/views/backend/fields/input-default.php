@@ -6,22 +6,37 @@
         ?>
         <div class="col-<?php echo ($count_cols * 3) * 12 / ($count_cols * 3) / $count_cols ;?>">
             <label class="font-size-lg text-dark font-weight-bold"><?php echo riake('label', $col);?>:</label>
-            <input class="form-control 
-                <?php echo riake('class', $col);?>" 
-                <?php echo $disabled === true ? 'disabled="disabled"' : '';?>
-                <?php echo $required === true ? 'required' : '';?>
-                type="<?php echo $type;?>" 
-                id="<?php echo riake('id', $col);?>" 
-                name="<?php echo riake('name', $col);?>" 
-                placeholder="<?php echo riake('placeholder', $col);?>"
-                value="<?php echo riake('value', $col);?>" />
+            
+            <?php if (riake('append', $col)) :?>
+            <div class="input-group">
+            <?php endif; ?>
+
+                <input class="form-control 
+                    <?php echo riake('class', $col);?>" 
+                    <?php echo $disabled === true ? 'disabled="disabled"' : '';?>
+                    <?php echo $required === true ? 'required' : '';?>
+                    type="<?php echo $type;?>" 
+                    id="<?php echo riake('id', $col);?>" 
+                    name="<?php echo riake('name', $col);?>" 
+                    placeholder="<?php echo riake('placeholder', $col);?>"
+                    value="<?php echo riake('value', $col);?>" />
+            
+            <?php if (riake('append', $col)) :?>
+                <div class="input-group-append"><span class="input-group-text"><?php echo riake('append', $col);?></span></div>
+            </div>
+            <?php endif; ?>
             <span class="form-text text-muted"><?php echo xss_clean($description);?></span>
         </div>
         <?php endforeach; ?>
     <?php else :?>
     <div class="col-12">
         <label class="font-size-lg text-dark font-weight-bold"><?php echo riake('label', $_item);?>:</label>
-        <input class="form-control 
+        
+        <?php if (riake('append', $_item)) :?>
+        <div class="input-group">
+        <?php endif; ?>
+
+            <input class="form-control 
             <?php echo $class;?>" 
             <?php echo $disabled === true ? 'disabled="disabled"' : '';?>
             <?php echo $required === true ? 'required' : '';?>
@@ -30,6 +45,11 @@
             name="<?php echo riake('name', $_item);?>" 
             placeholder="<?php echo riake('placeholder', $_item);?>"
             value="<?php echo riake('value', $_item);?>" />
+            
+        <?php if (riake('append', $_item)) :?>
+            <div class="input-group-append"><span class="input-group-text"><?php echo riake('append', $_item);?></span></div>
+        </div>
+        <?php endif; ?>
         <span class="form-text text-muted"><?php echo xss_clean($description);?></span>
     </div>
     <?php endif;?>

@@ -25,14 +25,6 @@ foreach (force_array(riake('items', $meta)) as $_item)
     { 
         include( dirname( __FILE__ ) . '/fields/input-default.php' );
     }
-    elseif ($type == 'table-datatable') 
-    {
-        include( dirname( __FILE__ ) . '/fields/table-datatable.php' );                            
-    }
-    elseif ($type == 'table-default') 
-    {
-        include( dirname( __FILE__ ) . '/fields/table-default.php' );                            
-    }
     elseif ( $type == 'input-file') 
     {
         include( dirname( __FILE__ ) . '/fields/input-file.php' );               
@@ -45,18 +37,34 @@ foreach (force_array(riake('items', $meta)) as $_item)
     {
         include( dirname( __FILE__ ) . '/fields/textarea.php' );               
     }
+    elseif ($type == 'table-datatable') 
+    {
+        include( dirname( __FILE__ ) . '/fields/table-datatable.php' );                            
+    }
+    elseif ($type == 'table-default') 
+    {
+        include( dirname( __FILE__ ) . '/fields/table-default.php' );                            
+    }
+    elseif ($type == 'table-lists') 
+    {
+        include( dirname( __FILE__ ) . '/fields/table-lists.php' );                            
+    }
     elseif ( $type == 'accordions') 
     {
         include( dirname( __FILE__ ) . '/fields/accordions.php' );               
+    }
+    elseif ( $type == 'search') 
+    {
+        include( dirname( __FILE__ ) . '/fields/search.php' );                
+    }
+    elseif ( $type == 'separator') 
+    {
+        echo '<div class="separator separator-dashed my-8"></div>';               
     }
     elseif (in_array($type, array( 'select', 'multiple' ))) 
     {
         $multiple = $type == 'multiple' ? $type : '';
         include( dirname( __FILE__ ) . '/fields/select.php' );
-    }
-    elseif ( $type == 'separator') 
-    {
-        echo '<div class="separator separator-dashed my-8"></div>';               
     }
     elseif ($type == 'dom') 
     {
