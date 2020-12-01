@@ -17,7 +17,14 @@ $complete_group = array();
 foreach ($groups as $row) {
     $complete_group[] = array(
         $row->id,
-        $row->name ,
+        '<div class="d-flex align-items-center">
+            <div class="symbol symbol-40 symbol-light-primary flex-shrink-0">
+                <span class="symbol-label font-size-h4 font-weight-bold">' . strtoupper(substr($row->name, 0, 1)) . '</span>
+            </div>
+            <div class="ml-4 d-none d-md-block">
+                <div class="text-dark-75">' . $row->name . '</div>
+            </div>
+        </div>',
         $row->definition ,
         '<a href="' . site_url(array( 'admin', 'users', 'group', 'edit', $row->id )) . '" 
             class="btn btn-icon btn-light btn-hover-primary btn-sm"><i class="fas fa-pen"></i></a>
@@ -37,7 +44,7 @@ $this->polatan->col_width(1, 4);
  * Meta
  */
 $this->polatan->add_meta(array(
-    'namespace'  => 'group-list',
+    'namespace'  => 'group',
     'col_id' => 1,
     'type' => 'card'
 ));
@@ -54,13 +61,13 @@ $this->polatan->add_item(array(
         __('Actions') 
     ),
     'tbody' => $complete_group
-), 'group-list', 1);
+), 'group', 1);
 
 /**
  * Script
  */
 $this->events->add_action( 'dashboard_footer', function() {
-    $this->load->addon_view( 'users', 'users/script');
+    $this->load->addon_view( 'users', 'group/script');
 });
 
 $this->polatan->output();
