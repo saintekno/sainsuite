@@ -17,6 +17,11 @@ $complete_users = array();
 foreach ($users as $user) {
     $complete_users[] = array(
         $user->user_id,
+        '<div class="d-flex align-items-center">
+            <div class="symbol symbol-40 symbol-light-primary flex-shrink-0">
+                <span class="symbol-label font-size-h4 font-weight-bold">' . strtoupper(substr($user->username, 0, 1)) . '</span>
+            </div>
+        </div>',
         $user->username ,
         $user->email ,
         $user->last_login,
@@ -53,6 +58,7 @@ $this->polatan->add_item(array(
     'type'  => 'table-default',
     'thead' => array( 
         __('Checkall'), 
+        __('Avatar'), 
         __('Username'), 
         __('Email'),  
         __('Activity'), 
@@ -60,14 +66,6 @@ $this->polatan->add_item(array(
         __('Actions') 
     ),
     'tbody' => $complete_users,
-), 'users', 1);
-
-/**
- * pagination
- */
-$this->polatan->add_item(array(
-    'type'    => 'dom',
-    'content' => $pagination
 ), 'users', 1);
 
 /**
