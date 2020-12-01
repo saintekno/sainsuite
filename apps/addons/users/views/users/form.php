@@ -16,7 +16,7 @@ $this->polatan->col_width(1, 2);
 
 $this->polatan->add_meta(array(
     'col_id'    => 1,
-    'namespace' => 'form_user',
+    'namespace' => 'users',
     'gui_saver' => false,
     'form'      => array(
         'action' => null,
@@ -49,14 +49,14 @@ $this->polatan->add_item(array(
                 : set_value('user_email'),
         ]
     )
-), 'form_user', 1);
+), 'users', 1);
 
 (isset($user))  
     ? $this->polatan->add_item(array(
             'type'  => 'password',
             'label' => __('Old Password', 'aauth'),
             'name'  => 'old_pass',
-        ), 'form_user', 1) : '';
+        ), 'user', 1) : '';
 
 $this->polatan->add_item(array(
     'type'  => 'password',
@@ -71,7 +71,7 @@ $this->polatan->add_item(array(
             'name'  => 'confirm',
         ]
     )
-), 'form_user', 1);
+), 'users', 1);
 
 $this->polatan->add_item(array(
     'type'    => 'select',
@@ -85,7 +85,7 @@ $this->polatan->add_item(array(
     'active' => (isset($user)) 
         ? $user->banned 
         : ''
-), 'form_user',1 );
+), 'users',1 );
 
 $groups_array = array();
 foreach ($groups as $group) {
@@ -97,10 +97,10 @@ $this->polatan->add_item(array(
     'name'    => 'userprivilege',
     'options' => $groups_array,
     'active'  => (isset($user_group)) ? $user_group->group_id : null
-), 'form_user', 1);
+), 'users', 1);
 
 $this->events->do_action('load_users_custom_fields', array(
-    'meta_namespace' => 'form_user',
+    'meta_namespace' => 'users',
     'col_id'         => 1,
     'gui'            => $this->polatan,
     'user_id'        => (isset($user)) ? $user->id : null 

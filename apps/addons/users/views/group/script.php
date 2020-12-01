@@ -19,6 +19,12 @@ var SainScript = function() {
                 textAlign: 'center',
             },
             {
+                field: 'Name',
+                title: 'Name',
+                sortable: false,
+                width:50,
+            },
+            {
                 field: 'Actions',
                 title: 'Actions',
                 sortable: false,
