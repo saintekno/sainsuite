@@ -234,7 +234,7 @@ if (! function_exists('riake'))
 }
 
 // --------------------------------------------------------------------
-
+ 
 function farray($array)
 {
     return riake(0, $array, false);

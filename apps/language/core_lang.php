@@ -17,7 +17,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $lang[ 'database-installed' ]  = __('Database has been installed');
 $lang[ 'system-installed' ]    = __('System has been installed');
 $lang[ 'unable-to-connect' ]   = __('SainSuite cannot connect to your database host.');
-$lang[ 'error-occured' ]       = __('An error occured.');
+$lang[ 'error-occured' ]       = __('Some problems occured, please try again');
 $lang[ 'unexpected-error' ]    = __('An unexpected error occured.');
 $lang[ 'file-conflict' ]       = __('File Conflict.');
 $lang[ 'option-saved' ]        = __('Option was successfully saved.');
