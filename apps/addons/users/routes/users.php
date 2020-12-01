@@ -34,16 +34,6 @@ class UsersHomeController extends MY_Addon
             redirect(site_url('admin/page404'));
 		}
 
-        // Pagination
-        $this->load->library('pagination');
-        $this->config->load('pagination', TRUE);
-		$config_vars = $this->config->item('pagination');
-        $config_vars['base_url'] = site_url(array( 'admin', 'users' )) . '/';
-        $config_vars['total_rows'] = User::count_users();
-        $config_vars['per_page'] = 10;
-        $config_vars['use_page_numbers'] = TRUE;
-        $this->pagination->initialize($config_vars);
-
         // Toolbar
         $this->events->add_filter( 'toolbar_menu', function( $final ) {
                 $final[] = array(
@@ -67,17 +57,14 @@ class UsersHomeController extends MY_Addon
         $this->breadcrumb->add(__('Users'), site_url('admin/users'));
 
         // Data
-        $index = empty( $index ) ? 1 : $index;
-        $user_group = $this->aauth->get_user_groups();
-        if ($user_group[0]->name == $this->aauth->config_vars['admin_group']) {
-            $data['users'] = $this->aauth->list_users( false, $config_vars['per_page'], ( intval( $index ) - 1 ) * $config_vars['per_page'], true);
+        $user_group = farray($this->aauth->get_user_groups());
+        if ($user_group->name == $this->aauth->config_vars['admin_group']) {
+            $data['users'] = $this->aauth->list_users();
         }
         else {
-            $data['users'] = $this->aauth->list_users( $this->aauth->config_vars['member_group'], $config_vars['per_page'], ( intval( $index ) - 1 ) * $config_vars['per_page'], true);
+            $data['users'] = $this->aauth->list_users( $this->aauth->config_vars['member_group'] );
         }
         $data['breadcrumbs'] = $this->breadcrumb->render();
-        $data['pagination'] = $this->pagination->create_links();
-
         $this->addon_view( 'users', 'users/read', $data );
     }
 
@@ -245,14 +232,16 @@ class UsersHomeController extends MY_Addon
 
         $user = $this->aauth->get_user($index);
 
-        if( User::id() == $user->id ) {
-            redirect( array( 'admin', 'users?notice=cant-delete-yourself' ) );
-        }
+        if ( empty($user) ) :
+            redirect(array( 'admin', $redirect.'?notice=unknow-user' ));
+        endif;
 
-        if ($user) {
-            $this->aauth->delete_user($index);
-            redirect(array( 'admin', $redirect.'?notice=deleted' ));
-        }
+        if( User::id() == $user->id ) : 
+            redirect( array( 'admin', 'users?notice=cant-delete-yourself' ) );
+        endif;
+
+        $this->aauth->delete_user($index);
+        redirect(array( 'admin', $redirect.'?notice=deleted' ));
     }
 
     /**
