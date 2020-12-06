@@ -109,7 +109,7 @@
                         <?php endif;?>
 
                         <div class="card-body">
-                            <?php echo $this->load->view('backend/_item', array(
+                            <?php echo $this->load->backend_view('_item', array(
                                 'namespace' => $namespace,
                                 'meta' => $meta
                             ), true);?>
@@ -130,7 +130,7 @@
                     
                     <?php else : ?>
                     
-                    <?php echo $this->load->view('backend/_item', array(
+                    <?php echo $this->load->backend_view('_item', array(
                         'namespace' => $namespace,
                         'meta' => $meta
                     ), true);?>

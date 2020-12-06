@@ -66,7 +66,7 @@ class Admin extends MY_Controller
         $this->enqueue->addon_js('datatables', 'datatables.bundle');
         $this->enqueue->load_js( 'dashboard_footer' );
 
-        $this->load->view('backend/script');
+        $this->load->backend_view('script');
         $this->events->do_action( 'common_footer' );
     }
 
@@ -163,7 +163,7 @@ class Admin extends MY_Controller
             }
 
             Polatan::set_title(sprintf(__('Addons List &mdash; %s'), get('signature')));
-            $this->load->view( 'backend/addons/list' );
+            $this->load->backend_view( 'addons/list' );
         }
         elseif ($page === 'install_zip') 
         {
@@ -291,7 +291,7 @@ class Admin extends MY_Controller
             $data['addon'] = $addon;
 
             Polatan::set_title(sprintf(__('Migration &mdash; %s'), get('signature')));
-            $this->load->view( 'backend/addons/migrate');
+            $this->load->backend_view( 'addons/migrate');
         }
         elseif ($page == 'exec') 
         {
@@ -377,61 +377,74 @@ class Admin extends MY_Controller
      * @return void
      */
     public function themes($page = 'list', $arg2 = null, $arg3 = null, $arg4 = null, $arg5 = null)
-    {
+    {   
+        Theme::load( FRONTENDPATH );  
+
         if ($page === 'list') 
         {
-            // Can user access.addons ?
-            if (! User::control('install.addons') ||
-                ! User::control('update.addons') ||
-                ! User::control('delete.addons') ||
-                ! User::control('toggle.addons')
-            ) {
+            // Can user access.themes ?
+            if (! User::control('read.themes')) {
+                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                redirect(site_url('admin/page404'));
+            }
+            
+            Polatan::set_title(sprintf(__('Theme List &mdash; %s'), get('signature')));
+            $this->events->add_filter( 'aside_menu', $this->events->apply_filters( 'aside_menu_themes', '' ));
+            $this->load->backend_view( 'theme/list' );
+        }
+        elseif ($page === 'install_zip') 
+        {
+            // Can user access.themes ?
+            if (! User::control('install.themes')) {
                 $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
                 redirect(site_url('admin/page404'));
             }
 
-            Polatan::set_title(sprintf(__('Themes List &mdash; %s'), get('signature')));
-            $this->polatan->output();
-            // $this->load->view( 'backend/theme/index' );
-        }
-        elseif ($page === 'install_zip') 
-        {
-            // 
+            if (isset($_FILES[ 'extension_zip' ])) 
+            {
+                $notice = Theme::install('extension_zip');
+                // it means that addon has been installed
+                if (is_array($notice)) 
+                {
+                    redirect(array( 'admin', 'themes', 'list?highlight=' . @$notice[ 'namespace' ] . '&notice=' . $notice[ 'msg' ] . '#theme-' . $notice[ 'namespace' ] ));
+                } 
+
+                $this->notice->push_notice_array($notice);
+            }
         }
         elseif ($page === 'enable') 
         {
-            MY_Addon::enable($arg2);
+            // Can user access.themes ?
+            if (! User::control('toggle.themes')) {
+                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                redirect(site_url('admin/page404'));
+            }
 
-            MY_Addon::init('unique', $arg2);
+            Theme::enable($arg2);
 
-            $this->events->do_action('do_enable_addon', $arg2);
-
-            redirect(array( 'admin', 'addons?notice=' . $this->events->apply_filters('addon_activation_status', 'addon-enabled') ));
-        }
-        elseif ($page === 'disable') 
-        {
-            MY_Addon::disable($arg2);
-
-            $this->events->do_action('do_disable_addon', $arg2);
-
-            redirect(array( 'admin', 'addons?notice=' . $this->events->apply_filters('addon_disabling_status', 'addon-disabled') ));
-
+            redirect(array( 'admin', 'themes?notice=theme-enabled') );
         }
         elseif ($page === 'remove') 
         {
-            MY_Addon::init('unique', $arg2);
-            
-            $this->events->do_action('do_remove_addon', $arg2);
+            // Can user access.themes ?
+            if (! User::control('delete.themes')) {
+                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                redirect(site_url('admin/page404'));
+            }
 
-            MY_Addon::uninstall($arg2);
+            Theme::uninstall($arg2);
 
-            redirect(array( 'admin', 'addons?notice=addon-removed' ));
+            redirect(array( 'admin', 'themes?notice=theme-removed' ));
         }
         elseif ($page === 'extract') 
         {
-            MY_Addon::extract($arg2);
+            // Can user access.themes ?
+            if (! User::control('extract.themes')) {
+                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                redirect(site_url('admin/page404'));
+            }
 
-            $this->events->do_action('do_extract_addon', $arg2);
+            Theme::extract($arg2);
         }
     }
 
@@ -546,7 +559,7 @@ class Admin extends MY_Controller
         }
 
         Polatan::set_title(sprintf(__('Settings &mdash; %s'), get('signature')));
-        $this->load->view( 'backend/settings/index');
+        $this->load->backend_view( 'settings/index');
     }
 
     // --------------------------------------------------------------------
@@ -567,7 +580,7 @@ class Admin extends MY_Controller
             Polatan::set_title(sprintf(__('Updating... &mdash; %s'), get('signature')));
             $data['release'] = $version;
             $data['update'] = $this->update_model->get($version);
-            $this->load->view( 'backend/about/update', $data );
+            $this->load->backend_view( 'about/update', $data );
         } 
         elseif ($page === 'download') {
             echo json_encode($this->update_model->install(1, $version));
@@ -586,7 +599,7 @@ class Admin extends MY_Controller
             Polatan::set_title(sprintf(__('About &mdash; %s'), get('signature')));
             // Can user access addons ?
             $data['check'] = (! User::control('manage.core') ) ? false : $this->update_model->check();
-            $this->load->view( 'backend/about/index', $data );
+            $this->load->backend_view( 'about/index', $data );
         }
     }
 

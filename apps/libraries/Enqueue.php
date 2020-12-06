@@ -41,7 +41,7 @@ class Enqueue
     {
         $CI =& get_instance();
         $this->styles[ $this->_namespace ][ basename( $style ) ] = ($path === null)
-            ? base_url() . $CI->config->item('asset_path') . $CI->config->item('css_path') . $style
+            ? base_url() . $CI->config->item('asset_path') . $CI->config->item('backend_path') . theme_backend() . $CI->config->item('css_path') . $style
             : $path . $style;
     }
 
@@ -81,7 +81,7 @@ class Enqueue
     {
         $CI =& get_instance();
         $this->scripts[ $this->_namespace ][ basename( $script ) ] = ($path === null)
-            ? base_url() . $CI->config->item('asset_path') . $CI->config->item('js_path') . $script
+            ? base_url() . $CI->config->item('asset_path') . $CI->config->item('backend_path') . theme_backend() . $CI->config->item('js_path') . $script
             : $path . $script;
     }
 

@@ -66,6 +66,7 @@ $autoload['libraries'] = array(
     'enqueue', 
     'session',
     'autonumber',
+    'theme',
     'filer',
 );
 
@@ -104,6 +105,7 @@ $autoload['helper'] = array(
     'core', 
     'form', 
     'url', 
+    'theme',
     'request',
     'url_slug', 
     'security',

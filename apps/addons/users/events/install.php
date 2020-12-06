@@ -187,6 +187,13 @@ class Users_Install extends MY_Addon
         $this->aauth->create_perm('toggle.addons', 'Enable/Disable Addons');
         $this->aauth->create_perm('extract.addons', 'Extract Addons');
 
+        // Themes Permissions
+        $this->aauth->create_perm('read.themes', 'Read themes');
+        $this->aauth->create_perm('install.themes', 'Install themes');
+        $this->aauth->create_perm('delete.themes', 'Delete themes');
+        $this->aauth->create_perm('toggle.themes', 'Enable/Disable themes');
+        $this->aauth->create_perm('extract.themes', 'Extract themes');
+
         // Users Permissions
         $this->aauth->create_perm('read.users', 'Read Users');
         $this->aauth->create_perm('create.users', 'Create Users');
@@ -216,6 +223,12 @@ class Users_Install extends MY_Addon
         $this->aauth->allow_group('member', 'delete.addons');
         $this->aauth->allow_group('member', 'toggle.addons');
         $this->aauth->allow_group('member', 'extract.addons');
+
+        $this->aauth->allow_group('member', 'read.themes');
+        $this->aauth->allow_group('member', 'install.themes');
+        $this->aauth->allow_group('member', 'delete.themes');
+        $this->aauth->allow_group('member', 'toggle.themes');
+        $this->aauth->allow_group('member', 'extract.themes');
 
         $this->aauth->allow_group('member', 'read.users');
         $this->aauth->allow_group('member', 'create.users');

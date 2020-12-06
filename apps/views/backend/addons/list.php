@@ -22,7 +22,7 @@ $this->polatan->add_meta(array(
 
 $this->polatan->add_item(array(
     'type'    => 'dom',
-    'content' => $this->load->view('backend/addons/list_dom', array(), true )
+    'content' => $this->load->backend_view('addons/list_dom', array(), true )
 ), 'addons', 1);
 
 $this->polatan->output();

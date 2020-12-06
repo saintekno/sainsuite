@@ -47,11 +47,12 @@ $config[ 'signature' ] = $config[ 'app_name' ] . ' ' . $config[ 'version' ];
 |--------------------------------------------------------------------------
 */
 $config['asset_path']    = 'assets/';
-$config['upload_path']   = 'uploads/';
-$config['theme_path']    = 'themes/';
 $config['addon_path']    = 'addons/';
-$config['css_path']      = 'css/';
+$config['upload_path']   = 'uploads/';
+$config['backend_path']  = 'backend/';
+$config['frontend_path'] = 'frontend/';
 $config['js_path']       = 'js/';
+$config['css_path']      = 'css/';
 $config['img_path']      = 'img/';
 
 /*

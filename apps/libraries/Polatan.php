@@ -202,6 +202,6 @@ class Polatan
     **/
     public function output()
     {
-        $this->CI->load->view('backend/index');
+        $this->CI->load->backend_view('index');
     }
 }

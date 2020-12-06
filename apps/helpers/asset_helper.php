@@ -30,9 +30,9 @@ if (! function_exists('asset_url')) {
         if ($uri === null) { 
             // if addon namespace is not specified
             //return the full asset path
-            return base_url(). $CI->config->item('asset_path');
+            return base_url(). $CI->config->item('asset_path') . $CI->config->item('backend_path') . theme_backend();
         } else {
-            return base_url(). $CI->config->item('asset_path') . $uri ;
+            return base_url(). $CI->config->item('asset_path') . $CI->config->item('backend_path') . theme_backend() . $uri ;
         }
     }
 }
@@ -48,7 +48,7 @@ if (! function_exists('addon_url')) {
     function addon_url($addon_namespace = null)
     {
         $CI =& get_instance();
-        return base_url(). $CI->config->item('asset_path') . 'addons' . '/' . $addon_namespace . '/';
+        return base_url(). $CI->config->item('asset_path') . $CI->config->item('addon_path') . $addon_namespace . '/';
     }
 }
 
@@ -63,9 +63,9 @@ if (! function_exists('img_url')) {
     {
         $CI =& get_instance();
         if ($addon_namespace === null) {
-            return base_url(). $CI->config->item('asset_path') . $CI->config->item('img_path');
+            return base_url(). $CI->config->item('asset_path') . $CI->config->item('backend_path') . theme_backend() . $CI->config->item('img_path');
         } else {
-            return base_url(). $CI->config->item('asset_path') . 'addons' . '/' . $addon_namespace . '/' . 'img/';
+            return base_url(). $CI->config->item('asset_path') . $CI->config->item('addon_path') . $addon_namespace . '/' . $CI->config->item('img_path');
         }
     }
 }
@@ -112,7 +112,7 @@ if (! function_exists('asset_path')) {
     function asset_path()
     {
         $CI =& get_instance();
-        return FCPATH . $CI->config->item('asset_path');
+        return FCPATH . $CI->config->item('asset_path') . $CI->config->item('backend_path') . theme_backend();
     }
 }
 

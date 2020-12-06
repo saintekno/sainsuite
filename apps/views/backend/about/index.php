@@ -23,7 +23,7 @@ $this->polatan->add_meta(array(
 
 $this->polatan->add_item(array(
     'type'    => 'dom',
-    'content' => $this->load->view('backend/about/index_dom', array(
+    'content' => $this->load->backend_view('about/index_dom', array(
         'check' => $check
     ), true )
 ), 'about', 1);

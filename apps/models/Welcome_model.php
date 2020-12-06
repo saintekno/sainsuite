@@ -27,6 +27,6 @@ class Welcome_Model extends CI_Model
      */
     public function load_frontend_home()
     {
-        $this->load->view( 'frontend/default/home' );
+        $this->load->frontend_view( 'home' );
     }
 }

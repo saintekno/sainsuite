@@ -46,43 +46,6 @@ if (! function_exists('currency')) {
     }
 }
 
-// --------------------------------------------------------------------
-
-function theme()
-{
-    global $Options;
-    if (! MY_Addon::is_active(@$Options[ 'site_theme' ], true)) : return 'default';
-    endif;
-
-    return @$Options[ 'site_theme' ] ;
-}
-
-// --------------------------------------------------------------------
-
-// This function helps us to decode the theme configuration json file and return that array to us
-if ( ! function_exists('themeConfiguration'))
-{
-    function themeConfiguration($theme, $key = "")
-    {
-        $themeConfigs = [];
-        if (file_exists(get_instance()->config->item('asset_path').get_instance()->config->item('theme_path').$theme.'/config/theme-config.json')) {
-            $themeConfigs = file_get_contents(get_instance()->config->item('asset_path').get_instance()->config->item('theme_path').$theme.'/config/theme-config.json');
-            $themeConfigs = json_decode($themeConfigs, true);
-            if ($key != "") {
-                if (array_key_exists($key, $themeConfigs)) {
-                    return $themeConfigs[$key];
-                } else {
-                    return false;
-                }
-            }else {
-                return $themeConfigs;
-            }
-        } else {
-            return false;
-        }
-    }
-}
-
 /**
  * Output array details
  * @access public
