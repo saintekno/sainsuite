@@ -154,213 +154,216 @@ class Admin extends MY_Controller
      */
     public function addons($page = 'list', $arg2 = null, $arg3 = null, $arg4 = null, $arg5 = null)
     {        
-        if ($page === 'list') 
-        {
-            // Can user access.addons ?
-            if (! User::control('read.addons')) {
-                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
-                redirect(site_url('admin/page404'));
-            }
+        switch ($page) {
+            case "list":
+                // Can user access.addons ?
+                if (! User::control('read.addons')) {
+                    $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                    redirect(site_url('admin/page404'));
+                }
+    
+                Polatan::set_title(sprintf(__('Addons List &mdash; %s'), get('signature')));
+                $this->load->view( 'backend/addons/list' );
+                break;
 
-            Polatan::set_title(sprintf(__('Addons List &mdash; %s'), get('signature')));
-            $this->load->backend_view( 'addons/list' );
-        }
-        elseif ($page === 'install_zip') 
-        {
-            // Can user access.addons ?
-            if (! User::control('install.addons')) {
-                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
-                redirect(site_url('admin/page404'));
-            }
-
-            if (isset($_FILES[ 'extension_zip' ])) 
-            {
-                $notice = MY_Addon::install('extension_zip');
-                // it means that addon has been installed
-                if (is_array($notice)) 
+            case "install_zip":
+                // Can user access.addons ?
+                if (! User::control('install.addons')) {
+                    $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                    redirect(site_url('admin/page404'));
+                }
+    
+                if (isset($_FILES[ 'extension_zip' ])) 
                 {
-                    // Introducing Migrate
-                    if (@$notice[ 'msg' ] == 'addon-updated-migrate-required') 
+                    $notice = MY_Addon::install('extension_zip');
+                    // it means that addon has been installed
+                    if (is_array($notice)) 
                     {
-                        redirect(array( 'admin', 'addons', 'migrate', @$notice[ 'namespace' ], @$notice[ 'from' ] ));
+                        // Introducing Migrate
+                        if (@$notice[ 'msg' ] == 'addon-updated-migrate-required') 
+                        {
+                            redirect(array( 'admin', 'addons', 'migrate', @$notice[ 'namespace' ], @$notice[ 'from' ] ));
+                        } 
+                        else {
+                            if (! isset($notice[ 'extra' ])) { 
+                                $this->options_model->set(
+                                    'migration_' . @$notice[ 'namespace' ], 
+                                    @$notice[ 'from' ], 
+                                    @$notice[ 'namespace' ]);
+                            };
+                            redirect(array( 'admin', 'addons', 'list?highlight=' . @$notice[ 'namespace' ] . '&notice=' . $notice[ 'msg' ] . (isset($notice[ 'extra' ]) ? '&extra=' . $notice[ 'extra' ] : '') . '#addon-' . $notice[ 'namespace' ] ));
+                        }
+                    } 
+    
+                    $this->notice->push_notice_array($notice);
+                }
+                break;
+
+            case "enable":
+                // Can user access.addons ?
+                if (! User::control('toggle.addons')) {
+                    $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                    redirect(site_url('admin/page404'));
+                }
+    
+                MY_Addon::enable($arg2);
+    
+                MY_Addon::init('unique', $arg2);
+    
+                $this->events->do_action('do_enable_addon', $arg2);
+    
+                redirect(array( 'admin', 'addons?notice=' . $this->events->apply_filters('addon_activation_status', 'addon-enabled') ));
+                break;
+
+            case "disable":
+                // Can user access.addons ?
+                if (! User::control('toggle.addons')) {
+                    $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                    redirect(site_url('admin/page404'));
+                }
+    
+                MY_Addon::disable($arg2);
+    
+                $this->events->do_action('do_disable_addon', $arg2);
+    
+                redirect(array( 'admin', 'addons?notice=' . $this->events->apply_filters('addon_disabling_status', 'addon-disabled') ));
+                break;
+
+            case "remove":
+                // Can user access.addons ?
+                if (! User::control('delete.addons')) {
+                    $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                    redirect(site_url('admin/page404'));
+                }
+    
+                MY_Addon::init('unique', $arg2);
+                
+                $this->events->do_action('do_remove_addon', $arg2);
+    
+                MY_Addon::uninstall($arg2);
+    
+                redirect(array( 'admin', 'addons?notice=addon-removed' ));
+                break;
+                
+            case "extract":
+                // Can user access.addons ?
+                if (! User::control('extract.addons')) {
+                    $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                    redirect(site_url('admin/page404'));
+                }
+    
+                MY_Addon::extract($arg2);
+    
+                $this->events->do_action('do_extract_addon', $arg2);
+                break;
+
+            case "migrate":
+                // Can user access.addons ?
+                if (! User::control('update.addons')) {
+                    $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                    redirect(site_url('admin/page404'));
+                }
+    
+                if ( $arg3 === null ) {
+                    $arg3 = get_option( 'migration_' . $arg2, '1.0', $arg2);
+                }
+    
+                $addon = MY_Addon::get($arg2);
+                $migrate_file = ADDONSPATH . $addon[ 'application' ][ 'namespace' ] . '/migrate.php';
+    
+                if (! $addon) {
+                    redirect(array( 'admin', 'addon-not-found' ));
+                }
+    
+                $data['migrate_file'] = $migrate_file;
+                $data['migrate_data'] = json_encode( array_keys( MY_Addon::migration_files( 
+                    $addon[ 'application'][ 'namespace' ], 
+                    $arg3, 
+                    $addon[ 'application'][ 'version' ] 
+                ) ) );
+                $data['addon'] = $addon;
+    
+                Polatan::set_title(sprintf(__('Migration &mdash; %s'), get('signature')));
+                $this->load->view( 'backend/addons/migrate');
+                break;
+
+            case "exec":
+                // Can user access.addons ?
+                if (! User::control('install.addons')) {
+                    $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                    redirect(site_url('admin/page404'));
+                }
+    
+                $addon = MY_Addon::get($arg2);
+                
+                ob_start();
+                $migration_array = include_once(ADDONSPATH . $addon[ 'application' ][ 'namespace' ] . '/migrate.php');
+    
+                // If currrent migration version exists
+                if (@ $migration_array[ $arg4 ]) 
+                {
+                    // if is file path, it's included
+                    if (is_string($migration_array[ $arg4 ]) && is_file($migration_array[ $arg4 ])) 
+                    {
+                        // we asume this file exists
+                        $result = @include_once($migration_array[ $arg4 ]);
+                        if ( $result === false ) {
+                            return;
+                        }
+                    } 
+                    // if it's callable, it's called
+                    elseif (is_callable($migration_array[ $arg4 ])) {
+                        $function = $migration_array[ $arg4 ];
+                        $function($addon);
                     } 
                     else {
-                        if (! isset($notice[ 'extra' ])) { 
-                            $this->options_model->set(
-                                'migration_' . @$notice[ 'namespace' ], 
-                                @$notice[ 'from' ], 
-                                @$notice[ 'namespace' ]);
-                        };
-                        redirect(array( 'admin', 'addons', 'list?highlight=' . @$notice[ 'namespace' ] . '&notice=' . $notice[ 'msg' ] . (isset($notice[ 'extra' ]) ? '&extra=' . $notice[ 'extra' ] : '') . '#addon-' . $notice[ 'namespace' ] ));
+                        $content = false;
                     }
-                } 
-
-                $this->notice->push_notice_array($notice);
-            }
-        }
-        elseif ($page === 'enable') 
-        {
-            // Can user access.addons ?
-            if (! User::control('toggle.addons')) {
-                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
-                redirect(site_url('admin/page404'));
-            }
-
-            MY_Addon::enable($arg2);
-
-            MY_Addon::init('unique', $arg2);
-
-            $this->events->do_action('do_enable_addon', $arg2);
-
-            redirect(array( 'admin', 'addons?notice=' . $this->events->apply_filters('addon_activation_status', 'addon-enabled') ));
-        }
-        elseif ($page === 'disable') 
-        {
-            // Can user access.addons ?
-            if (! User::control('toggle.addons')) {
-                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
-                redirect(site_url('admin/page404'));
-            }
-
-            MY_Addon::disable($arg2);
-
-            $this->events->do_action('do_disable_addon', $arg2);
-
-            redirect(array( 'admin', 'addons?notice=' . $this->events->apply_filters('addon_disabling_status', 'addon-disabled') ));
-
-        }
-        elseif ($page === 'sync') 
-        {
-            MY_Addon::sync($arg2);
-            
-            redirect(array( 'admin', 'addons?notice=addon-sync' ));
-        }
-        elseif ($page === 'remove') 
-        {
-            // Can user access.addons ?
-            if (! User::control('delete.addons')) {
-                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
-                redirect(site_url('admin/page404'));
-            }
-
-            MY_Addon::init('unique', $arg2);
-            
-            $this->events->do_action('do_remove_addon', $arg2);
-
-            MY_Addon::uninstall($arg2);
-
-            redirect(array( 'admin', 'addons?notice=addon-removed' ));
-        }
-        elseif ($page === 'extract') 
-        {
-            // Can user access.addons ?
-            if (! User::control('extract.addons')) {
-                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
-                redirect(site_url('admin/page404'));
-            }
-
-            MY_Addon::extract($arg2);
-
-            $this->events->do_action('do_extract_addon', $arg2);
-        }
-        elseif ($page == 'migrate') 
-        {
-            // Can user access.addons ?
-            if (! User::control('update.addons')) {
-                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
-                redirect(site_url('admin/page404'));
-            }
-
-            if ( $arg3 === null ) {
-                $arg3 = get_option( 'migration_' . $arg2, '1.0', $arg2);
-            }
-
-            $addon = MY_Addon::get($arg2);
-            $migrate_file = ADDONSPATH . $addon[ 'application' ][ 'namespace' ] . '/migrate.php';
-
-			if (! $addon) {
-                redirect(array( 'admin', 'addon-not-found' ));
-            }
-
-            $data['migrate_file'] = $migrate_file;
-            $data['migrate_data'] = json_encode( array_keys( MY_Addon::migration_files( 
-                $addon[ 'application'][ 'namespace' ], 
-                $arg3, 
-                $addon[ 'application'][ 'version' ] 
-            ) ) );
-            $data['addon'] = $addon;
-
-            Polatan::set_title(sprintf(__('Migration &mdash; %s'), get('signature')));
-            $this->load->backend_view( 'addons/migrate');
-        }
-        elseif ($page == 'exec') 
-        {
-            // Can user access.addons ?
-            if (! User::control('install.addons')) {
-                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
-                redirect(site_url('admin/page404'));
-            }
-
-            $addon = MY_Addon::get($arg2);
-            
-            ob_start();
-            $migration_array = include_once(ADDONSPATH . $addon[ 'application' ][ 'namespace' ] . '/migrate.php');
-
-            // If currrent migration version exists
-            if (@ $migration_array[ $arg4 ]) 
-            {
-                // if is file path, it's included
-                if (is_string($migration_array[ $arg4 ]) && is_file($migration_array[ $arg4 ])) 
-                {
-                    // we asume this file exists
-                    $result = @include_once($migration_array[ $arg4 ]);
-                    if ( $result === false ) {
-                        return;
-                    }
-                } 
-                // if it's callable, it's called
-                elseif (is_callable($migration_array[ $arg4 ])) {
-                    $function = $migration_array[ $arg4 ];
-                    $function($addon);
-                } 
-                else {
-                    $content = false;
+    
+                    // When migrate is done the last version key is saved as previous migration version
+                    // Next migration will start from here
+                    $this->options_model->set( 
+                        'migration_' . $addon[ 'application' ][ 'namespace' ], 
+                        $arg4,
+                        $addon[ 'application' ][ 'namespace' ]);
                 }
-
-                // When migrate is done the last version key is saved as previous migration version
-                // Next migration will start from here
-                $this->options_model->set( 
-                    'migration_' . $addon[ 'application' ][ 'namespace' ], 
-                    $arg4,
-                    $addon[ 'application' ][ 'namespace' ]);
-            }
-
-            // Handling error
-            $content = ob_get_clean();
-
-            // If not error occured
-            if (empty($content)) 
-            {
-                echo json_encode(array(
-                    'status'  => 'success',
-                    'message' => __('Migration done.')
-                ));
-            } 
-            else { 
-                if ($content === false) 
+    
+                // Handling error
+                $content = ob_get_clean();
+    
+                // If not error occured
+                if (empty($content)) 
                 {
                     echo json_encode(array(
-                        'status'  => 'failed',
-                        'message' => sprintf(__('File not found or incorrect executable provided.'))
+                        'status'  => 'success',
+                        'message' => __('Migration done.')
                     ));
                 } 
-                else {
-                    echo json_encode(array(
-                        'status'  => 'failed',
-                        'message' => sprintf(__('An error occured'))
-                    ));
+                else { 
+                    if ($content === false) 
+                    {
+                        echo json_encode(array(
+                            'status'  => 'failed',
+                            'message' => sprintf(__('File not found or incorrect executable provided.'))
+                        ));
+                    } 
+                    else {
+                        echo json_encode(array(
+                            'status'  => 'failed',
+                            'message' => sprintf(__('An error occured'))
+                        ));
+                    }
                 }
-            }
+                break;
+
+            case "publish":
+                $this->events->do_action('do_publish_page', $arg2);
+                break;
+
+            case "private":
+                $this->events->do_action('do_private_page', $arg2);
+                break;
+
         }
     }
 

@@ -74,11 +74,11 @@ class MY_Addon extends CI_Model
 
             if ($filter === 'actives') 
             {                    
-                if (!isset($actives_addons)) {
-                    $actives_addons = ( array ) @$Options[ 'actives_addons' ];
+                if (!isset($addons_actives)) {
+                    $addons_actives = get_instance()->events->apply_filters('addons_active_status', @$Options[ 'addons_actives' ]);
                 }
     
-                if (in_array(strtolower($addon[ 'application' ][ 'namespace' ]), $actives_addons)) 
+                if (in_array(strtolower($addon[ 'application' ][ 'namespace' ]), $addons_actives)) 
                 {
                     self::$actives[] = $addon[ 'application' ][ 'namespace' ];
                     include_once($init_file);
@@ -177,7 +177,7 @@ class MY_Addon extends CI_Model
         {
             foreach( $addons as $addon ) 
             {
-                if( in_array( $addon[ 'application' ][ 'namespace' ], ( array ) @$Options[ 'actives_addons' ] ) ) 
+                if( in_array( $addon[ 'application' ][ 'namespace' ], get_instance()->events->apply_filters('addons_active_status', @$Options[ 'addons_actives' ]) ) ) 
                 {
                     self::checkDependency( $addon[ 'application' ][ 'namespace' ] );
                 }
@@ -241,16 +241,28 @@ class MY_Addon extends CI_Model
         global $Options;
 
         if ($fresh === true) {
-            $activated_addons = @$Options[ 'actives_addons' ];
+            $addons_active = get_instance()->events->apply_filters('addons_active_status', @$Options[ 'addons_actives' ]);
         } 
         else {
-            $activated_addons = self::$actives;
+            $addons_active = self::$actives;
         }
 
-        if ( in_array( $addon_namespace, ( array ) $activated_addons, true ) ) {
+        if ( in_array( $addon_namespace, ( array ) $addons_active, true ) ) {
             return true;
         }
         return false;
+    }
+
+	// --------------------------------------------------------------------
+
+    /**
+     * Is Publish
+     *
+     * Checks whether a addon is publish
+     */
+    public static function is_publish($addon_namespace, $fresh = false)
+    {
+        return get_instance()->events->apply_filters('is_publish', $addon_namespace);
     }
 
 	// --------------------------------------------------------------------
@@ -264,13 +276,14 @@ class MY_Addon extends CI_Model
     {
         global $Options;
 
-        $activated_addons = ( array ) @$Options[ 'actives_addons' ];
-        if (! in_array($addon_namespace, $activated_addons)) 
+        $addons_active = ( array ) @$Options[ 'addons_actives' ];
+        if (! in_array($addon_namespace, $addons_active)) 
         {
-            $activated_addons[] = $addon_namespace;
-            get_instance()->options_model->set('actives_addons', $activated_addons);
-            $Options[ 'actives_addons' ] = $activated_addons;
+            $addons_active[] = $addon_namespace;
+            get_instance()->options_model->set('addons_actives', $addons_active);
         }
+
+        get_instance()->events->do_action('do_is_enable', $addon_namespace);
     }
 
     // --------------------------------------------------------------------
@@ -284,14 +297,39 @@ class MY_Addon extends CI_Model
     {
         global $Options;
 
-        $activated_addons = ( array ) @$Options[ 'actives_addons' ];
-        if ( in_array( $addon_namespace, $activated_addons ) ) 
+        $addons_active = ( array ) @$Options[ 'addons_actives' ];
+        if ( in_array( $addon_namespace, $addons_active ) ) 
         {
-            $key = array_search( $addon_namespace, $activated_addons );
-            unset( $activated_addons[ $key ] );
-            $Options[ 'actives_addons' ] = $activated_addons;
-            get_instance()->options_model->set( 'actives_addons', $activated_addons);
+            $key = array_search( $addon_namespace, $addons_active );
+            unset( $addons_active[ $key ] );
+            get_instance()->options_model->set( 'addons_actives', $addons_active);
         }
+
+        get_instance()->events->do_action('do_is_disable', $addon_namespace);
+    }
+
+	// --------------------------------------------------------------------
+
+    /**
+     * Publish
+     *
+     * Publish a addon using namespace provided
+     */
+    public static function publish($addon_namespace)
+    {
+        get_instance()->events->do_action('do_publish_addon', $addon_namespace);
+    }
+
+    // --------------------------------------------------------------------
+
+    /**
+    * Private
+    *
+    * Private addon using namespace provided as unique parameter
+    */
+    public static function private($addon_namespace)
+    {
+        get_instance()->events->do_action('do_private_addon', $addon_namespace);
     }
 
     // --------------------------------------------------------------------

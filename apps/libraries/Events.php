@@ -370,7 +370,7 @@ if (!class_exists('Events')) {
 
         $args = array();
         if (is_array($arg) && 1 == count($arg) && isset($arg[0]) && is_object($arg[0])) { // array(&$this)
-        $args[] =& $arg[0];
+            $args[] =& $arg[0];
         } else {
             $args[] = $arg;
         }
@@ -378,11 +378,11 @@ if (!class_exists('Events')) {
             $args[] = func_get_arg($a);
         }
 
-      // Sort
-      if (!isset($this->merged_filters[ $tag ])) {
-          ksort($this->filters[$tag]);
-          $this->merged_filters[ $tag ] = true;
-      }
+        // Sort
+        if (!isset($this->merged_filters[ $tag ])) {
+            ksort($this->filters[$tag]);
+            $this->merged_filters[ $tag ] = true;
+        }
 
         reset($this->filters[ $tag ]);
 

@@ -54,6 +54,20 @@ var KTApp = function() {
             var fileName = $(this).val().replace(/C:\\fakepath\\/i, '');
             $(this).next('.custom-file-label').addClass("selected").html(ellipsis(fileName));
         });
+
+        function ellipsis(str, length, ending) {
+           if (length == null) {
+             length = 40;
+           }
+           if (ending == null) {
+             ending = '...';
+           }
+           if (str.length > length) {
+             return str.substring(0, length - ending.length) + ending;
+           } else {
+             return str;
+           }
+        };
     }
 
     var initScroll = function() {
@@ -9586,6 +9600,24 @@ var KTLayoutAside = function() {
         }
     }
 
+    var collapse = function(){
+        var menuAccordion = sessionStorage.getItem("accordion");
+
+        $('.card-title').on('click', function(e) {
+            var $this = $(this);
+            var collapse = $this.parents().next().attr('id');
+
+            sessionStorage.setItem("accordion", collapse);
+        });
+
+        if (menuAccordion != null) {
+            $('#'+menuAccordion).addClass('show');
+        }
+        else {
+            $(".card > .card-header:first-child").next().addClass('show');
+        }
+    };
+
     // Public methods
 	return {
 		init: function(id) {
@@ -9603,6 +9635,7 @@ var KTLayoutAside = function() {
             _initAside();
             cekClass();
             menuAside();
+            collapse();
         },
 
         getElement: function() {

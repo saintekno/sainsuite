@@ -1,5 +1,9 @@
 <?php
-$skin = ($this->aauth->get_user_var('theme-skin', riake('user_id', $config)) == false) ? 'skin-light' : 'skin-dark';
+if ($this->aauth->get_user_var('theme-skin', riake('user_id', $config))) {
+    $skin = ($this->aauth->get_user_var('theme-skin', riake('user_id', $config)) == 'skin-light') ? 'skin-light' : 'skin-dark';
+} else {
+    $skin = 'skin-dark';
+}
 ?>
 <div class="separator separator-dashed my-8"></div>
 <label class="font-size-lg text-dark font-weight-bold"><?php _e('Select a theme', 'aauth'); ?></label>

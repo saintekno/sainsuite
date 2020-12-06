@@ -422,6 +422,14 @@ class Aauth {
 	 * @param bool $perm_par If not given just control user logged in or not
 	 */
 	public function control( $perm_par = false ){
+		
+		global $Options;
+		if (@$Options['demo_mode']) {
+			print_array($this->get_user()->date_created);
+			$date = date("Y-m-d", strtotime("+ 14 Days")) . "T0:0:0";
+ 
+			return $date;
+		}
 
 		$this->CI->load->helper('url');
 

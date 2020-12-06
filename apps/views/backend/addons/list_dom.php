@@ -154,6 +154,10 @@
                                     </div>
                                 </td>
                                 <td class="pr-0 text-right">
+                                    <?php if (MY_Addon::is_publish($addon_namespace)) {?>
+                                        <span class="label label-secondary label-inline mr-2">publish</span>
+                                    <?php } ?>
+
                                     <?php if( !$_addon[ 'application' ][ 'readonly' ] ) : ?>
                                     <?php if (isset($_addon[ 'application' ][ 'main' ])) { // if the addon has a main file, it can be activated
                                         if (! MY_Addon::is_active($addon_namespace, true)) {?>
@@ -228,6 +232,32 @@
                                                 
                                                 <?php if( !$_addon[ 'application' ][ 'readonly' ] ) : ?>
                                                 <li class="navi-separator mt-3 opacity-70"></li>
+                                                <?php if (! MY_Addon::is_publish($addon_namespace, true)) {?>
+                                                    <li class="navi-item">
+                                                    <a class="navi-link" href="<?php echo site_url(array( 'admin', 'addons', 'publish', $addon_namespace )); ?>">
+                                                        <span class="navi-icon">
+                                                        <i class="fas fa-lock-open"></i>
+                                                        </span>
+                                                        <span class="navi-text">
+                                                        <?php _e('Publish');?>
+                                                        </span>
+                                                    </a>
+                                                    </li>
+                                                    <?php
+                                                } else {?>
+                                                    <li class="navi-item">
+                                                    <a class="navi-link" href="<?php echo site_url(array( 'admin', 'addons', 'private', $addon_namespace )); ?>">
+                                                        <span class="navi-icon">
+                                                        <i class="fas fa-lock"></i>
+                                                        </span>
+                                                        <span class="navi-text">
+                                                        <?php _e('Private');?>
+                                                        </span>
+                                                    </a>
+                                                    </li>
+                                                    <?php
+                                                }
+                                                ?>
                                                 <li class="navi-item">
                                                 <a href="" class="navi-link"
                                                     data-head="<?php _e( 'Would you like to delete this addon?');?>"
@@ -275,7 +305,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <!--begin::Form-->
-            <form class="form" action="addons/install_zip" method="POST" enctype="multipart/form-data">
+            <form class="form" action="<?php echo site_url(['admin', 'addons', 'install_zip']);?>" method="POST" enctype="multipart/form-data">
                 <!--begin::Header-->
                 <div class="d-flex align-items-center justify-content-between py-5 pl-8 pr-5 border-bottom">
                     <h5 class="font-weight-bold m-0"><?php echo __('Choose the addons zip file');?></h5>
