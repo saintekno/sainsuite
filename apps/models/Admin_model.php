@@ -41,8 +41,14 @@ class Admin_Model extends CI_Model
 
         $setting_menu['appearance'][ 'themes' ][] = array(
             'title' => __('Themes'),
-            'icon'  => 'svg/Layout-left-panel-1.svg',
+            'icon'  => 'svg/Bucket.svg',
             'href'  => site_url('admin/themes')
+        );
+
+        $setting_menu['tools'][ 'backup' ][] = array(
+            'title' => __('Backup DB'),
+            'icon'  => 'svg/Commode2.svg',
+            'href'  => '#'
         );
 
         foreach ($this->events->apply_filters('setting_menu', $setting_menu) as $namespace => $menus) {
