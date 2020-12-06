@@ -106,12 +106,10 @@ class Install_Model extends CI_Model
         // Creating option table
         $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}options`;");
         $this->db->query("CREATE TABLE `{$database_prefix}options` (
-            `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-            `key` varchar(200) NOT NULL,
-            `value` text,
-            `app` varchar(100) NOT NULL,
-            PRIMARY KEY (`id`)
-        );");
+            `key` VARCHAR(200) NOT NULL,
+            `value` TEXT NULL,
+            `app` VARCHAR(100) NOT NULL
+        ) COLLATE='utf8_general_ci' ENGINE=InnoDB ;");
 
         $this->events->do_action('settings_tables', array(
             'database_prefix' => $database_prefix,
@@ -139,7 +137,7 @@ class Install_Model extends CI_Model
         // Saving Site name
         $this->options_model->set('site_name', $this->input->post('site_name'));
         $this->options_model->set('site_language', $this->input->post('lang'));
-        $this->options_model->set('site_theme', 'default');
+        $this->options_model->set('theme_frontend', 'default');
 
         // Do actions
         $this->events->do_action('settings_final_config');
