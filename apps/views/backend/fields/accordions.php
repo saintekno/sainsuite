@@ -11,7 +11,7 @@
 		</div>
 		<div id="<?php echo $_row['id'];?>" class="collapse <?php echo ($loop_index == 0) ? 'show' : '';?>" data-parent="#accordionExample2">
 			<div class="card-body">            
-            <?php echo $this->load->view('backend/_item', array(
+            <?php echo $this->load->backend_view('_item', array(
                 'meta' => $_row['body']
             ), true);?>
 			</div>
