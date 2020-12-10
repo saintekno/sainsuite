@@ -256,13 +256,20 @@ class MY_Addon extends CI_Model
 	// --------------------------------------------------------------------
 
     /**
-     * Is Publish
+     * Is Share
      *
-     * Checks whether a addon is publish
+     * Checks whether a addon is share
      */
-    public static function is_publish($addon_namespace, $fresh = false)
+    public static function is_share($addon_namespace)
     {
-        return get_instance()->events->apply_filters('is_publish', $addon_namespace);
+        global $Options;
+
+        $addons_share = @$Options[ 'addons_share' ];
+        
+        if ( in_array( $addon_namespace, ( array ) $addons_share ) ) {
+            return true;
+        }
+        return false;
     }
 
 	// --------------------------------------------------------------------
@@ -362,9 +369,6 @@ class MY_Addon extends CI_Model
 
     public static function uninstall($addon_namespace)
     {
-        // Disable first
-        self::disable($addon_namespace);
-
         $addonpath = ADDONSPATH . $addon_namespace;
         $manifest_file = $addonpath . '/' . self::$manifest_addon;
 
@@ -533,8 +537,12 @@ class MY_Addon extends CI_Model
             {
                 $addon_namespace = $addon_array[ 'application' ][ 'namespace' ];
                 $old_addon = self::get($addon_namespace);
+                
+                get_instance()->events->do_action('do_install_addon', $addon_namespace);
+
                 // if addon with a same namespace already exists
-                if ($old_addon) {
+                if ($old_addon) 
+                {
                     if (isset($old_addon[ 'application' ][ 'version' ])) 
                     {
                         $old_version = $old_addon[ 'application' ][ 'version' ];
@@ -614,7 +622,7 @@ class MY_Addon extends CI_Model
                         } 
                         else {
                             return array(
-                                'namespace' => $addon_array[ 'application' ][ 'namespace' ],
+                                'namespace' => $addon_namespace,
                                 'from' => $addon_array[ 'application' ][ 'version' ],
                                 'msg' => 'addon-installed'
                             );

@@ -85,7 +85,7 @@ class Auth extends MY_Controller
                 $this->input->post('email'),
                 $this->input->post('password'),
                 $this->input->post('username'),
-                'user',
+                'member',
                 ( @$Options[ 'require_validation' ] == 1 ? 1 : 0 )
             );
     

@@ -15,16 +15,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 global $Routes;
 
-$Routes->get( 'users/{page_id?}', 'UsersHomeController@index' )->where([ 'page_id' => '[0-9]+' ]);
-$Routes->match([ 'get', 'post' ], 'users/add', 'UsersHomeController@add' );
-$Routes->match([ 'get', 'post' ], 'users/edit/{id}', 'UsersHomeController@edit' );
-$Routes->match([ 'get', 'post' ], 'users/delete/{id}/{redirect?}', 'UsersHomeController@delete' );
-$Routes->match([ 'get', 'post' ], 'users/multidelete', 'UsersHomeController@multidelete' );
+$Routes->group(['prefix' => '/users'], function () use ( $Routes ) {
+    $Routes->get( '/{page_id?}', 'UsersHomeController@index' )->where([ 'page_id' => '[0-9]+' ]);
+    $Routes->match([ 'get', 'post' ], 'add', 'UsersHomeController@add' );
+    $Routes->match([ 'get', 'post' ], 'edit/{id}', 'UsersHomeController@edit' );
+    $Routes->match([ 'get', 'post' ], 'delete/{id}/{redirect?}', 'UsersHomeController@delete' );
+    $Routes->match([ 'get', 'post' ], 'multidelete', 'UsersHomeController@multidelete' );
+    
+    $Routes->match([ 'get', 'post' ], 'profile', 'UsersProfileController@index' );
+});
 
-$Routes->match([ 'get', 'post' ], 'users/profile', 'UsersProfileController@index' );
-
-$Routes->match([ 'get', 'post' ], 'users/group', 'GroupsHomeController@index' );
-$Routes->match([ 'get', 'post' ], 'users/group/add', 'GroupsHomeController@add' );
-$Routes->match([ 'get', 'post' ], 'users/group/delete/{id}', 'GroupsHomeController@delete' );
-$Routes->match([ 'get', 'post' ], 'users/group/edit/{id}', 'GroupsHomeController@edit' );
-$Routes->match([ 'get', 'post' ], 'users/group/multidelete', 'GroupsHomeController@multidelete' );
+$Routes->group(['prefix' => '/group'], function () use ( $Routes ) {
+    $Routes->match([ 'get', 'post' ], '/', 'GroupsHomeController@index' );
+    $Routes->match([ 'get', 'post' ], 'add', 'GroupsHomeController@add' );
+    $Routes->match([ 'get', 'post' ], 'delete/{id}', 'GroupsHomeController@delete' );
+    $Routes->match([ 'get', 'post' ], 'edit/{id}', 'GroupsHomeController@edit' );
+    $Routes->match([ 'get', 'post' ], 'multidelete', 'GroupsHomeController@multidelete' );
+});

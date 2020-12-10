@@ -50,10 +50,10 @@ class Notice
     {
         if (is_array($notice_array)) {
             foreach (force_array($notice_array) as $notice) {
-                $this->push_notice(__($notice));
+                $this->push_notice(get_instance()->lang->line($notice));
             }
         } else {
-            $this->push_notice(__($notice_array));
+            $this->push_notice(get_instance()->lang->line($notice_array));
         }
     }
     

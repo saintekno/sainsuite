@@ -19,6 +19,7 @@ class Admin_Model extends CI_Model
         parent::__construct();
         
         $this->events->add_action( 'load_dashboard_homes', [ $this, 'load_dashboard_homes' ] );
+        $this->events->add_action( 'load_abouts', [ $this, 'load_abouts' ] );
 
         $this->events->add_action('load_dashboard', array( $this, 'set_help_menu' ));
         $this->events->add_action('load_dashboard', array( $this, 'set_setting_menu' ));
@@ -132,5 +133,20 @@ class Admin_Model extends CI_Model
     {
         Polatan::set_title(sprintf(__('Dashboard &mdash; %s'), get('signature')));
         $this->polatan->output();
+    }
+
+    /**
+     * Dashboard UI
+     *
+     * @return void
+     */
+    public function load_abouts()
+    {
+        $this->load->library('markdown');
+        Polatan::set_title(sprintf(__('About &mdash; %s'), get('signature')));
+        // Can user access addons ?
+        $data = array();
+        $data['check'] = (! User::control('manage.core') ) ? false : $this->update_model->check();
+        $this->load->backend_view( 'about/index', $data );
     }
 }

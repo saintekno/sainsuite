@@ -12,6 +12,7 @@
  * @filesource
  */
 
+$this->load->helper('calendar');
 $complete_users = array();
 // adding user to complete_users array
 foreach ($users as $user) {
@@ -25,6 +26,8 @@ foreach ($users as $user) {
         $user->username ,
         $user->email ,
         $user->last_login,
+        $user->last_activity,
+        get_range_time($user->last_login, $user->last_activity),
         $user->banned   ==  1 ? __( 'Unactive' , 'aauth') : __( 'Active' , 'aauth'),
         '<a href="' . site_url(array( 'admin', 'users', 'edit', $user->user_id )) . '" 
             class="btn btn-icon btn-light btn-hover-primary btn-sm btn-edit"><i class="fas fa-pen"></i></a>
@@ -61,7 +64,9 @@ $this->polatan->add_item(array(
         __('Avatar'), 
         __('Username'), 
         __('Email'),  
+        __('Login'), 
         __('Activity'), 
+        __('Durasi'), 
         __('Status' ), 
         __('Actions') 
     ),

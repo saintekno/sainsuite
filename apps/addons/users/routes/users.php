@@ -18,7 +18,7 @@ class UsersHomeController extends MY_Addon
     {
         parent::__construct();
 
-        $this->events->add_filter( 'aside_menu', array( new Users_Menu, '_aside_menu' ));
+        $this->events->add_filter( 'header_menu', array( new Users_Menu, '_header_menu' ));
     }
 
     /**
@@ -57,13 +57,7 @@ class UsersHomeController extends MY_Addon
         $this->breadcrumb->add(__('Users'), site_url('admin/users'));
 
         // Data
-        $user_group = farray($this->aauth->get_user_groups());
-        if ($user_group->name == $this->aauth->config_vars['admin_group']) {
-            $data['users'] = $this->aauth->list_users();
-        }
-        else {
-            $data['users'] = $this->aauth->list_users( $this->aauth->config_vars['member_group'] );
-        }
+        $data['users'] = $this->aauth->list_users();
         $data['breadcrumbs'] = $this->breadcrumb->render();
         $this->addon_view( 'users', 'users/read', $data );
     }

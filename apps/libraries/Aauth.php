@@ -423,14 +423,6 @@ class Aauth {
 	 */
 	public function control( $perm_par = false ){
 		
-		global $Options;
-		if (@$Options['demo_mode']) {
-			print_array($this->get_user()->date_created);
-			$date = date("Y-m-d", strtotime("+ 14 Days")) . "T0:0:0";
- 
-			return $date;
-		}
-
 		$this->CI->load->helper('url');
 
 		if($this->CI->session->userdata('totp_required')){
@@ -462,7 +454,7 @@ class Aauth {
 			}
 		}
 
-		return true;
+		return get_instance()->events->apply_filters('do_control', true);
 	}
 
 	//tested
@@ -916,14 +908,19 @@ class Aauth {
 
         $select = "*, aauth_users.id as user_id ";
 
+        $user_group = farray($this->get_user_groups());
+        if ( ! $this->is_admin() && $group_par == false) {
+            $group_par = $user_group->name;
+		}
+		
 		// if group_par is given
 		if ($group_par != false) {
-			$group_par = $this->get_group_id($group_par);
+			$group_par = get_instance()->events->apply_filters('fill_list_users', $this->get_group_id($group_par));
 			$this->aauth_db->select($select)
 				->from($this->config_vars['users'])
 				->join($this->config_vars['user_to_group'], $this->config_vars['users'] . ".id = " . $this->config_vars['user_to_group'] . ".user_id")
                 ->join($this->config_vars[ 'groups' ], $this->config_vars[ 'groups' ] . '.id = ' . $this->config_vars['user_to_group']. '.group_id')
-				->where($this->config_vars['user_to_group'] . ".group_id", $group_par);
+				->where_in($this->config_vars['user_to_group'] . ".group_id", $group_par);
 			// if group_par is not given, lists all users
 		} else {
 			$this->aauth_db->select($select)
@@ -1430,11 +1427,14 @@ class Aauth {
 			);
 			$this->aauth_db->insert($this->config_vars['groups'], $data);
 			$group_id = $this->aauth_db->insert_id();
+			
+			get_instance()->events->do_action('do_create_group', $group_id);
+
 			$this->precache_groups();
 			return $group_id;
 		}
 
-		$this->info($this->CI->lang->line('aauth_info_group_exists'));
+		$this->info('aauth_info_group_exists');
 		return false;
 	}
 
@@ -1622,8 +1622,9 @@ class Aauth {
 	 * @return object Array of groups
 	 */
 	public function list_groups() {
-		$group_id1 = $this->get_group_id($this->config_vars['admin_group']);
-		$this->aauth_db->where('id !=', $group_id1);
+		$group_id1 = $this->get_group_id(farray($this->get_user_groups())->name);
+		
+		get_instance()->events->apply_filters('fill_list_groups', $this->aauth_db->where('id >', $group_id1));
 		$query = $this->aauth_db->get($this->config_vars['groups']);
 		return $query->result();
 	}
@@ -1659,7 +1660,7 @@ class Aauth {
 
 		if( is_numeric($group_par) ) { return $group_par; }
 
-		$key	= str_replace(' ', '', trim(strtolower($group_par)));
+		$key = str_replace(' ', '', trim(strtolower($group_par)));
 
 		if (isset($this->cache_group_id[$key])) {
 			return $this->cache_group_id[$key];
@@ -1716,6 +1717,7 @@ class Aauth {
 
 		$group_id = $this->get_group_id($group_par);
 		$subgroup_id = $this->get_group_id($subgroup_par);
+		$user_id = $this->get_user_id();
 
 		if( ! $group_id ) {
 			$this->error( $this->CI->lang->line('aauth_error_no_group') );
@@ -1745,12 +1747,14 @@ class Aauth {
 
 		$query = $this->aauth_db->where('group_id',$group_id);
 		$query = $this->aauth_db->where('subgroup_id',$subgroup_id);
+		$query = $this->aauth_db->where('user_id',$user_id);
 		$query = $this->aauth_db->get($this->config_vars['group_to_group']);
 
 		if ($query->num_rows() < 1) {
 			$data = array(
 				'group_id' => $group_id,
 				'subgroup_id' => $subgroup_id,
+				'user_id' => $user_id,
 			);
 
 			return $this->aauth_db->insert($this->config_vars['group_to_group'], $data);
@@ -1781,11 +1785,11 @@ class Aauth {
 	 * @param int|string $group_par Group id or name to get
 	 * @return object Array of subgroup_id's
 	 */
-	public function get_subgroups ( $group_par ) {
+	public function get_subgroups ( ) {
 
-		$group_id = $this->get_group_id($group_par);
+		$user_id = $this->get_user_id();
 
-		$query = $this->aauth_db->where('group_id', $group_id);
+		$query = $this->aauth_db->where('user_id', $user_id);
 		$query = $this->aauth_db->select('subgroup_id');
 		$query = $this->aauth_db->get($this->config_vars['group_to_group']);
 
@@ -1793,6 +1797,23 @@ class Aauth {
 			return false;
 
 		return $query->result();
+	}
+
+	/**
+	 * Get subgroups group
+	 */
+	public function get_subgroup_group ( $subgroup_par ) {
+
+		$subgroup_id = $this->get_group_id($subgroup_par);
+
+		$query = $this->aauth_db->where('subgroup_id', $subgroup_id);
+		$query = $this->aauth_db->select('group_id');
+		$query = $this->aauth_db->get($this->config_vars['group_to_group']);
+
+		if ($query->num_rows() == 0)
+			return false;
+
+		return $query->row();
 	}
 
 	########################

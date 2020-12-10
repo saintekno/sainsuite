@@ -26,11 +26,11 @@ foreach ($groups as $row) {
             </div>
         </div>',
         $row->definition ,
-        '<a href="' . site_url(array( 'admin', 'users', 'group', 'edit', $row->id )) . '" 
+        '<a href="' . site_url(array( 'admin', 'group', 'edit', $row->id )) . '" 
             class="btn btn-icon btn-light btn-hover-primary btn-sm"><i class="fas fa-pen"></i></a>
         <button class="btn btn-icon btn-light btn-hover-danger btn-sm"
             data-head=\'' . _s( 'Would you like to delete data?', 'aauth' ) . '\'
-            data-url=\'' . site_url(array( 'admin', 'users', 'group', 'delete', $row->id )) . '\'
+            data-url=\'' . site_url(array( 'admin', 'group', 'delete', $row->id )) . '\'
             onclick="deleteConfirmation(this)"><i class="fas fa-trash-alt"></i></button>' ,
     );
 }

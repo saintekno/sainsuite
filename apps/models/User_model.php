@@ -108,11 +108,12 @@ class User_model extends CI_Model
         }
 
         // add custom user vars
-        $custom_vars = $this->events->apply_filters('custom_user_vars', []);
+        $custom_vars = $this->events->apply_filters('custom_user_meta', []);
         $this->aauth->set_user_var('meta', json_encode($custom_vars), $user_id);
 
         // add custom user fields
-        $custom_fields = $this->events->apply_filters('custom_user_meta', array());
+        $fields[ 'theme-skin' ] = 'skin-dark';
+        $custom_fields = $this->events->apply_filters('custom_user_vars', $fields);
         foreach (force_array($custom_fields) as $key => $value) {
             $this->aauth->set_user_var($key, $value, $user_id);
         }
@@ -177,10 +178,10 @@ class User_model extends CI_Model
         }
 
         // add custom user vars
-        $custom_vars = $this->events->apply_filters('custom_user_vars', []);
+        $custom_vars = $this->events->apply_filters('custom_user_meta', []);
         $this->aauth->set_user_var('meta', json_encode($custom_vars), $user_id);
 
-        $custom_fields = $this->events->apply_filters('custom_user_meta', array());
+        $custom_fields = $this->events->apply_filters('custom_user_vars', array());
         foreach ( force_array($custom_fields) as $key => $value) {
             $this->aauth->set_user_var($key, strip_tags( $value ), $user_id);
         } 

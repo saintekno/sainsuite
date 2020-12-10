@@ -6,7 +6,7 @@
                 <a href="#" class="btn btn-block btn-primary btn-lg font-weight-bold text-uppercase text-center" data-toggle="modal" data-target="#kt_inbox_compose">
                 <i class="ki ki-plus icon-1x"></i> AddOns
                 </a>
-            </div>
+            </div>           
             <div class="d-flex align-items-center mr-1 my-2">
                 <div class="input-group input-group-lg input-group-solid my-2">
                     <input type="text" class="form-control pl-4"
@@ -116,8 +116,6 @@
     <!--begin::Body-->
     <div class="card-body py-0">
         <?php
-        global $Options;
-        $addons = MY_Addon::get();
         if ($addons) : ?>
         <!--begin::Table-->
         <div class="table-responsive">
@@ -154,8 +152,8 @@
                                     </div>
                                 </td>
                                 <td class="pr-0 text-right">
-                                    <?php if (MY_Addon::is_publish($addon_namespace)) {?>
-                                        <span class="label label-secondary label-inline mr-2">publish</span>
+                                    <?php if (MY_Addon::is_share($addon_namespace) && $this->aauth->is_admin()) {?>
+                                        <span class="label label-secondary label-inline mr-2">share to member</span>
                                     <?php } ?>
 
                                     <?php if( !$_addon[ 'application' ][ 'readonly' ] ) : ?>
@@ -197,7 +195,9 @@
                                                     </span>
                                                 </a>
                                                 </li>
-                                                <?php if (intval(riake('webdev_mode', $Options)) == true):?>
+                                                <?php 
+                                                global $Options;
+                                                if (intval(riake('webdev_mode', $Options)) == true && $this->aauth->is_admin()):?>
                                                 <li class="navi-item">
                                                     <a href="<?php echo site_url(array( 'admin', 'addons', 'extract', $addon_namespace ));?>" class="navi-link">
                                                         <span class="navi-icon"><i class="fas fa-archive"></i></span>
@@ -215,7 +215,7 @@
                                                     $addon_version
                                                 );
 
-                                                if( $hasMigration ):?>
+                                                if( $hasMigration && $this->aauth->is_admin()):?>
                                                 <li class="navi-separator mt-3 opacity-70"></li>
                                                 <li class="navi-item">
                                                 <a href="<?php echo site_url([ 'admin', 'addons', 'migrate', $addon_namespace, $last_version ]);?>"  
@@ -231,46 +231,49 @@
                                                 <?php endif;?>
                                                 
                                                 <?php if( !$_addon[ 'application' ][ 'readonly' ] ) : ?>
-                                                <li class="navi-separator mt-3 opacity-70"></li>
-                                                <?php if (! MY_Addon::is_publish($addon_namespace, true)) {?>
+                                                    <?php if (MY_Addon::is_active($addon_namespace, true) && $this->aauth->is_admin()) : ?>
+                                                        <?php if (! MY_Addon::is_share($addon_namespace)) : ?>
+                                                        <li class="navi-item">
+                                                        <a class="navi-link" href="<?php echo site_url(array( 'admin', 'addons', 'publish', $addon_namespace )); ?>">
+                                                            <span class="navi-icon">
+                                                            <i class="fas fa-lock-open"></i>
+                                                            </span>
+                                                            <span class="navi-text">
+                                                            <?php _e('Publish');?>
+                                                            </span>
+                                                        </a>
+                                                        </li>
+                                                        <?php else : ?>
+                                                        <li class="navi-item">
+                                                        <a class="navi-link" href="<?php echo site_url(array( 'admin', 'addons', 'private', $addon_namespace )); ?>">
+                                                            <span class="navi-icon">
+                                                            <i class="fas fa-lock"></i>
+                                                            </span>
+                                                            <span class="navi-text">
+                                                            <?php _e('Private');?>
+                                                            </span>
+                                                        </a>
+                                                        </li>
+                                                        <?php endif; ?>
+                                                    <?php endif; ?>
+
+                                                    
+                                                    <?php if ($this->aauth->is_admin()) : ?>
+                                                    <li class="navi-separator mt-3 opacity-70"></li>
                                                     <li class="navi-item">
-                                                    <a class="navi-link" href="<?php echo site_url(array( 'admin', 'addons', 'publish', $addon_namespace )); ?>">
+                                                    <a href="" class="navi-link"
+                                                        data-head="<?php _e( 'Would you like to delete this addon?');?>"
+                                                        data-url="<?php echo site_url(array( 'admin', 'addons', 'remove', $addon_namespace )); ?>"
+                                                        onclick="deleteConfirmation(this)">
                                                         <span class="navi-icon">
-                                                        <i class="fas fa-lock-open"></i>
+                                                        <i class="fa fa-trash text-danger"></i>
                                                         </span>
                                                         <span class="navi-text">
-                                                        <?php _e('Publish');?>
+                                                        <?php _e('Remove');?>
                                                         </span>
                                                     </a>
                                                     </li>
-                                                    <?php
-                                                } else {?>
-                                                    <li class="navi-item">
-                                                    <a class="navi-link" href="<?php echo site_url(array( 'admin', 'addons', 'private', $addon_namespace )); ?>">
-                                                        <span class="navi-icon">
-                                                        <i class="fas fa-lock"></i>
-                                                        </span>
-                                                        <span class="navi-text">
-                                                        <?php _e('Private');?>
-                                                        </span>
-                                                    </a>
-                                                    </li>
-                                                    <?php
-                                                }
-                                                ?>
-                                                <li class="navi-item">
-                                                <a href="" class="navi-link"
-                                                    data-head="<?php _e( 'Would you like to delete this addon?');?>"
-                                                    data-url="<?php echo site_url(array( 'admin', 'addons', 'remove', $addon_namespace )); ?>"
-                                                    onclick="deleteConfirmation(this)">
-                                                    <span class="navi-icon">
-                                                    <i class="fa fa-trash text-danger"></i>
-                                                    </span>
-                                                    <span class="navi-text">
-                                                    <?php _e('Remove');?>
-                                                    </span>
-                                                </a>
-                                                </li>
+                                                    <?php endif; ?>
                                                 <?php endif; ?>
                                             </ul>
                                             <!--end::Navigation-->

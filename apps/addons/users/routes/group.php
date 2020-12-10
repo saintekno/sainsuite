@@ -18,7 +18,7 @@ class GroupsHomeController extends MY_Addon
     {
         parent::__construct();
 
-        $this->events->add_filter( 'aside_menu', array( new Users_Menu, '_aside_menu' ));
+        $this->events->add_filter( 'header_menu', array( new Users_Menu, '_header_menu' ));
     }
 
     /**
@@ -38,7 +38,7 @@ class GroupsHomeController extends MY_Addon
                 'title'   => __('Add A group'),
                 'icon'    => 'ki ki-plus',
                 'button'  => 'btn-light-primary',
-                'href'    => site_url([ 'admin', 'users', 'group', 'add' ]),
+                'href'    => site_url([ 'admin', 'group', 'add' ]),
                 'permission' => 'create.group'
             );
             return $final;
@@ -49,7 +49,7 @@ class GroupsHomeController extends MY_Addon
         
         // BreadCrumb
         $this->breadcrumb->add(__('Home'), site_url('admin'));
-        $this->breadcrumb->add(__('Group'), site_url('admin/users/group'));
+        $this->breadcrumb->add(__('Group'), site_url('admin/group'));
         
         $data['breadcrumbs'] = $this->breadcrumb->render();
         $data['groups'] = $this->aauth->list_groups();
@@ -73,7 +73,7 @@ class GroupsHomeController extends MY_Addon
 				'title'   => __('Back to the list'),
 				'icon'    => 'ki ki-long-arrow-back',
 				'button'  => 'btn-light',
-				'href'    => site_url([ 'admin', 'users', 'group' ])
+				'href'    => site_url([ 'admin', 'group' ])
 			);
 			return $final;
         });
@@ -90,10 +90,10 @@ class GroupsHomeController extends MY_Addon
             );
 
             if ($exec) {
-                redirect(array( 'admin', 'users', 'group?notice=created'));
+                redirect(array( 'admin', 'group?notice=created'));
             } 
             
-            $this->notice->push_notice_array($this->aauth->get_errors_array());
+            $this->notice->push_notice_array($this->aauth->get_infos_array());
         }
         
         // Title
@@ -101,8 +101,8 @@ class GroupsHomeController extends MY_Addon
         
         // BreadCrumb
         $this->breadcrumb->add(__('Home'), site_url('admin'));
-        $this->breadcrumb->add(__('Group'), site_url('admin/users/group'));
-        $this->breadcrumb->add(__('Add New'), site_url('admin/users/group/add'));
+        $this->breadcrumb->add(__('Group'), site_url('admin/group'));
+        $this->breadcrumb->add(__('Add New'), site_url('admin/group/add'));
         
         $data['breadcrumbs'] = $this->breadcrumb->render();
         $this->addon_view( 'users', 'group/form', $data );
@@ -126,7 +126,7 @@ class GroupsHomeController extends MY_Addon
 				'title'   => __('Back to the list'),
 				'icon'    => 'ki ki-long-arrow-back',
 				'button'  => 'btn-light',
-				'href'    => site_url([ 'admin', 'users', 'group' ])
+				'href'    => site_url([ 'admin', 'group' ])
 			);
 			return $final;
         });
@@ -156,8 +156,8 @@ class GroupsHomeController extends MY_Addon
         
         // BreadCrumb
         $this->breadcrumb->add(__('Home'), site_url('admin'));
-        $this->breadcrumb->add(__('Group'), site_url('admin/users/group'));
-        $this->breadcrumb->add(__('Edit'), site_url('admin/users/group/edit'));
+        $this->breadcrumb->add(__('Group'), site_url('admin/group'));
+        $this->breadcrumb->add(__('Edit'), site_url('admin/group/edit'));
         
         $data['breadcrumbs'] = $this->breadcrumb->render();
         $data['group'] = $this->aauth->get_group($index);
@@ -178,5 +178,27 @@ class GroupsHomeController extends MY_Addon
 
         $exec = $this->aauth->delete_group($index);
         redirect(array( 'admin', 'users', 'group?notice=deleted'));
+    }
+
+    /**
+     * Delete user
+     * @return redirect
+     */
+
+    public function multidelete()
+    {
+        if (! User::control('delete.group')) {
+            $this->session->set_flashdata('info_message', __( 'Access denied. Youre not allowed to see this page.' ));
+            redirect(site_url('admin/page404'));
+        }
+
+        $ids = $this->input->post('ids');
+
+        foreach($ids as $id){
+            $this->aauth->delete_group($id);
+        }
+
+        echo 1;
+        exit;
     }
 }

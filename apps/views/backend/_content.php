@@ -11,17 +11,14 @@
             <p>
                 <?php if ($this->session->flashdata('info_message') != ""):?>
                     <?php echo $this->session->flashdata("info_message");?></br>
-                    We're working on it
                 <?php endif;?>
 
                 <?php if ($this->session->flashdata('error_message') != ""):?>
                     <?php echo $this->session->flashdata("error_message");?></br>
-                    We're working on it
                 <?php endif;?>
 
                 <?php if ($this->session->flashdata('flash_message') != ""):?>
                     <?php echo $this->session->flashdata("flash_message");?></br>
-                    We're working on it
                 <?php endif;?>
             </p>
         </div>

@@ -21,7 +21,7 @@ class Users_Menu extends MY_Addon
         $this->events->add_filter( 'after_user_card', array( $this, 'after_user_card' ));
     }
 
-	public function _aside_menu($menu) {
+	public function _header_menu($menu) {
         $menu[] = array(
             'title' => __('Users'),
             'href' => site_url([ 'admin', 'users' ]),
@@ -30,12 +30,12 @@ class Users_Menu extends MY_Addon
         );
         $menu[] = array(
             'title' => __('Group'),
-            'href' => site_url([ 'admin', 'users', 'group' ]),
+            'href' => site_url([ 'admin', 'group' ]),
             'icon' => 'la la-user-friends',
             'permission' => 'read.group'
         );
 
-        $aside_menu = $this->events->apply_filters('aside_menu_users', $menu);
+        $aside_menu = $this->events->apply_filters('header_menu_users', $menu);
         
         return $aside_menu;
 	}

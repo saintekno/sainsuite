@@ -48,3 +48,13 @@ function get_range_date($start_date = '', $end_date = '')
 
     return $selisi;
 }
+
+function get_range_time($start_date = '', $end_date = '')
+{
+    $datetime1 = new DateTime($start_date);
+    $datetime2 = new DateTime($end_date);
+    $d = $datetime1->diff($datetime2);
+    $elapsed = $d->format('%H : %I : %S');
+
+    return $elapsed;
+}

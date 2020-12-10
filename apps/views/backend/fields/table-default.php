@@ -17,7 +17,7 @@
 <?php if ( count( force_array( riake('tbody', $_item ) ) ) > 0) :?>
 <table id="kt_datatable">
 <?php else : ?>
-<table>
+<table class="table table-head-custom table-vertical-center">
 <?php endif;?>
     <thead>
         <tr class="text-uppercase">

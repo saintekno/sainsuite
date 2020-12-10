@@ -163,7 +163,9 @@ class Admin extends MY_Controller
                 }
     
                 Polatan::set_title(sprintf(__('Addons List &mdash; %s'), get('signature')));
-                $this->load->view( 'backend/addons/list' );
+                
+                $data['addons'] = $this->events->apply_filters('get_folder_addons', MY_Addon::get());
+                $this->load->view( 'backend/addons/list', $data );
                 break;
 
             case "install_zip":
@@ -176,6 +178,7 @@ class Admin extends MY_Controller
                 if (isset($_FILES[ 'extension_zip' ])) 
                 {
                     $notice = MY_Addon::install('extension_zip');
+
                     // it means that addon has been installed
                     if (is_array($notice)) 
                     {
@@ -197,6 +200,11 @@ class Admin extends MY_Controller
     
                     $this->notice->push_notice_array($notice);
                 }
+    
+                Polatan::set_title(sprintf(__('Addons List &mdash; %s'), get('signature')));
+                
+                $data['addons'] = $this->events->apply_filters('get_folder_addons', MY_Addon::get());
+                $this->load->view( 'backend/addons/list', $data );
                 break;
 
             case "enable":
@@ -392,7 +400,8 @@ class Admin extends MY_Controller
             }
             
             Polatan::set_title(sprintf(__('Theme List &mdash; %s'), get('signature')));
-            $this->events->add_filter( 'aside_menu', $this->events->apply_filters( 'aside_menu_themes', '' ));
+            
+            $this->events->do_action('aside_menu_themes');
             $this->load->backend_view( 'theme/list' );
         }
         elseif ($page === 'install_zip') 
@@ -575,10 +584,6 @@ class Admin extends MY_Controller
      */
     public function about($page = 'home',  $version = null)
     {
-        $this->events-> add_filter('gui_page_title', function () { // disabling header
-            return;
-        });
-
         if ($page === 'core') {
             Polatan::set_title(sprintf(__('Updating... &mdash; %s'), get('signature')));
             $data['release'] = $version;
@@ -598,11 +603,7 @@ class Admin extends MY_Controller
             echo json_encode($this->update_model->install(4));
         } 
         else {
-            $this->load->library('markdown');
-            Polatan::set_title(sprintf(__('About &mdash; %s'), get('signature')));
-            // Can user access addons ?
-            $data['check'] = (! User::control('manage.core') ) ? false : $this->update_model->check();
-            $this->load->backend_view( 'about/index', $data );
+            $this->events->do_action( $this->events->apply_filters('load_about', 'load_abouts') );
         }
     }
 

@@ -36,7 +36,7 @@ var SainScript = function() {
             {
                 field: 'Email',
                 title: 'Email',
-                width: 270,
+                width: 200,
             }]
         });
         

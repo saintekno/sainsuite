@@ -43,7 +43,6 @@ class Users_Filters extends MY_Addon
     {
         $fields[ 'first-name' ] = ($fname = $this->input->post('first-name')) ? $fname : '';
         $fields[ 'last-name' ] = ($lname = $this->input->post('last-name')) ? $lname : '';
-        $fields[ 'theme-skin' ] = ($skin = $this->input->post('theme-skin')) ? $skin : 'skin-dark';
         return $fields;
     }
 

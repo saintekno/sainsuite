@@ -139,8 +139,9 @@ class Users_Install extends MY_Addon
         $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_group_to_group`;");
         $this->db->query("CREATE TABLE `{$database_prefix}aauth_group_to_group` (
             `group_id` int(11) unsigned NOT NULL,
+            `user_id` varchar(100) NOT NULL,
             `subgroup_id` int(11) unsigned NOT NULL,
-            PRIMARY KEY (`group_id`,`subgroup_id`)
+            PRIMARY KEY (`group_id`,`user_id`,`subgroup_id`)
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
         
         // Auth Attempts
