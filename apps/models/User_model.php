@@ -112,8 +112,7 @@ class User_model extends CI_Model
         $this->aauth->set_user_var('meta', json_encode($custom_vars), $user_id);
 
         // add custom user fields
-        $fields[ 'theme-skin' ] = 'skin-dark';
-        $custom_fields = $this->events->apply_filters('custom_user_vars', $fields);
+        $custom_fields = $this->events->apply_filters('custom_user_vars', []);
         foreach (force_array($custom_fields) as $key => $value) {
             $this->aauth->set_user_var($key, $value, $user_id);
         }
