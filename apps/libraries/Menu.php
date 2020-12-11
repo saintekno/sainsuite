@@ -22,6 +22,8 @@ class Menu
 
     public static $toolbar_menus_core = array();
 
+    public static $header_menu_core = array();
+
     public static $aside_menu_core = array();
 
     public static $system_menus_core = array();
@@ -52,6 +54,11 @@ class Menu
     public static function add_toolbar_menu($namespace)
     {
         self::$toolbar_menus_core[] = $namespace;
+    }
+
+    public static function add_header_menu($namespace)
+    {
+        self::$header_menu_core[] = $namespace;
     }
 
     public static function add_aside_menu($namespace)
@@ -166,7 +173,7 @@ class Menu
         foreach ($core_menus as $menu_namespacex => $current_menux) 
         { 
             ?>
-            <li class="navi-section text-uppercase pb-0 <?php echo ($loop_index == 0) ? '' : 'mt-5';?>">
+            <li class="navi-section text-uppercase <?php echo ($loop_index == 0) ? '' : 'mt-5';?>">
                 <?php _e($menu_namespacex);?>
             </li>
 
@@ -178,7 +185,7 @@ class Menu
                 }
                 ?>
                 <li class="navi-item font-size-xs">
-                    <a href="<?php echo riake('href', $current_menu);?>" <?php echo (riake('target', $current_menu)) ? 'target="_blank"' : '';?> class="navi-link pb-0">
+                    <a href="<?php echo riake('href', $current_menu);?>" <?php echo (riake('target', $current_menu)) ? 'target="_blank"' : '';?> class="navi-link py-1">
                         <span class="navi-text"><?php _e(riake('title', $current_menu));?></span>
                     </a>
                 </li>
@@ -200,7 +207,7 @@ class Menu
                 <!--begin::Item-->
                 <a href="<?php echo riake('href', $current_menu);?>" class="list-item d-block p-2 mb-2">
                     <div class="d-flex align-items-center">
-                        <div class="symbol symbol-35 mr-4">
+                        <div class="symbol symbol-30 mr-4">
                             <span class="symbol-label">
                                 <img src="<?php echo asset_url(riake('icon', $current_menu));?>" />
                             </span>
@@ -262,25 +269,18 @@ class Menu
                 continue;
             }
             ?>
-            <?php if (riake('search', $current_menu)) : ?>
-            <div class="input-icon">
-                <input type="text" name="<?php echo riake('name', $current_menu); ?>" class="form-control form-control-sm form-control-solid" placeholder="Search..." id="search_query" />
-                <span><i class="flaticon2-search-1 text-muted"></i></span>
-            </div>
-            <?php else : ?>
             <a href="<?php echo riake('href', $current_menu); ?>" class="btn <?php echo riake('button', $current_menu); ?> font-weight-bolder btn-sm ml-2">
                 <i class="<?php echo riake('icon', $current_menu); ?> icon-1x p-0"></i>
                 <span class="d-none d-md-inline"><?php echo riake('title', $current_menu); ?></span> 
             </a>
             <?php
-            endif;
         }
     }
 
-    public static function load_aside_menu()
+    public static function load_header_menu()
     {
         $loop_index = 0;
-        foreach (self::$aside_menu_core as $menu_namespace => $current_menu) 
+        foreach (self::$header_menu_core as $menu_namespace => $current_menu) 
         { 
             if( @$current_menu[ 'permission' ] != null && ! User::control( $current_menu[ 'permission' ] ) ) {
                 continue;
@@ -297,5 +297,36 @@ class Menu
             <?php
             $loop_index++; // increment loop_index
         }
+    }
+
+    public static function load_aside_menu()
+    { 
+        ?>
+        <div class="navi navi-bold navi-hover navi-active navi-link-rounded">
+        <?php
+        $loop_index = 0;
+        foreach (self::$aside_menu_core as $menu_namespace => $current_menu) 
+        { 
+            if( @$current_menu[ 'permission' ] != null && ! User::control( $current_menu[ 'permission' ] ) ) {
+                continue;
+            }
+            ?>
+            <div class="navi-item">
+                <a href="<?php echo riake('href', $current_menu); ?>" class="navi-link p-2">
+                    <span class="navi-icon mr-2">
+                        <span class="svg-icon">
+                            <img src="<?php echo asset_url(riake('icon', $current_menu));?>" />
+                        </span> 
+                    </span>
+                    <span class="navi-text font-size-lg">
+                    <?php echo riake('title', $current_menu); ?>
+                    </span>
+                </a>
+            </div>
+            <?php
+            $loop_index++; // increment loop_index
+        } ?>
+        </div>
+        <?php
     }
 }
