@@ -17,6 +17,8 @@ class UsersProfileController extends MY_Addon
     public function __construct()
     {
         parent::__construct();
+
+        $this->events->add_filter( 'aside_menu', array( new Users_Menu, '_aside_menu' ));
     }
     
     public function index()
@@ -26,6 +28,14 @@ class UsersProfileController extends MY_Addon
             redirect(site_url('admin/page404'));
         }
         
+        $this->events->add_filter('ui_subheader_body', function () { 
+            return 'transparent';
+        });
+
+        $this->events->add_filter('gui_before_cols', function () { 
+            return '<button class="btn btn-secondary mb-2 btn-lg btn-block d-lg-none" id="kt_subheader_mobile_toggle"> <i class="flaticon-menu-2"></i> Block level Menu</button>';
+        });
+
         $this->load->library('form_validation');
         $this->form_validation->set_rules('user_email', __('User Email', 'aauth'), 'valid_email');
         $this->form_validation->set_rules('old_pass', __('Old Pass', 'aauth'), 'min_length[6]');
@@ -48,9 +58,13 @@ class UsersProfileController extends MY_Addon
             redirect(current_url(), 'refresh');
         }
         
-		Polatan::set_title(__( 'My Profile' ));
+        Polatan::set_title(__( 'My Profile' ));
+        
+        // BreadCrumb
+        $this->breadcrumb->add( User::get()->username, '#');
         
         $data[ 'apps' ] = '';
-        $this->addon_view( 'users', 'profile', $data );
+        $data['breadcrumbs'] = $this->breadcrumb->render();
+        $this->addon_view( 'users', 'profile/read', $data );
     }
 }
