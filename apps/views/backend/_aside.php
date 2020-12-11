@@ -114,9 +114,10 @@
             </div>
 
             <div class="dropdown pt-1">
+                <?php global $User_Options;?>
                 <a class="btn btn-icon btn-aside btn-lg symbol symbol-30 symbol-circle d-none d-lg-flex" data-toggle="dropdown" data-target="user" data-offset="0px,0px" aria-expanded="false">
                     <img src="<?php echo $this->events->apply_filters('user_menu_card_avatar_src', '');?>" alt="<?php echo $this->events->apply_filters('user_menu_card_avatar_alt', '');?>">
-                    <i class="symbol-badge bg-success mt-3 mr-3 <?php echo ($this->aauth->get_user_var('theme-skin', User::get()->id) != false ) ? 'border-dark' : '';?>"></i>
+                    <i class="symbol-badge bg-success mt-3 mr-3 <?php echo (riake('theme-skin', $User_Options['meta'])) ? 'border-dark' : '';?>"></i>
                 </a>
                 <!--begin::Dropdown-->
                 <div id="user" class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-md dropdown-menu-left">
@@ -141,7 +142,7 @@
 
                         <!--begin::Item-->
                         <li class="navi-item font-size-xs">
-                            <a href="<?php echo xss_clean($this->events->apply_filters('user_header_sign_out_link', site_url('logout' ) . '?redirect=' . urlencode(current_url())));?>" class="navi-link pb-0">
+                            <a href="<?php echo xss_clean($this->events->apply_filters('user_header_sign_out_link', site_url('logout' ) . '?redirect=' . urlencode(current_url())));?>" class="navi-link">
                                 <span class="navi-text"><?php _e('Sign Out');?></span>
                             </a>
                         </li>
