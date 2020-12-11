@@ -37,24 +37,45 @@ class Users_Action extends MY_Addon
             'type' => 'separator',
         ], $config[ 'meta_namespace' ], $config[ 'col_id' ]);
 
+        $json_vars = $this->aauth->get_user_var( 'meta', $config[ 'user_id' ] );
+        $meta = json_decode($json_vars);
+
         $this->polatan->add_item([
             'type' => 'text',
             'cols' => array(
                 [
-                    'name'  => 'first-name',
+                    'name'  => 'firstname',
                     'label' => __('First Name', 'aauth'),
-                    'value' => ($config[ 'user_id' ] == null) 
-                        ? set_value('first-name') 
-                        : set_value('first-name', $this->aauth->get_user_var( 'first-name', $config[ 'user_id' ] )),
+                    'value' => ($json_vars == null) 
+                        ? set_value('firstname') 
+                        : set_value('firstname', $meta->firstname),
                 ],
                 [
-                    'name'  => 'last-name',
+                    'name'  => 'lastname',
                     'label' => __('Last Name', 'aauth'),
-                    'value' => ($config[ 'user_id' ] == null)
-                        ? set_value('last-name') 
-                        : set_value('last-name', $this->aauth->get_user_var( 'last-name', $config[ 'user_id' ] )),
+                    'value' => ($json_vars == null)
+                        ? set_value('lastname') 
+                        : set_value('lastname', $meta->lastname),
                 ]
             )
+        ], $config[ 'meta_namespace' ], $config[ 'col_id' ]);
+
+        $this->polatan->add_item([
+            'type' => 'text',
+            'name'  => 'phone',
+            'label' => __('Phone'),
+            'value' => ($json_vars == null) 
+                ? set_value('phone') 
+                : set_value('phone', $meta->phone),
+        ], $config[ 'meta_namespace' ], $config[ 'col_id' ]);
+
+        $this->polatan->add_item([
+            'type' => 'textarea',
+            'name'  => 'address',
+            'label' => __('Address'),
+            'value' => ($json_vars == null) 
+                ? set_value('address') 
+                : set_value('address', $meta->address),
         ], $config[ 'meta_namespace' ], $config[ 'col_id' ]);
 
         $this->polatan->add_item( array(
@@ -68,7 +89,7 @@ class Users_Action extends MY_Addon
 
         riake( 'gui', $config )->add_item(array(
             'type' => 'dom',
-            'content' => $this->addon_view( 'users', 'custom-fields', compact( 'config' ), true )
+            'content' => $this->addon_view( 'users', 'profile/mode', compact( 'config' ), true )
         ), $config[ 'meta_namespace' ], $config[ 'col_id' ]);
 
         unset( $config );

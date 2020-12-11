@@ -18,9 +18,6 @@ class Users_Filters extends MY_Addon
     {
         parent::__construct();
         
-        // $this->events->add_filter( 'signin_logo', [ $this->filters, 'signin_logo' ] );
-        // $this->events->add_filter( 'dashboard_footer_right', [ $this->filters, 'dashboard_footer_right' ] );
-        // $this->events->add_filter( 'dashboard_footer_text', [ $this->filters, 'dashboard_footer_text' ] );
         $this->events->add_filter('custom_user_meta', array( $this, 'custom_user_meta' ), 10, 1);
         $this->events->add_filter('signin_logo', array( $this, 'signin_logo' ));
         $this->events->add_filter('dashboard_skin_class', array( $this, 'dashboard_skin_class' ), 5, 1);
@@ -41,8 +38,11 @@ class Users_Filters extends MY_Addon
     
     public function custom_user_meta($fields)
     {
-        $fields[ 'first-name' ] = ($fname = $this->input->post('first-name')) ? $fname : '';
-        $fields[ 'last-name' ] = ($lname = $this->input->post('last-name')) ? $lname : '';
+        $fields[ 'phone' ] = ($fname = $this->input->post('phone')) ? $fname : '';
+        $fields[ 'address' ] = ($fname = $this->input->post('address')) ? $fname : '';
+        $fields[ 'firstname' ] = ($fname = $this->input->post('firstname')) ? $fname : '';
+        $fields[ 'lastname' ] = ($lname = $this->input->post('lastname')) ? $lname : '';
+        $fields[ 'theme-skin' ] = ($skin = $this->input->post('theme-skin')) ? $skin : 'skin-dark';
         return $fields;
     }
 
@@ -77,7 +77,7 @@ class Users_Filters extends MY_Addon
     {
         global $User_Options;
         // skin is defined by default
-        $class = ($db_skin = riake('theme-skin', $User_Options)) ? $db_skin : $class;
+        $class = ($db_skin = riake('theme-skin', $User_Options['meta'])) ? $db_skin : $class;
         return $class;
     }
 
@@ -92,9 +92,9 @@ class Users_Filters extends MY_Addon
     public function user_menu_name($user_name)
     {
         global $User_Options;
-        $name    =    riake('first-name', $User_Options);
-        $last    =    riake('last-name', $User_Options);
-        $full    =    trim(ucwords(substr($name, 0, 1)) . '.' . ucwords($last));
+        $name = riake('firstname', $User_Options['meta']);
+        $last = riake('lastname', $User_Options['meta']);
+        $full = trim(ucwords(substr($name, 0, 1)) . '.' . ucwords($last));
         return $full == '.' ? $user_name : $full;
     }
 }
