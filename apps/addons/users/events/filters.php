@@ -76,8 +76,9 @@ class Users_Filters extends MY_Addon
     public function dashboard_skin_class($class)
     {
         global $User_Options;
+        $meta = (isset($User_Options['meta'])) ? $User_Options['meta'] : '';
         // skin is defined by default
-        $class = ($db_skin = riake('theme-skin', $User_Options['meta'])) ? $db_skin : $class;
+        $class = ($db_skin = riake('theme-skin', $meta)) ? $db_skin : $class;
         return $class;
     }
 
@@ -92,8 +93,9 @@ class Users_Filters extends MY_Addon
     public function user_menu_name($user_name)
     {
         global $User_Options;
-        $name = riake('firstname', $User_Options['meta']);
-        $last = riake('lastname', $User_Options['meta']);
+        $meta = (isset($User_Options['meta'])) ? $User_Options['meta'] : '';
+        $name = riake('firstname', $meta);
+        $last = riake('lastname', $meta);
         $full = trim(ucwords(substr($name, 0, 1)) . '.' . ucwords($last));
         return $full == '.' ? $user_name : $full;
     }
