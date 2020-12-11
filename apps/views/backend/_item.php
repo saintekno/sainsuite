@@ -1,5 +1,4 @@
 <?php
-$saver_enabled = riake('gui_saver', $meta);
 
 foreach (force_array(riake('items', $meta)) as $_item) 
 {

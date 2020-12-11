@@ -4,9 +4,9 @@
         <div class="navheader-nav nav flex-grow-1">
             <?php 
             foreach ($this->events->apply_filters('header_menu', []) as $namespace) {
-                Menu::add_aside_menu($namespace);
+                Menu::add_header_menu($namespace);
             }; 
-            Menu::load_aside_menu();
+            Menu::load_header_menu();
             ?>
         </div>
     </div>

@@ -41,6 +41,8 @@
 
             </div>
 
+            <?php $this->events->apply_filters('load_sidebar', '') ;?>
+
         </div>
     </div>
 

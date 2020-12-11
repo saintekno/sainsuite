@@ -26,12 +26,12 @@
     </div>
 </div>
 
-<?php elseif (empty($this->polatan->get_col(1))) : ?>
+<?php elseif (empty($this->polatan->get_col(1))) :  ?>
 
 <div class="d-flex flex-column-fluid flex-center">
     <div class="d-flex flex-column justify-content-center align-items-center px-5 text-center">
         <img class="w-150px" src="<?php echo asset_url('svg/empty-state.svg'); ?>"/>
-        <h3 class="display-4 font-weight-bold my-7">Welcome to SainSuite! Let's get started</h3>
+        <h3 class="display-4 font-weight-bold my-7">Welcome to <?php echo $this->options_model->get('site_name');?>! Let's get started</h3>
         <p class="font-weight-bold font-size-lg opacity-80">
         Get started building your personal projects, testing out ideas, and more in your spontaner workspace.
         </p>
@@ -47,16 +47,15 @@
     <div class="row">
     <?php foreach (force_array($this->polatan->get_cols()) as $col_id => $col_data):?>
         <?php if( $col_data ):?>
-        <div class="col-sm-12 col-xs-12 col-md-<?php echo ceil(riake('width', $col_data, 1) * 3) ;?>">
-            <?php foreach (force_array(riake('metas', $col_data)) as $meta) : ?>
-
+            <div class="col-sm-12 col-xs-12 col-md-<?php echo ceil(riake('width', $col_data, 1) * 3) ;?> <?php echo riake('class', $col_data);?>" id="<?php echo riake('id', $col_data);?>">
+                <?php foreach (force_array(riake('metas', $col_data)) as $meta) : ?>
                 <?php
                 // enable gui form saver
                 $form_expire   = gmt_to_local(time(), 'UTC') + GUI_EXPIRE;
-                $class         = riake('classes', riake('form', $meta), 'required-form');
                 $icon          = riake('icon', $meta, false);
                 $ref           = urlencode(current_url());
                 $id            = riake('id', riake('form', $meta));
+                $class         = riake('classes', riake('form', $meta), 'required-form');
                 $action        = riake('action', riake('form', $meta), site_url(array( 'admin', 'options', 'save' )));
                 $method        = riake('method', riake('form', $meta), 'POST');
                 $enctype       = riake('enctype', riake('form', $meta), 'multipart/form-data');
@@ -88,19 +87,17 @@
 
                     <?php if (in_array($meta_type = riake('type', $meta), array( 'card' ))) : ?>
 
-                    <div class="card card-custom">
-                        <?php if (riake('title', $meta)) : ?>
-                        <div class="card-header">
-                            <div class="card-title">
-                                <?php if (riake('icon', $meta)):?>
+                    <div class="card card-custom gutter-b">
+                        <?php if ($header = riake('header', $meta)) : ?>
+                        <div class="card-header py-3">
+                            <div class="card-title align-items-start flex-column">
+                                <?php if (riake('icon', $header)):?>
                                 <span class="card-icon">
                                     <i class="flaticon2-line-chart text-primary"></i>
                                 </span>
                                 <?php endif;?>
-                                <h3 class="card-label">
-                                    <?php echo riake('title', $meta);?>
-                                    <small><?php echo riake('sub_title', $meta);?></small>
-                                </h3>
+                                <h3 class="card-label font-weight-bolder text-dark"><?php echo riake('title', $header);?></h3>
+                                <span class="text-muted font-weight-bold font-size-sm mt-1"><?php echo riake('sub_title', $header);?></span>
                             </div>
                         </div>
                         <?php endif;?>
@@ -137,9 +134,8 @@
                 <?php if (riake('gui_saver', $meta) || in_array($action, array( null, false ), true) ) :?>
                 </form>
                 <?php endif;?>
-
-            <?php endforeach;?>
-        </div>
+                <?php endforeach;?>
+            </div>
         <?php endif;?>
     <?php endforeach;?>
     </div>
