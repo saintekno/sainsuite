@@ -145,6 +145,22 @@ class Polatan
     {
         return riake($col_id, $this->cols);
     }
+
+    /**
+     * Set cols width
+     *
+     * col_id should be between 1 and 4. Every cols are loaded even if they width is not set
+     * @access : public
+     * @param : int cold id
+     * @param : int width
+     * @return : void
+    **/
+    public function add_col($col, $col_id)
+    {
+        if (in_array($col_id, array( 1, 2, 3, 4 ))) {
+            $this->cols[ $col_id ] = $col;
+        }
+    }
     
     /**
      * Add Meta to gui
