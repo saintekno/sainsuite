@@ -171,7 +171,7 @@ class Users_Install extends MY_Addon
         **/
         // Core Permission
         $this->aauth->create_perm('manage.core', 'Manage Core');
-        $this->aauth->create_perm('manage.menu', 'Manage Menu');
+        $this->aauth->create_perm('manage.setting', 'Manage Setting');
 
         // Options Permissions
         $this->aauth->create_perm('create.options', 'Create Options');
@@ -180,6 +180,7 @@ class Users_Install extends MY_Addon
 
         // Addons Permissions
         $this->aauth->create_perm('read.addons', 'Read Addons');
+        $this->aauth->create_perm('create.addons', 'Create Addons');
         $this->aauth->create_perm('install.addons', 'Install Addons');
         $this->aauth->create_perm('update.addons', 'Update Addons');
         $this->aauth->create_perm('delete.addons', 'Delete Addons');

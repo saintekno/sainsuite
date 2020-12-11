@@ -30,7 +30,6 @@ class Users_Action extends MY_Addon
     * @param : Array
     * @return : Array
     **/
-    
     public function load_users_custom_fields($config)
     {
         $this->polatan->add_item([

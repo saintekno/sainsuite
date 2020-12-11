@@ -262,11 +262,7 @@ class MY_Addon extends CI_Model
      */
     public static function is_share($addon_namespace)
     {
-        global $Options;
-
-        $addons_share = @$Options[ 'addons_share' ];
-        
-        if ( in_array( $addon_namespace, ( array ) $addons_share ) ) {
+        if ( in_array( $addon_namespace, ( array ) get_instance()->events->apply_filters('fill_is_share', []) ) ) {
             return true;
         }
         return false;

@@ -27,8 +27,7 @@
             <ul class="nav flex-column" role="tablist" id="myTab">
 
                 <!--begin::Item-->
-                <?php if ( User::control('manage.menu')) : ?>
-                <?php if ( Menu::$apps_menus_core ) : ?>
+                <?php if ( User::control('manage.core') &&  Menu::$apps_menus_core ) : ?>
 				<li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Application">
 					<a class="nav-link btn btn-icon btn-aside btn-lg" data-toggle="tab" data-target="#kt_aside_tab_1" role="tab">
 						<span class="svg-icon svg-icon-xl">
@@ -46,6 +45,7 @@
                 </li>
                 <?php endif; ?>
                 
+                <?php if ( User::control('manage.setting') ) : ?>
                 <!--begin::Item-->
 				<li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Tools">
 					<a class="nav-link btn btn-icon btn-aside btn-lg" data-toggle="tab" data-target="#kt_aside_tab_2" role="tab">
@@ -119,7 +119,7 @@
                 $meta = (isset($User_Options['meta'])) ? $User_Options['meta'] : '';?>
                 <a class="btn btn-icon btn-aside btn-lg symbol symbol-30 symbol-circle d-none d-lg-flex" data-toggle="dropdown" data-target="user" data-offset="0px,0px" aria-expanded="false">
                     <img src="<?php echo $this->events->apply_filters('user_menu_card_avatar_src', '');?>" alt="<?php echo $this->events->apply_filters('user_menu_card_avatar_alt', '');?>">
-                    <i class="symbol-badge bg-success mt-3 mr-3 <?php echo (riake('theme-skin', $meta)) ? 'border-dark' : '';?>"></i>
+                    <i class="symbol-badge bg-success mt-3 mr-3 <?php echo (riake('theme-skin', $meta) == 'skin-dark') ? 'border-dark' : '';?>"></i>
                 </a>
                 <!--begin::Dropdown-->
                 <div id="user" class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-md dropdown-menu-left">

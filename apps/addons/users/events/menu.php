@@ -41,21 +41,21 @@ class Users_Menu extends MY_Addon
 	}
 
 	public function _aside_menu($menu) {
-        $menu[] = array(
-            'title' => __('Personal Information'),
-            'href' => site_url(),
-            'icon' => 'svg/Settings4.svg',
-        );
-        $menu[] = array(
-            'title' => __('Account Information'),
-            'href' => site_url(),
-            'icon' => 'svg/Settings4.svg',
-        );
-        $menu[] = array(
-            'title' => __('Change Password'),
-            'href' => site_url(),
-            'icon' => 'svg/Settings4.svg',
-        );
+        // $menu[] = array(
+        //     'title' => __('Personal Information'),
+        //     'href' => site_url(),
+        //     'icon' => 'svg/Settings4.svg',
+        // );
+        // $menu[] = array(
+        //     'title' => __('Account Information'),
+        //     'href' => site_url(),
+        //     'icon' => 'svg/Settings4.svg',
+        // );
+        // $menu[] = array(
+        //     'title' => __('Change Password'),
+        //     'href' => site_url(),
+        //     'icon' => 'svg/Settings4.svg',
+        // );
 
         $aside_menu = $this->events->apply_filters('aside_menu_users', $menu);
         

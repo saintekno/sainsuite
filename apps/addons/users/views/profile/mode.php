@@ -1,6 +1,6 @@
 <?php
 global $User_Options;
-if ($User_Options['meta']['theme-skin']) {
+if (isset($User_Options['meta'])) {
     $skin = ($User_Options['meta']['theme-skin'] == 'skin-light') ? 'skin-light' : 'skin-dark';
 } else {
     $skin = 'skin-light';
