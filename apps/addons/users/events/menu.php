@@ -35,7 +35,29 @@ class Users_Menu extends MY_Addon
             'permission' => 'read.group'
         );
 
-        $aside_menu = $this->events->apply_filters('header_menu_users', $menu);
+        $header_menu = $this->events->apply_filters('header_menu_users', $menu);
+        
+        return $header_menu;
+	}
+
+	public function _aside_menu($menu) {
+        $menu[] = array(
+            'title' => __('Personal Information'),
+            'href' => site_url(),
+            'icon' => 'svg/Settings4.svg',
+        );
+        $menu[] = array(
+            'title' => __('Account Information'),
+            'href' => site_url(),
+            'icon' => 'svg/Settings4.svg',
+        );
+        $menu[] = array(
+            'title' => __('Change Password'),
+            'href' => site_url(),
+            'icon' => 'svg/Settings4.svg',
+        );
+
+        $aside_menu = $this->events->apply_filters('aside_menu_users', $menu);
         
         return $aside_menu;
 	}
@@ -63,11 +85,23 @@ class Users_Menu extends MY_Addon
     public function after_user_card()
     {
         return '
-        <li class="navi-item active font-size-xs">
-            <a href="'. xss_clean(site_url(array( 'admin', 'users', 'profile' ) ) ).'" class="navi-link">
-                <span class="navi-text">'.__('Personal Settings').'</span>
-            </a>
-        </li>';
+        <a href="'. xss_clean(site_url(array( 'admin', 'users', 'profile' ) ) ).'"
+            class="navi-item px-8">
+            <div class="navi-link">
+                <div class="navi-icon mr-2">
+                    <i class="flaticon2-calendar-3 text-success"></i>
+                </div>
+                <div class="navi-text">
+                    <div class="font-weight-bold">
+                    '.__('Personal Settings').'
+                    </div>
+                    <div class="text-muted">
+                        Account settings and more
+                        <span class="label label-light-danger label-inline font-weight-bold">update</span>
+                    </div>
+                </div>
+            </div>
+        </a>';
     }
 }
 new Users_Menu;
