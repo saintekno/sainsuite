@@ -35,10 +35,14 @@ class UsersHomeController extends MY_Addon
 		}
 
         // Toolbar
+        $this->events->add_filter('ui_subheader_search', function () { // disabling header
+            return '
+            <div class="input-icon">
+                <input type="text" class="form-control form-control-sm form-control-solid" placeholder="Search..." id="search_query" />
+                <span><i class="flaticon2-search-1 text-muted"></i></span>
+            </div>';
+        });
         $this->events->add_filter( 'toolbar_menu', function( $final ) {
-                $final[] = array(
-                    'search' => true
-                );
                 $final[] = array(
                     'title'   => __('Add A user'),
                     'icon'    => 'ki ki-plus',
