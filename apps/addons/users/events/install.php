@@ -127,13 +127,11 @@ class Users_Install extends MY_Addon
         // Auth User Variable
         $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_user_variables`;");
         $this->db->query("CREATE TABLE `{$database_prefix}aauth_user_variables` (
-            `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
             `user_id` VARCHAR(100) NOT NULL,
-            `data_key` varchar(100) NOT NULL,
-            `value` text,
-            PRIMARY KEY (`id`),
-            KEY `user_id_index` (`user_id`)
-          ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+            `data_key` VARCHAR(100) NOT NULL,
+            `value` TEXT NULL,
+            INDEX `user_id_index` (`user_id`)
+          ) COLLATE='utf8_general_ci' ENGINE=InnoDB ;");
         
         // Auth Group to Group
         $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_group_to_group`;");
