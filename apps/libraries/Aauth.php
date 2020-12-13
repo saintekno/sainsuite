@@ -1419,16 +1419,6 @@ class Aauth {
 
 		$query = $this->aauth_db->get_where($this->config_vars['groups'], array('name' => $group_name));
 
-		if(! $this->is_admin()) : 
-			$this->CI->events->do_action('do_create_group', $group_name);
-			$data = array(
-				'name' => $group_name,
-				'definition'=> $definition
-			);
-			$this->aauth_db->insert($this->config_vars['groups'], $data);
-			return true;
-		endif;
-
 		if ($query->num_rows() < 1) {
 
 			$data = array(
@@ -1443,6 +1433,16 @@ class Aauth {
 			$this->precache_groups();
 			return $group_id;
 		}
+
+		if(! $this->is_admin()) : 
+			$this->CI->events->do_action('do_create_group', $group_name);
+			$data = array(
+				'name' => $group_name,
+				'definition'=> $definition
+			);
+			$this->aauth_db->insert($this->config_vars['groups'], $data);
+			return true;
+		endif;
 
 		$this->info($this->CI->lang->line('aauth_info_group_exists'));
 		return false;
