@@ -27,7 +27,50 @@ $this->polatan->add_meta(array(
     'type' => 'card'
 ));
 
-$filed[] = array(
+/**
+ * Heading 1
+ */
+
+if ($this->aauth->is_admin()) :
+    
+$filed_heading1[] = array(
+    'type'  => 'text',
+    'required'  => true,
+    'label' => __('Site Name'),
+    'name'  => 'site_name',
+    'value' => set_value('site_name', $this->options_model->get('site_name')),
+    'description' => 'Enter your site name'
+);
+$filed_heading1[] = array(
+    'type'  => 'textarea',
+    'label' => __('Site Description'),
+    'name'  => 'site_description',
+    'value' => set_value('site_description', $this->options_model->get('site_description')),
+    'description' => 'Enter your site description'
+);
+
+endif;
+$filed_heading1[] = array(
+    'type'    => 'select',
+    'name'    => 'site_timezone',
+    'label'   => __('Timezone'),
+    'options' => $this->config->item('site_timezone'),
+    'active'  => $this->options_model->get('site_timezone')
+);
+$filed_heading1[] = array(
+    'type'    => 'select',
+    'name'    => 'site_language',
+    'label'   => __('Language'),
+    'options' => $this->config->item('supported_languages'),
+    'active'  => $this->options_model->get('site_language')
+);
+$items_heading1 = $filed_heading1;
+
+/**
+ * Heading 2
+ */
+
+$filed_heading2[] = array(
     'permission'  => 'manage.core',
     'type'    => 'select',
     'name'    => 'demo_mode',
@@ -38,7 +81,7 @@ $filed[] = array(
         1 => __('Yes')
     ),
 );
-$filed[] = array(
+$filed_heading2[] = array(
     'permission'  => 'manage.core',
     'type'        => 'select',
     'name'        => 'webdev_mode',
@@ -51,7 +94,7 @@ $filed[] = array(
         1 => __('Yes')
     )
 );
-$items = $this->events->apply_filters('load_advance_setting', $filed);
+$items_heading2 = $this->events->apply_filters('load_advance_setting', $filed_heading2);
 
 /**
  * Item
@@ -65,45 +108,15 @@ $this->polatan->add_item(array(
             'heading'=> __('General Settings'),
             'description' => 'Update your site name, description, language, and visibility..',
             'body' => array(
-                'items' => array(
-                    array(
-                        'type'  => 'text',
-                        'required'  => true,
-                        'label' => __('Site Name'),
-                        'name'  => 'site_name',
-                        'value' => set_value('site_name', $this->options_model->get('site_name')),
-                        'description' => 'Enter your site name'
-                    ),
-                    array(
-                        'type'  => 'textarea',
-                        'label' => __('Site Description'),
-                        'name'  => 'site_description',
-                        'value' => set_value('site_description', $this->options_model->get('site_description')),
-                        'description' => 'Enter your site description'
-                    ),
-                    array(
-                        'type'    => 'select',
-                        'name'    => 'site_timezone',
-                        'label'   => __('Timezone'),
-                        'options' => $this->config->item('site_timezone'),
-                        'active'  => $this->options_model->get('site_timezone')
-                    ),
-                    array(
-                        'type'    => 'select',
-                        'name'    => 'site_language',
-                        'label'   => __('Language'),
-                        'options' => $this->config->item('supported_languages'),
-                        'active'  => $this->options_model->get('site_language')
-                    )
-                )
+                'items' => $items_heading1
             )
         ],
         [
             'id' => 'heading2',
             'heading'=> __('Advanced Settings'),
-            'description' => 'Advanced settings, open settings and developer mode',
+            'description' => 'Advanced settings, open register user',
             'body' => array(
-                'items' => $items
+                'items' => $items_heading2
             )
         ]
     )

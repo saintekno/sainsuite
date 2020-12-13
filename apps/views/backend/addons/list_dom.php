@@ -42,34 +42,6 @@
 
         <!--begin::Pagination-->
         <div class="col-12 col-sm-6 col-xxl-4 order-2 order-xxl-3 d-flex align-items-center justify-content-sm-end text-right my-2">
-            <!--begin::Per Page Dropdown-->
-            <div class="d-flex align-items-center mr-2" data-toggle="tooltip"
-                title="Records per page">
-                <span class="text-muted font-weight-bold mr-2"
-                    data-toggle="dropdown">1 - 50 of 235</span>
-                <div
-                    class="dropdown-menu dropdown-menu-right p-0 m-0 dropdown-menu-sm">
-                    <ul class="navi py-3">
-                        <li class="navi-item">
-                            <a href="#" class="navi-link">
-                                <span class="navi-text">20 per page</span>
-                            </a>
-                        </li>
-                        <li class="navi-item">
-                            <a href="#" class="navi-link active">
-                                <span class="navi-text">50 par page</span>
-                            </a>
-                        </li>
-                        <li class="navi-item">
-                            <a href="#" class="navi-link">
-                                <span class="navi-text">100 per page</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!--end::Per Page Dropdown-->
-
             <!--begin::Arrow Buttons-->
             <span class="btn btn-default btn-icon btn-sm mr-2" data-toggle="tooltip"
                 title="Previose page">
@@ -135,9 +107,10 @@
                     {
                         if (isset($_addon[ 'application' ][ 'namespace' ])) 
                         {
+                            global $Options;
                             $addon_namespace = $_addon[ 'application' ][ 'namespace' ];
                             $addon_version = $_addon[ 'application' ][ 'version' ];
-                            $last_version = get_option( 'migration_' . $addon_namespace );
+                            $last_version = riake('migration_' . $addon_namespace, $Options);
                             ?>
                             <tr>
                                 <td>
@@ -233,7 +206,7 @@
                                                 </li>
                                                 <?php endif;?>
                                                 
-                                                <?php if( !$_addon[ 'application' ][ 'readonly' ] && $this->aauth->is_admin()) : ?>
+                                                <?php if( !$_addon[ 'application' ][ 'readonly' ]) : ?>
 
                                                 <?php $this->events->do_action('do_menu_addon', $addon_namespace) ?>
 

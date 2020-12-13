@@ -220,7 +220,7 @@ class Theme
         get_instance()->load->library('upload', $config);
 
         if (! get_instance()->upload->do_upload($file_name)) {
-            return 'fetch-from-upload';
+            return get_instance()->lang->line('fetch-from-upload');
         } 
         else {
             $data = array( 'upload_data' => get_instance()->upload->data() );
@@ -288,7 +288,7 @@ class Theme
                         }
                         // Delete temp file
                         Filer::drop($extraction_temp_path);
-                        return 'old-version-cannot-be-installed';
+                        return get_instance()->lang->line('old-version-cannot-be-installed');
                     }
 
                     /**
@@ -298,7 +298,7 @@ class Theme
 
                     // Delete temp file
                     Filer::drop($extraction_temp_path);
-                    return 'unable-to-update';
+                    return get_instance()->lang->line('unable-to-update');
                 }
                 // if theme does'nt exists
                 else 
@@ -329,11 +329,11 @@ class Theme
             }
             // Delete temp file
             Filer::drop($extraction_temp_path);
-            return 'manifest-file-incorrect';
+            return get_instance()->lang->line('manifest-file-incorrect');
         }
         // Delete temp file
         Filer::drop($extraction_temp_path);
-        return 'manifest-file-not-found';
+        return get_instance()->lang->line('manifest-file-not-found');
     }
 
     // --------------------------------------------------------------------

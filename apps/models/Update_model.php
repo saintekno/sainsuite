@@ -70,7 +70,7 @@ class Update_Model extends CI_Model
                 $Do_update[ 'core' ] = $latest_release;
 
                 // Set to DB
-                set_option('latest_release', $Do_update);
+                $this->options_model->set('latest_release', $Do_update);
             }
         }
 

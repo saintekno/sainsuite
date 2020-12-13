@@ -1,3 +1,4 @@
+<?php if ( User::control('delete.group')) : ?>
 <!--begin: Selected Rows Group Action Form-->
 <div class="mb-5 collapse" id="kt_datatable_group_action_form">
     <div class="d-flex align-items-center">
@@ -12,6 +13,7 @@
     </div>
 </div>
 <!--end: Selected Rows Group Action Form-->
+<?php endif; ?>
 
 <!--begin::Datatable-->
 <?php if ( count( force_array( riake('tbody', $_item ) ) ) > 0) :?>

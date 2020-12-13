@@ -37,7 +37,7 @@ class User_model extends CI_Model
     public function get()
     {
         // fetch data
-        $user_option = $this->aauth->get_user_vars($this->aauth->get_user_id());
+        $user_option = $this->aauth->get_user_vars();
 
         $key_value = array();
         foreach (force_array($user_option) as $_option) 

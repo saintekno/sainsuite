@@ -72,7 +72,7 @@ class Install_Model extends CI_Model
         {
             if (! $link = @mysqli_connect($host_name, $user_name, $user_password)) 
             {
-                return 'unable-to-connect';
+                return get_instance()->lang->line('unable-to-connect');
             }
             mysqli_close($link); // Closing connexion
         }
@@ -122,7 +122,7 @@ class Install_Model extends CI_Model
         // After settings tables
         $this->events->do_action('after_db_setup');
 
-        return 'database-installed';
+        return get_instance()->lang->line('database-installed');
     }
 
     /**

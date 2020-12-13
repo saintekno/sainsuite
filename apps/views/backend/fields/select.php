@@ -9,7 +9,7 @@
         <?php
         foreach (force_array(riake('options', $_item)) as $value => $text) {
             // Only when action is not changed (which send request to dashboard/options/set), Gui_saver is supported.
-            if ($saver_enabled === true  && in_array(riake('action', riake('form', $meta)), array( null, false ))) {
+            if (riake('gui_saver', $meta) === true  && in_array(riake('action', riake('form', $meta)), array( null, false ))) {
                 // control check
                 $selected = $db_value == $value ? 'selected="selected"' : '';
             } else {
