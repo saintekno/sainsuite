@@ -15,6 +15,9 @@
         <div class="text-muted">
             <?php echo User::get_user_groups()[0]->definition;?>
         </div>
+        <div class="text-danger">
+            Trial 14 day
+        </div>
     </div>
 </div>
 <!--end::User-->

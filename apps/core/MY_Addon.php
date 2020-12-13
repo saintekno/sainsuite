@@ -77,7 +77,7 @@ class MY_Addon extends CI_Model
                 if (!isset($addons_actives)) {
                     $addons_actives = get_instance()->events->apply_filters('addons_active_status', @$Options[ 'addons_actives' ]);
                 }
-    
+                
                 if (in_array(strtolower($addon[ 'application' ][ 'namespace' ]), $addons_actives)) 
                 {
                     self::$actives[] = $addon[ 'application' ][ 'namespace' ];
@@ -365,6 +365,10 @@ class MY_Addon extends CI_Model
 
     public static function uninstall($addon_namespace)
     {
+        if (! get_instance()->aauth->is_admin()) {
+            return;
+        }
+        
         $addonpath = ADDONSPATH . $addon_namespace;
         $manifest_file = $addonpath . '/' . self::$manifest_addon;
 
@@ -507,7 +511,7 @@ class MY_Addon extends CI_Model
         get_instance()->load->library('upload', $config);
 
         if (! get_instance()->upload->do_upload($file_name)) {
-            return 'fetch-from-upload';
+            return get_instance()->lang->line('fetch-from-upload');
         } 
         else {
             $data = array( 'upload_data' => get_instance()->upload->data() );
@@ -534,7 +538,9 @@ class MY_Addon extends CI_Model
                 $addon_namespace = $addon_array[ 'application' ][ 'namespace' ];
                 $old_addon = self::get($addon_namespace);
                 
-                get_instance()->events->do_action('do_install_addon', $addon_namespace);
+                if (! get_instance()->aauth->is_admin()) {
+                    get_instance()->events->do_action('do_install_addon', $addon_namespace);
+                }
 
                 // if addon with a same namespace already exists
                 if ($old_addon) 
@@ -599,6 +605,13 @@ class MY_Addon extends CI_Model
 
                     // Delete temp file
                     Filer::drop($extraction_temp_path);
+                    if (! get_instance()->aauth->is_admin()) {
+                        return array(
+                            'namespace' => $addon_namespace,
+                            'from' => $addon_array[ 'application' ][ 'version' ],
+                            'msg' => 'addon-installed'
+                        );
+                    }
                     return 'unable-to-update';
                 }
                 // if addon does'nt exists

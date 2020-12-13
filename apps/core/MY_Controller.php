@@ -33,12 +33,12 @@ class MY_Controller extends CI_Controller
 
             // Load Language
             $this->load->model('options_model');
-
-            //init active addons
-            MY_Addon::init('actives'); 
-            
             // language is set on dashboard
             $this->options_model->defineLanguage();
+
+            //init active addons
+            MY_Addon::init('unique', 'saas');
+            MY_Addon::init('actives'); 
 
             // add events
             $this->events->do_action('app_init');

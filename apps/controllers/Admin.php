@@ -271,9 +271,10 @@ class Admin extends MY_Controller
                     $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
                     redirect(site_url('admin/page404'));
                 }
-    
+
+                global $Options;
                 if ( $arg3 === null ) {
-                    $arg3 = get_option( 'migration_' . $arg2, '1.0', $arg2);
+                    $arg3 = riake('migration_' . $arg2, $Options, '1.0');
                 }
     
                 $addon = MY_Addon::get($arg2);
@@ -401,7 +402,7 @@ class Admin extends MY_Controller
             
             Polatan::set_title(sprintf(__('Theme List &mdash; %s'), get('signature')));
             
-            $this->events->do_action('aside_menu_themes');
+            $this->events->do_action('header_menu_themes');
             $this->load->backend_view( 'theme/list' );
         }
         elseif ($page === 'install_zip') 
