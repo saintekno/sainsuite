@@ -45,6 +45,13 @@ class Admin_Model extends CI_Model
             'icon'  => 'svg/Bucket.svg',
             'href'  => site_url('admin/themes')
         );
+        
+        $setting_menu['appearance'][ 'addons' ][] = array(
+            'title' => __('Addons'),
+            'icon'  => 'svg/Puzzle.svg',
+            'href'  => site_url('admin/addons'),
+            'permission' => 'toggle.addons'
+        );
 
         // $setting_menu['tools'][ 'backup' ][] = array(
         //     'title' => __('Backup DB'),
