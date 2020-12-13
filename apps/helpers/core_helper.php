@@ -127,42 +127,6 @@ function slugify($text)
 // --------------------------------------------------------------------
 
 /**
- *  Get Options
- *  @param string option key
- *  @return string/int/array
-**/
-
-function get_option( $key = null, $default = null ) 
-{
-    global $Options;
-    if( $key != null ) 
-    {
-        if( empty( @$Options[ $key ] ) ) 
-        {
-            return $default;
-        }
-        return $Options[ $key ];
-    }
-    return $Options;
-}
-
-// --------------------------------------------------------------------
-
-/**
- * Set Options
- * @param string key
- * @param var value
- * @return void
-**/
-
-function set_option( $key, $value ) 
-{
-    return get_instance()->options_model->set( $key, $value );
-}
-
-// --------------------------------------------------------------------
-
-/**
  * Output message from URL
  *
  * @param String (error code)

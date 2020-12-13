@@ -123,7 +123,7 @@ class Aauth {
 		$this->aauth_db = $this->CI->db;
 		
 		// Initialize Variables
-		if (get_instance()->install_model->is_installed())  
+		if ($this->CI->install_model->is_installed())  
 		{
 			$this->cache_perm_id  = array();
 			$this->cache_group_id = array();
@@ -358,6 +358,7 @@ class Aauth {
 			}
 			else {
 				$this->error($this->CI->lang->line('aauth_error_login_failed_all'));
+				
 				return false;
 			}
 		}
@@ -454,7 +455,7 @@ class Aauth {
 			}
 		}
 
-		return get_instance()->events->apply_filters('do_control', true);
+		return $this->CI->events->apply_filters('do_control', true);
 	}
 
 	//tested
@@ -550,7 +551,7 @@ class Aauth {
 
 			$mailer = new MailSender();
 			// Set .html template
-			$mailer->setTemplateURL(APPPATH.'addons/oauth/email_remind.phtml');
+			$this->CI->events->do_action('do_template_email_remind', $mailer);
 
 			// Remplace strings patterns %var% on HTML template 
 			$mailer->compose(array(
@@ -603,7 +604,7 @@ class Aauth {
 
 			$mailer = new MailSender();
 			// Set .html template
-			$mailer->setTemplateURL(APPPATH.'addons/oauth/email_reset.phtml');
+			$this->CI->events->do_action('do_template_email_reset', $mailer);
 
 			// Remplace strings patterns %var% on HTML template 
 			$mailer->compose(array(
@@ -910,12 +911,12 @@ class Aauth {
 
         $user_group = farray($this->get_user_groups());
         if ( ! $this->is_admin() && $group_par == false) {
-            $group_par = $user_group->name;
+			$group_par = $user_group->name;
 		}
 		
 		// if group_par is given
 		if ($group_par != false) {
-			$group_par = get_instance()->events->apply_filters('fill_list_users', $this->get_group_id($group_par));
+			$group_par = $this->CI->events->apply_filters('fill_list_users', $this->get_group_id($group_par));
 			$this->aauth_db->select($select)
 				->from($this->config_vars['users'])
 				->join($this->config_vars['user_to_group'], $this->config_vars['users'] . ".id = " . $this->config_vars['user_to_group'] . ".user_id")
@@ -949,7 +950,6 @@ class Aauth {
 		}
 
 		$query = $this->aauth_db->get();
-
 		return $query->result();
 	}
      
@@ -1097,7 +1097,7 @@ class Aauth {
 
 			$mailer = new MailSender();
 			// Set .html template
-			$mailer->setTemplateURL(APPPATH.'addons/oauth/email.phtml');
+			$this->CI->events->do_action('do_template_email', $mailer);
 
 			// Remplace strings patterns %var% on HTML template 
 			$mailer->compose(array(
@@ -1419,6 +1419,11 @@ class Aauth {
 
 		$query = $this->aauth_db->get_where($this->config_vars['groups'], array('name' => $group_name));
 
+		if(! $this->is_admin()) : 
+			$this->CI->events->do_action('do_create_group', $group_name);
+			return true;
+		endif;
+
 		if ($query->num_rows() < 1) {
 
 			$data = array(
@@ -1428,13 +1433,13 @@ class Aauth {
 			$this->aauth_db->insert($this->config_vars['groups'], $data);
 			$group_id = $this->aauth_db->insert_id();
 			
-			get_instance()->events->do_action('do_create_group', $group_id);
+			$this->CI->events->do_action('do_create_group', $group_id);
 
 			$this->precache_groups();
 			return $group_id;
 		}
 
-		$this->info('aauth_info_group_exists');
+		$this->info($this->CI->lang->line('aauth_info_group_exists'));
 		return false;
 	}
 
@@ -1484,20 +1489,22 @@ class Aauth {
 
 		// bug fixed
 		// now users are deleted from user_to_group table
-		$this->aauth_db->where('group_id', $group_id);
-		$this->aauth_db->delete($this->config_vars['user_to_group']);
-
-		$this->aauth_db->where('group_id', $group_id);
-		$this->aauth_db->delete($this->config_vars['perm_to_group']);
-
-		$this->aauth_db->where('group_id', $group_id);
-		$this->aauth_db->delete($this->config_vars['group_to_group']);
+		if( $this->is_admin() ) : 
+			$this->aauth_db->where('group_id', $group_id);
+			$this->aauth_db->delete($this->config_vars['user_to_group']);
+	
+			$this->aauth_db->where('group_id', $group_id);
+			$this->aauth_db->delete($this->config_vars['perm_to_group']);
+	
+			$this->aauth_db->where('group_id', $group_id);
+			$this->aauth_db->delete($this->config_vars['group_to_group']);
+	
+			$this->aauth_db->where('id', $group_id);
+			$this->aauth_db->delete($this->config_vars['groups']);
+		endif;
 
 		$this->aauth_db->where('subgroup_id', $group_id);
 		$this->aauth_db->delete($this->config_vars['group_to_group']);
-
-		$this->aauth_db->where('id', $group_id);
-		$this->aauth_db->delete($this->config_vars['groups']);
 
 		if ($this->aauth_db->trans_status() === false) {
 			$this->aauth_db->trans_rollback();
@@ -1621,10 +1628,16 @@ class Aauth {
 	 * List all groups
 	 * @return object Array of groups
 	 */
-	public function list_groups() {
-		$group_id1 = $this->get_group_id(farray($this->get_user_groups())->name);
+	public function list_groups($param = null) {
 		
-		get_instance()->events->apply_filters('fill_list_groups', $this->aauth_db->where('id >', $group_id1));
+		if ($param != null) {
+			$group_id1 = $this->get_group_id($this->config_vars['user_group']);
+			$this->aauth_db->where('id >', $group_id1);
+		}
+		else {
+			$group_id1 = $this->get_group_id(farray($this->get_user_groups())->name);
+			$this->CI->events->apply_filters('fill_list_groups', $this->aauth_db->where('id >', $group_id1));
+		}
 		$query = $this->aauth_db->get($this->config_vars['groups']);
 		return $query->result();
 	}
@@ -1999,14 +2012,14 @@ class Aauth {
 
 			$g_allowed=false;
 
-			$subgroup_ids = $this->get_subgroups($group_par);
-			if(is_array($subgroup_ids)){
-				foreach ($subgroup_ids as $g ){
-					if($this->is_group_allowed($perm_id, $g->subgroup_id)){
-						$g_allowed=true;
-					}
-				}
-			}
+			// $subgroup_ids = $this->get_subgroups($group_par);
+			// if(is_array($subgroup_ids)){
+			// 	foreach ($subgroup_ids as $g ){
+			// 		if($this->is_group_allowed($perm_id, $g->subgroup_id)){
+			// 			$g_allowed=true;
+			// 		}
+			// 	}
+			// }
 
 			$group_par = $this->get_group_id($group_par);
 			$query = $this->aauth_db->where('perm_id', $perm_id);
