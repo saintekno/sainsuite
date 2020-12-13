@@ -123,7 +123,7 @@ class Install extends MY_Controller
                 redirect('login?redirect=admin&notice=' . $exec . ( @$_GET[ 'lang' ] ? '&lang=' . $_GET[ 'lang' ] : '') );
             }
 
-            $this->notice->push_notice_array($exec);
+            $this->notice->push_notice_array($this->aauth->get_errors_array());
         }
 
         Polatan::set_title(sprintf(__('Site & Master account &mdash; %s'), get('core_signature')));
