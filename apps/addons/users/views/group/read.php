@@ -13,16 +13,16 @@
  */
 
 $complete_group = array();
+$edit_group     = '';
+$hapus_group    = '';
 // adding group to complete_group array
 foreach ($groups as $row) {
-    $edit = '';
-    $hapus = '';
     if ( User::control('edit.group')) {
-        $edit = '<a href="' . site_url(array( 'admin', 'group', 'edit', $row->id )) . '" 
+        $edit_group = '<a href="' . site_url(array( 'admin', 'group', 'edit', $row->id )) . '" 
                 class="btn btn-icon btn-light btn-hover-primary btn-sm"><i class="fas fa-pen"></i></a>';
     }
     if ( User::control('delete.group')) {
-        $hapus = '<button class="btn btn-icon btn-light btn-hover-danger btn-sm"
+        $hapus_group = '<button class="btn btn-icon btn-light btn-hover-danger btn-sm"
                 data-head=\'' . _s( 'Would you like to delete data?', 'aauth' ) . '\'
                 data-url=\'' . site_url(array( 'admin', 'group', 'delete', $row->id )) . '\'
                 onclick="deleteConfirmation(this)"><i class="fas fa-trash-alt"></i></button>';
@@ -38,7 +38,7 @@ foreach ($groups as $row) {
             </div>
         </div>',
         $row->definition,
-        $edit.' '.$hapus
+        $edit_group.' '.$hapus_group
     );
 }
 

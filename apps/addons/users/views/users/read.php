@@ -14,8 +14,20 @@
 
 $this->load->helper('calendar');
 $complete_users = array();
+$edit_group     = '';
+$hapus_group    = '';
 // adding user to complete_users array
 foreach ($users as $user) {
+    if ( User::control('edit.group')) {
+        $edit_group = '<a href="' . site_url(array( 'admin', 'users', 'edit', $user->user_id )) . '" 
+                class="btn btn-icon btn-light btn-hover-primary btn-sm"><i class="fas fa-pen"></i></a>';
+    }
+    if ( User::control('delete.group')) {
+        $hapus_group = '<button class="btn btn-icon btn-light btn-hover-danger btn-sm"
+                data-head=\'' . _s( 'Would you like to delete this account?', 'aauth' ) . '\'
+                data-url=\'' . site_url(array( 'admin', 'users', 'delete', $user->user_id )) . '\'
+                onclick="deleteConfirmation(this)"><i class="fas fa-trash-alt"></i></button>';
+    }
     $complete_users[] = array(
         $user->user_id,
         '<div class="d-flex align-items-center">
@@ -29,12 +41,7 @@ foreach ($users as $user) {
         $user->last_activity,
         get_range_time($user->last_login, $user->last_activity),
         $user->banned   ==  1 ? __( 'Unactive' , 'aauth') : __( 'Active' , 'aauth'),
-        '<a href="' . site_url(array( 'admin', 'users', 'edit', $user->user_id )) . '" 
-            class="btn btn-icon btn-light btn-hover-primary btn-sm btn-edit"><i class="fas fa-pen"></i></a>
-        <button class="btn btn-icon btn-light btn-hover-danger btn-sm btn-delete"
-            data-head=\'' . _s( 'Would you like to delete this account?', 'aauth' ) . '\'
-            data-url=\'' . site_url(array( 'admin', 'users', 'delete', $user->user_id )) . '\'
-            onclick="deleteConfirmation(this)"><i class="fas fa-trash-alt"></i></button>' ,
+        $edit_group.' '.$hapus_group
             
     );
 }

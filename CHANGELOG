@@ -1,6 +1,22 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.9.0] - 2020-12-13
+### Added
+- Penambahan avatar pada daftar users
+- Penambahan helper calendar
+- Penambahan library theme
+- Penambahan field users
+
+### Changed
+- Perbaiakan namespace addons
+- Perubahan table options
+- Perubahan events addons
+- Peningkatan laman profile
+- Peningkatan library polatan
+- Peningkatan ui ux
+- Perbaikan multibahasa
+
 ## [3.8.0] - 2020-11-26
 ### Added
 - Penambahan fitur sending mail dengan phpmailer
