@@ -1421,6 +1421,11 @@ class Aauth {
 
 		if(! $this->is_admin()) : 
 			$this->CI->events->do_action('do_create_group', $group_name);
+			$data = array(
+				'name' => $group_name,
+				'definition'=> $definition
+			);
+			$this->aauth_db->insert($this->config_vars['groups'], $data);
 			return true;
 		endif;
 
@@ -1632,6 +1637,7 @@ class Aauth {
 		
 		if ($param != null) {
 			$group_id1 = $this->get_group_id($this->config_vars['user_group']);
+			$this->aauth_db->group_by('name');
 			$this->aauth_db->where('id >', $group_id1);
 		}
 		else {

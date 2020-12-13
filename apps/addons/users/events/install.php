@@ -256,7 +256,7 @@ class Users_Install extends MY_Addon
         );
         
         if ($create_user != 'created') {
-            $this->events->add_filter('validating_setup', $this->notice->push_notice_array($this->aauth->get_errors_array()));
+            $this->events->add_filter('validating_setup', $this->aauth->get_errors_array());
         }
     }
 }

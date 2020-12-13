@@ -122,7 +122,7 @@ class Install_Model extends CI_Model
         // After settings tables
         $this->events->do_action('after_db_setup');
 
-        return get_instance()->lang->line('database-installed');
+        return 'database-installed';
     }
 
     /**
