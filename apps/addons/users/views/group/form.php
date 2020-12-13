@@ -64,15 +64,25 @@ $this->polatan->add_item(array(
 else :
 
 $groups_array = array();
-foreach ($groups as $gr) {
-    $groups_array[ $gr->id ] = $gr->definition != null ? $gr->definition : $gr->name;
+foreach ($this->aauth->list_groups(true) as $gr) {
+    $groups_array[ $gr->id ] = $gr->name;
+    if ( ! $group_groups = $this->aauth->get_subgroups()) : continue;
+    endif;
+    
+    foreach ($group_groups as $item) {
+        $name_group = $this->aauth->get_group_name($item->subgroup_id);
+        if (in_array($name_group, $groups_array)) {
+            if (in_array($gr->name, $groups_array)) {
+                unset( $groups_array[ $gr->id ] );
+            }
+        }
+    }
 }
 $this->polatan->add_item(array(
     'type'    => 'select',
     'label'   => __('Name group', 'aauth'),
     'name'    => 'name',
     'options' => $groups_array,
-    'active'  => (isset($group)) ? $group->id : null
 ), 'group', 1);
 
 endif;

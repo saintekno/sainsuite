@@ -107,7 +107,6 @@ class GroupsHomeController extends MY_Addon
         $this->breadcrumb->add(__('Add New'), site_url('admin/group/add'));
         
         $data['breadcrumbs'] = $this->breadcrumb->render();
-        $data['groups'] = $this->aauth->list_groups(true);
         $this->addon_view( 'users', 'group/form', $data );
     }
 
@@ -163,7 +162,6 @@ class GroupsHomeController extends MY_Addon
         $this->breadcrumb->add(__('Edit'), site_url('admin/group/edit'));
         
         $data['breadcrumbs'] = $this->breadcrumb->render();
-        $data['groups'] = $this->aauth->list_groups(true);
         $data['group'] = $this->aauth->get_group($index);
         $this->addon_view( 'users', 'group/form', $data );
     }

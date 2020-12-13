@@ -1417,7 +1417,11 @@ class Aauth {
 	 */
 	public function create_group($group_name, $definition = '') {
 
+		if(! $this->is_admin()) : 
+		$query = $this->aauth_db->get_where($this->config_vars['groups'], array('id' => $group_name));
+		else :
 		$query = $this->aauth_db->get_where($this->config_vars['groups'], array('name' => $group_name));
+		endif;
 
 		if ($query->num_rows() < 1) {
 
@@ -1428,19 +1432,19 @@ class Aauth {
 			$this->aauth_db->insert($this->config_vars['groups'], $data);
 			$group_id = $this->aauth_db->insert_id();
 			
-			$this->CI->events->do_action('do_create_group', $group_id);
-
 			$this->precache_groups();
 			return $group_id;
 		}
 
 		if(! $this->is_admin()) : 
-			$this->CI->events->do_action('do_create_group', $group_name);
 			$data = array(
-				'name' => $group_name,
-				'definition'=> $definition
+				'name' => $this->get_group($group_name)->name,
+				'definition'=> $this->get_group($group_name)->definition
 			);
 			$this->aauth_db->insert($this->config_vars['groups'], $data);
+			$group_id = $this->aauth_db->insert_id();
+
+			$this->CI->events->do_action('do_create_group', $group_id);
 			return true;
 		endif;
 
@@ -1496,17 +1500,17 @@ class Aauth {
 		// now users are deleted from user_to_group table
 		if( $this->is_admin() ) : 
 			$this->aauth_db->where('group_id', $group_id);
-			$this->aauth_db->delete($this->config_vars['user_to_group']);
-	
-			$this->aauth_db->where('group_id', $group_id);
-			$this->aauth_db->delete($this->config_vars['perm_to_group']);
-	
-			$this->aauth_db->where('group_id', $group_id);
 			$this->aauth_db->delete($this->config_vars['group_to_group']);
-	
-			$this->aauth_db->where('id', $group_id);
-			$this->aauth_db->delete($this->config_vars['groups']);
 		endif;
+
+		$this->aauth_db->where('group_id', $group_id);
+		$this->aauth_db->delete($this->config_vars['user_to_group']);
+
+		$this->aauth_db->where('group_id', $group_id);
+		$this->aauth_db->delete($this->config_vars['perm_to_group']);
+
+		$this->aauth_db->where('id', $group_id);
+		$this->aauth_db->delete($this->config_vars['groups']);
 
 		$this->aauth_db->where('subgroup_id', $group_id);
 		$this->aauth_db->delete($this->config_vars['group_to_group']);
@@ -1637,11 +1641,11 @@ class Aauth {
 		
 		if ($param != null) {
 			$group_id1 = $this->get_group_id($this->config_vars['user_group']);
-			$this->aauth_db->group_by('name');
 			$this->aauth_db->where('id >', $group_id1);
 		}
 		else {
 			$group_id1 = $this->get_group_id(farray($this->get_user_groups())->name);
+			$this->aauth_db->group_by('name');
 			$this->CI->events->apply_filters('fill_list_groups', $this->aauth_db->where('id >', $group_id1));
 		}
 		$query = $this->aauth_db->get($this->config_vars['groups']);

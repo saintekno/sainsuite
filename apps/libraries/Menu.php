@@ -83,7 +83,8 @@ class Menu
             <?php
             foreach ($current_menux as $menu_namespace => $current_menu) 
             {
-                if( @$current_menu[ 'permission' ] != null && ! User::control( $current_menu[ 'permission' ] ) ) {
+                $_menus = farray($current_menu);
+                if( isset($_menus[ 'permission' ]) && ! User::control( $_menus[ 'permission' ] ) ) {
                     continue;
                 }
                 $custom_ul_style = '';
