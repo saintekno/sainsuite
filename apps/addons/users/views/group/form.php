@@ -35,9 +35,12 @@ $this->polatan->add_meta(array(
     'type' => 'card'
 ));
 
+
 /**
  * Item
  */
+if( $this->aauth->is_admin() ):
+
 $this->polatan->add_item(array(
     'type'     => 'text',
     'cols' => array(
@@ -57,5 +60,21 @@ $this->polatan->add_item(array(
         ]
     )
 ), 'group', 1);
+
+else :
+
+$groups_array = array();
+foreach ($groups as $gr) {
+    $groups_array[ $gr->id ] = $gr->definition != null ? $gr->definition : $gr->name;
+}
+$this->polatan->add_item(array(
+    'type'    => 'select',
+    'label'   => __('Name group', 'aauth'),
+    'name'    => 'name',
+    'options' => $groups_array,
+    'active'  => (isset($group)) ? $group->id : null
+), 'group', 1);
+
+endif;
 
 $this->polatan->output();

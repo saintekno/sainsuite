@@ -81,7 +81,9 @@ class GroupsHomeController extends MY_Addon
         $this->load->library('form_validation');
         
         $this->form_validation->set_rules('name', 'Group Name', 'required');
-        $this->form_validation->set_rules('definition', 'Group Definition', 'required');
+        if( $this->aauth->is_admin() ):
+            $this->form_validation->set_rules('definition', 'Group Definition', 'required');
+        endif;
         if ($this->form_validation->run()) 
         { 
             $exec = $this->aauth->create_group(
@@ -105,6 +107,7 @@ class GroupsHomeController extends MY_Addon
         $this->breadcrumb->add(__('Add New'), site_url('admin/group/add'));
         
         $data['breadcrumbs'] = $this->breadcrumb->render();
+        $data['groups'] = $this->aauth->list_groups(true);
         $this->addon_view( 'users', 'group/form', $data );
     }
 
@@ -160,6 +163,7 @@ class GroupsHomeController extends MY_Addon
         $this->breadcrumb->add(__('Edit'), site_url('admin/group/edit'));
         
         $data['breadcrumbs'] = $this->breadcrumb->render();
+        $data['groups'] = $this->aauth->list_groups(true);
         $data['group'] = $this->aauth->get_group($index);
         $this->addon_view( 'users', 'group/form', $data );
     }

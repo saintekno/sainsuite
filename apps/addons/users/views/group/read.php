@@ -15,6 +15,18 @@
 $complete_group = array();
 // adding group to complete_group array
 foreach ($groups as $row) {
+    $edit = '';
+    $hapus = '';
+    if ( User::control('edit.group')) {
+        $edit = '<a href="' . site_url(array( 'admin', 'group', 'edit', $row->id )) . '" 
+                class="btn btn-icon btn-light btn-hover-primary btn-sm"><i class="fas fa-pen"></i></a>';
+    }
+    if ( User::control('delete.group')) {
+        $hapus = '<button class="btn btn-icon btn-light btn-hover-danger btn-sm"
+                data-head=\'' . _s( 'Would you like to delete data?', 'aauth' ) . '\'
+                data-url=\'' . site_url(array( 'admin', 'group', 'delete', $row->id )) . '\'
+                onclick="deleteConfirmation(this)"><i class="fas fa-trash-alt"></i></button>';
+    }
     $complete_group[] = array(
         $row->id,
         '<div class="d-flex align-items-center">
@@ -25,13 +37,8 @@ foreach ($groups as $row) {
                 <div class="text-dark-75">' . $row->name . '</div>
             </div>
         </div>',
-        $row->definition ,
-        '<a href="' . site_url(array( 'admin', 'group', 'edit', $row->id )) . '" 
-            class="btn btn-icon btn-light btn-hover-primary btn-sm"><i class="fas fa-pen"></i></a>
-        <button class="btn btn-icon btn-light btn-hover-danger btn-sm"
-            data-head=\'' . _s( 'Would you like to delete data?', 'aauth' ) . '\'
-            data-url=\'' . site_url(array( 'admin', 'group', 'delete', $row->id )) . '\'
-            onclick="deleteConfirmation(this)"><i class="fas fa-trash-alt"></i></button>' ,
+        $row->definition,
+        $edit.' '.$hapus
     );
 }
 
