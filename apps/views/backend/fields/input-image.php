@@ -1,5 +1,5 @@
 <div class="image-input image-input-empty image-input-outline mb-5" id="<?php echo riake('id', $_item);?>" style="background-image: url(<?php echo User::get_gravatar(false);?>)">
-	<div class="image-input-wrapper" style="background-image: url(<?php echo User::get_user_image_url(riake('value', $_item));?>)"></div>
+	<div class="image-input-wrapper" style="background-image: url(<?php echo (riake('value', $_item)) ? User::get_user_image_url(riake('value', $_item)) : '';?>)"></div>
 
 	<label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="<?php _e('Change avatar');?>">
 		<i class="fa fa-pen icon-sm text-muted"></i>
