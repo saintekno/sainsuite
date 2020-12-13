@@ -16,6 +16,7 @@
 <?php endif; ?>
 
 <!--begin::Datatable-->
+<div class="table-responsive">
 <?php if ( count( force_array( riake('tbody', $_item ) ) ) > 0) :?>
 <table id="kt_datatable">
 <?php else : ?>
@@ -49,4 +50,5 @@
     <?php endif;?>
     </tbody>
 </table>
+</div>
 <!--end::Datatable-->

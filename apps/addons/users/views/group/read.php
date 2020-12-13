@@ -73,8 +73,10 @@ $this->polatan->add_item(array(
 /**
  * Script
  */
+if (count($complete_users) > 0) :
 $this->events->add_action( 'dashboard_footer', function() {
     $this->load->addon_view( 'users', 'group/script');
 });
+endif;
 
 $this->polatan->output();
