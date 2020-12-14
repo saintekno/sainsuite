@@ -21,15 +21,16 @@ class Mailsender
 {
 	public $mailer;
 	public $template;
-	public $config_publics;
+	public $config_vars;
 	public $body = '';
     public $body_alt = '';
     
     public function __construct()
     {
-        $this->config_vars = get_instance()->config->item('aauth');
+        $this->config_vars = get_instance()->events->apply_filters('config_aauth', get_instance()->config->item('aauth'));
         
         $mail = new PHPMailer;
+		// $mail->SMTPDebug = 2; // 2 to enable SMTP debug information
         $mail->isSMTP();
         $mail->SMTPAuth = true;
 		$mail->isHTML(true); // Aktifkan jika isi emailnya berupa html
@@ -40,6 +41,11 @@ class Mailsender
             $mail->Username   = $this->config_vars['email_config']['smtp_user'];
             $mail->Password   = $this->config_vars['email_config']['smtp_pass'];
             $mail->SMTPSecure = $this->config_vars['email_config']['smtp_crypto'];
+            $mail->Timeout    = $this->config_vars['email_config']['smtp_timeout'];
+            $mail->WordWrap   = 900;                                                 // RFC 2822 Compliant for Max 998 characters per line
+            $mail->Priority   = 1;                                                   // Highest priority - Email priority (1 = High, 3 = Normal, 5 = low)
+            $mail->CharSet    = 'iso-8859-1';
+            $mail->Encoding   = '8bit';
         }
 
         // Save PHPMailer Instance
@@ -93,7 +99,17 @@ class Mailsender
 				$this->mailer->addBcc($email, $name);
 			}
 		}
-
-		return $this->mailer->send();
+		
+		$this->mailer->SMTPOptions = array(
+			'ssl' => array(
+				'verify_peer' => false,
+				'verify_peer_name' => false,
+				'allow_self_signed' => true
+			)
+		);
+		
+		$this->mailer->Send();
+		$this->mailer->SmtpClose();
+		return $this->mailer->IsError();
 	}
 }
