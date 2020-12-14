@@ -123,11 +123,12 @@ class Aauth {
 		$this->aauth_db = $this->CI->db;
 		
 		// Initialize Variables
-		if ($this->CI->install_model->is_installed())  
-		{
-			$this->cache_perm_id  = array();
-			$this->cache_group_id = array();
+		$this->cache_perm_id  = array();
+		$this->cache_group_id = array();
 		
+		// Initialize Variables
+		if ($this->CI->install_model->is_installed())  
+		{	
 			// Pre-Cache IDs
 			$this->precache_perms();
 			$this->precache_groups();
@@ -737,6 +738,8 @@ class Aauth {
 	 */
 	public function create_user($email, $pass, $username = false) {
 
+		$this->config_vars = get_instance()->events->apply_filters('config_aauth', $this->config_vars);
+		
 		$valid = true;
 
 		if($this->config_vars['login_with_name'] == true){
