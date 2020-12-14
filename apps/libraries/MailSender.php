@@ -42,10 +42,7 @@ class Mailsender
             $mail->Password   = $this->config_vars['email_config']['smtp_pass'];
             $mail->SMTPSecure = $this->config_vars['email_config']['smtp_crypto'];
             $mail->Timeout    = $this->config_vars['email_config']['smtp_timeout'];
-            $mail->WordWrap   = 900;                                                 // RFC 2822 Compliant for Max 998 characters per line
-            $mail->Priority   = 1;                                                   // Highest priority - Email priority (1 = High, 3 = Normal, 5 = low)
             $mail->CharSet    = 'iso-8859-1';
-            $mail->Encoding   = '8bit';
         }
 
         // Save PHPMailer Instance
@@ -99,14 +96,6 @@ class Mailsender
 				$this->mailer->addBcc($email, $name);
 			}
 		}
-		
-		$this->mailer->SMTPOptions = array(
-			'ssl' => array(
-				'verify_peer' => false,
-				'verify_peer_name' => false,
-				'allow_self_signed' => true
-			)
-		);
 		
 		$this->mailer->Send();
 		$this->mailer->SmtpClose();
