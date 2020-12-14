@@ -21,9 +21,9 @@ $Routes->group(['prefix' => '/users'], function () use ( $Routes ) {
     $Routes->match([ 'get', 'post' ], 'edit/{id}', 'UsersHomeController@edit' );
     $Routes->match([ 'get', 'post' ], 'delete/{id}/{redirect?}', 'UsersHomeController@delete' );
     $Routes->match([ 'get', 'post' ], 'multidelete', 'UsersHomeController@multidelete' );
-    
-    $Routes->match([ 'get', 'post' ], 'profile', 'UsersProfileController@index' );
 });
+
+$Routes->match([ 'get', 'post' ], 'profile', 'UsersProfileController@index' );
 
 $Routes->group(['prefix' => '/group'], function () use ( $Routes ) {
     $Routes->match([ 'get', 'post' ], '/', 'GroupsHomeController@index' );
