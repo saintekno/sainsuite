@@ -13,8 +13,8 @@
 
                 <input class="form-control 
                     <?php echo riake('class', $col);?>" 
-                    <?php echo $disabled === true ? 'disabled="disabled"' : '';?>
-                    <?php echo $required === true ? 'required' : '';?>
+                    <?php echo riake('disabled', $col) === true ? 'disabled="disabled"' : '';?>
+                    <?php echo riake('required', $col) === true ? 'required' : '';?>
                     type="<?php echo $type;?>" 
                     id="<?php echo riake('id', $col);?>" 
                     name="<?php echo riake('name', $col);?>" 

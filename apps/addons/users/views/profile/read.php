@@ -75,6 +75,7 @@ $this->polatan->add_item(array(
         [
             'label' => __('User Email', 'aauth'),
             'name'  => 'user_email',
+            'disabled' => true,
             'value'    => set_value('user_email', User::get()->email) 
         ]
     )
