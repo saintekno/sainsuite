@@ -595,7 +595,7 @@ class MY_Addon extends CI_Model
                         }
                         // Delete temp file
                         Filer::drop($extraction_temp_path);
-                        return 'old-version-cannot-be-installed';
+                        return get_instance()->lang->line('old-version-cannot-be-installed');
                     }
 
                     /**
@@ -612,7 +612,7 @@ class MY_Addon extends CI_Model
                             'msg' => 'addon-installed'
                         );
                     }
-                    return 'unable-to-update';
+                    return get_instance()->lang->line('unable-to-update');
                 }
                 // if addon does'nt exists
                 else 
@@ -643,11 +643,11 @@ class MY_Addon extends CI_Model
             }
             // Delete temp file
             Filer::drop($extraction_temp_path);
-            return 'manifest-file-incorrect';
+            return get_instance()->lang->line('manifest-file-incorrect');
         }
         // Delete temp file
         Filer::drop($extraction_temp_path);
-        return 'manifest-file-not-found';
+        return get_instance()->lang->line('manifest-file-not-found');
     }
 
     // --------------------------------------------------------------------
