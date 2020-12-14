@@ -90,7 +90,7 @@ class Auth extends MY_Controller
             );
     
             if ($exec == 'created') {
-                redirect(array( 'login?notice=' . $exec ));
+                redirect(array( 'login?notice=create-email-send'));
             }
             
             $this->notice->push_notice_array($this->aauth->get_errors_array());

@@ -41,6 +41,7 @@ $lang[ 'account-activated' ]      = __('Your Account has been activated.');
 $lang[ 'unknow-user' ]        = __('Unknow user');
 $lang[ 'unknow-email' ]        = __('Unknow email address');
 $lang[ 'recovery-email-send' ] = __('The recovery email has been send. Please check your email, open the recovery email and follow the instructions.');
+$lang[ 'create-email-send' ] = __('The email has been send. Please check your email, open the email and follow the instructions.');
 
 // Logout
 $lang[ 'logout-required' ] = __('You must logout first to access that page.');
