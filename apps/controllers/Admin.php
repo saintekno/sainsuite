@@ -293,7 +293,7 @@ class Admin extends MY_Controller
                 $data['addon'] = $addon;
     
                 Polatan::set_title(sprintf(__('Migration &mdash; %s'), get('signature')));
-                $this->load->view( 'backend/addons/migrate');
+                $this->load->view( 'backend/addons/migrate', $data);
                 break;
 
             case "exec":
