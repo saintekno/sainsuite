@@ -142,7 +142,7 @@ class UsersHomeController extends MY_Addon
     {
         // if current user matches user id
         if ($this->aauth->get_user_id() == $index) {
-            redirect(array( 'admin', 'users', 'profile' ));
+            redirect(array( 'admin', 'profile' ));
         }
 
         if (! User::control('edit.users')) {

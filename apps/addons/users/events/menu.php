@@ -85,7 +85,7 @@ class Users_Menu extends MY_Addon
     public function after_user_card()
     {
         return '
-        <a href="'. xss_clean(site_url(array( 'admin', 'users', 'profile' ) ) ).'"
+        <a href="'. xss_clean(site_url(array( 'admin', 'profile' ) ) ).'"
             class="navi-item px-8">
             <div class="navi-link">
                 <div class="navi-icon mr-2">
