@@ -22,11 +22,13 @@ class Menu
 
     public static $toolbar_menus_core = array();
 
-    public static $header_menu_core = array();
+    public static $header_menus_core = array();
 
-    public static $aside_menu_core = array();
+    public static $aside_menus_core = array();
 
     public static $system_menus_core = array();
+
+    public static $sidebar_menus_core = array();
 
     /**
      * Add Menu
@@ -58,12 +60,17 @@ class Menu
 
     public static function add_header_menu($namespace)
     {
-        self::$header_menu_core[] = $namespace;
+        self::$header_menus_core[] = $namespace;
     }
 
     public static function add_aside_menu($namespace)
     {
-        self::$aside_menu_core[] = $namespace;
+        self::$aside_menus_core[] = $namespace;
+    }
+
+    public static function add_sidebar_menu($namespace)
+    {
+        self::$sidebar_menus_core[] = $namespace;
     }
 
     /**
@@ -281,7 +288,7 @@ class Menu
     public static function load_header_menu()
     {
         $loop_index = 0;
-        foreach (self::$header_menu_core as $menu_namespace => $current_menu) 
+        foreach (self::$header_menus_core as $menu_namespace => $current_menu) 
         { 
             if( @$current_menu[ 'permission' ] != null && ! User::control( $current_menu[ 'permission' ] ) ) {
                 continue;
@@ -306,7 +313,7 @@ class Menu
         <div class="navi navi-bold navi-hover navi-active navi-link-rounded">
         <?php
         $loop_index = 0;
-        foreach (self::$aside_menu_core as $menu_namespace => $current_menu) 
+        foreach (self::$aside_menus_core as $menu_namespace => $current_menu) 
         { 
             if( @$current_menu[ 'permission' ] != null && ! User::control( $current_menu[ 'permission' ] ) ) {
                 continue;
@@ -324,6 +331,34 @@ class Menu
                     </span>
                 </a>
             </div>
+            <?php
+            $loop_index++; // increment loop_index
+        } ?>
+        </div>
+        <?php
+    }
+
+    public static function load_sidebar_menu()
+    { 
+        $loop_index = 0;
+        foreach (self::$sidebar_menus_core as $menu_namespace => $current_menu) 
+        { 
+            if( @$current_menu[ 'permission' ] != null && ! User::control( $current_menu[ 'permission' ] ) ) {
+                continue;
+            }
+            ?>
+            <a href="<?php echo riake('href', $current_menu); ?>" class="navi-item">
+                <div class="navi-link">
+                    <div class="navi-text">
+                        <div class="font-weight-bold">
+                        <?php echo riake('title', $current_menu); ?>
+                        </div>
+                        <div class="text-muted">
+                            Logs and notifications
+                        </div>
+                    </div>
+                </div>
+            </a>
             <?php
             $loop_index++; // increment loop_index
         } ?>

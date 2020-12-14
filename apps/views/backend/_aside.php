@@ -123,7 +123,7 @@
 
                         <!--begin::Item-->
                         <li class="navi-item font-size-xs">
-                            <a href="<?php echo xss_clean($this->events->apply_filters('user_header_sign_out_link', site_url('logout' ) . '?redirect=' . urlencode(current_url())));?>" class="navi-link">
+                            <a href="<?php echo xss_clean(site_url('logout' ) . '?redirect=' . urlencode(current_url()));?>" class="navi-link">
                                 <span class="navi-text"><?php _e('Sign Out');?></span>
                             </a>
                         </li>
