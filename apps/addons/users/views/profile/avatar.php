@@ -16,7 +16,7 @@
             <?php echo User::get_user_groups()[0]->definition;?>
         </div>
         <div class="text-danger">
-            Trial 14 day
+            <?php echo $this->events->apply_filters('check_day', '');?>
         </div>
     </div>
 </div>
