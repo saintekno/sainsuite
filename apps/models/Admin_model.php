@@ -25,6 +25,7 @@ class Admin_Model extends CI_Model
         $this->events->add_action('load_dashboard', array( $this, 'set_setting_menu' ));
         $this->events->add_action('load_dashboard', array( $this, 'set_app_menu' ));
         $this->events->add_action('load_dashboard', array( $this, 'set_system_menu' ));
+        $this->events->add_action('load_dashboard', array( $this, 'set_sidebar_menu' ));
     }
 
     /**
@@ -106,6 +107,17 @@ class Admin_Model extends CI_Model
             foreach ($menus as $menu) {
                 Menu::add_help_menu($namespace, $menu);
             }
+        }
+    }
+
+    /**
+     * Load Dashboard Menu
+     * [New Permission Ready]
+    **/
+    public function set_sidebar_menu()
+    {
+        foreach ($this->events->apply_filters('sidebar_menu', []) as $namespace) {
+            Menu::add_sidebar_menu($namespace);
         }
     }
 
