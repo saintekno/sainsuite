@@ -56,7 +56,7 @@ $this->polatan->add_item(array(
             'type'  => 'password',
             'label' => __('Old Password', 'aauth'),
             'name'  => 'old_pass',
-        ), 'user', 1) : '';
+        ), 'users', 1) : '';
 
 $this->polatan->add_item(array(
     'type'  => 'password',
