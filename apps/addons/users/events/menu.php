@@ -85,11 +85,14 @@ class Users_Menu extends MY_Addon
     public function after_user_card()
     {
         return '
-        <a href="'. xss_clean(site_url(array( 'admin', 'profile' ) ) ).'"
-            class="navi-item px-8">
+        <a href="'. xss_clean(site_url(array( 'admin', 'profile' ) ) ).'" class="navi-item">
             <div class="navi-link">
-                <div class="navi-icon mr-2">
-                    <i class="flaticon2-calendar-3 text-success"></i>
+                <div class="symbol symbol-40 bg-light mr-3">
+                    <div class="symbol-label">
+                        <span class="svg-icon svg-icon-md svg-icon-success">
+                        <i class="flaticon2-calendar-3 text-success"></i>
+                        </span>
+                    </div>
                 </div>
                 <div class="navi-text">
                     <div class="font-weight-bold">
@@ -97,7 +100,6 @@ class Users_Menu extends MY_Addon
                     </div>
                     <div class="text-muted">
                         Account settings and more
-                        <span class="label label-light-danger label-inline font-weight-bold">update</span>
                     </div>
                 </div>
             </div>

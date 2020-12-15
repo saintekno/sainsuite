@@ -39,7 +39,9 @@
 				<!--begin::Nav-->
 				<div class="navi navi-spacer-x-0 pt-5">
 
-					<?php echo xss_clean($this->events->apply_filters('after_user_card', ''));?>
+					<div class="px-8">
+						<?php echo xss_clean($this->events->apply_filters('after_user_card', ''));?>
+					</div>
 
 					<!--begin::Footer-->
 					<div class="navi-separator mt-3"></div>

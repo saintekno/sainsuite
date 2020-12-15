@@ -101,7 +101,7 @@
                     <i class="symbol-badge bg-success mt-3 mr-3 <?php echo (riake('theme-skin', $meta) == 'skin-dark') ? 'border-dark' : '';?>"></i>
                 </a>
                 <!--begin::Dropdown-->
-                <div id="user" class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-md dropdown-menu-left">
+                <div id="user" class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-lg dropdown-menu-left">
                     <!--begin::Nav-->
                     <ul class="navi navi-hover py-4">
                         <li class="navi-section">
