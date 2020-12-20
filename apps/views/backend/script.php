@@ -65,10 +65,19 @@
                     url: url,
                     type: 'POST',
                     success: function(data) {
-                        $(el).closest('tr').css('background','#F3F6F9');
-                        $(el).closest('tr').fadeOut(1500,function(){
-                            $(this).remove();
-                        });
+                        if ( $(el).closest('tr').length === 0 ) {
+                            $(el).closest('div.card').css('background','#F3F6F9');
+                            $(el).closest('div.card').fadeOut(1500,function(){
+                                $(this).remove();
+                                location.reload(true);
+                            });
+                        } 
+                        else {
+                            $(el).closest('tr').css('background','#F3F6F9');
+                            $(el).closest('tr').fadeOut(1500,function(){
+                                $(this).remove();
+                            });
+                        }
                         Swal.fire(
                             "Deleted!",
                             "Your file has been deleted.",

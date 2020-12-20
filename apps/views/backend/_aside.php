@@ -123,7 +123,12 @@
 
                         <!--begin::Item-->
                         <li class="navi-item font-size-xs">
-                            <a href="<?php echo xss_clean(site_url('logout' ) . '?redirect=' . urlencode(current_url()));?>" class="navi-link">
+                            <a href="<?php echo xss_clean( site_url('logout' ) . '?redirect=' . urlencode(current_url()) );?>" class="navi-link">
+                                <span class="navi-icon mr-2">
+                                    <span class="svg-icon">
+                                        <img src="<?php echo asset_url('svg/Sign-out.svg');?>" />
+                                    </span> 
+                                </span>  
                                 <span class="navi-text"><?php _e('Sign Out');?></span>
                             </a>
                         </li>

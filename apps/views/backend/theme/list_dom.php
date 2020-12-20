@@ -63,7 +63,7 @@
                 <!--begin::Card-->
                 <div class="card card-custom overlay">
                     <div class="card-body p-0">
-                        <div class="overlay-wrapper">
+                        <div class="overlay-wrapper max-h-200px overflow-hidden">
                             <img src="<?php echo base_url('assets/frontend/'.$_theme[ 'theme' ][ 'namespace' ].'/preview.jpg')?>" alt=""
                                 class="w-100 rounded" />
                         </div>

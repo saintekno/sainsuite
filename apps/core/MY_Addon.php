@@ -391,6 +391,11 @@ class MY_Addon extends CI_Model
             Filer::drop($addon_assets_folder);
         }
 
+        // Drop Uploads Folder
+        if (is_dir($addon_uploads_folder = FCPATH . 'uploads' . '/' . $addon_namespace)) {
+            Filer::drop($addon_uploads_folder);
+        }
+
         // Drop Assets Folder
         if (is_dir($addon_themes_folder = FCPATH . 'assets/frontend' . '/' . $addon_namespace)) {
             Filer::drop($addon_themes_folder);
@@ -402,6 +407,9 @@ class MY_Addon extends CI_Model
         }
 
         get_instance()->options_model->delete( null, $addon_namespace);
+        if ( get_instance()->options_model->get('theme_frontend') ==  $addon_namespace ) :
+            get_instance()->options_model->set('theme_frontend', 'default' );
+        endif;
     }
 
     // --------------------------------------------------------------------
@@ -460,6 +468,17 @@ class MY_Addon extends CI_Model
                     mkdir($_temp_folder_assets);
                 }
                 Filer::copy($addon_assets_folder, $_temp_folder_assets);
+            }
+
+            // Copy Uploads to
+            if (is_dir($addon_uploads_folder = FCPATH . 'uploads' . '/' . $addon_namespace)) 
+            {
+                // create uploads folder
+                $_temp_folder_uploads = $temp_folder . '/' . 'uploads';
+                if (!is_dir($_temp_folder_uploads)) {
+                    mkdir($_temp_folder_uploads);
+                }
+                Filer::copy($addon_uploads_folder, $_temp_folder_uploads);
             }
 
             // Copy Themes to
@@ -820,10 +839,9 @@ class MY_Addon extends CI_Model
                 write_file($addon_dir_path . '/' . $file_name, file_get_contents($_manifest));
             }
         }
-
-        $relative_json_manifest = array();
-
+        
         // moving manifest to system folder
+        $relative_json_manifest = array();
         foreach ($manifest as $_manifest) 
         {
             // removing raw_name from old manifest to ease copy
@@ -856,6 +874,21 @@ class MY_Addon extends CI_Model
 
             mkdir($addon_assets_folder); // creating addon folder within
             Filer::extractor($addon_dir_path . '/' . 'assets', $addon_assets_folder);
+        }
+
+        /**
+         * New Feature Uploads management
+         * Description : move addon uploads to public directory within a folder with namespace as name
+        **/
+        if (is_dir($addon_dir_path . '/' . 'uploads')) 
+        {
+            $addon_uploads_folder = FCPATH . 'uploads' . '/' . $addon_namespace;
+            if (is_dir($addon_uploads_folder)) { // checks if addon folder exists on public folder
+                Filer::drop($addon_uploads_folder);
+            }
+
+            mkdir($addon_uploads_folder); // creating addon folder within
+            Filer::extractor($addon_dir_path . '/' . 'uploads', $addon_uploads_folder);
         }
 
         /**

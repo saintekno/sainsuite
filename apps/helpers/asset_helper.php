@@ -77,10 +77,14 @@ if (! function_exists('img_url')) {
  * @return  string
  */
 if (! function_exists('upload_url')) {
-    function upload_url()
+    function upload_url( $folder = null )
     {
         $CI =& get_instance();
-        return base_url() . $CI->config->item('upload_path');
+        if ($folder === null) {
+            return base_url() . $CI->config->item('upload_path');
+        } else {
+            return base_url() . $CI->config->item('upload_path') . $folder . '/';
+        }
     }
 }
 

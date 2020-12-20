@@ -41,6 +41,9 @@ class Auth extends MY_Controller
      */
 	public function index()
 	{
+        if (User::is_loggedin()) : redirect($this->config->item('admin_route'));
+        endif;
+
         $this->form_validation->set_rules('username_or_email', __('Email or User Name' ), 'required|min_length[5]');
         $this->form_validation->set_rules('password', __('Password' ), 'required|min_length[6]');
         $this->form_validation->set_rules('submit_button', __('Submit button'), 'alpha_dash');
@@ -76,6 +79,9 @@ class Auth extends MY_Controller
      */
     public function register()
     {
+        if (User::is_loggedin()) : redirect($this->config->item('admin_route'));
+        endif;
+        
         $this->events->do_action('registration_rules');
 
         if ($this->form_validation->run()) 

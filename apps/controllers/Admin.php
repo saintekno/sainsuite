@@ -248,6 +248,7 @@ class Admin extends MY_Controller
                 
                 $this->events->do_action('do_remove_addon', $arg2);
     
+                MY_Addon::disable($arg2);
                 MY_Addon::uninstall($arg2);
     
                 redirect(array( 'admin', 'addons?notice=addon-removed' ));
