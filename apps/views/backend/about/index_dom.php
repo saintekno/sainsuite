@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12">
-        <h3 class="font-weight-bold mb-10 text-dark">
+        <h3 class="font-weight-bold mb-10 ">
             <?php echo sprintf( __( 'You\'re using <b>%s</b> %s' ), get( 'app_name' ), get('version') );?>
         </h3>
         <div class="font-weight-nromal font-size-lg mb-6">

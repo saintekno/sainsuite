@@ -4,7 +4,7 @@ global $Options;
     
 <!--begin::Title-->
 <div class="pb-5 pb-lg-10">
-    <h3 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg"><?php _e('Sign In');?></h3>
+    <h3 class="font-weight-bolder font-size-h2 font-size-h1-lg"><?php _e('Sign In');?></h3>
     
     <?php
     // Should checks whether a registration is enabled
@@ -22,7 +22,7 @@ global $Options;
 
     <!--begin::Form group-->
     <div class="form-group">
-        <label class="font-size-h6 font-weight-bolder text-dark"><?php _e('Email or User Name' ) ?></label>
+        <label class="font-size-h6 font-weight-bolder "><?php _e('Email or User Name' ) ?></label>
         <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0"
             type="text" 
             id="form-username"
@@ -33,7 +33,7 @@ global $Options;
     <!--begin::Form group-->
     <div class="form-group">
         <div class="d-flex justify-content-between mt-n5">
-            <label class="font-size-h6 font-weight-bolder text-dark pt-5"><?php _e('Password' ) ?></label>
+            <label class="font-size-h6 font-weight-bolder pt-5"><?php _e('Password' ) ?></label>
 
             <?php
             // Should checks whether a registration is enabled

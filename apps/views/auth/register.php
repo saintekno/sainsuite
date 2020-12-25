@@ -4,7 +4,7 @@ global $Options;
     
 <!--begin::Title-->
 <div class="pb-5 pb-lg-10">
-    <h3 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg"><?php _e('Sign Up');?></h3>
+    <h3 class="font-weight-bolder font-size-h2 font-size-h1-lg"><?php _e('Sign Up');?></h3>
     
     <?php
     // Should checks whether a registration is enabled

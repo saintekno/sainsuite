@@ -31,7 +31,7 @@
 <div class="d-flex flex-column-fluid flex-center">
     <div class="d-flex flex-column justify-content-center align-items-center px-5 text-center">
         <img class="w-150px" src="<?php echo asset_url('svg/empty-state.svg'); ?>"/>
-        <h3 class="display-4 font-weight-bold my-7">Welcome to <?php echo $this->options_model->get('site_name');?>! Let's get started</h3>
+        <h3 class="display-4 font-weight-bold mt-7 mb-2">Welcome to <?php echo $this->options_model->get('site_name');?>! Let's get started</h3>
         <p class="font-weight-bold font-size-lg opacity-80">
         Get started building your personal projects, testing out ideas, and more in your spontaner workspace.
         </p>
@@ -96,7 +96,7 @@
                                     <i class="flaticon2-line-chart text-primary"></i>
                                 </span>
                                 <?php endif;?>
-                                <h3 class="card-label font-weight-bolder text-dark"><?php echo riake('title', $header);?></h3>
+                                <h3 class="card-label font-weight-bolder "><?php echo riake('title', $header);?></h3>
                                 <span class="text-muted font-weight-bold font-size-sm mt-1"><?php echo riake('sub_title', $header);?></span>
                             </div>
                         </div>

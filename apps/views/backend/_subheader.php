@@ -2,10 +2,9 @@
     <div class="container d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
 
         <div class="d-flex align-items-center flex-wrap mr-2">
-            <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">
+            <h3 class="page-title font-weight-bold my-1 mr-3">
                 <?php echo str_replace('&mdash; ' . get('signature'), '', Polatan::get_title());?> 
-                <i class="flaticon2-correct text-success icon-md ml-2"></i>                          
-            </h5>
+            </h3>
 
             <ul class="d-none d-md-flex breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                 <?php echo (isset($breadcrumbs)) ? $breadcrumbs : ''; ?>

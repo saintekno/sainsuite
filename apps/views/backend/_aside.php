@@ -27,7 +27,7 @@
             <ul class="nav flex-column" role="tablist" id="myTab">
 
                 <!--begin::Item-->
-                <?php if ( User::control('manage.core') &&  Menu::$apps_menus_core ) : ?>
+                <?php if ( User::control('manage.core') && Menu::$apps_menus_core ) : ?>
 				<li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Application">
 					<a class="nav-link btn btn-icon btn-aside btn-lg" data-toggle="tab" data-target="#kt_aside_tab_1" role="tab">
 						<span class="svg-icon svg-icon-xl">
@@ -45,7 +45,7 @@
                 </li>
                 <?php endif; ?>
                 
-                <?php if ( User::control('manage.setting') ) : ?>
+                <?php if ( User::control('manage.setting') && Menu::$setting_menus_core ) : ?>
                 <!--begin::Item-->
 				<li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Tools">
 					<a class="nav-link btn btn-icon btn-aside btn-lg" data-toggle="tab" data-target="#kt_aside_tab_2" role="tab">
@@ -70,7 +70,7 @@
 		<div class="aside-footer d-flex flex-column align-items-center flex-column-auto py-7">
 
             <div class="dropdown" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Help Center">
-                <a class="btn btn-icon btn-aside btn-lg" data-toggle="dropdown" data-target="help" data-offset="0px,0px" aria-expanded="false">
+                <a class="btn btn-icon btn-aside symbol symbol-30 symbol-circle" data-toggle="dropdown" data-target="help" data-offset="0px,0px" aria-expanded="false">
                     <span class="svg-icon svg-icon-xxl"><!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -106,7 +106,7 @@
                     <ul class="navi navi-hover py-4">
                         <li class="navi-section">
                             <div class="d-flex flex-column">
-                                <span class="font-weight-bold font-size-h5 text-dark-75">
+                                <span class="font-weight-bold font-size-h5 ">
                                     <?php echo User::get()->username;?>
                                 </span>
                                 <div class="text-muted mt-1">

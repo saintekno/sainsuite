@@ -296,7 +296,7 @@ class Menu
             ?>
             <a href="<?php echo riake('href', $current_menu); ?>" class="nav-item">
                 <span class="nav-label px-10">
-                    <span class="nav-title text-dark-75 font-weight-bold font-size-h5">
+                    <span class="nav-title font-weight-bold font-size-h5">
                         <i class="<?php echo riake('icon', $current_menu); ?> icon-xl mr-2"></i>    
                         <?php echo riake('title', $current_menu); ?>
                     </span>

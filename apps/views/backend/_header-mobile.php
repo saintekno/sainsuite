@@ -1,6 +1,10 @@
 <div id="kt_header_mobile" class="header-mobile">
     <a href="<?php echo site_url('admin'); ?>">
-        <img alt="<?php echo get('app_name');?>" src="<?php echo $this->events->apply_filters( 'signin_logo_mobile', upload_url().'system/logo-light.png' ); ?>" class="logo-default max-h-30px" />
+		<?php 
+		global $User_Options;
+		$meta = (isset($User_Options['meta'])) ? $User_Options['meta'] : '';
+		$logo = (riake('theme-skin', $meta) == 'skin-dark') ? 'logo-light.png' : 'logo-dark.png'; ?>
+        <img alt="<?php echo get('app_name');?>" src="<?php echo $this->events->apply_filters( 'signin_logo_mobile', upload_url().'system/'.$logo); ?>" class="logo-default max-h-30px" />
     </a>
     <div class="d-flex align-items-center">
 		<div class="dropdown">
@@ -11,7 +15,7 @@
 			<!--end::Toggle-->
 
 			<!--begin::Dropdown-->
-			<div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg p-0">
+			<div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg">
 				<!--begin::Header-->
 				<div class="d-flex align-items-center p-8 rounded-top">
 					<!--begin::Symbol-->
@@ -22,7 +26,7 @@
 
 					<!--begin::Text-->
 					<div class="d-flex flex-column">
-						<div class="text-dark m-0 flex-grow-1 mr-3 font-size-h5"><?php echo User::get()->username;?></div>
+						<div class="m-0 flex-grow-1 mr-3 font-size-h5"><?php echo User::get()->username;?></div>
 						<div class="text-muted mt-1">
 							<?php echo User::get_user_groups()[0]->definition;?>
 						</div>
@@ -57,7 +61,7 @@
 		</div>
 		<!--end::User-->
 
-        <button class="btn p-0 ml-5 burger-icon burger-icon-left" id="kt_aside_mobile_toggle">
+        <button class="btn p-0 ml-2 burger-icon burger-icon-left" id="kt_aside_mobile_toggle">
             <span></span>
         </button>
     </div>

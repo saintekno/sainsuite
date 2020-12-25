@@ -34,25 +34,25 @@ class Admin_Model extends CI_Model
     **/
     public function set_setting_menu()
     {
-        $setting_menu['settings'][ 'system' ][] = array(
-            'title' => __('System'),
-            'icon'  => 'svg/Settings-2.svg',
-            'href'  => site_url('admin/settings'),
-            'permission' => 'read.options'
-        );
+        // $setting_menu['settings'][ 'system' ][] = array(
+        //     'title' => __('System'),
+        //     'icon'  => 'svg/Settings-2.svg',
+        //     'href'  => site_url('admin/settings'),
+        //     'permission' => 'read.options'
+        // );
 
-        $setting_menu['appearance'][ 'themes' ][] = array(
-            'title' => __('Themes'),
-            'icon'  => 'svg/Bucket.svg',
-            'href'  => site_url('admin/themes')
-        );
+        // $setting_menu['appearance'][ 'themes' ][] = array(
+        //     'title' => __('Themes'),
+        //     'icon'  => 'svg/Bucket.svg',
+        //     'href'  => site_url('admin/themes')
+        // );
         
-        $setting_menu['appearance'][ 'addons' ][] = array(
-            'title' => __('Addons'),
-            'icon'  => 'svg/Puzzle.svg',
-            'href'  => site_url('admin/addons'),
-            'permission' => 'toggle.addons'
-        );
+        // $setting_menu['appearance'][ 'addons' ][] = array(
+        //     'title' => __('Addons'),
+        //     'icon'  => 'svg/Puzzle.svg',
+        //     'href'  => site_url('admin/addons'),
+        //     'permission' => 'toggle.addons'
+        // );
 
         // $setting_menu['tools'][ 'backup' ][] = array(
         //     'title' => __('Backup DB'),
@@ -60,7 +60,7 @@ class Admin_Model extends CI_Model
         //     'href'  => '#'
         // );
 
-        foreach ($this->events->apply_filters('setting_menu', $setting_menu) as $namespace => $menus) {
+        foreach ($this->events->apply_filters('setting_menu', []) as $namespace => $menus) {
             foreach ($menus as $menu) {
                 Menu::add_setting_menu($namespace, $menu);
             }
@@ -138,7 +138,28 @@ class Admin_Model extends CI_Model
     **/
     public function set_system_menu()
     {
-        foreach ($this->events->apply_filters('system_menu', []) as $namespace) {
+        $system_menu[] = array(
+            'title' => __('System'),
+            'icon'  => 'svg/Settings-2.svg',
+            'href'  => site_url('admin/settings'),
+            'permission' => 'read.options'
+        );
+
+        $system_menu[] = array(
+            'title' => __('Themes'),
+            'icon'  => 'svg/Bucket.svg',
+            'href'  => site_url('admin/themes'),
+            'permission' => 'read.themes'
+        );
+        
+        $system_menu[] = array(
+            'title' => __('Addons'),
+            'icon'  => 'svg/Puzzle.svg',
+            'href'  => site_url('admin/addons'),
+            'permission' => 'toggle.addons'
+        );
+
+        foreach ($this->events->apply_filters('system_menu', $system_menu) as $namespace) {
             Menu::add_system_menu($namespace);
         }
     }
