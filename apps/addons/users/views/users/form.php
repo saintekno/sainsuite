@@ -96,6 +96,7 @@ $this->polatan->add_item(array(
     'type'    => 'select',
     'label'   => __('Add to a group', 'aauth'),
     'name'    => 'userprivilege',
+    'disabled' => ($groups_array) ? false : true,
     'options' => $groups_array,
     'active'  => (isset($user_group)) ? $user_group->group_id : null
 ), 'users', 1);

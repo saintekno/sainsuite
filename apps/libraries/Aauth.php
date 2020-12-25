@@ -511,22 +511,6 @@ class Aauth {
 	}
 
 	/**
-	 * Reset last login attempts
-	 * Removes a Login Attempt
-	 * @return bool Reset fails/succeeds
-	 */
-	public function reset_login_attempts() {
-		$ip_address = $this->CI->input->ip_address();
-		$this->aauth_db->where(
-			array(
-				'ip_address'=>$ip_address,
-				'timestamp >='=>date("Y-m-d H:i:s", strtotime("-".$this->config_vars['max_login_attempt_time_period']))
-			)
-		);
-		return $this->aauth_db->delete($this->config_vars['login_attempts']);
-	}
-
-	/**
 	 * Remind password
 	 * Emails user with link to reset password
 	 * @param string $email Email for account to remind
@@ -625,6 +609,23 @@ class Aauth {
 		return false;
 	}
 
+	/**
+	 * Update remember
+	 * Update amount of time a user is remembered for
+	 * @param int $user_id User id to update
+	 * @param int $expression
+	 * @param int $expire
+	 * @return bool Update fails/succeeds
+	 */
+	public function update_remember($user_id, $expression=null, $expire=null) {
+
+		$data['remember_time'] = $expire;
+		$data['remember_exp'] = $expression;
+
+		$query = $this->aauth_db->where('id',$user_id);
+		return $this->aauth_db->update($this->config_vars['users'], $data);
+	}
+
 	//tested
 	/**
 	 * Update last login
@@ -707,20 +708,19 @@ class Aauth {
 	}
 
 	/**
-	 * Update remember
-	 * Update amount of time a user is remembered for
-	 * @param int $user_id User id to update
-	 * @param int $expression
-	 * @param int $expire
-	 * @return bool Update fails/succeeds
+	 * Reset last login attempts
+	 * Removes a Login Attempt
+	 * @return bool Reset fails/succeeds
 	 */
-	public function update_remember($user_id, $expression=null, $expire=null) {
-
-		$data['remember_time'] = $expire;
-		$data['remember_exp'] = $expression;
-
-		$query = $this->aauth_db->where('id',$user_id);
-		return $this->aauth_db->update($this->config_vars['users'], $data);
+	public function reset_login_attempts() {
+		$ip_address = $this->CI->input->ip_address();
+		$this->aauth_db->where(
+			array(
+				'ip_address'=>$ip_address,
+				'timestamp >='=>date("Y-m-d H:i:s", strtotime("-".$this->config_vars['max_login_attempt_time_period']))
+			)
+		);
+		return $this->aauth_db->delete($this->config_vars['login_attempts']);
 	}
 
 
@@ -897,6 +897,50 @@ class Aauth {
 		return $this->aauth_db->update($this->config_vars['users'], $data);
 	}
 
+	//not tested excatly
+	/**
+	 * Delete user
+	 * Delete a user from database. WARNING Can't be undone
+	 * @param int $user_id User id to delete
+	 * @return bool Delete fails/succeeds
+	 */
+	public function delete_user($user_id) {
+
+		if($this->is_admin($user_id)) : return;
+		endif;
+		
+        if (file_exists($file = upload_path().'user_image/'.$user_id.'.jpg')) :
+			unlink($file);
+		endif;
+
+		$this->aauth_db->trans_begin();
+
+		// delete from perm_to_user
+		$this->aauth_db->where('user_id', $user_id);
+		$this->aauth_db->delete($this->config_vars['perm_to_user']);
+
+		// delete from user_to_group
+		$this->aauth_db->where('user_id', $user_id);
+		$this->aauth_db->delete($this->config_vars['user_to_group']);
+
+		// delete user vars
+		$this->aauth_db->where('user_id', $user_id);
+		$this->aauth_db->delete($this->config_vars['user_variables']);
+
+		// delete user
+		$this->aauth_db->where('id', $user_id);
+		$this->aauth_db->delete($this->config_vars['users']);
+
+		if ($this->aauth_db->trans_status() === false) {
+			$this->aauth_db->trans_rollback();
+			return false;
+		} else {
+			$this->aauth_db->trans_commit();
+			return true;
+		}
+
+	}
+
 	//tested
 	/**
 	 * List users
@@ -910,7 +954,7 @@ class Aauth {
 	 */
 	public function list_users($group_par = false, $limit = false, $offset = false, $include_banneds = false, $sort = false) {
 
-        $select = "*, aauth_users.id as user_id ";
+        $select = "*, aauth_users.id as user_id, aauth_groups.name as group_name ";
 
         $user_group = farray($this->get_user_groups());
         if ( ! $this->is_admin() && $group_par == false) {
@@ -1115,50 +1159,6 @@ class Aauth {
 			$subject = $this->CI->lang->line('aauth_email_verification_subject');
 			$mailer->send($row->email, $subject);
 		}
-	}
-
-	//not tested excatly
-	/**
-	 * Delete user
-	 * Delete a user from database. WARNING Can't be undone
-	 * @param int $user_id User id to delete
-	 * @return bool Delete fails/succeeds
-	 */
-	public function delete_user($user_id) {
-
-		if($this->is_admin($user_id)) : return;
-		endif;
-		
-        if (file_exists($file = upload_path().'user_image/'.$user_id.'.jpg')) :
-			unlink($file);
-		endif;
-
-		$this->aauth_db->trans_begin();
-
-		// delete from perm_to_user
-		$this->aauth_db->where('user_id', $user_id);
-		$this->aauth_db->delete($this->config_vars['perm_to_user']);
-
-		// delete from user_to_group
-		$this->aauth_db->where('user_id', $user_id);
-		$this->aauth_db->delete($this->config_vars['user_to_group']);
-
-		// delete user vars
-		$this->aauth_db->where('user_id', $user_id);
-		$this->aauth_db->delete($this->config_vars['user_variables']);
-
-		// delete user
-		$this->aauth_db->where('id', $user_id);
-		$this->aauth_db->delete($this->config_vars['users']);
-
-		if ($this->aauth_db->trans_status() === false) {
-			$this->aauth_db->trans_rollback();
-			return false;
-		} else {
-			$this->aauth_db->trans_commit();
-			return true;
-		}
-
 	}
 
 	//tested
@@ -1447,6 +1447,11 @@ class Aauth {
 			$this->aauth_db->insert($this->config_vars['groups'], $data);
 			$group_id = $this->aauth_db->insert_id();
 
+			// Add permission
+			foreach ($this->CI->aauth->list_group_perms($group_name) as $perm) :
+				$this->allow_group($group_id, $perm->perm_id);
+			endforeach;
+
 			$this->CI->events->do_action('do_create_group', $group_id);
 			return true;
 		endif;
@@ -1644,6 +1649,7 @@ class Aauth {
 		
 		if ($param != null) {
 			$group_id1 = $this->get_group_id($this->config_vars['user_group']);
+			$this->aauth_db->group_by('name');
 			$this->aauth_db->where('id >', $group_id1);
 		}
 		else {
@@ -1833,7 +1839,6 @@ class Aauth {
 		$subgroup_id = $this->get_group_id($subgroup_par);
 
 		$query = $this->aauth_db->where('subgroup_id', $subgroup_id);
-		$query = $this->aauth_db->select('group_id');
 		$query = $this->aauth_db->get($this->config_vars['group_to_group']);
 
 		if ($query->num_rows() == 0)
@@ -1955,6 +1960,68 @@ class Aauth {
 			return false;
 
 		return $query->result();
+	}
+
+	//tested
+	/**
+	 * List Permissions
+	 * List all permissions
+	 * @return object Array of permissions
+	 */
+    public function list_perms($group_par = null)
+    {
+        if ($group_par == null) {
+            $query = $this->aauth_db->get($this->config_vars['perms']);
+            return $query->result();
+        } else {
+            $query = $this->aauth_db->select(
+                $this->config_vars[ 'perms' ] . '.name as perm_name,' .
+                $this->config_vars[ 'perms' ] . '.definition as perm_desc,'
+            )
+            ->join($this->config_vars[ 'perms' ], $this->config_vars[ 'perm_to_group' ] . '.perm_id = ' . $this->config_vars[ 'perms' ] . '.id')
+            ->join($this->config_vars[ 'groups' ], $this->config_vars[ 'perm_to_group' ] . '.group_id = ' . $this->config_vars[ 'groups'] . '.id')
+            ->where($this->config_vars[ 'groups' ] . '.id', $group_par)
+            ->get($this->config_vars[ 'perm_to_group' ]);
+            return $query->result();
+        }
+	}
+
+	//tested
+	/**
+	 * Get permission id
+	 * Get permission id from permisison name or id
+	 * @param int|string $perm_par Permission id or name to get
+	 * @return int Permission id or NULL if perm does not exist
+	 */
+	public function get_perm_id($perm_par) {
+
+		if( is_numeric($perm_par) ) { return $perm_par; }
+
+		$key = str_replace(' ', '', trim(strtolower($perm_par)));
+
+		if (isset($this->cache_perm_id[$key])) {
+			return $this->cache_perm_id[$key];
+		} else {
+			return false;
+		}
+
+	}
+
+	/**
+	 * Get permission
+	 * Get permission from permisison name or id
+	 * @param int|string $perm_par Permission id or name to get
+	 * @return int Permission id or NULL if perm does not exist
+	 */
+	public function get_perm($perm_par) {
+		if ($perm_id = $this->get_perm_id($perm_par)) {
+			$query = $this->aauth_db->where('id', $perm_id);
+			$query = $this->aauth_db->get($this->config_vars['perms']);
+
+			return $query->row();
+		}
+
+		return false;
 	}
 
 	/**
@@ -2172,68 +2239,6 @@ class Aauth {
 		$this->aauth_db->where('perm_id', $perm_id);
 
 		return $this->aauth_db->delete($this->config_vars['perm_to_group']);
-	}
-
-	//tested
-	/**
-	 * List Permissions
-	 * List all permissions
-	 * @return object Array of permissions
-	 */
-    public function list_perms($group_par = null)
-    {
-        if ($group_par == null) {
-            $query = $this->aauth_db->get($this->config_vars['perms']);
-            return $query->result();
-        } else {
-            $query = $this->aauth_db->select(
-                $this->config_vars[ 'perms' ] . '.name as perm_name,' .
-                $this->config_vars[ 'perms' ] . '.definition as perm_desc,'
-            )
-            ->join($this->config_vars[ 'perms' ], $this->config_vars[ 'perm_to_group' ] . '.perm_id = ' . $this->config_vars[ 'perms' ] . '.id')
-            ->join($this->config_vars[ 'groups' ], $this->config_vars[ 'perm_to_group' ] . '.group_id = ' . $this->config_vars[ 'groups'] . '.id')
-            ->where($this->config_vars[ 'groups' ] . '.id', $group_par)
-            ->get($this->config_vars[ 'perm_to_group' ]);
-            return $query->result();
-        }
-	}
-
-	//tested
-	/**
-	 * Get permission id
-	 * Get permission id from permisison name or id
-	 * @param int|string $perm_par Permission id or name to get
-	 * @return int Permission id or NULL if perm does not exist
-	 */
-	public function get_perm_id($perm_par) {
-
-		if( is_numeric($perm_par) ) { return $perm_par; }
-
-		$key = str_replace(' ', '', trim(strtolower($perm_par)));
-
-		if (isset($this->cache_perm_id[$key])) {
-			return $this->cache_perm_id[$key];
-		} else {
-			return false;
-		}
-
-	}
-
-	/**
-	 * Get permission
-	 * Get permission from permisison name or id
-	 * @param int|string $perm_par Permission id or name to get
-	 * @return int Permission id or NULL if perm does not exist
-	 */
-	public function get_perm($perm_par) {
-		if ($perm_id = $this->get_perm_id($perm_par)) {
-			$query = $this->aauth_db->where('id', $perm_id);
-			$query = $this->aauth_db->get($this->config_vars['perms']);
-
-			return $query->row();
-		}
-
-		return false;
 	}
 
 	########################

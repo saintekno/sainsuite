@@ -18,11 +18,11 @@ $edit_group     = '';
 $hapus_group    = '';
 // adding user to complete_users array
 foreach ($users as $user) {
-    if ( User::control('edit.group')) {
+    if ( User::control('edit.users')) {
         $edit_group = '<a href="' . site_url(array( 'admin', 'users', 'edit', $user->user_id )) . '" 
                 class="btn btn-icon btn-light btn-hover-primary btn-sm"><i class="fas fa-pen"></i></a>';
     }
-    if ( User::control('delete.group')) {
+    if ( User::control('delete.users')) {
         $hapus_group = '<button class="btn btn-icon btn-light btn-hover-danger btn-sm"
                 data-head=\'' . _s( 'Would you like to delete this account?', 'aauth' ) . '\'
                 data-url=\'' . site_url(array( 'admin', 'users', 'delete', $user->user_id )) . '\'
@@ -37,9 +37,9 @@ foreach ($users as $user) {
         </div>',
         $user->username ,
         $user->email ,
-        $user->last_login,
-        $user->last_activity,
-        get_range_time($user->last_login, $user->last_activity),
+        strtolower($user->group_name) ,
+        ($user->last_login == null) ? '-' : $user->last_login,
+        ($user->last_login == null) ? '-' : timespan(strtotime($user->last_login), strtotime($user->last_activity)),
         $user->banned   ==  1 ? __( 'Unactive' , 'aauth') : __( 'Active' , 'aauth'),
         $edit_group.' '.$hapus_group
             
@@ -71,9 +71,9 @@ $this->polatan->add_item(array(
         __('Avatar'), 
         __('Username'), 
         __('Email'),  
+        __('Group'),  
         __('Login'), 
         __('Activity'), 
-        __('Durasi'), 
         __('Status' ), 
         __('Actions') 
     ),

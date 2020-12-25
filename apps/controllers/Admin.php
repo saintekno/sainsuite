@@ -45,9 +45,7 @@ class Admin extends MY_Controller
 
         $this->enqueue->css_namespace( 'dashboard_header' );
         $this->enqueue->addon_css('datatables', 'datatables.bundle');
-        ($this->events->apply_filters('dashboard_skin_class', 'skin-light') == 'skin-light') 
-            ? $this->enqueue->css('skin/light') 
-            : $this->enqueue->css('skin/dark');
+        $this->enqueue->css('skin/all');
         $this->enqueue->load_css( 'dashboard_header' );
     }
 
@@ -163,6 +161,10 @@ class Admin extends MY_Controller
                 }
     
                 Polatan::set_title(sprintf(__('Addons List &mdash; %s'), get('signature')));
+        
+                $this->events->add_action( 'dashboard_footer', function() {
+                    $this->load->view( 'backend/addons/list_script' );
+                });
                 
                 $data['addons'] = $this->events->apply_filters('get_folder_addons', MY_Addon::get());
                 $this->load->view( 'backend/addons/list', $data );
@@ -403,6 +405,10 @@ class Admin extends MY_Controller
             
             Polatan::set_title(sprintf(__('Theme List &mdash; %s'), get('signature')));
             
+            $this->events->add_action( 'dashboard_footer', function() {
+                $this->load->view( 'backend/theme/list_script' );
+            });
+
             $this->events->do_action('header_menu_themes');
             $this->load->backend_view( 'theme/list' );
         }
@@ -552,6 +558,15 @@ class Admin extends MY_Controller
                     }
                 }
             }
+        }
+        elseif (in_array($mode, array('ajax'))) {
+            // loping post value
+            foreach ($_POST as $key => $value) {
+                $this->options_model->set(
+                    $key, 
+                    $this->input->post($key)
+                );
+            };
         }
     }
 

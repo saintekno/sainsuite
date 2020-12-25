@@ -53,6 +53,10 @@ var SainScript = function() {
                 }
             }
         );
+
+        $('#kt_datatable_search_status').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'Group');
+        });
     };
 
     return {
