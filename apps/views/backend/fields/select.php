@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label class="font-size-lg text-dark font-weight-bold" for="<?php echo $label; ?>"><?php echo $label; ?></label>
+    <label class="font-size-lg font-weight-bold" for="<?php echo $label; ?>"><?php echo $label; ?></label>
     <select <?php echo $multiple; ?> <?php echo $disabled === true ? 'disabled="disabled"' : ''; ?> 
         class="form-control <?php echo ($type == 'multiple') ? 'selectpicker' : ''; ?> <?php echo riake('strings', $_item);?>" 
         <?php echo ($type == 'multiple') ? 'data-live-search="true"' : ''; ?>

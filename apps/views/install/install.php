@@ -5,7 +5,7 @@
 		<!--begin::Title-->
 		<div class="pb-10 pb-lg-12">
 			<br>
-			<h3 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">
+			<h3 class="font-weight-bolder font-size-h2 font-size-h1-lg">
 				<?php _e("Thank for having chosen SainSuite to host your project.");?>
 			</h3>
 		</div>

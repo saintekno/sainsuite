@@ -5,7 +5,7 @@
         $count_cols = count(riake('cols', $_item));
         ?>
         <div class="col-<?php echo ($count_cols * 3) * 12 / ($count_cols * 3) / $count_cols ;?>">
-            <label class="font-size-lg text-dark font-weight-bold"><?php echo riake('label', $col);?>:</label>
+            <label class="font-size-lg font-weight-bold"><?php echo riake('label', $col);?>:</label>
             
             <?php if (riake('append', $col)) :?>
             <div class="input-group">
@@ -30,7 +30,7 @@
         <?php endforeach; ?>
     <?php else :?>
     <div class="col-12">
-        <label class="font-size-lg text-dark font-weight-bold"><?php echo riake('label', $_item);?>:</label>
+        <label class="font-size-lg font-weight-bold"><?php echo riake('label', $_item);?>:</label>
         
         <?php if (riake('append', $_item)) :?>
         <div class="input-group">

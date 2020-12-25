@@ -34,7 +34,7 @@ $attr = riake('search', $_item); ?>
                     <!--begin::User-->
                     <div class="mr-3">
                         <!--begin::Name-->
-                        <a href="pegawai/detail" class="d-flex align-items-center text-dark text-hover-primary font-size-h5 font-weight-bold mr-3">
+                        <a href="pegawai/detail" class="d-flex align-items-center text-hover-primary font-size-h5 font-weight-bold mr-3">
                             <?php echo $index[1];?> <i class="flaticon2-correct text-success icon-md ml-2"></i>
                         </a>
                         <!--end::Name-->

@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label class="font-size-lg text-dark font-weight-bold"><?php echo $label; ?></label>
+    <label class="font-size-lg font-weight-bold"><?php echo $label; ?></label>
     <div class="custom-file">
         <input <?php echo $disabled === true ? 'readonly="readonly"' : '';?> 
             type="file" 
