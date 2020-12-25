@@ -30,15 +30,26 @@ class UsersHomeController extends MY_Addon
     public function index( $index = 1 )
     {
         if ( ! User::control('read.users') ) {
-            $this->session->set_flashdata('info_message', __( 'Access denied. Youre not allowed to see this page.' ));
+            $this->session->set_flashdata('info_message', __( 'Youre not allowed to see this page.' ));
             redirect(site_url('admin/page404'));
 		}
 
         // Toolbar
         $this->events->add_filter('ui_subheader_search', function () { // disabling header
+            $groups = $this->aauth->list_groups();
+            $option = '<option value="">All</option>';
+            foreach ( $groups as $gr ) {
+                $option .= '<option value="'.strtolower($gr->name).'">'.$gr->definition.'</option>';
+            }
             return '
+            <div class="d-flex align-items-center mr-2">
+                <select class="form-control form-control-sm"
+                    id="kt_datatable_search_status">
+                    '.$option.'
+                </select>
+            </div>
             <div class="input-icon">
-                <input type="text" class="form-control form-control-sm form-control-solid" placeholder="Search..." id="search_query" />
+                <input type="text" class="form-control form-control-sm" placeholder="Search..." id="search_query" />
                 <span><i class="flaticon2-search-1 text-muted"></i></span>
             </div>';
         });
@@ -74,7 +85,7 @@ class UsersHomeController extends MY_Addon
     public function add()
     {
         if (! User::control('create.users')) {
-            $this->session->set_flashdata('info_message', __( 'Access denied. Youre not allowed to see this page.' ));
+            $this->session->set_flashdata('info_message', __( 'Youre not allowed to see this page.' ));
             redirect(site_url('admin/page404'));
         }
 
@@ -146,7 +157,7 @@ class UsersHomeController extends MY_Addon
         }
 
         if (! User::control('edit.users')) {
-            $this->session->set_flashdata('info_message', __( 'Access denied. Youre not allowed to see this page.' ));
+            $this->session->set_flashdata('info_message', __( 'Youre not allowed to see this page.' ));
             redirect(site_url('admin/page404'));
         }
         
@@ -224,7 +235,7 @@ class UsersHomeController extends MY_Addon
     public function delete( $index, $redirect = 'users' )
     {
         if (! User::control('delete.users')) {
-            $this->session->set_flashdata('info_message', __( 'Access denied. Youre not allowed to see this page.' ));
+            $this->session->set_flashdata('info_message', __( 'Youre not allowed to see this page.' ));
             redirect(site_url('admin/page404'));
         }
 
@@ -250,7 +261,7 @@ class UsersHomeController extends MY_Addon
     public function multidelete()
     {
         if (! User::control('delete.users')) {
-            $this->session->set_flashdata('info_message', __( 'Access denied. Youre not allowed to see this page.' ));
+            $this->session->set_flashdata('info_message', __( 'Youre not allowed to see this page.' ));
             redirect(site_url('admin/page404'));
         }
 

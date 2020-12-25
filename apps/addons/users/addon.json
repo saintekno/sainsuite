@@ -2,11 +2,12 @@
     "application": {
         "name": "Users",
         "namespace": "users",
-        "version": "3.9.4",
+        "version": "3.9.5",
         "author": "saintekno",
-        "description": "Users by SainTekno",
+        "description": "Management Users",
         "main": "main.php",
         "language": "language",
         "readonly": true
-    }
+    },
+    "group": "By Sainsuite"
 }

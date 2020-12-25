@@ -78,9 +78,11 @@ foreach ($this->aauth->list_groups(true) as $gr) {
         }
     }
 }
+
 $this->polatan->add_item(array(
     'type'    => 'select',
     'label'   => __('Name group', 'aauth'),
+    'disabled' => ($groups_array) ? false : true,
     'name'    => 'name',
     'options' => $groups_array,
 ), 'group', 1);

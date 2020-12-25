@@ -55,6 +55,15 @@ class Users_Install extends MY_Addon
             PRIMARY KEY (`id`)
           ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;");
         
+        // Auth Group to Group
+        $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_group_to_group`;");
+        $this->db->query("CREATE TABLE `{$database_prefix}aauth_group_to_group` (
+            `group_id` int(11) unsigned NOT NULL,
+            `user_id` varchar(100) NOT NULL,
+            `subgroup_id` int(11) unsigned NOT NULL,
+            PRIMARY KEY (`group_id`,`user_id`,`subgroup_id`)
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+        
         // Creating Auth Permission
         $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_perms`;");
         $this->db->query("CREATE TABLE `{$database_prefix}aauth_perms` (
@@ -133,15 +142,6 @@ class Users_Install extends MY_Addon
             INDEX `user_id_index` (`user_id`)
           ) COLLATE='utf8_general_ci' ENGINE=InnoDB ;");
         
-        // Auth Group to Group
-        $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_group_to_group`;");
-        $this->db->query("CREATE TABLE `{$database_prefix}aauth_group_to_group` (
-            `group_id` int(11) unsigned NOT NULL,
-            `user_id` varchar(100) NOT NULL,
-            `subgroup_id` int(11) unsigned NOT NULL,
-            PRIMARY KEY (`group_id`,`user_id`,`subgroup_id`)
-          ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-        
         // Auth Attempts
         $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_login_attempts`;");
         $this->db->query("CREATE TABLE `{$database_prefix}aauth_login_attempts` (
@@ -162,9 +162,9 @@ class Users_Install extends MY_Addon
     {
         // Only create if group does'nt exists (it's optional)
         // Creating admin Group
-        $this->aauth->create_group('admin', 'Admin Group');
-        $this->aauth->create_group('member', 'member Group');
-        $this->aauth->create_group('user', 'User Group');
+        $this->aauth->create_group('admin', 'Administrator');
+        $this->aauth->create_group('member', 'Member');
+        $this->aauth->create_group('user', 'User');
 
         /**
          * Creating default permissions
@@ -207,7 +207,7 @@ class Users_Install extends MY_Addon
         $this->aauth->create_perm('delete.group', 'Delete Group');
 
         // Profile Permission
-        $this->aauth->create_perm('edit.profile', 'Create Options');
+        $this->aauth->create_perm('edit.profile', 'Edit Profile');
 
         /**
          * Assign Permission to Groups
@@ -232,10 +232,17 @@ class Users_Install extends MY_Addon
 
         $this->aauth->allow_group('member', 'read.users');
         $this->aauth->allow_group('member', 'create.users');
+        $this->aauth->create_perm('member', 'edit.users');
+        $this->aauth->create_perm('member', 'delete.users');
+
+        $this->aauth->allow_group('member', 'read.group');
+        $this->aauth->allow_group('member', 'create.group');
+        $this->aauth->create_perm('member', 'delete.group');
         
         $this->aauth->allow_group('member', 'edit.profile');
 
-        $this->aauth->allow_group('member', 'manage.menu');
+        $this->aauth->allow_group('member', 'manage.setting');
+        $this->aauth->allow_group('member', 'manage.core');
 
         // Users
         $this->aauth->allow_group('user', 'edit.profile');

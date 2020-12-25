@@ -34,7 +34,7 @@ foreach ($groups as $row) {
                 <span class="symbol-label font-size-h4 font-weight-bold">' . strtoupper(substr($row->name, 0, 1)) . '</span>
             </div>
             <div class="ml-4 d-none d-md-block">
-                <div class="text-dark-75">' . $row->name . '</div>
+                <div class="">' . $row->name . '</div>
             </div>
         </div>',
         $row->definition,

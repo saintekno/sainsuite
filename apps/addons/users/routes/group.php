@@ -190,7 +190,7 @@ class GroupsHomeController extends MY_Addon
     public function multidelete()
     {
         if (! User::control('delete.group')) {
-            $this->session->set_flashdata('info_message', __( 'Access denied. Youre not allowed to see this page.' ));
+            $this->session->set_flashdata('info_message', __( 'Youre not allowed to see this page.' ));
             redirect(site_url('admin/page404'));
         }
 

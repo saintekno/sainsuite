@@ -42,7 +42,7 @@ class Users_Filters extends MY_Addon
         $fields[ 'address' ] = ($fname = $this->input->post('address')) ? $fname : '';
         $fields[ 'firstname' ] = ($fname = $this->input->post('firstname')) ? $fname : '';
         $fields[ 'lastname' ] = ($lname = $this->input->post('lastname')) ? $lname : '';
-        $fields[ 'theme-skin' ] = ($skin = $this->input->post('theme-skin')) ? $skin : 'skin-dark';
+        $fields[ 'theme-skin' ] = ($skin = $this->input->post('theme-skin')) ? $skin : '';
         return $fields;
     }
 
@@ -78,7 +78,7 @@ class Users_Filters extends MY_Addon
         global $User_Options;
         $meta = (isset($User_Options['meta'])) ? $User_Options['meta'] : '';
         // skin is defined by default
-        $class = ($db_skin = riake('theme-skin', $meta)) ? $db_skin : $class;
+        $class = ($db_skin = riake('theme-skin', $meta)) ? $db_skin : 'skin-light';
         return $class;
     }
 
