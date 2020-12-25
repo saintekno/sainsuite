@@ -81,19 +81,6 @@ $filed_heading2[] = array(
         1 => __('Yes')
     ),
 );
-$filed_heading2[] = array(
-    'permission'  => 'manage.core',
-    'type'        => 'select',
-    'name'        => 'webdev_mode',
-    'label'       => __('Enable Developer mode ?'),
-    'placeholder' => __('Enable developer mode'),
-    'description' => __('Tools like module package will be enabled.'),
-    'active'  => $this->options_model->get('webdev_mode'),
-    'options'     => array(
-        0 => __('No'),
-        1 => __('Yes')
-    )
-);
 $items_heading2 = $this->events->apply_filters('load_advance_setting', $filed_heading2);
 
 /**

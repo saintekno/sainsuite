@@ -1,17 +1,20 @@
-
 <!--begin::Container-->
+<?php
+global $Options;
+?>
+
 <div class="row">
     <div class="col-12">
         <div class="card card-custom gutter-b">
-            <div class="card-header row row-marginless align-items-center flex-wrap py-5 h-auto">
+            <div class="card-header border-0 align-items-center flex-wrap py-2 h-auto">
                 
-                <div class="col-12 col-sm-6 order-2 order-xxl-1 d-flex flex-wrap align-items-center">
-                    <div class="d-flex align-items-center mr-5 my-2">
+                <div class="col-12 col-sm-6 order-2 order-xxl-1 d-md-flex align-items-center">
+                    <div class="d-flex flex-wrap align-items-center mr-md-5 my-2">
                         <a href="#" class="btn btn-block btn-primary btn-lg font-weight-bold text-uppercase text-center" data-toggle="modal" data-target="#kt_inbox_compose">
-                        <i class="ki ki-plus icon-1x"></i> themes
+                            <i class="ki ki-plus icon-1x"></i> themes
                         </a>
                     </div>
-                    <div class="d-flex align-items-center mr-1 my-2">
+                    <div class="d-flex align-items-center mr-md-1 my-2">
                         <div class="input-group input-group-lg input-group-solid my-2">
                             <input type="text" class="form-control pl-4"
                                 placeholder="Search..." />
@@ -41,6 +44,57 @@
                     </div>
                 </div>
                 <!--end::Toolbar-->
+
+                <!--begin::Pagination-->
+                <div class="col-12 col-sm-6 col-xxl-4 order-2 order-xxl-3 d-flex align-items-center justify-content-sm-end text-right my-2">
+                    
+                    <?php if ($this->aauth->is_admin()):?>
+                    <label class="col-form-label mr-2">Developer mode</label>
+
+                    <form class="form mr-5" 
+                        id="web_mode"
+                        action="<?php echo site_url(array( 'admin', 'options', 'ajax' ));?>" 
+                        method="post"> 
+                        <div class="row">
+                            <div class="col-3">
+                                <span class="switch switch-outline switch-icon switch-primary">
+                                    <label>
+                                        <input type="checkbox" 
+                                            <?php echo (intval(riake('webdev_mode', $Options))) ? 'checked="checked"' : '';?> 
+                                            name="webdev_mode">
+                                        <span></span>
+                                    </label>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                    <?php endif; ?>
+
+                    <!--begin::Sort Dropdown-->
+                    <div class="dropdown mr-2" data-toggle="tooltip" title="Sort">
+                        <span class="btn btn-default btn-icon btn-sm"
+                            data-toggle="dropdown">
+                            <i class="flaticon2-console icon-1x"></i>
+                        </span>
+                        <div
+                            class="dropdown-menu dropdown-menu-right p-0 m-0 dropdown-menu-sm">
+                            <ul class="navi py-3">
+                                <li class="navi-item">
+                                    <a href="#" class="navi-link active">
+                                        <span class="navi-text">Free</span>
+                                    </a>
+                                </li>
+                                <li class="navi-item">
+                                    <a href="#" class="navi-link">
+                                        <span class="navi-text">Premium</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--end::Sort Dropdown-->
+                </div>
+                <!--end::Pagination-->
             </div>
             <!--end::Header-->
         </div>
@@ -48,11 +102,9 @@
 </div>
 
 <!--begin::Body-->
-<div class="row">
-    <?php
-    global $Options;
-    
-    if ($themes = Theme::get()) : ?>
+<?php    
+if ($themes = Theme::get()) : ?>
+    <div class="row">
     <?php foreach (force_array($themes) as $_theme) {
         if (isset($_theme[ 'theme' ][ 'namespace' ])) 
         {
@@ -68,7 +120,7 @@
                                 class="w-100 rounded" />
                         </div>
                         <div class="d-flex flex-column flex-center bg-white-o-5 py-5">
-                            <span class="text-dark-75 font-weight-bolder font-size-lg mb-2">
+                            <span class=""font-weight-bolder font-size-lg mb-2">
                                 <?php echo isset($_theme[ 'theme' ][ 'name' ]) ? $_theme[ 'theme' ][ 'name' ] : __('themes');?>   
                                 <?php if (Theme::is_active($theme_namespace, true)) : ?>
                                 <span class="font-weight-bolder label label-light-success label-inline p-1">
@@ -89,12 +141,10 @@
                                     <i class="fa fa-trash"></i>
                                 </a>
                                 <?php endif; ?>
-                                <?php if (intval(riake('webdev_mode', $Options)) == true):?>
                                 <a href="<?php echo site_url(array( 'admin', 'themes', 'extract', $theme_namespace ));?>" 
-                                    class="btn btn-sm btn-secondary ml-2 btn-shadow font-weight-bolder text-uppercase my-1">
-                                    <i class="fa fa-archive"></i> 
+                                    class="btn btn-sm btn-secondary ml-2 btn-shadow font-weight-bolder text-uppercase my-1 webdev_mode d-none">
+                                    <i class="fa fa-archive p-0"></i> 
                                 </a>
-                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -105,17 +155,16 @@
         }
     }
     ?>
-    <!--end::Table-->
-    <?php
-    else :
-    ?>
-    <div class="d-flex flex-column flex-center py-10">
-        <p>You have not created any themes.</p>
     </div>
-    <?php
-    endif;
-    ?>
+<?php
+else :
+?>
+<div class="d-flex flex-column flex-center py-10">
+    <p>You have not created any themes.</p>
 </div>
+<?php
+endif;
+?>
 <!--end::Body-->
 
 <!--begin::Compose-->
