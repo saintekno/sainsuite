@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.10.0] - 2020-12-25
+### Added
+- Penambahan addon reset db
+- Penambahan fitur filter user
+
+### Changed
+- Perbaikan skin tema
+- Perbaikan mode developer
+- Perbaikan ui daftar addons
+
 ## [3.9.0] - 2020-12-13
 ### Added
 - Penambahan avatar pada daftar users
