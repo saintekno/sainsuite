@@ -161,13 +161,11 @@ if ($addons) :
                         <!--end::Body-->
                         <!--begin::Footer-->
                         <div class="card-footer p-5 <?php echo ( $_group[ 'application' ][ 'readonly' ]) ? 'webdev_mode d-none':'';?>">
-                            <div class="d-flex">
-                                <?php if (MY_Addon::is_share($addon_namespace) && $this->aauth->is_admin()) {?>
-                                <div class="d-flex align-items-center mr-7">
-                                    <span class="label label-secondary label-inline font-weight-bolder text-primary mr-2">share in</span>
-                                </div>
-                                <?php } ?>
+                            <?php if (MY_Addon::is_share($addon_namespace) && $this->aauth->is_admin()) {?>
+                            <div class="btn btn-outline-dark btn-sm text-uppercase font-weight-bolder mr-2 ml-sm-auto">
+                                <span class="navi-text">share in</span>
                             </div>
+                            <?php } ?>
     
                             <?php if ($this->aauth->is_admin()):?>
                             <a href="<?php echo site_url(array( 'admin', 'addons', 'extract', $addon_namespace ));?>" 

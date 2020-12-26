@@ -1,7 +1,11 @@
 <div class="accordion accordion-light accordion-toggle-arrow" id="accordionExample2">
     <div class="card">
     <?php 
-    foreach (force_array(riake('accordion', $_item)) as $index => $_row) : ?>
+    foreach (force_array(riake('accordion', $_item)) as $index => $_row) : 
+        if( @$_row[ 'permission' ] != null && ! User::control( $_row[ 'permission' ] ) ) {
+            continue;
+        } 
+        ?>
 		<div class="card-header">
 			<div class="card-title" data-toggle="collapse" data-target="#<?php echo $_row['id'];?>">
                 <?php echo $_row['heading'];?>

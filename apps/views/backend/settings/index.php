@@ -30,10 +30,8 @@ $this->polatan->add_meta(array(
 /**
  * Heading 1
  */
-
-if ($this->aauth->is_admin()) :
-    
 $filed_heading1[] = array(
+    'permission'  => 'manage.core',
     'type'  => 'text',
     'required'  => true,
     'label' => __('Site Name'),
@@ -42,14 +40,13 @@ $filed_heading1[] = array(
     'description' => 'Enter your site name'
 );
 $filed_heading1[] = array(
+    'permission'  => 'manage.core',
     'type'  => 'textarea',
     'label' => __('Site Description'),
     'name'  => 'site_description',
     'value' => set_value('site_description', $this->options_model->get('site_description')),
     'description' => 'Enter your site description'
 );
-
-endif;
 $filed_heading1[] = array(
     'type'    => 'select',
     'name'    => 'site_timezone',
@@ -100,6 +97,7 @@ $this->polatan->add_item(array(
         ],
         [
             'id' => 'heading2',
+            'permission'  => 'manage.core',
             'heading'=> __('Advanced Settings'),
             'description' => 'Advanced settings, open register user',
             'body' => array(
