@@ -31,7 +31,7 @@ foreach ($users as $user) {
     $complete_users[] = array(
         $user->user_id,
         '<div class="d-flex align-items-center">
-            <div class="symbol symbol-40 symbol-light-primary flex-shrink-0">
+            <div class="symbol symbol-40 '. ( $this->events->do_action('do_comeon', $user) ? 'symbol-primary' : 'symbol-light-primary' ) .' flex-shrink-0">
                 <span class="symbol-label font-size-h4 font-weight-bold">' . strtoupper(substr($user->username, 0, 1)) . '</span>
             </div>
         </div>',

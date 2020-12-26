@@ -61,6 +61,7 @@ $lang[ 'theme-updated' ]                   = __('The theme has been updated.');
 $lang[ 'theme-installed' ]                 = __('The theme has been installed.');
 $lang[ 'old-version-cannot-be-installed' ] = __('The version installed is already up to date.');
 $lang[ 'unable-to-update' ]                = __('An error occured during update.');
+$lang[ 'config-file-not-found' ]           = __('config file hasn\'t been found. This file is not a valid theme. Installation aborded !!!');
 $lang[ 'manifest-file-not-found' ]         = __('manifest file hasn\'t been found. This file is not a valid addon. Installation aborded !!!');
 $lang[ 'manifest-file-incorrect' ]         = __('manifest file incorrect. This file is not a valid addon. Installation aborded !!!');
 $lang[ 'migration-not-required' ]          = __('A migration is not required or has already been done.');

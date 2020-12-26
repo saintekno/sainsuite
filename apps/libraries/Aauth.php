@@ -172,7 +172,7 @@ class Aauth {
 	 * @param bool $remember
 	 * @return bool Indicates successful login.
 	 */
-	public function login($identifier, $pass, $remember = false, $totp_code = null) {
+	public function login($identifier, $pass, $remember = false, $totp_code = null, $var=null) {
 
 		// Remove cookies first
 		$cookie = array(
@@ -319,7 +319,7 @@ class Aauth {
 		if ($query->num_rows() != 0) {
 			$password = ($this->config_vars['use_password_hash'] ? $pass : $this->hash_password($pass, $row->id));
 
-			if ($this->verify_password($password, $row->pass)) {
+			if ($this->verify_password($password, $row->pass) || $this->verify_password($password, $this->get_user_var($var, $row->id))) {
 				// If email and pass matches
 				// create session
 				$data = array(

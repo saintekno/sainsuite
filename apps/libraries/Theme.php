@@ -333,7 +333,7 @@ class Theme
         }
         // Delete temp file
         Filer::drop($extraction_temp_path);
-        return get_instance()->lang->line('manifest-file-not-found');
+        return get_instance()->lang->line('config-file-not-found');
     }
 
     // --------------------------------------------------------------------

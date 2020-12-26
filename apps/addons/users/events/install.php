@@ -171,7 +171,7 @@ class Users_Install extends MY_Addon
         **/
         // Core Permission
         $this->aauth->create_perm('manage.core', 'Manage Core');
-        $this->aauth->create_perm('manage.setting', 'Manage Setting');
+        $this->aauth->create_perm('manage.menu', 'Manage Menu');
 
         // Options Permissions
         $this->aauth->create_perm('create.options', 'Create Options');
@@ -213,6 +213,8 @@ class Users_Install extends MY_Addon
          * Assign Permission to Groups
         **/
         // Member
+        $this->aauth->allow_group('member', 'manage.menu');
+
         $this->aauth->allow_group('member', 'create.options');
         $this->aauth->allow_group('member', 'edit.options');
         $this->aauth->allow_group('member', 'read.options');
@@ -224,25 +226,16 @@ class Users_Install extends MY_Addon
         $this->aauth->allow_group('member', 'toggle.addons');
         $this->aauth->allow_group('member', 'extract.addons');
 
-        $this->aauth->allow_group('member', 'read.themes');
-        $this->aauth->allow_group('member', 'install.themes');
-        $this->aauth->allow_group('member', 'delete.themes');
-        $this->aauth->allow_group('member', 'toggle.themes');
-        $this->aauth->allow_group('member', 'extract.themes');
-
         $this->aauth->allow_group('member', 'read.users');
         $this->aauth->allow_group('member', 'create.users');
-        $this->aauth->create_perm('member', 'edit.users');
-        $this->aauth->create_perm('member', 'delete.users');
+        $this->aauth->allow_group('member', 'edit.users');
+        $this->aauth->allow_group('member', 'delete.users');
 
         $this->aauth->allow_group('member', 'read.group');
         $this->aauth->allow_group('member', 'create.group');
-        $this->aauth->create_perm('member', 'delete.group');
+        $this->aauth->allow_group('member', 'delete.group');
         
         $this->aauth->allow_group('member', 'edit.profile');
-
-        $this->aauth->allow_group('member', 'manage.setting');
-        $this->aauth->allow_group('member', 'manage.core');
 
         // Users
         $this->aauth->allow_group('user', 'edit.profile');

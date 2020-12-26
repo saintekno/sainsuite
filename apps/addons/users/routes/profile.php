@@ -38,7 +38,9 @@ class UsersProfileController extends MY_Addon
 
         $this->load->library('form_validation');
         $this->form_validation->set_rules('user_email', __('User Email', 'aauth'), 'valid_email');
-        $this->form_validation->set_rules('old_pass', __('Old Pass', 'aauth'), 'min_length[6]');
+        if ( $this->events->apply_filters('show_old_pass', true) ) {
+            $this->form_validation->set_rules('old_pass', __('Old Pass', 'aauth'), 'min_length[6]');
+        }
         $this->form_validation->set_rules('password', __('Password', 'aauth'), 'min_length[6]');
         $this->form_validation->set_rules('confirm', __('Confirm', 'aauth'), 'matches[password]');
 

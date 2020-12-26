@@ -431,6 +431,15 @@ class Admin extends MY_Controller
 
                 $this->notice->push_notice_array($notice);
             }
+            
+            Polatan::set_title(sprintf(__('Theme List &mdash; %s'), get('signature')));
+            
+            $this->events->add_action( 'dashboard_footer', function() {
+                $this->load->view( 'backend/theme/list_script' );
+            });
+
+            $this->events->do_action('header_menu_themes');
+            $this->load->backend_view( 'theme/list' );
         }
         elseif ($page === 'enable') 
         {

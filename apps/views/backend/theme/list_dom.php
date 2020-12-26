@@ -111,7 +111,7 @@ if ($themes = Theme::get()) : ?>
             $theme_namespace = $_theme[ 'theme' ][ 'namespace' ];
             $theme_version = $_theme[ 'theme' ][ 'version' ];
             ?>
-            <div class="col-lg-4">
+            <div class="col-4">
                 <!--begin::Card-->
                 <div class="card card-custom overlay">
                     <div class="card-body p-0">

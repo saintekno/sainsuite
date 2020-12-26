@@ -82,11 +82,13 @@ $this->polatan->add_item(array(
 ), 'user_profile', 2);
 
 // user password
+if ( $this->events->apply_filters('show_old_pass', true) ) {
 $this->polatan->add_item(array(
     'type'  => 'password',
     'label' => __('Old Password', 'aauth'),
     'name'  => 'old_pass',
 ), 'user_profile', 2);
+}
 
 $this->polatan->add_item(array(
     'type'  => 'password',

@@ -27,7 +27,7 @@
             <ul class="nav flex-column" role="tablist" id="myTab">
 
                 <!--begin::Item-->
-                <?php if ( User::control('manage.core') && Menu::$apps_menus_core ) : ?>
+                <?php if ( User::control('manage.menu') && Menu::$apps_menus_core ) : ?>
 				<li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Application">
 					<a class="nav-link btn btn-icon btn-aside btn-lg" data-toggle="tab" data-target="#kt_aside_tab_1" role="tab">
 						<span class="svg-icon svg-icon-xl">
@@ -45,7 +45,7 @@
                 </li>
                 <?php endif; ?>
                 
-                <?php if ( User::control('manage.setting') && Menu::$setting_menus_core ) : ?>
+                <?php if ( User::control('manage.menu') && Menu::$setting_menus_core ) : ?>
                 <!--begin::Item-->
 				<li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Tools">
 					<a class="nav-link btn btn-icon btn-aside btn-lg" data-toggle="tab" data-target="#kt_aside_tab_2" role="tab">
