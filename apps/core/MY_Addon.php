@@ -867,7 +867,7 @@ class MY_Addon extends CI_Model
         **/
         if (is_dir($addon_dir_path . '/' . 'assets')) 
         {
-            $addon_assets_folder = FCPATH . 'assets/addons' . '/' . $addon_namespace;
+            $addon_assets_folder = FCPATH . 'assets/addons' . '/' . $folder_to_lower;
             if (is_dir($addon_assets_folder)) { // checks if addon folder exists on public folder
                 Filer::drop($addon_assets_folder);
             }
@@ -882,7 +882,7 @@ class MY_Addon extends CI_Model
         **/
         if (is_dir($addon_dir_path . '/' . 'uploads')) 
         {
-            $addon_uploads_folder = FCPATH . 'uploads' . '/' . $addon_namespace;
+            $addon_uploads_folder = FCPATH . 'uploads' . '/' . $folder_to_lower;
             if (is_dir($addon_uploads_folder)) { // checks if addon folder exists on public folder
                 Filer::drop($addon_uploads_folder);
             }
@@ -897,7 +897,7 @@ class MY_Addon extends CI_Model
         **/
         if (is_dir($addon_dir_path . '/' . 'themes/assets')) 
         {
-            $addon_themes_folder = FCPATH . 'assets/frontend' . '/' . $addon_namespace;
+            $addon_themes_folder = FCPATH . 'assets/frontend' . '/' . $folder_to_lower;
             if (is_dir($addon_themes_folder)) { // checks if addon folder exists on public folder
                 Filer::drop($addon_themes_folder);
             }
@@ -912,7 +912,7 @@ class MY_Addon extends CI_Model
         **/
         if (is_dir($addon_dir_path . '/' . 'themes')) 
         {
-            $themes_folder = APPPATH . 'views/frontend' . '/' . $addon_namespace;
+            $themes_folder = APPPATH . 'views/frontend' . '/' . $folder_to_lower;
             if (is_dir($themes_folder)) { // checks if addon folder exists on public folder
                 Filer::drop($themes_folder);
             }
