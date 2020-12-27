@@ -113,14 +113,9 @@
                 var target = $(this).data('target');
                 var toggle = $(this).data('toggle');
 
-                if (menuAside != null) {
-                    if (menuAside == target) { 
-                        e.preventDefault();
-                        return
-                    } else if (menuAside == linkId && url.indexOf(linkId) > -1) { 
-                        e.preventDefault();
-                        return
-                    }
+                if (menuAside != null && menuAside == linkId && url.indexOf(linkId) > -1) { 
+                    e.preventDefault();
+                    return
                 } 
 
                 if(toggle == null) {

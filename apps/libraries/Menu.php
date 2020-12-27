@@ -31,51 +31,14 @@ class Menu
     public static $sidebar_menus_core = array();
 
     /**
-     * Add Menu
+     * Load Menu Settings
      */
+
     public static function add_setting_menu($namespace, $config)
     {
         self::$setting_menus_core[ $namespace ][] = $config;
     }
 
-    public static function add_help_menu($namespace, $config)
-    {
-        self::$help_menus_core[ $namespace ][] = $config;
-    }
-
-    public static function add_apps_menu($namespace)
-    {
-        self::$apps_menus_core[] = $namespace;
-    }
-
-    public static function add_system_menu($namespace)
-    {
-        self::$system_menus_core[] = $namespace;
-    }
-
-    public static function add_toolbar_menu($namespace)
-    {
-        self::$toolbar_menus_core[] = $namespace;
-    }
-
-    public static function add_header_menu($namespace)
-    {
-        self::$header_menus_core[] = $namespace;
-    }
-
-    public static function add_aside_menu($namespace)
-    {
-        self::$aside_menus_core[] = $namespace;
-    }
-
-    public static function add_sidebar_menu($namespace)
-    {
-        self::$sidebar_menus_core[] = $namespace;
-    }
-
-    /**
-     * Load Menu
-     */
     public static function load_setting_menu()
     {
         $core_menus = self::$setting_menus_core;
@@ -173,34 +136,13 @@ class Menu
         }
     }
 
-    public static function load_help_menu()
+    /**
+     * Load Menu Apps
+     */
+
+    public static function add_apps_menu($namespace)
     {
-        $core_menus = self::$help_menus_core;
-
-        $loop_index = 0;
-        foreach ($core_menus as $menu_namespacex => $current_menux) 
-        { 
-            ?>
-            <li class="navi-section text-uppercase <?php echo ($loop_index == 0) ? '' : 'mt-5';?>">
-                <?php _e($menu_namespacex);?>
-            </li>
-
-            <?php
-            foreach ($current_menux as $menu_namespace => $current_menu) 
-            {
-                if( @$current_menu[ 'permission' ] != null && ! User::control( $current_menu[ 'permission' ] ) ) {
-                    continue;
-                }
-                ?>
-                <li class="navi-item font-size-xs">
-                    <a href="<?php echo riake('href', $current_menu);?>" <?php echo (riake('target', $current_menu)) ? 'target="_blank"' : '';?> class="navi-link py-1">
-                        <span class="navi-text"><?php _e(riake('title', $current_menu));?></span>
-                    </a>
-                </li>
-                <?php
-            }
-            $loop_index++; // increment loop_index
-        }
+        self::$apps_menus_core[] = $namespace;
     }
 
     public static function load_apps_menu()
@@ -248,25 +190,52 @@ class Menu
         <?php endif;
     }
 
-    public static function load_system_menu()
+    /**
+     * Load Menu Helps
+     */
+
+    public static function add_help_menu($namespace, $config)
     {
-        foreach (self::$system_menus_core as $menu_namespace => $current_menu) 
+        self::$help_menus_core[ $namespace ][] = $config;
+    }
+
+    public static function load_help_menu()
+    {
+        $core_menus = self::$help_menus_core;
+
+        $loop_index = 0;
+        foreach ($core_menus as $menu_namespacex => $current_menux) 
         { 
-            if( @$current_menu[ 'permission' ] != null && ! User::control( $current_menu[ 'permission' ] ) ) {
-                continue;
-            }
             ?>
-            <!--begin::Item-->
-            <li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="<?php echo riake('title', $current_menu); ?>">
-                <a href="<?php echo riake('href', $current_menu); ?>" 
-                    class="btn btn-aside btn-icon btn-clean btn-lg">
-                    <span class="svg-icon svg-icon-xl">
-                    <?php include asset_path().riake('icon', $current_menu);?>
-                    </span>
-                </a>
+            <li class="navi-section text-uppercase <?php echo ($loop_index == 0) ? '' : 'mt-5';?>">
+                <?php _e($menu_namespacex);?>
             </li>
+
             <?php
+            foreach ($current_menux as $menu_namespace => $current_menu) 
+            {
+                if( @$current_menu[ 'permission' ] != null && ! User::control( $current_menu[ 'permission' ] ) ) {
+                    continue;
+                }
+                ?>
+                <li class="navi-item font-size-xs">
+                    <a href="<?php echo riake('href', $current_menu);?>" <?php echo (riake('target', $current_menu)) ? 'target="_blank"' : '';?> class="navi-link py-1">
+                        <span class="navi-text"><?php _e(riake('title', $current_menu));?></span>
+                    </a>
+                </li>
+                <?php
+            }
+            $loop_index++; // increment loop_index
         }
+    }
+
+    /**
+     * Load Menu Toolbar
+     */
+
+    public static function add_toolbar_menu($namespace)
+    {
+        self::$toolbar_menus_core[] = $namespace;
     }
 
     public static function load_toolbar_menu()
@@ -283,6 +252,15 @@ class Menu
             </a>
             <?php
         }
+    }
+
+    /**
+     * Load Menu Header
+     */
+
+    public static function add_header_menu($namespace)
+    {
+        self::$header_menus_core[] = $namespace;
     }
 
     public static function load_header_menu()
@@ -305,6 +283,15 @@ class Menu
             <?php
             $loop_index++; // increment loop_index
         }
+    }
+
+    /**
+     * Load Menu Aside
+     */
+
+    public static function add_aside_menu($namespace)
+    {
+        self::$aside_menus_core[] = $namespace;
     }
 
     public static function load_aside_menu()
@@ -338,6 +325,16 @@ class Menu
         <?php
     }
 
+    
+    /**
+     * Load Menu Sidebar
+     */
+
+    public static function add_sidebar_menu($namespace)
+    {
+        self::$sidebar_menus_core[] = $namespace;
+    }
+
     public static function load_sidebar_menu()
     { 
         $loop_index = 0;
@@ -364,5 +361,35 @@ class Menu
         } ?>
         </div>
         <?php
+    }
+    
+    /**
+     * Load Menu System
+     */
+
+    public static function add_system_menu($namespace)
+    {
+        self::$system_menus_core[] = $namespace;
+    }
+    
+    public static function load_system_menu()
+    {
+        foreach (self::$system_menus_core as $menu_namespace => $current_menu) 
+        { 
+            if( @$current_menu[ 'permission' ] != null && ! User::control( $current_menu[ 'permission' ] ) ) {
+                continue;
+            }
+            ?>
+            <!--begin::Item-->
+            <li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="<?php echo riake('title', $current_menu); ?>">
+                <a href="<?php echo riake('href', $current_menu); ?>" 
+                    class="btn btn-aside btn-icon btn-clean btn-lg">
+                    <span class="svg-icon svg-icon-xl">
+                    <?php include asset_path().riake('icon', $current_menu);?>
+                    </span>
+                </a>
+            </li>
+            <?php
+        }
     }
 }
