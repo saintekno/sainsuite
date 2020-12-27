@@ -27,7 +27,9 @@ class Theme
     
     private static $config_theme = 'theme.json';
 
-    private static $allowed_app_folders = array( 'assets' );
+    private static $manifest_theme = 'manifest.json';
+
+    private static $allowed_app_folders = array( 'controllers' );
 
     public function __construct()
     {
@@ -141,6 +143,18 @@ class Theme
         endif;
 
         $themepath = get_instance()->events->apply_filters('load_theme_path', FRONTENDPATH) . $theme_namespace;
+        $manifest_file = $themepath . '/' . self::$manifest_theme;
+
+        if (is_file($manifest_file)) 
+        {
+            $manifest_array = json_decode(file_get_contents($manifest_file), true);
+            // removing file
+            foreach ($manifest_array as $file) {
+                if (is_dir($file)):
+                    Filer::drop($file);
+                endif;
+            }
+        }
 
         // Drop theme Folder
         Filer::drop($themepath);
@@ -148,11 +162,6 @@ class Theme
         // Drop Assets Folder
         if (is_dir($theme_themes_folder = FCPATH . get_instance()->config->item('asset_path') . get_instance()->events->apply_filters('load_theme_folder', 'frontend') . '/' . $theme_namespace)) {
             Filer::drop($theme_themes_folder);
-        }
-
-        // Drop Assets Folder
-        if (is_dir($themes_folder = VIEWPATH . get_instance()->events->apply_filters('load_theme_folder', 'frontend') . '/' . $theme_namespace)) {
-            Filer::drop($themes_folder);
         }
     }
 
@@ -172,6 +181,34 @@ class Theme
             $temp_folder = APPPATH . 'temp' . '/' . $theme_temp_folder_name;
             if (!is_dir($temp_folder)) {
                 mkdir($temp_folder);
+            }
+
+            // check manifest
+            $manifest = $theme_installed_dir . self::$manifest_theme;
+            if (is_file($manifest)) 
+            {
+                $manifest_array = json_decode(file_get_contents($manifest));
+                // manifest is valid
+                if (is_array($manifest_array)) 
+                {
+                    // moving manifest file to temp folder
+                    foreach (self::$allowed_app_folders as $reserved_folder) 
+                    {
+                        foreach ($manifest_array as $file) 
+                        {
+                            //var_dump( $path_id_separator = APPPATH . $reserved_folder );
+                            if (strstr($file, $path_id_separator = APPPATH . $reserved_folder)) 
+                            {
+                                // we found a a file
+                                $path_splited = explode($path_id_separator, $file);
+                                Filer::copy(
+                                    APPPATH . $reserved_folder . $path_splited[1],
+                                    $temp_folder . '/' . $reserved_folder
+                                );
+                            }
+                        }
+                    }
+                }
             }
 
             // Copy Themes to
@@ -491,23 +528,37 @@ class Theme
             }
         }
 
-        $relative_json_manifest = array();
-
         // moving manifest to system folder
+        $relative_json_manifest = array();
         foreach ($manifest as $_manifest) 
         {
             // removing raw_name from old manifest to ease copy
-            $relative_path_to_file = explode($extraction_data[ 'upload_data' ][ 'raw_name' ] . '/' . get_instance()->config->item('asset_path'), $_manifest);
-            if (! is_file($_manifest)) {
-                $dir_name = basename($_manifest);
-                Filer::copy($_manifest, $relative_path_to_file[1]);
-            } 
-            else {
+            $relative_path_controllers_to_file = explode($extraction_data[ 'upload_data' ][ 'raw_name' ] . '/controllers/', $_manifest);
+            
+            if ($relative_path_controllers_to_file[1]) {
                 // write file on the new folder
-                Filer::file_copy($_manifest,  FCPATH . get_instance()->config->item('asset_path') . get_instance()->events->apply_filters('load_theme_folder', 'frontend') . '/' . $folder_to_lower . '/' . $relative_path_to_file[1]);
+                Filer::file_copy($_manifest,  APPPATH . 'controllers/' . $folder_to_lower . '/' . $relative_path_controllers_to_file[1]);
                 // relative json manifest
-                $relative_json_manifest[] = FCPATH . get_instance()->config->item('asset_path') . get_instance()->events->apply_filters('load_theme_folder', 'frontend') . '/' . $folder_to_lower . '/' . $relative_path_to_file[1];
+                $relative_json_manifest[] = APPPATH . 'controllers/' . $folder_to_lower;
             }
+        }
+
+        // Creating Manifest
+        file_put_contents($theme_dir_path . '/' . self::$manifest_theme, json_encode($relative_json_manifest, JSON_PRETTY_PRINT));
+
+        /**
+         * New Feature Assets management
+         * Description : move addon assets to public directory within a folder with namespace as name
+        **/
+        if (is_dir($theme_dir_path . '/' . get_instance()->config->item('asset_path'))) 
+        {
+            $addon_assets_folder = FCPATH . get_instance()->config->item('asset_path') . get_instance()->events->apply_filters('load_theme_folder', 'frontend') . '/' . $folder_to_lower;
+            if (is_dir($addon_assets_folder)) { // checks if addon folder exists on public folder
+                Filer::drop($addon_assets_folder);
+            }
+
+            mkdir($addon_assets_folder); // creating addon folder within
+            Filer::extractor($theme_dir_path . '/' . 'assets', $addon_assets_folder);
         }
 
         return true;
