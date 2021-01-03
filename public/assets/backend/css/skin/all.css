@@ -700,11 +700,17 @@ body.skin-dark {
   body.skin-dark .form-group label {
     color: #D1D3E0; }
   body.skin-dark .form-control {
-    background-color: transparent;
+    background-color: #1d223c;
     color: #ffffff;
     border-color: #3F4254; }
     body.skin-dark .form-control:focus {
       border-color: #ffffff; }
+    body.skin-dark .form-control:disabled {
+      background-color: #F3F6F9; }
+    body.skin-dark .form-control.form-control-solid {
+      background-color: #F3F6F9; }
+      body.skin-dark .form-control.form-control-solid:active, body.skin-dark .form-control.form-control-solid.active, body.skin-dark .form-control.form-control-solid:focus, body.skin-dark .form-control.form-control-solid.focus {
+        background-color: #EBEDF3; }
   body.skin-dark .display-4 {
     color: #ffffff; }
   body.skin-dark .separator.separator-dashed {
@@ -1401,11 +1407,17 @@ body.skin-light {
   body.skin-light .form-group label {
     color: #181C32; }
   body.skin-light .form-control {
-    background-color: transparent;
+    background-color: #ffffff;
     color: #1d223c;
     border-color: #EBEDF3; }
     body.skin-light .form-control:focus {
       border-color: #1d223c; }
+    body.skin-light .form-control:disabled {
+      background-color: #F3F6F9; }
+    body.skin-light .form-control.form-control-solid {
+      background-color: #F3F6F9; }
+      body.skin-light .form-control.form-control-solid:active, body.skin-light .form-control.form-control-solid.active, body.skin-light .form-control.form-control-solid:focus, body.skin-light .form-control.form-control-solid.focus {
+        background-color: #EBEDF3; }
   body.skin-light .display-4 {
     color: #1d223c; }
   body.skin-light .separator.separator-dashed {

@@ -9563,7 +9563,7 @@ var KTLayoutAside = function() {
             $this.find('a').removeClass("active");
             $this.addClass("active");
 
-            localStorage.clear();
+            // localStorage.clear();
             localStorage.setItem("menuAside1", linkId);
             localStorage.setItem("menuAside", "#"+tabpane);
             localStorage.setItem("menuToggle", "#"+tabpane);
@@ -9585,7 +9585,7 @@ var KTLayoutAside = function() {
             $this.find('li').removeClass("menu-item-active");
             $this.addClass("menu-item-active");
             
-            localStorage.clear();
+            // localStorage.clear();
             localStorage.setItem("menuAside2", linkId);
             localStorage.setItem("menuAside", "#"+tabpane);
             localStorage.setItem("menuToggle", "#"+tabpane);
