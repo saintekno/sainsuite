@@ -27,7 +27,9 @@ apps/vendor/
 
 # Upload
 public/uploads/*
+public/uploads/user_image/*
 !public/uploads/system/
+!public/uploads/user_image/
 !public/uploads/user_image/index.html
 !public/uploads/index.html
 
