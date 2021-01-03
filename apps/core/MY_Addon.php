@@ -515,7 +515,7 @@ class MY_Addon extends CI_Model
             // delete temp folder
             Filer:: drop($temp_folder);
 
-            get_instance()->zip->download($addon[ 'application' ][ 'name' ] . '-' . $addon[ 'application' ][ 'version' ]);
+            get_instance()->zip->download($addon[ 'application' ][ 'name' ] . '_' .  substr($addon[ 'application' ][ 'version' ], 2) . '_(' . get('version') .')');
         }
     }
 
