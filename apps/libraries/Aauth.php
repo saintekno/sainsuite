@@ -1031,7 +1031,7 @@ class Aauth {
         } 
 		 
         if(array_key_exists("search", $params)){ 
-            // Filter data by searched keywords 
+			// Filter data by searched keywords 
             if(!empty($params['search']['keywords'])){ 
 				$this->aauth_db->like('username', $params['search']['keywords']);
 				$this->aauth_db->or_like('email', $params['search']['keywords']);

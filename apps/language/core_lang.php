@@ -13,6 +13,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @filesource
  */
 
+//------------------------------------------------------------------------------
+// Model
+//------------------------------------------------------------------------------
+$lang['model_db_error']		= __('DB Error: %s');
+$lang['model_no_data']		= __('No data available.');
+$lang['model_invalid_id']	= __('Invalid ID passed to model.');
+$lang['model_no_table']		= __('Model has unspecified database table.');
+$lang['model_fetch_error']	= __('Not enough information to fetch field.');
+$lang['model_count_error']	= __('Not enough information to count results.');
+$lang['model_unique_error']	= __('Not enough information to check uniqueness.');
+$lang['model_find_error']	= __('Not enough information to find by.');
+
  // System
 $lang[ 'database-installed' ]  = __('Database has been installed');
 $lang[ 'system-installed' ]    = __('System has been installed');

@@ -91,7 +91,7 @@ class User_model extends CI_Model
 
         if(! is_numeric($group_par)) {
             if (! $this->aauth->get_group($group_par)) {
-                $this->aauth->create_group($group_par, ucwords($group_par.' group'));
+                $this->aauth->create_group($group_par, ucwords($group_par));
             }
         }
 

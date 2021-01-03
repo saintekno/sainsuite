@@ -59,13 +59,14 @@ $.ajax({
     cache:false,
     success : function(data){
         var item=data;
-        var val1=item.replace("[","");
-        var val2=val1.replace("]","");
+        var val1=item.replace('[','');
+        var val2=val1.replace(']','');
         var values=val2;
         $.each(values.split(","), function(i,e){
-            $(".strings option[value='" + e + "']").prop("selected", true).trigger('change');
-            $(".strings").selectpicker('refresh');
-
+            var d=e.replace('"','');
+            var k=d.replace('"','');
+            $(".strings option[value='" + k + "']").prop("selected", true).trigger('change');
+            // $(".strings").selectpicker('refresh');
         });
     }
 });

@@ -12,7 +12,6 @@
  * @filesource
  */
 
-$this->load->helper('calendar');
 $complete_users = array();
 $edit_group     = '';
 $hapus_group    = '';

@@ -114,7 +114,7 @@
                             <div class="row">
                                 <?php if ($footer_submit = riake('submit', $footer)) :?>
                                 <div class="col-lg-6">
-                                    <button type="submit" onclick="checkRequiredFields()" class="btn btn-primary mr-2"><?php echo riake('label', $footer_submit);?></button>
+                                    <input type="submit" onclick="checkRequiredFields()" name="submit" class="btn btn-primary mr-2" value="<?php echo riake('label', $footer_submit);?>">
                                 </div>
                                 <?php endif; ?>
                             </div>

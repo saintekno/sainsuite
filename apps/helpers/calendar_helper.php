@@ -26,7 +26,7 @@ function get_academic_year($datestr)
 
 function get_semester($datestr)
 {
-    if(intval(substr($datestr,5,2)) <= 6)
+    if(intval(substr($datestr,5,2)) < 6)
         $semester = 1;
     else
         $semester = 2;
