@@ -162,6 +162,14 @@ class MY_Model extends CI_Model
 
     /**
      * @var string[] The names of callback methods within the extending model which
+     * will be called after the delete method.
+     *
+     * @see $before_insert
+     */
+    protected $autokey = [];
+
+    /**
+     * @var string[] The names of callback methods within the extending model which
      * will be called if $validation_rules is empty (or not an array) when requested
      * via the get_validation_rules() method.
      *
@@ -391,8 +399,8 @@ class MY_Model extends CI_Model
     public function find_by($field = '', $value = '', $type = 'and')
     {
         if (empty($field) || ( ! is_array($field) && empty($value))) {
-            $this->error = lang('model_find_error');
-            $this->logit('[' . get_class($this) . ': ' . __METHOD__ . '] ' . lang('model_find_error'));
+            $this->error = $this->lang->line('model_find_error');
+            $this->logit('[' . get_class($this) . ': ' . __METHOD__ . '] ' . $this->lang->line('model_find_error'));
             return false;
         }
 
@@ -439,6 +447,22 @@ class MY_Model extends CI_Model
             }
         }
 
+        if ( is_array($this->autokey) ) {
+            $this->db->select('id');
+            $this->db->from($this->table_name);
+            $this->db->order_by('id', 'DESC');
+            $last_id = $this->db->get();
+    
+            $this->load->library('autonumber');
+            $config['id'] = ($last_id->num_rows() > 0) ? $last_id->row()->id : 0 ;
+            $config['digit'] = 4;
+            $config['awalan'] = $this->autokey['awalan'];
+            $this->autonumber->config($config);
+            $auto_id = $this->autonumber->generate_id();
+            
+            $data = array_merge(['id' => $auto_id], $data);
+        }
+        
         $data = $this->trigger('before_insert', $data);
 
         if ($this->set_created === true
@@ -503,7 +527,7 @@ class MY_Model extends CI_Model
             return true;
         }
 
-        $this->error = sprintf(lang('model_db_error'), $this->get_db_error_message());
+        $this->error = sprintf($this->lang->line('model_db_error'), $this->get_db_error_message());
         return false;
     }
 
@@ -544,7 +568,7 @@ class MY_Model extends CI_Model
             return true;
         }
 
-        $this->error = sprintf(lang('model_db_error'), $this->get_db_error_message());
+        $this->error = sprintf($this->lang->line('model_db_error'), $this->get_db_error_message());
         return false;
     }
 
@@ -593,7 +617,7 @@ class MY_Model extends CI_Model
         }
 
         if ($this->db->update_batch($this->table_name, $data, $index) === false) {
-            $this->error = sprintf(lang('model_db_error'), $this->get_db_error_message());
+            $this->error = sprintf($this->lang->line('model_db_error'), $this->get_db_error_message());
             return false;
         }
 
@@ -651,7 +675,7 @@ class MY_Model extends CI_Model
             return $result;
         }
 
-        $this->error = sprintf(lang('model_db_error'), $this->get_db_error_message());
+        $this->error = sprintf($this->lang->line('model_db_error'), $this->get_db_error_message());
 
         return false;
     }
@@ -671,8 +695,8 @@ class MY_Model extends CI_Model
     public function is_unique($field = '', $value = '')
     {
         if (empty($field) || empty($value)) {
-            $this->error = lang('model_unique_error');
-            $this->logit('[' . get_class($this) . ': ' . __METHOD__ . '] ' . lang('model_unique_error'));
+            $this->error = $this->lang->line('model_unique_error');
+            $this->logit('[' . get_class($this) . ': ' . __METHOD__ . '] ' . $this->lang->line('model_unique_error'));
             return false;
         }
 
@@ -712,8 +736,8 @@ class MY_Model extends CI_Model
     public function count_by($field = '', $value = null)
     {
         if (empty($field)) {
-            $this->error = lang('model_count_error');
-            $this->logit('[' . get_class($this) . ': ' . __METHOD__ . '] ' . lang('model_count_error'));
+            $this->error = $this->lang->line('model_count_error');
+            $this->logit('[' . get_class($this) . ': ' . __METHOD__ . '] ' . $this->lang->line('model_count_error'));
             return false;
         }
 
@@ -733,8 +757,8 @@ class MY_Model extends CI_Model
     public function get_field($id = null, $field = '')
     {
         if (empty($id) || empty($field)) {
-            $this->error = lang('model_fetch_error');
-            $this->logit('[' . get_class($this) . ': ' . __METHOD__ . '] ' . lang('model_fetch_error'));
+            $this->error = $this->lang->line('model_fetch_error');
+            $this->logit('[' . get_class($this) . ': ' . __METHOD__ . '] ' . $this->lang->line('model_fetch_error'));
             return false;
         }
 
