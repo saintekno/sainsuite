@@ -6,7 +6,7 @@ global $Options;
 <div class="row">
     <div class="col-12">
         <div class="card card-custom gutter-b">
-            <div class="card-header border-0 align-items-center flex-wrap py-2 h-auto">
+            <div class="card-header border-0 align-items-center flex-wrap px-2 h-auto">
                 
                 <div class="col-12 col-sm-6 order-2 order-xxl-1 d-md-flex align-items-center">
                     <div class="d-flex flex-wrap align-items-center mr-md-5 my-2">
@@ -71,7 +71,7 @@ global $Options;
                     <?php endif; ?>
 
                     <!--begin::Sort Dropdown-->
-                    <div class="dropdown mr-2" data-toggle="tooltip" title="Sort">
+                    <div class="dropdown" data-toggle="tooltip" title="Sort">
                         <span class="btn btn-default btn-icon btn-sm"
                             data-toggle="dropdown">
                             <i class="flaticon2-console icon-1x"></i>

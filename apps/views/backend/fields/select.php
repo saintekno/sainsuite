@@ -29,7 +29,7 @@
     <span class="form-text text-muted"><?php echo $description;?></span>
 </div>
 
-<?php if ($type == 'multiple') : ?>
+<?php if ($type == 'multiple' && @$_item[ 'data' ] != null) : ?>
 <script>
 var KTBootstrapSelect = function () {
 
@@ -66,7 +66,7 @@ $.ajax({
             var d=e.replace('"','');
             var k=d.replace('"','');
             $(".strings option[value='" + k + "']").prop("selected", true).trigger('change');
-            // $(".strings").selectpicker('refresh');
+            $(".strings").selectpicker('refresh');
         });
     }
 });
