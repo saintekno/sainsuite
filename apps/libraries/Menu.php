@@ -383,7 +383,7 @@ class Menu
             <!--begin::Item-->
             <li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="<?php echo riake('title', $current_menu); ?>">
                 <a href="<?php echo riake('href', $current_menu); ?>" 
-                    class="btn btn-aside btn-icon btn-clean btn-lg">
+                    class="btn btn-aside btn-icon btn-clean">
                     <span class="svg-icon svg-icon-xl">
                     <?php include asset_path().riake('icon', $current_menu);?>
                     </span>

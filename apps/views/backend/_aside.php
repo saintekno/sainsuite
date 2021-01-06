@@ -29,7 +29,7 @@
                 <!--begin::Item-->
                 <?php if ( User::control('manage.menu') && Menu::$apps_menus_core ) : ?>
 				<li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Application">
-					<a class="nav-link btn btn-icon btn-aside btn-lg" data-toggle="tab" data-target="#kt_aside_tab_1" role="tab">
+					<a class="nav-link btn btn-icon btn-aside" data-toggle="tab" data-target="#kt_aside_tab_1" role="tab">
 						<span class="svg-icon svg-icon-xl">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -48,7 +48,7 @@
                 <?php if ( User::control('manage.menu') && Menu::$setting_menus_core ) : ?>
                 <!--begin::Item-->
 				<li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Tools">
-					<a class="nav-link btn btn-icon btn-aside btn-lg" data-toggle="tab" data-target="#kt_aside_tab_2" role="tab">
+					<a class="nav-link btn btn-icon btn-aside" data-toggle="tab" data-target="#kt_aside_tab_2" role="tab">
 						<span class="svg-icon svg-icon-xl">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -75,7 +75,7 @@
             <a href="<?php echo site_url();?>" class="btn btn-icon btn-aside symbol symbol-30 symbol-circle mb-3" 
                 data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Frontend"
                 aria-expanded="false">
-                <span class="svg-icon svg-icon-xxl">
+                <span class="svg-icon svg-icon-xl">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                             <polygon points="0 0 24 0 24 24 0 24"/>
@@ -87,7 +87,7 @@
 
             <div class="dropdown" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Help Center">
                 <a class="btn btn-icon btn-aside symbol symbol-30 symbol-circle mb-3" data-toggle="dropdown" data-target="help" data-offset="0px,0px" aria-expanded="false">
-                    <span class="svg-icon svg-icon-xxl">
+                    <span class="svg-icon svg-icon-xl">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                 <rect x="0" y="0" width="24" height="24"/>
@@ -112,7 +112,7 @@
                 <?php 
                 global $User_Options;
                 $meta = (isset($User_Options['meta'])) ? $User_Options['meta'] : '';?>
-                <a class="btn btn-icon btn-aside btn-lg symbol symbol-30 symbol-circle d-none d-lg-flex" data-toggle="dropdown" data-target="user" data-offset="0px,0px" aria-expanded="false">
+                <a class="btn btn-icon btn-aside symbol symbol-25 symbol-circle d-none d-lg-flex" data-toggle="dropdown" data-target="user" data-offset="0px,0px" aria-expanded="false">
                     <img src="<?php echo $this->events->apply_filters('user_menu_card_avatar_src', '');?>" alt="<?php echo $this->events->apply_filters('user_menu_card_avatar_alt', '');?>">
                     <i class="symbol-badge bg-success mt-3 mr-3 <?php echo (riake('theme-skin', $meta) == 'skin-dark') ? 'border-dark' : '';?>"></i>
                 </a>
