@@ -7,14 +7,14 @@
  *
  * @package     SainSuite
  * @copyright   Copyright (c) 2019-2020 Buddy Winangun, Eracik.
- * @copyright   Copyright (c) 2020 SainTekno, SainSuite.
+ * @copyright   Copyright (c) 2020-2021 SainTekno, SainSuite.
  * @link        https://github.com/saintekno/sainsuite
  * @filesource
  */
 
 $complete_group = array();
-$edit_group     = '';
-$hapus_group    = '';
+$edit_group     = '<i class="fas fa-pen"></i>';
+$hapus_group    = '<i class="fas fa-trash-alt"></i>';
 // adding group to complete_group array
 foreach ($groups as $row) {
     if ( User::control('edit.group')) {
