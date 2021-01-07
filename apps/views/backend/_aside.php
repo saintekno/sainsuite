@@ -72,7 +72,7 @@
 
         <!--begin::Footer-->
 		<div class="aside-footer d-flex flex-column align-items-center flex-column-auto py-7">
-            <a href="<?php echo site_url();?>" class="btn btn-icon btn-aside symbol symbol-30 symbol-circle mb-3" 
+            <a href="<?php echo site_url();?>" class="btn btn-icon btn-aside symbol symbol-30 symbol-circle mb-1" 
                 data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Frontend"
                 aria-expanded="false">
                 <span class="svg-icon svg-icon-xl">
@@ -86,7 +86,7 @@
             </a>
 
             <div class="dropdown" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Help Center">
-                <a class="btn btn-icon btn-aside symbol symbol-30 symbol-circle mb-3" data-toggle="dropdown" data-target="help" data-offset="0px,0px" aria-expanded="false">
+                <a class="btn btn-icon btn-aside symbol symbol-30 symbol-circle mb-1" data-toggle="dropdown" data-target="help" data-offset="0px,0px" aria-expanded="false">
                     <span class="svg-icon svg-icon-xl">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">

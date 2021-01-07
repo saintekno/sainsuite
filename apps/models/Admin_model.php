@@ -34,32 +34,6 @@ class Admin_Model extends CI_Model
     **/
     public function set_setting_menu()
     {
-        // $setting_menu['settings'][ 'system' ][] = array(
-        //     'title' => __('System'),
-        //     'icon'  => 'svg/Settings-2.svg',
-        //     'href'  => site_url('admin/settings'),
-        //     'permission' => 'read.options'
-        // );
-
-        // $setting_menu['appearance'][ 'themes' ][] = array(
-        //     'title' => __('Themes'),
-        //     'icon'  => 'svg/Bucket.svg',
-        //     'href'  => site_url('admin/themes')
-        // );
-        
-        // $setting_menu['appearance'][ 'addons' ][] = array(
-        //     'title' => __('Addons'),
-        //     'icon'  => 'svg/Puzzle.svg',
-        //     'href'  => site_url('admin/addons'),
-        //     'permission' => 'toggle.addons'
-        // );
-
-        // $setting_menu['tools'][ 'backup' ][] = array(
-        //     'title' => __('Backup DB'),
-        //     'icon'  => 'svg/Commode2.svg',
-        //     'href'  => '#'
-        // );
-
         foreach ($this->events->apply_filters('setting_menu', []) as $namespace => $menus) {
             foreach ($menus as $menu) {
                 Menu::add_setting_menu($namespace, $menu);

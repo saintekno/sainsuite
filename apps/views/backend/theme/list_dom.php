@@ -111,9 +111,9 @@ if ($themes = Theme::get()) : ?>
             $theme_namespace = $_theme[ 'theme' ][ 'namespace' ];
             $theme_version = $_theme[ 'theme' ][ 'version' ];
             ?>
-            <div class="col-4">
+            <div class="col-12 col-md-4">
                 <!--begin::Card-->
-                <div class="card card-custom overlay">
+                <div class="card card-custom overlay gutter-b">
                     <div class="card-body p-0">
                         <div class="overlay-wrapper max-h-200px overflow-hidden">
                             <img src="<?php echo base_url('assets/frontend/'.$_theme[ 'theme' ][ 'namespace' ].'/preview.jpg')?>" alt=""
