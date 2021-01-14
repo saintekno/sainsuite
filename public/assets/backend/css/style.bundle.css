@@ -61185,21 +61185,17 @@ canvas {
   .aside-overlay {
     background: rgba(0, 0, 0, 0.1); } }
 
-@media (max-width: 325px) {
+@media (max-width: 767.98px) {
   .aside {
     width: 0% !important; }
-    .aside-secondary-enabled .aside {
-      width: 90% !important; }
-    .aside.aside-profile {
+    .aside-secondary-enabled .aside.aside-on {
       width: 90% !important; } }
 
-@media (min-width: 325px) and (max-width: 991.98px) {
+@media (min-width: 576px) and (max-width: 1199.98px) {
   .aside {
     width: 0% !important; }
-    .aside-secondary-enabled .aside {
-      width: 90% !important; }
-    .aside.aside-profile {
-      width: 90% !important; } }
+    .aside-secondary-enabled .aside.aside-on {
+      width: 50% !important; } }
 
 .brand {
   display: -webkit-box;
@@ -61370,26 +61366,10 @@ canvas {
       opacity: 1; } }
   .sidebar {
     background: #ffffff;
-    -webkit-box-shadow: 0px 1px 9px -3px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 1px 9px -3px rgba(0, 0, 0, 0.75); }
+    -webkit-box-shadow: none;
+    box-shadow: none; }
   .sidebar-overlay {
     background: rgba(0, 0, 0, 0.1); } }
-
-@media (max-width: 350px) {
-  .sidebar {
-    width: 0% !important; }
-    .aside-secondary-enabled .sidebar {
-      width: 90% !important; }
-    .sidebar.aside-profile {
-      width: 90% !important; } }
-
-@media (min-width: 350px) and (max-width: 991.98px) {
-  .sidebar {
-    width: 0% !important; }
-    .aside-secondary-enabled .sidebar {
-      width: 90% !important; }
-    .sidebar.aside-profile {
-      width: 90% !important; } }
 
 @media (min-width: 992px) {
   .content {
@@ -61507,21 +61487,17 @@ canvas {
 .offcanvas-overlay {
   background: rgba(0, 0, 0, 0.1); }
 
-@media (max-width: 425px) {
+@media (max-width: 767.98px) {
   .offcanvas {
     width: 0% !important; }
-    .aside-secondary-enabled .offcanvas {
-      width: 90% !important; }
-    .offcanvas.aside-profile {
+    .aside-secondary-enabled .offcanvas.offcanvas-on {
       width: 90% !important; } }
 
-@media (min-width: 425px) and (max-width: 991.98px) {
+@media (min-width: 576px) and (max-width: 1199.98px) {
   .offcanvas {
     width: 0% !important; }
-    .aside-secondary-enabled .offcanvas {
-      width: 90% !important; }
-    .offcanvas.aside-profile {
-      width: 90% !important; } }
+    .aside-secondary-enabled .offcanvas.offcanvas-on {
+      width: 50% !important; } }
 
 @media (max-width: 991.98px) {
   .offcanvas-mobile {
@@ -61578,18 +61554,14 @@ canvas {
   .offcanvas-mobile-overlay {
     background: rgba(0, 0, 0, 0.1); } }
 
-@media (max-width: 425px) {
+@media (max-width: 767.98px) {
   .offcanvas-mobile {
     width: 0% !important; }
-    .aside-secondary-enabled .offcanvas-mobile {
-      width: 90% !important; }
-    .offcanvas-mobile.aside-profile {
+    .aside-secondary-enabled .offcanvas-mobile.offcanvas-mobile-on {
       width: 90% !important; } }
 
-@media (min-width: 425px) and (max-width: 991.98px) {
+@media (min-width: 576px) and (max-width: 1199.98px) {
   .offcanvas-mobile {
     width: 0% !important; }
-    .aside-secondary-enabled .offcanvas-mobile {
-      width: 90% !important; }
-    .offcanvas-mobile.aside-profile {
-      width: 90% !important; } }
+    .aside-secondary-enabled .offcanvas-mobile.offcanvas-mobile-on {
+      width: 50% !important; } }

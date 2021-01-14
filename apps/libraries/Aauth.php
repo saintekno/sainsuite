@@ -968,12 +968,14 @@ class Aauth {
 				->from($this->config_vars['users'])
 				->join($this->config_vars['user_to_group'], $this->config_vars['users'] . ".id = " . $this->config_vars['user_to_group'] . ".user_id")
                 ->join($this->config_vars[ 'groups' ], $this->config_vars[ 'groups' ] . '.id = ' . $this->config_vars['user_to_group']. '.group_id')
+				->join($this->config_vars[ 'user_variables' ], $this->config_vars[ 'user_variables' ] . '.user_id = ' . $this->config_vars['users']. '.id')
 				->where_in($this->config_vars['user_to_group'] . ".group_id", $group_par);
 			// if group_par is not given, lists all users
 		} else {
 			$this->aauth_db->select($select)
 				->from($this->config_vars['users'])
                 ->join($this->config_vars['user_to_group'], $this->config_vars['users'] . ".id = " . $this->config_vars['user_to_group'] . ".user_id")
+				->join($this->config_vars[ 'user_variables' ], $this->config_vars[ 'user_variables' ] . '.user_id = ' . $this->config_vars['users']. '.id')
                 ->join($this->config_vars[ 'groups' ], $this->config_vars[ 'groups' ] . '.id = ' . $this->config_vars['user_to_group']. '.group_id') ;
 		}
 
@@ -1015,12 +1017,14 @@ class Aauth {
 				->from($this->config_vars['users'])
 				->join($this->config_vars['user_to_group'], $this->config_vars['users'] . ".id = " . $this->config_vars['user_to_group'] . ".user_id")
                 ->join($this->config_vars[ 'groups' ], $this->config_vars[ 'groups' ] . '.id = ' . $this->config_vars['user_to_group']. '.group_id')
+				->join($this->config_vars[ 'user_variables' ], $this->config_vars[ 'user_variables' ] . '.user_id = ' . $this->config_vars['users']. '.id')
 				->where($this->config_vars['user_to_group'] . ".group_id", $group_par);
 			// if group_par is not given, lists all users
 		} else {
 			$this->aauth_db->select($select)
 				->from($this->config_vars['users'])
                 ->join($this->config_vars['user_to_group'], $this->config_vars['users'] . ".id = " . $this->config_vars['user_to_group'] . ".user_id")
+				->join($this->config_vars[ 'user_variables' ], $this->config_vars[ 'user_variables' ] . '.user_id = ' . $this->config_vars['users']. '.id')
                 ->join($this->config_vars[ 'groups' ], $this->config_vars[ 'groups' ] . '.id = ' . $this->config_vars['user_to_group']. '.group_id') ;
 		}
 

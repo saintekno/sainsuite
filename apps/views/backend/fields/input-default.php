@@ -1,8 +1,12 @@
+<?php
+$datepicker = riake('datepicker', $_item);
+?>
+
 <div class="form-group row">
-    <?php if (riake('cols', $_item)) :?>
-        <?php 
+    <?php if (riake('cols', $_item)) :
         foreach (force_array(riake('cols', $_item)) as $col) : 
         $count_cols = count(riake('cols', $_item));
+        $datepicker = riake('datepicker', $col);
         ?>
         <div class="col-<?php echo ($count_cols * 3) * 12 / ($count_cols * 3) / $count_cols ;?>">
             <label class="font-size-lg font-weight-bold"><?php echo riake('label', $col);?>:</label>
@@ -11,8 +15,7 @@
             <div class="input-group">
             <?php endif; ?>
 
-                <input class="form-control 
-                    <?php echo riake('class', $col);?>" 
+                <input class="form-control <?php echo riake('class', $col);?>" 
                     <?php echo riake('disabled', $col) === true ? 'disabled="disabled"' : '';?>
                     <?php echo riake('required', $col) === true ? 'required' : '';?>
                     type="<?php echo $type;?>" 
@@ -36,8 +39,7 @@
         <div class="input-group">
         <?php endif; ?>
 
-            <input class="form-control 
-            <?php echo $class;?>" 
+            <input class="form-control <?php echo $class;?>" 
             <?php echo $disabled === true ? 'disabled="disabled"' : '';?>
             <?php echo $required === true ? 'required' : '';?>
             id="<?php echo $id;?>" 
@@ -55,7 +57,7 @@
     <?php endif;?>
 </div>
 
-<?php if (riake('datepicker', $_item)) :?>
+<?php if ($datepicker) :?>
 <script>
 var KTBootstrapDatepicker = function () {
 
@@ -97,7 +99,7 @@ var KTBootstrapDatepicker = function () {
         init: function() {
             // minimum setup
             setDateRangePicker("#startdate", "#enddate"),
-            setYearPicker()
+            setYearPicker(),
             setDatePicker()
         }
     };

@@ -112,7 +112,7 @@
                 <?php 
                 global $User_Options;
                 $meta = (isset($User_Options['meta'])) ? $User_Options['meta'] : '';?>
-                <a class="btn btn-icon btn-aside symbol symbol-25 symbol-circle d-none d-lg-flex" data-toggle="dropdown" data-target="user" data-offset="0px,0px" aria-expanded="false">
+                <a class="btn btn-icon btn-aside symbol symbol-30 symbol-circle d-none d-lg-flex" data-toggle="dropdown" data-target="user" data-offset="0px,0px" aria-expanded="false">
                     <img src="<?php echo $this->events->apply_filters('user_menu_card_avatar_src', '');?>" alt="<?php echo $this->events->apply_filters('user_menu_card_avatar_alt', '');?>">
                     <i class="symbol-badge bg-success mt-3 mr-3 <?php echo (riake('theme-skin', $meta) == 'skin-dark') ? 'border-dark' : '';?>"></i>
                 </a>
