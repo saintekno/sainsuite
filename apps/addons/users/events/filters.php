@@ -48,7 +48,7 @@ class Users_Filters extends MY_Addon
 
     public function signin_logo()
     {
-        return upload_url().'system/logo-dark.png';
+        return upload_url('system/logo-dark.png');
     }
 
     /**
