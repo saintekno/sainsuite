@@ -45099,7 +45099,9 @@ code {
       right: 10px; } }
   @media (max-width: 767.98px) {
     .modal.modal-sticky.modal-sticky-bottom-right {
-      max-width: 90%; } }
+      max-width: 90%;
+      bottom: 0;
+      right: 0; } }
 
 .modal-open {
   overflow: auto !important;
@@ -61188,14 +61190,18 @@ canvas {
 @media (max-width: 767.98px) {
   .aside {
     width: 0% !important; }
-    .aside-secondary-enabled .aside.aside-on {
-      width: 90% !important; } }
+    .aside.aside-on {
+      width: 90% !important; }
+      .aside-secondary-enabled .aside.aside-on {
+        width: 90% !important; } }
 
 @media (min-width: 576px) and (max-width: 1199.98px) {
   .aside {
     width: 0% !important; }
-    .aside-secondary-enabled .aside.aside-on {
-      width: 50% !important; } }
+    .aside.aside-on {
+      width: 50% !important; }
+      .aside-secondary-enabled .aside.aside-on {
+        width: 50% !important; } }
 
 .brand {
   display: -webkit-box;
@@ -61490,14 +61496,18 @@ canvas {
 @media (max-width: 767.98px) {
   .offcanvas {
     width: 0% !important; }
-    .aside-secondary-enabled .offcanvas.offcanvas-on {
-      width: 90% !important; } }
+    .offcanvas.offcanvas-on {
+      width: 90% !important; }
+      .aside-secondary-enabled .offcanvas.offcanvas-on {
+        width: 90% !important; } }
 
 @media (min-width: 576px) and (max-width: 1199.98px) {
   .offcanvas {
     width: 0% !important; }
-    .aside-secondary-enabled .offcanvas.offcanvas-on {
-      width: 50% !important; } }
+    .offcanvas.offcanvas-on {
+      width: 50% !important; }
+      .aside-secondary-enabled .offcanvas.offcanvas-on {
+        width: 50% !important; } }
 
 @media (max-width: 991.98px) {
   .offcanvas-mobile {
@@ -61557,11 +61567,15 @@ canvas {
 @media (max-width: 767.98px) {
   .offcanvas-mobile {
     width: 0% !important; }
-    .aside-secondary-enabled .offcanvas-mobile.offcanvas-mobile-on {
-      width: 90% !important; } }
+    .offcanvas-mobile.offcanvas-mobile-on {
+      width: 90% !important; }
+      .aside-secondary-enabled .offcanvas-mobile.offcanvas-mobile-on {
+        width: 90% !important; } }
 
 @media (min-width: 576px) and (max-width: 1199.98px) {
   .offcanvas-mobile {
     width: 0% !important; }
-    .aside-secondary-enabled .offcanvas-mobile.offcanvas-mobile-on {
-      width: 50% !important; } }
+    .offcanvas-mobile.offcanvas-mobile-on {
+      width: 50% !important; }
+      .aside-secondary-enabled .offcanvas-mobile.offcanvas-mobile-on {
+        width: 50% !important; } }

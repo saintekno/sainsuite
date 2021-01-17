@@ -140,6 +140,11 @@ body.skin-dark {
       .show > body.skin-dark .btn.btn-aside.dropdown-toggle.dropdown-toggle:after,
       .show body.skin-dark .btn.btn-aside.btn-dropdown.dropdown-toggle:after {
         color: #ffffff; }
+  body.skin-dark .sidebar {
+    background-color: #1d223c;
+    border-left-color: #3F4254; }
+    body.skin-dark .sidebar .sidebar-header {
+      border-bottom-color: #3F4254; }
   body.skin-dark .list.list-hover .list-item:hover, body.skin-dark .list.list-hover .list-item.active {
     background-color: #15182b; }
     body.skin-dark .list.list-hover .list-item:hover .symbol-label, body.skin-dark .list.list-hover .list-item.active .symbol-label {
@@ -706,7 +711,7 @@ body.skin-dark {
     body.skin-dark .form-control:focus {
       border-color: #ffffff; }
     body.skin-dark .form-control:disabled {
-      background-color: #F3F6F9; }
+      background-color: #3F4254; }
     body.skin-dark .form-control.form-control-solid {
       background-color: #F3F6F9; }
       body.skin-dark .form-control.form-control-solid:active, body.skin-dark .form-control.form-control-solid.active, body.skin-dark .form-control.form-control-solid:focus, body.skin-dark .form-control.form-control-solid.focus {
@@ -868,6 +873,11 @@ body.skin-light {
       .show > body.skin-light .btn.btn-aside.dropdown-toggle.dropdown-toggle:after,
       .show body.skin-light .btn.btn-aside.btn-dropdown.dropdown-toggle:after {
         color: #1d223c; }
+  body.skin-light .sidebar {
+    background-color: #ffffff;
+    border-left-color: #EBEDF3; }
+    body.skin-light .sidebar .sidebar-header {
+      border-bottom-color: #EBEDF3; }
   body.skin-light .list.list-hover .list-item:hover, body.skin-light .list.list-hover .list-item.active {
     background-color: #e2e9f1; }
     body.skin-light .list.list-hover .list-item:hover .symbol-label, body.skin-light .list.list-hover .list-item.active .symbol-label {
@@ -1413,7 +1423,7 @@ body.skin-light {
     body.skin-light .form-control:focus {
       border-color: #1d223c; }
     body.skin-light .form-control:disabled {
-      background-color: #F3F6F9; }
+      background-color: #EBEDF3; }
     body.skin-light .form-control.form-control-solid {
       background-color: #F3F6F9; }
       body.skin-light .form-control.form-control-solid:active, body.skin-light .form-control.form-control-solid.active, body.skin-light .form-control.form-control-solid:focus, body.skin-light .form-control.form-control-solid.focus {
@@ -1431,4 +1441,737 @@ body.skin-light {
   body.skin-light .datatable.datatable-default > .datatable-table > .datatable-head .datatable-row,
   body.skin-light .datatable.datatable-default > .datatable-table > .datatable-body .datatable-row,
   body.skin-light .datatable.datatable-default > .datatable-table > .datatable-foot .datatable-row {
+    border-bottom: 1px solid #EBEDF3 !important; }
+
+body.skin-tosca {
+  background: #F3F6F9;
+  color: #181C32; }
+  body.skin-tosca .header {
+    background-color: #0387c4;
+    border-bottom: 1px solid #EBEDF3; }
+    body.skin-tosca .header .navheader-nav.nav .nav-item .nav-title {
+      color: #181C32 !important; }
+    body.skin-tosca .header .navheader-nav.nav .nav-item.active, body.skin-tosca .header .navheader-nav.nav .nav-item:hover {
+      border-bottom: 2px solid #1d223c; }
+      body.skin-tosca .header .navheader-nav.nav .nav-item.active .nav-title, body.skin-tosca .header .navheader-nav.nav .nav-item:hover .nav-title {
+        color: #1d223c !important; }
+      body.skin-tosca .header .navheader-nav.nav .nav-item.active i, body.skin-tosca .header .navheader-nav.nav .nav-item:hover i {
+        color: #1d223c; }
+  body.skin-tosca .header-mobile {
+    border-bottom: 1px solid #EBEDF3; }
+  body.skin-tosca .subheader.subheader-solid {
+    background-color: #0387c4;
+    border-bottom: 1px solid #EBEDF3; }
+  body.skin-tosca .subheader .page-title {
+    color: #1d223c; }
+  body.skin-tosca .card {
+    background-color: #0387c4; }
+  body.skin-tosca .card.card-custom > .card-header .card-title,
+  body.skin-tosca .card.card-custom > .card-header .card-title .card-label {
+    color: #1d223c; }
+  body.skin-tosca .card-header {
+    border-bottom: 1px solid #EBEDF3; }
+  body.skin-tosca .card-footer {
+    border-top: 1px solid #EBEDF3; }
+  body.skin-tosca .aside {
+    background-color: #0387c4;
+    -webkit-box-shadow: 0px 0px 28px 0px #e2e9f1;
+    box-shadow: 0px 0px 28px 0px #e2e9f1; }
+    body.skin-tosca .aside .aside-menu.ps > .ps__rail-x {
+      background-color: transparent; }
+      body.skin-tosca .aside .aside-menu.ps > .ps__rail-x:hover, body.skin-tosca .aside .aside-menu.ps > .ps__rail-x:focus {
+        opacity: 1;
+        background-color: transparent; }
+        body.skin-tosca .aside .aside-menu.ps > .ps__rail-x:hover > .ps__thumb-x, body.skin-tosca .aside .aside-menu.ps > .ps__rail-x:focus > .ps__thumb-x {
+          opacity: 1; }
+      body.skin-tosca .aside .aside-menu.ps > .ps__rail-x > .ps__thumb-x {
+        background-color: #0387c4;
+        opacity: 1; }
+        body.skin-tosca .aside .aside-menu.ps > .ps__rail-x > .ps__thumb-x:hover, body.skin-tosca .aside .aside-menu.ps > .ps__rail-x > .ps__thumb-x:focus {
+          opacity: 1;
+          background-color: #0387c4; }
+    body.skin-tosca .aside .aside-menu.ps > .ps__rail-y {
+      background-color: transparent; }
+      body.skin-tosca .aside .aside-menu.ps > .ps__rail-y:hover, body.skin-tosca .aside .aside-menu.ps > .ps__rail-y:focus {
+        background-color: transparent;
+        opacity: 1; }
+        body.skin-tosca .aside .aside-menu.ps > .ps__rail-y:hover > .ps__thumb-y, body.skin-tosca .aside .aside-menu.ps > .ps__rail-y:focus > .ps__thumb-y {
+          opacity: 1; }
+      body.skin-tosca .aside .aside-menu.ps > .ps__rail-y > .ps__thumb-y {
+        background: #0387c4;
+        opacity: 1; }
+        body.skin-tosca .aside .aside-menu.ps > .ps__rail-y > .ps__thumb-y:hover, body.skin-tosca .aside .aside-menu.ps > .ps__rail-y > .ps__thumb-y:focus {
+          opacity: 1;
+          background: #0387c4; }
+    body.skin-tosca .aside .aside-primary {
+      background-color: #0387c4;
+      border-right: 1px solid #EBEDF3; }
+    body.skin-tosca .aside .menu-text {
+      color: #1d223c ; }
+  @media (max-width: 991.98px) {
+    body.skin-tosca .aside .aside-secondary {
+      background-color: #0387c4; }
+    body.skin-tosca .header-mobile {
+      background-color: #0387c4;
+      -webkit-box-shadow: 0px 2px 0px 0px rgba(82, 63, 105, 0.08);
+      box-shadow: 0px 2px 0px 0px rgba(82, 63, 105, 0.08); } }
+  body.skin-tosca .btn.btn-aside {
+    color: #0387c4;
+    background-color: transparent;
+    border-color: transparent; }
+    body.skin-tosca .btn.btn-aside i {
+      color: #1d223c; }
+    body.skin-tosca .btn.btn-aside .svg-icon svg g [fill] {
+      -webkit-transition: fill 0.3s ease;
+      transition: fill 0.3s ease;
+      fill: #1d223c; }
+    body.skin-tosca .btn.btn-aside .svg-icon svg:hover g [fill] {
+      -webkit-transition: fill 0.3s ease;
+      transition: fill 0.3s ease; }
+    body.skin-tosca .btn.btn-aside.dropdown-toggle:after {
+      color: #1d223c; }
+    body.skin-tosca .btn.btn-aside:hover:not(.btn-text):not(:disabled):not(.disabled), body.skin-tosca .btn.btn-aside:focus:not(.btn-text), body.skin-tosca .btn.btn-aside.focus:not(.btn-text) {
+      color: #0387c4;
+      background-color: #e2e9f1;
+      border-color: transparent; }
+      body.skin-tosca .btn.btn-aside:hover:not(.btn-text):not(:disabled):not(.disabled) i, body.skin-tosca .btn.btn-aside:focus:not(.btn-text) i, body.skin-tosca .btn.btn-aside.focus:not(.btn-text) i {
+        color: #1d223c; }
+      body.skin-tosca .btn.btn-aside:hover:not(.btn-text):not(:disabled):not(.disabled) .svg-icon svg g [fill], body.skin-tosca .btn.btn-aside:focus:not(.btn-text) .svg-icon svg g [fill], body.skin-tosca .btn.btn-aside.focus:not(.btn-text) .svg-icon svg g [fill] {
+        -webkit-transition: fill 0.3s ease;
+        transition: fill 0.3s ease;
+        fill: #1d223c; }
+      body.skin-tosca .btn.btn-aside:hover:not(.btn-text):not(:disabled):not(.disabled) .svg-icon svg:hover g [fill], body.skin-tosca .btn.btn-aside:focus:not(.btn-text) .svg-icon svg:hover g [fill], body.skin-tosca .btn.btn-aside.focus:not(.btn-text) .svg-icon svg:hover g [fill] {
+        -webkit-transition: fill 0.3s ease;
+        transition: fill 0.3s ease; }
+      body.skin-tosca .btn.btn-aside:hover:not(.btn-text):not(:disabled):not(.disabled).dropdown-toggle:after, body.skin-tosca .btn.btn-aside:focus:not(.btn-text).dropdown-toggle:after, body.skin-tosca .btn.btn-aside.focus:not(.btn-text).dropdown-toggle:after {
+        color: #1d223c; }
+    body.skin-tosca .btn.btn-aside.disabled, body.skin-tosca .btn.btn-aside:disabled {
+      color: #0387c4;
+      background-color: transparent;
+      border-color: transparent; }
+      body.skin-tosca .btn.btn-aside.disabled i, body.skin-tosca .btn.btn-aside:disabled i {
+        color: #1d223c; }
+      body.skin-tosca .btn.btn-aside.disabled .svg-icon svg g [fill], body.skin-tosca .btn.btn-aside:disabled .svg-icon svg g [fill] {
+        -webkit-transition: fill 0.3s ease;
+        transition: fill 0.3s ease;
+        fill: #1d223c; }
+      body.skin-tosca .btn.btn-aside.disabled .svg-icon svg:hover g [fill], body.skin-tosca .btn.btn-aside:disabled .svg-icon svg:hover g [fill] {
+        -webkit-transition: fill 0.3s ease;
+        transition: fill 0.3s ease; }
+      body.skin-tosca .btn.btn-aside.disabled.dropdown-toggle:after, body.skin-tosca .btn.btn-aside:disabled.dropdown-toggle:after {
+        color: #1d223c; }
+    body.skin-tosca .btn.btn-aside:not(:disabled):not(.disabled):active:not(.btn-text), body.skin-tosca .btn.btn-aside:not(:disabled):not(.disabled).active,
+    .show > body.skin-tosca .btn.btn-aside.dropdown-toggle,
+    .show body.skin-tosca .btn.btn-aside.btn-dropdown {
+      color: #0387c4;
+      background-color: #e2e9f1;
+      border-color: transparent; }
+      body.skin-tosca .btn.btn-aside:not(:disabled):not(.disabled):active:not(.btn-text) i, body.skin-tosca .btn.btn-aside:not(:disabled):not(.disabled).active i,
+      .show > body.skin-tosca .btn.btn-aside.dropdown-toggle i,
+      .show body.skin-tosca .btn.btn-aside.btn-dropdown i {
+        color: #1d223c; }
+      body.skin-tosca .btn.btn-aside:not(:disabled):not(.disabled):active:not(.btn-text) .svg-icon svg g [fill], body.skin-tosca .btn.btn-aside:not(:disabled):not(.disabled).active .svg-icon svg g [fill],
+      .show > body.skin-tosca .btn.btn-aside.dropdown-toggle .svg-icon svg g [fill],
+      .show body.skin-tosca .btn.btn-aside.btn-dropdown .svg-icon svg g [fill] {
+        -webkit-transition: fill 0.3s ease;
+        transition: fill 0.3s ease;
+        fill: #1d223c; }
+      body.skin-tosca .btn.btn-aside:not(:disabled):not(.disabled):active:not(.btn-text) .svg-icon svg:hover g [fill], body.skin-tosca .btn.btn-aside:not(:disabled):not(.disabled).active .svg-icon svg:hover g [fill],
+      .show > body.skin-tosca .btn.btn-aside.dropdown-toggle .svg-icon svg:hover g [fill],
+      .show body.skin-tosca .btn.btn-aside.btn-dropdown .svg-icon svg:hover g [fill] {
+        -webkit-transition: fill 0.3s ease;
+        transition: fill 0.3s ease; }
+      body.skin-tosca .btn.btn-aside:not(:disabled):not(.disabled):active:not(.btn-text).dropdown-toggle:after, body.skin-tosca .btn.btn-aside:not(:disabled):not(.disabled).active.dropdown-toggle:after,
+      .show > body.skin-tosca .btn.btn-aside.dropdown-toggle.dropdown-toggle:after,
+      .show body.skin-tosca .btn.btn-aside.btn-dropdown.dropdown-toggle:after {
+        color: #1d223c; }
+  body.skin-tosca .sidebar {
+    background-color: #0387c4;
+    border-left-color: #EBEDF3; }
+    body.skin-tosca .sidebar .sidebar-header {
+      border-bottom-color: #EBEDF3; }
+  body.skin-tosca .list.list-hover .list-item:hover, body.skin-tosca .list.list-hover .list-item.active {
+    background-color: #e2e9f1; }
+    body.skin-tosca .list.list-hover .list-item:hover .symbol-label, body.skin-tosca .list.list-hover .list-item.active .symbol-label {
+      background-color: #ffffff; }
+  body.skin-tosca .list.list-hover .list-border {
+    border: 1px dashed #e2e9f1;
+    color: #e2e9f1; }
+    body.skin-tosca .list.list-hover .list-border:hover {
+      background-color: #1d223c;
+      border-color: #1d223c;
+      color: #e2e9f1; }
+  body.skin-tosca .aside-menu {
+    background-color: #0387c4 ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item > .menu-heading .menu-text,
+    body.skin-tosca .aside-menu .menu-nav > .menu-item > .menu-link .menu-text {
+      color: #ffffff ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item > .menu-heading .menu-icon,
+    body.skin-tosca .aside-menu .menu-nav > .menu-item > .menu-link .menu-icon {
+      color: #ffffff ; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item > .menu-heading .menu-icon.svg-icon svg g [fill],
+      body.skin-tosca .aside-menu .menu-nav > .menu-item > .menu-link .menu-icon.svg-icon svg g [fill] {
+        -webkit-transition: fill 0.3s ease;
+        transition: fill 0.3s ease;
+        fill: #ffffff; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item > .menu-heading .menu-icon.svg-icon svg:hover g [fill],
+      body.skin-tosca .aside-menu .menu-nav > .menu-item > .menu-link .menu-icon.svg-icon svg:hover g [fill] {
+        -webkit-transition: fill 0.3s ease;
+        transition: fill 0.3s ease; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item > .menu-heading .menu-bullet.menu-bullet-dot > span,
+    body.skin-tosca .aside-menu .menu-nav > .menu-item > .menu-link .menu-bullet.menu-bullet-dot > span {
+      background-color: #ffffff ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item > .menu-heading .menu-bullet.menu-bullet-line > span,
+    body.skin-tosca .aside-menu .menu-nav > .menu-item > .menu-link .menu-bullet.menu-bullet-line > span {
+      background-color: #ffffff ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item > .menu-heading .menu-arrow,
+    body.skin-tosca .aside-menu .menu-nav > .menu-item > .menu-link .menu-arrow {
+      color: #ffffff ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-open {
+      -webkit-transition: background-color 0.3s;
+      transition: background-color 0.3s; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading,
+      body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link {
+        background-color: #037db5 ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading .menu-text,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link .menu-text {
+          color: #ffffff ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading .menu-icon,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link .menu-icon {
+          color: #ffffff ; }
+          body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading .menu-icon.svg-icon svg g [fill],
+          body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link .menu-icon.svg-icon svg g [fill] {
+            -webkit-transition: fill 0.3s ease;
+            transition: fill 0.3s ease;
+            fill: #ffffff; }
+          body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading .menu-icon.svg-icon svg:hover g [fill],
+          body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link .menu-icon.svg-icon svg:hover g [fill] {
+            -webkit-transition: fill 0.3s ease;
+            transition: fill 0.3s ease; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading .menu-bullet.menu-bullet-dot > span,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link .menu-bullet.menu-bullet-dot > span {
+          background-color: #ffffff ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading .menu-bullet.menu-bullet-line > span,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link .menu-bullet.menu-bullet-line > span {
+          background-color: #ffffff ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading .menu-arrow,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link .menu-arrow {
+          color: #ffffff ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-here {
+      -webkit-transition: background-color 0.3s;
+      transition: background-color 0.3s; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-heading,
+      body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-link {
+        background-color: #037db5 ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-heading .menu-text,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-link .menu-text {
+          color: #ffffff ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-heading .menu-icon,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-link .menu-icon {
+          color: #ffffff ; }
+          body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-heading .menu-icon.svg-icon svg g [fill],
+          body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-link .menu-icon.svg-icon svg g [fill] {
+            -webkit-transition: fill 0.3s ease;
+            transition: fill 0.3s ease;
+            fill: #ffffff; }
+          body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-heading .menu-icon.svg-icon svg:hover g [fill],
+          body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-link .menu-icon.svg-icon svg:hover g [fill] {
+            -webkit-transition: fill 0.3s ease;
+            transition: fill 0.3s ease; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-heading .menu-bullet.menu-bullet-dot > span,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-link .menu-bullet.menu-bullet-dot > span {
+          background-color: #ffffff ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-heading .menu-bullet.menu-bullet-line > span,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-link .menu-bullet.menu-bullet-line > span {
+          background-color: #ffffff ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-heading .menu-arrow,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-link .menu-arrow {
+          color: #ffffff ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-active {
+      -webkit-transition: background-color 0.3s;
+      transition: background-color 0.3s; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading,
+      body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link {
+        background-color: #037db5 ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-text,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-text {
+          color: #ffffff ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-icon,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-icon {
+          color: #ffffff ; }
+          body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-icon.svg-icon svg g [fill],
+          body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-icon.svg-icon svg g [fill] {
+            -webkit-transition: fill 0.3s ease;
+            transition: fill 0.3s ease;
+            fill: #ffffff; }
+          body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-icon.svg-icon svg:hover g [fill],
+          body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-icon.svg-icon svg:hover g [fill] {
+            -webkit-transition: fill 0.3s ease;
+            transition: fill 0.3s ease; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-bullet.menu-bullet-dot > span,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-bullet.menu-bullet-dot > span {
+          background-color: #ffffff ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-bullet.menu-bullet-line > span,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-bullet.menu-bullet-line > span {
+          background-color: #ffffff ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-arrow,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-arrow {
+          color: #ffffff ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover {
+      -webkit-transition: background-color 0.3s;
+      transition: background-color 0.3s; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading,
+      body.skin-tosca .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link {
+        background-color: #037db5 ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-text,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-text {
+          color: #ffffff ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-icon,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-icon {
+          color: #ffffff ; }
+          body.skin-tosca .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-icon.svg-icon svg g [fill],
+          body.skin-tosca .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-icon.svg-icon svg g [fill] {
+            -webkit-transition: fill 0.3s ease;
+            transition: fill 0.3s ease;
+            fill: #ffffff; }
+          body.skin-tosca .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-icon.svg-icon svg:hover g [fill],
+          body.skin-tosca .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-icon.svg-icon svg:hover g [fill] {
+            -webkit-transition: fill 0.3s ease;
+            transition: fill 0.3s ease; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-bullet.menu-bullet-dot > span,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-bullet.menu-bullet-dot > span {
+          background-color: #ffffff ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-bullet.menu-bullet-line > span,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-bullet.menu-bullet-line > span {
+          background-color: #ffffff ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-arrow,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-arrow {
+          color: #ffffff ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item > .menu-arrow {
+      color: #0387c4; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-section .menu-text {
+      color: #ffffff ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-section .menu-icon {
+      color: #ffffff ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-separator {
+      border-bottom: 1px solid #EBEDF3 ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-heading .menu-text,
+    body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-text {
+      color: #ffffff ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-heading .menu-icon,
+    body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-icon {
+      color: #ffffff ; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-heading .menu-icon.svg-icon svg g [fill],
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-icon.svg-icon svg g [fill] {
+        -webkit-transition: fill 0.3s ease;
+        transition: fill 0.3s ease;
+        fill: #ffffff; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-heading .menu-icon.svg-icon svg:hover g [fill],
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-icon.svg-icon svg:hover g [fill] {
+        -webkit-transition: fill 0.3s ease;
+        transition: fill 0.3s ease; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-heading .menu-bullet.menu-bullet-dot > span,
+    body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-bullet.menu-bullet-dot > span {
+      background-color: #ffffff ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-heading .menu-bullet.menu-bullet-line > span,
+    body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-bullet.menu-bullet-line > span {
+      background-color: #ffffff ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-heading .menu-arrow,
+    body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-arrow {
+      color: #ffffff ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open {
+      -webkit-transition: background-color 0.3s;
+      transition: background-color 0.3s; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-heading .menu-text,
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-link .menu-text {
+        color: #ffffff ; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-heading .menu-icon,
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-link .menu-icon {
+        color: #ffffff ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-heading .menu-icon.svg-icon svg g [fill],
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-link .menu-icon.svg-icon svg g [fill] {
+          -webkit-transition: fill 0.3s ease;
+          transition: fill 0.3s ease;
+          fill: #ffffff; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-heading .menu-icon.svg-icon svg:hover g [fill],
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-link .menu-icon.svg-icon svg:hover g [fill] {
+          -webkit-transition: fill 0.3s ease;
+          transition: fill 0.3s ease; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-heading .menu-bullet.menu-bullet-dot > span,
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-link .menu-bullet.menu-bullet-dot > span {
+        background-color: #ffffff ; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-heading .menu-bullet.menu-bullet-line > span,
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-link .menu-bullet.menu-bullet-line > span {
+        background-color: #ffffff ; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-heading .menu-arrow,
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-open > .menu-link .menu-arrow {
+        color: #ffffff ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-here {
+      -webkit-transition: background-color 0.3s;
+      transition: background-color 0.3s; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-here > .menu-heading .menu-icon,
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-here > .menu-link .menu-icon {
+        color: #ffffff ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-here > .menu-heading .menu-icon.svg-icon svg g [fill],
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-here > .menu-link .menu-icon.svg-icon svg g [fill] {
+          -webkit-transition: fill 0.3s ease;
+          transition: fill 0.3s ease;
+          fill: #ffffff; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-here > .menu-heading .menu-icon.svg-icon svg:hover g [fill],
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-here > .menu-link .menu-icon.svg-icon svg:hover g [fill] {
+          -webkit-transition: fill 0.3s ease;
+          transition: fill 0.3s ease; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-here > .menu-heading .menu-bullet.menu-bullet-dot > span,
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-here > .menu-link .menu-bullet.menu-bullet-dot > span {
+        background-color: #ffffff ; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-here > .menu-heading .menu-bullet.menu-bullet-line > span,
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-here > .menu-link .menu-bullet.menu-bullet-line > span {
+        background-color: #ffffff ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active {
+      -webkit-transition: background-color 0.3s;
+      transition: background-color 0.3s; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-heading,
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link {
+        background-color: #ffffff ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-heading .menu-text,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link .menu-text {
+          color: #ffffff ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-heading .menu-icon,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link .menu-icon {
+          color: #ffffff ; }
+          body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-heading .menu-icon.svg-icon svg g [fill],
+          body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link .menu-icon.svg-icon svg g [fill] {
+            -webkit-transition: fill 0.3s ease;
+            transition: fill 0.3s ease;
+            fill: #ffffff; }
+          body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-heading .menu-icon.svg-icon svg:hover g [fill],
+          body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link .menu-icon.svg-icon svg:hover g [fill] {
+            -webkit-transition: fill 0.3s ease;
+            transition: fill 0.3s ease; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-heading .menu-bullet.menu-bullet-dot > span,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link .menu-bullet.menu-bullet-dot > span {
+          background-color: #ffffff ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-heading .menu-bullet.menu-bullet-line > span,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link .menu-bullet.menu-bullet-line > span {
+          background-color: #ffffff ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-heading .menu-arrow,
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link .menu-arrow {
+          color: #ffffff ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover {
+      -webkit-transition: background-color 0.3s;
+      transition: background-color 0.3s; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-text,
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-text {
+        color: #ffffff ; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-icon,
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-icon {
+        color: #ffffff ; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-icon.svg-icon svg g [fill],
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-icon.svg-icon svg g [fill] {
+          -webkit-transition: fill 0.3s ease;
+          transition: fill 0.3s ease;
+          fill: #ffffff; }
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-icon.svg-icon svg:hover g [fill],
+        body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-icon.svg-icon svg:hover g [fill] {
+          -webkit-transition: fill 0.3s ease;
+          transition: fill 0.3s ease; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-bullet.menu-bullet-dot > span,
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-bullet.menu-bullet-dot > span {
+        background-color: #ffffff ; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-bullet.menu-bullet-line > span,
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-bullet.menu-bullet-line > span {
+        background-color: #ffffff ; }
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-arrow,
+      body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-arrow {
+        color: #ffffff ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-section .menu-text {
+      color: #ffffff ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-section .menu-icon {
+      color: #ffffff ; }
+    body.skin-tosca .aside-menu .menu-nav > .menu-item .menu-submenu .menu-separator {
+      border-bottom: 1px solid #EBEDF3 ; }
+  @media (min-width: 992px) {
+    body.skin-tosca .aside-minimize .aside-menu .menu-nav > .menu-item {
+      background: transparent; }
+      body.skin-tosca .aside-minimize .aside-menu .menu-nav > .menu-item > .menu-link > .menu-icon {
+        color: #7c87a6; }
+      body.skin-tosca .aside-minimize .aside-menu .menu-nav > .menu-item.menu-item-hover, body.skin-tosca .aside-minimize .aside-menu .menu-nav > .menu-item.menu-item-open {
+        background: transparent !important; }
+        body.skin-tosca .aside-minimize .aside-menu .menu-nav > .menu-item.menu-item-hover > .menu-link > .menu-icon, body.skin-tosca .aside-minimize .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link > .menu-icon {
+          color: #0067ff ; }
+      body.skin-tosca .aside-minimize .aside-menu .menu-nav > .menu-item.menu-item-here, body.skin-tosca .aside-minimize .aside-menu .menu-nav > .menu-item.menu-item-active {
+        background: transparent !important; }
+        body.skin-tosca .aside-minimize .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-link > .menu-icon, body.skin-tosca .aside-minimize .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link > .menu-icon {
+          color: #0067ff ; }
+      body.skin-tosca .aside-minimize .aside-menu .menu-nav > .menu-item:hover {
+        background: transparent; }
+        body.skin-tosca .aside-minimize .aside-menu .menu-nav > .menu-item:hover > .menu-link > .menu-icon {
+          color: #0067ff !important; } }
+  @media (min-width: 992px) {
+    body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu,
+    body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu {
+      background-color: #ffffff;
+      -webkit-box-shadow: 0px 0px 50px 0px rgba(82, 63, 105, 0.15);
+      box-shadow: 0px 0px 50px 0px rgba(82, 63, 105, 0.15); }
+      body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-heading .menu-text,
+      body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-link .menu-text,
+      body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-heading .menu-text,
+      body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-link .menu-text {
+        color: #3F4254 ; }
+      body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-heading .menu-icon,
+      body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-link .menu-icon,
+      body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-heading .menu-icon,
+      body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-link .menu-icon {
+        color: #B5B5C3 ; }
+        body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-heading .menu-icon.svg-icon svg g [fill],
+        body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-link .menu-icon.svg-icon svg g [fill],
+        body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-heading .menu-icon.svg-icon svg g [fill],
+        body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-link .menu-icon.svg-icon svg g [fill] {
+          -webkit-transition: fill 0.3s ease;
+          transition: fill 0.3s ease;
+          fill: #B5B5C3; }
+        body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-heading .menu-icon.svg-icon svg:hover g [fill],
+        body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-link .menu-icon.svg-icon svg:hover g [fill],
+        body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-heading .menu-icon.svg-icon svg:hover g [fill],
+        body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-link .menu-icon.svg-icon svg:hover g [fill] {
+          -webkit-transition: fill 0.3s ease;
+          transition: fill 0.3s ease; }
+      body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-heading .menu-bullet.menu-bullet-dot > span,
+      body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-link .menu-bullet.menu-bullet-dot > span,
+      body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-heading .menu-bullet.menu-bullet-dot > span,
+      body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-link .menu-bullet.menu-bullet-dot > span {
+        background-color: #B5B5C3 ; }
+      body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-heading .menu-bullet.menu-bullet-line > span,
+      body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-link .menu-bullet.menu-bullet-line > span,
+      body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-heading .menu-bullet.menu-bullet-line > span,
+      body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-link .menu-bullet.menu-bullet-line > span {
+        background-color: #B5B5C3 ; }
+      body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-heading .menu-arrow,
+      body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-link .menu-arrow,
+      body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-heading .menu-arrow,
+      body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item > .menu-link .menu-arrow {
+        color: #3F4254 ; }
+      body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open,
+      body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open {
+        -webkit-transition: background-color 0.3s;
+        transition: background-color 0.3s; }
+        body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-heading,
+        body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-link,
+        body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-heading,
+        body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-link {
+          background-color: #F3F6F9 ; }
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-heading .menu-text,
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-link .menu-text,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-heading .menu-text,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-link .menu-text {
+            color: #0067ff ; }
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-heading .menu-icon,
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-link .menu-icon,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-heading .menu-icon,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-link .menu-icon {
+            color: #0067ff ; }
+            body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-heading .menu-icon.svg-icon svg g [fill],
+            body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-link .menu-icon.svg-icon svg g [fill],
+            body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-heading .menu-icon.svg-icon svg g [fill],
+            body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-link .menu-icon.svg-icon svg g [fill] {
+              -webkit-transition: fill 0.3s ease;
+              transition: fill 0.3s ease;
+              fill: #0067ff; }
+            body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-heading .menu-icon.svg-icon svg:hover g [fill],
+            body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-link .menu-icon.svg-icon svg:hover g [fill],
+            body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-heading .menu-icon.svg-icon svg:hover g [fill],
+            body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-link .menu-icon.svg-icon svg:hover g [fill] {
+              -webkit-transition: fill 0.3s ease;
+              transition: fill 0.3s ease; }
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-heading .menu-bullet.menu-bullet-dot > span,
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-link .menu-bullet.menu-bullet-dot > span,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-heading .menu-bullet.menu-bullet-dot > span,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-link .menu-bullet.menu-bullet-dot > span {
+            background-color: #ffffff ; }
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-heading .menu-bullet.menu-bullet-line > span,
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-link .menu-bullet.menu-bullet-line > span,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-heading .menu-bullet.menu-bullet-line > span,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-link .menu-bullet.menu-bullet-line > span {
+            background-color: #ffffff ; }
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-heading .menu-arrow,
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-link .menu-arrow,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-heading .menu-arrow,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-open > .menu-link .menu-arrow {
+            color: #0067ff ; }
+      body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here,
+      body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here {
+        -webkit-transition: background-color 0.3s;
+        transition: background-color 0.3s; }
+        body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here > .menu-heading,
+        body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here > .menu-link,
+        body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here > .menu-heading,
+        body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here > .menu-link {
+          background-color: #F3F6F9 ; }
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here > .menu-heading .menu-icon.svg-icon svg g [fill],
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here > .menu-link .menu-icon.svg-icon svg g [fill],
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here > .menu-heading .menu-icon.svg-icon svg g [fill],
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here > .menu-link .menu-icon.svg-icon svg g [fill] {
+            -webkit-transition: fill 0.3s ease;
+            transition: fill 0.3s ease; }
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here > .menu-heading .menu-icon.svg-icon svg:hover g [fill],
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here > .menu-link .menu-icon.svg-icon svg:hover g [fill],
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here > .menu-heading .menu-icon.svg-icon svg:hover g [fill],
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here > .menu-link .menu-icon.svg-icon svg:hover g [fill] {
+            -webkit-transition: fill 0.3s ease;
+            transition: fill 0.3s ease; }
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here > .menu-heading .menu-bullet.menu-bullet-dot > span,
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here > .menu-link .menu-bullet.menu-bullet-dot > span,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here > .menu-heading .menu-bullet.menu-bullet-dot > span,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here > .menu-link .menu-bullet.menu-bullet-dot > span {
+            background-color: #ffffff ; }
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here > .menu-heading .menu-bullet.menu-bullet-line > span,
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here > .menu-link .menu-bullet.menu-bullet-line > span,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here > .menu-heading .menu-bullet.menu-bullet-line > span,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-here > .menu-link .menu-bullet.menu-bullet-line > span {
+            background-color: #ffffff ; }
+      body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active,
+      body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active {
+        -webkit-transition: background-color 0.3s;
+        transition: background-color 0.3s; }
+        body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-heading,
+        body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-link,
+        body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-heading,
+        body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-link {
+          background-color: #F3F6F9 ; }
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-heading .menu-text,
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-link .menu-text,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-heading .menu-text,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-link .menu-text {
+            color: #0067ff ; }
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-heading .menu-icon,
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-link .menu-icon,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-heading .menu-icon,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-link .menu-icon {
+            color: #0067ff ; }
+            body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-heading .menu-icon.svg-icon svg g [fill],
+            body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-link .menu-icon.svg-icon svg g [fill],
+            body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-heading .menu-icon.svg-icon svg g [fill],
+            body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-link .menu-icon.svg-icon svg g [fill] {
+              -webkit-transition: fill 0.3s ease;
+              transition: fill 0.3s ease;
+              fill: #0067ff; }
+            body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-heading .menu-icon.svg-icon svg:hover g [fill],
+            body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-link .menu-icon.svg-icon svg:hover g [fill],
+            body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-heading .menu-icon.svg-icon svg:hover g [fill],
+            body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-link .menu-icon.svg-icon svg:hover g [fill] {
+              -webkit-transition: fill 0.3s ease;
+              transition: fill 0.3s ease; }
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-heading .menu-bullet.menu-bullet-dot > span,
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-link .menu-bullet.menu-bullet-dot > span,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-heading .menu-bullet.menu-bullet-dot > span,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-link .menu-bullet.menu-bullet-dot > span {
+            background-color: #ffffff ; }
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-heading .menu-bullet.menu-bullet-line > span,
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-link .menu-bullet.menu-bullet-line > span,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-heading .menu-bullet.menu-bullet-line > span,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-link .menu-bullet.menu-bullet-line > span {
+            background-color: #ffffff ; }
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-heading .menu-arrow,
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-link .menu-arrow,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-heading .menu-arrow,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item.menu-item-active > .menu-link .menu-arrow {
+            color: #0067ff ; }
+      body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover,
+      body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover {
+        -webkit-transition: background-color 0.3s;
+        transition: background-color 0.3s; }
+        body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading,
+        body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link,
+        body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading,
+        body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link {
+          background-color: #F3F6F9 ; }
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-text,
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-text,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-text,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-text {
+            color: #0067ff ; }
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-icon,
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-icon,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-icon,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-icon {
+            color: #0067ff ; }
+            body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-icon.svg-icon svg g [fill],
+            body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-icon.svg-icon svg g [fill],
+            body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-icon.svg-icon svg g [fill],
+            body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-icon.svg-icon svg g [fill] {
+              -webkit-transition: fill 0.3s ease;
+              transition: fill 0.3s ease;
+              fill: #0067ff; }
+            body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-icon.svg-icon svg:hover g [fill],
+            body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-icon.svg-icon svg:hover g [fill],
+            body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-icon.svg-icon svg:hover g [fill],
+            body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-icon.svg-icon svg:hover g [fill] {
+              -webkit-transition: fill 0.3s ease;
+              transition: fill 0.3s ease; }
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-bullet.menu-bullet-dot > span,
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-bullet.menu-bullet-dot > span,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-bullet.menu-bullet-dot > span,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-bullet.menu-bullet-dot > span {
+            background-color: #ffffff ; }
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-bullet.menu-bullet-line > span,
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-bullet.menu-bullet-line > span,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-bullet.menu-bullet-line > span,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-bullet.menu-bullet-line > span {
+            background-color: #ffffff ; }
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-arrow,
+          body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-arrow,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-arrow,
+          body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-arrow {
+            color: #0067ff ; }
+      body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-section .menu-text,
+      body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-section .menu-text {
+        color: #ffffff ; }
+      body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-section .menu-icon,
+      body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-section .menu-icon {
+        color: #ffffff ; }
+      body.skin-tosca .aside-minimize .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-separator,
+      body.skin-tosca .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav .menu-separator {
+        border-bottom: 1px solid #EBEDF3 ; } }
+  body.skin-tosca .table.table-separate th,
+  body.skin-tosca .table.table-separate td {
+    border-bottom: 1px solid #EBEDF3; }
+  body.skin-tosca .accordion.accordion-toggle-arrow .card .card-header .card-title {
+    color: #1d223c; }
+    body.skin-tosca .accordion.accordion-toggle-arrow .card .card-header .card-title:after {
+      color: #1d223c; }
+    body.skin-tosca .accordion.accordion-toggle-arrow .card .card-header .card-title.collapsed {
+      color: #181C32; }
+      body.skin-tosca .accordion.accordion-toggle-arrow .card .card-header .card-title.collapsed:after {
+        color: #181C32; }
+  body.skin-tosca .accordion.accordion-light .card {
+    border-top: 1px solid #EBEDF3; }
+    body.skin-tosca .accordion.accordion-light .card:first-child {
+      border-top: 0; }
+  body.skin-tosca .form-group label {
+    color: #181C32; }
+  body.skin-tosca .form-control {
+    background-color: #0387c4;
+    color: #1d223c;
+    border-color: #EBEDF3; }
+    body.skin-tosca .form-control:focus {
+      border-color: #1d223c; }
+    body.skin-tosca .form-control:disabled {
+      background-color: #EBEDF3; }
+    body.skin-tosca .form-control.form-control-solid {
+      background-color: #F3F6F9; }
+      body.skin-tosca .form-control.form-control-solid:active, body.skin-tosca .form-control.form-control-solid.active, body.skin-tosca .form-control.form-control-solid:focus, body.skin-tosca .form-control.form-control-solid.focus {
+        background-color: #EBEDF3; }
+  body.skin-tosca .display-4 {
+    color: #1d223c; }
+  body.skin-tosca .separator.separator-dashed {
+    border-bottom: 1px dashed #EBEDF3; }
+  body.skin-tosca .datatable.datatable-default > .datatable-table {
+    background-color: #0387c4; }
+  body.skin-tosca .datatable.datatable-default > .datatable-table > .datatable-body .datatable-row > .datatable-cell > span,
+  body.skin-tosca .datatable.datatable-default > .datatable-table > .datatable-head .datatable-row > .datatable-cell > span,
+  body.skin-tosca .datatable.datatable-default > .datatable-table > .datatable-foot .datatable-row > .datatable-cell > span {
+    color: #181C32; }
+  body.skin-tosca .datatable.datatable-default > .datatable-table > .datatable-head .datatable-row,
+  body.skin-tosca .datatable.datatable-default > .datatable-table > .datatable-body .datatable-row,
+  body.skin-tosca .datatable.datatable-default > .datatable-table > .datatable-foot .datatable-row {
     border-bottom: 1px solid #EBEDF3 !important; }

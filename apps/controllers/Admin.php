@@ -46,6 +46,7 @@ class Admin extends MY_Controller
         $this->enqueue->css_namespace( 'dashboard_header' );
         $this->enqueue->addon_css('datatables', 'datatables.bundle');
         $this->enqueue->css('skin/all');
+        $this->enqueue->css('skin/tosca');
         $this->enqueue->load_css( 'dashboard_header' );
     }
 
