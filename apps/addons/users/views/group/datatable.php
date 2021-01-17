@@ -64,7 +64,7 @@ var DatatableScript = function() {
                         <?php if ( User::control('edit.group')) : ?>
 						edit = '\
                             <a class="btn btn-sm btn-icon btn-light-primary btn-hover-primary "\
-                                href="<?php echo site_url(array( 'admin', 'group', 'delete'));?>/'+ row.id +'">\
+                                href="<?php echo site_url(array( 'admin', 'group', 'edit'));?>/'+ row.id +'">\
                                 <i class="fas fa-pen"></i>\
                             </a>\
                         ';

@@ -90,7 +90,7 @@ var DatatableScript = function() {
                         <?php if ( User::control('edit.users')) : ?>
 						edit = '\
                             <a class="btn btn-sm btn-icon btn-light-primary btn-hover-primary "\
-                                href="<?php echo site_url(array( 'admin', 'users', 'delete'));?>/'+ row.user_id +'">\
+                                href="<?php echo site_url(array( 'admin', 'users', 'edit'));?>/'+ row.user_id +'">\
                                 <i class="fas fa-pen"></i>\
                             </a>\
                         ';
