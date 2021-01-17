@@ -1,11 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [3.10.4] - 2021-01-03
-### Changed
-- Perbaikan responsive
-- Perbaikan link pagination
-- Perubahan nama extract addons
+## [3.11.0] - 2021-01-18
+### Added
+- Penambahan skin terbaru
+- Pembaharuan metode view data dengan datatable
 
 ## [3.10.0] - 2020-12-25
 ### Added
