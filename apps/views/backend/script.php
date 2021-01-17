@@ -122,6 +122,9 @@
                     $this.options.save( 'dashboard-sidebar' , 'aside-minimize' , sain.user.id );
                 } 
             });
+            $('#kt_header_mobile').on('click', 'a', function(e) {
+                $this.options.save( 'dashboard-sidebar' , 'aside-minimize' , sain.user.id );
+            });
             $('#kt_aside').on('click', '.aside-secondary a', function(e) {
                 var linkId = $(this).attr('href');
                 if (menuAside != null && menuAside == linkId && url.indexOf(linkId) > -1) { 
