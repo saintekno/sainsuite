@@ -17,6 +17,7 @@ foreach (force_array(riake('items', $meta)) as $_item)
     $rows           =    @$_item[ 'rows' ];
     $disabled       =    @$_item[ 'disabled' ];
     $required       =    @$_item[ 'required' ];
+    $readonly       =    @$_item[ 'readonly' ];
     $description    =    @$_item[ 'description' ];
     $active         =    @$_item[ 'active' ];
     
@@ -39,10 +40,6 @@ foreach (force_array(riake('items', $meta)) as $_item)
     elseif ($type == 'table-datatable') 
     {
         include( dirname( __FILE__ ) . '/fields/table-datatable.php' );                            
-    }
-    elseif ($type == 'table-default') 
-    {
-        include( dirname( __FILE__ ) . '/fields/table-default.php' );                            
     }
     elseif ($type == 'table-lists') 
     {

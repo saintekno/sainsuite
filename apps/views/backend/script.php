@@ -20,7 +20,7 @@
 
                 if(length > 0){
                     $.ajax({
-                        url: '<?= site_url(['admin', (isset($namespace)) ? $namespace : '', 'multidelete']) ?>',
+                        url: '<?= site_url(['admin', (isset($namespace)) ? $namespace : '', 'delete']) ?>',
                         type: 'post',
                         data: {ids: ids_arr},
                         success: function(data) {

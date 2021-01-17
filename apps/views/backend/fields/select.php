@@ -9,12 +9,17 @@ $select_ = @$_item[ 'data' ] != null;
         $select_ = @$col[ 'data' ] != null;
         ?>
         <div class="col-<?php echo ($count_cols * 3) * 12 / ($count_cols * 3) / $count_cols ;?>">
-            <label class="font-size-lg font-weight-bold" for="<?php echo riake('label', $col);?>"><?php echo riake('label', $col);?></label>
+            <label class="font-size-lg font-weight-bold" for="<?php echo riake('label', $col);?>">
+                <?php echo riake('label', $col);?>
+                <?php echo riake('required', $col) === true ? '<span class="text-danger">*</span>' : '';?>
+            </label>
+
             <select class="form-control <?php echo ($type == 'multiple') ? 'selectpicker' : ''; ?> <?php echo riake('strings', $col);?>" 
+                data-live-search="true"
                 <?php echo $multiple; ?> 
                 <?php echo riake('disabled', $col) === true ? 'disabled="disabled"' : '';?>
                 <?php echo riake('required', $col) === true ? 'required' : '';?>
-                <?php echo ($type == 'multiple') ? 'data-live-search="true"' : ''; ?>
+                <?php echo riake('attr', $col);?>
                 id="<?php echo riake('id', $col);?>" 
                 name="<?php echo riake('name', $col);?>" 
                 title="<?php echo riake('label', $col);?>">
@@ -43,12 +48,17 @@ $select_ = @$_item[ 'data' ] != null;
         <?php endforeach; ?>
     <?php else :?>
     <div class="col-12">
-        <label class="font-size-lg font-weight-bold" for="<?php echo $label; ?>"><?php echo $label; ?></label>
+        <label class="font-size-lg font-weight-bold" for="<?php echo $label; ?>">
+            <?php echo $label; ?>
+            <?php echo $required === true ? '<span class="text-danger">*</span>' : '';?>
+        </label>
+
         <select class="form-control <?php echo ($type == 'multiple') ? 'selectpicker' : ''; ?> <?php echo riake('strings', $_item);?>"
+            data-live-search="true"
             <?php echo $multiple; ?> 
             <?php echo $disabled === true ? 'disabled="disabled"' : '';?>
             <?php echo $required === true ? 'required' : '';?>
-            <?php echo ($type == 'multiple') ? 'data-live-search="true"' : ''; ?>
+            <?php echo riake('attr', $_item);?>
             id="<?php echo $id; ?>" 
             name="<?php echo $name;?>"
             title="<?php echo $label;?>">

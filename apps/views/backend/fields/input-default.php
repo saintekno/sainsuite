@@ -2,38 +2,49 @@
 $datepicker = riake('datepicker', $_item);
 ?>
 
-<div class="form-group row">
-    <?php if (riake('cols', $_item)) :
-        foreach (force_array(riake('cols', $_item)) as $col) : 
-        $count_cols = count(riake('cols', $_item));
-        $datepicker = riake('datepicker', $col);
-        ?>
-        <div class="col-<?php echo ($count_cols * 3) * 12 / ($count_cols * 3) / $count_cols ;?>">
-            <label class="font-size-lg font-weight-bold"><?php echo riake('label', $col);?>:</label>
-            
-            <?php if (riake('append', $col)) :?>
-            <div class="input-group">
-            <?php endif; ?>
+<?php if (riake('cols', $_item)) : ?>
+<div class="form-group row" id="<?php echo riake('row_id', $_item);?>">
+    <?php
+    foreach (force_array(riake('cols', $_item)) as $col) : 
+    $count_cols = count(riake('cols', $_item));
+    $datepicker = riake('datepicker', $col);
+    ?>
+    <div class="col-<?php echo ($count_cols * 3) * 12 / ($count_cols * 3) / $count_cols ;?>">
+        <label class="font-size-lg font-weight-bold">
+            <?php echo riake('label', $col);?>:
+            <?php echo riake('required', $col) === true ? '<span class="text-danger">*</span>' : '';?>
+        </label>
+        
+        <?php if (riake('append', $col)) :?>
+        <div class="input-group">
+        <?php endif; ?>
 
-                <input class="form-control <?php echo riake('class', $col);?>" 
-                    <?php echo riake('disabled', $col) === true ? 'disabled="disabled"' : '';?>
-                    <?php echo riake('required', $col) === true ? 'required' : '';?>
-                    type="<?php echo $type;?>" 
-                    id="<?php echo riake('id', $col);?>" 
-                    name="<?php echo riake('name', $col);?>" 
-                    placeholder="<?php echo riake('placeholder', $col);?>"
-                    value="<?php echo riake('value', $col);?>" />
-            
-            <?php if (riake('append', $col)) :?>
-                <div class="input-group-append"><span class="input-group-text"><?php echo riake('append', $col);?></span></div>
-            </div>
-            <?php endif; ?>
-            <span class="form-text text-muted"><?php echo xss_clean($description);?></span>
+            <input class="form-control <?php echo riake('class', $col);?>" 
+                <?php echo riake('disabled', $col) === true ? 'disabled="disabled"' : '';?>
+                <?php echo riake('required', $col) === true ? 'required' : '';?>
+                <?php echo riake('readonly', $col) === true ? 'readonly' : '';?>
+                <?php echo riake('attr', $col);?>
+                type="<?php echo $type;?>" 
+                id="<?php echo riake('id', $col);?>" 
+                name="<?php echo riake('name', $col);?>" 
+                placeholder="<?php echo riake('placeholder', $col);?>"
+                value="<?php echo riake('value', $col);?>" />
+        
+        <?php if (riake('append', $col)) :?>
+            <div class="input-group-append"><span class="input-group-text"><?php echo riake('append', $col);?></span></div>
         </div>
-        <?php endforeach; ?>
-    <?php else :?>
+        <?php endif; ?>
+        <span class="form-text text-muted"><?php echo xss_clean($description);?></span>
+    </div>
+    <?php endforeach; ?>
+</div>
+<?php else :?>
+<div class="form-group row" id="<?php echo riake('row_id', $_item);?>">
     <div class="col-12">
-        <label class="font-size-lg font-weight-bold"><?php echo riake('label', $_item);?>:</label>
+        <label class="font-size-lg font-weight-bold">
+            <?php echo riake('label', $_item);?>:
+            <?php echo $required === true ? '<span class="text-danger">*</span>' : '';?>
+        </label>
         
         <?php if (riake('append', $_item)) :?>
         <div class="input-group">
@@ -42,6 +53,8 @@ $datepicker = riake('datepicker', $_item);
             <input class="form-control <?php echo $class;?>" 
             <?php echo $disabled === true ? 'disabled="disabled"' : '';?>
             <?php echo $required === true ? 'required' : '';?>
+            <?php echo $readonly === true ? 'readonly' : '';?>
+            <?php echo riake('attr', $_item);?>
             id="<?php echo $id;?>" 
             type="<?php echo $type;?>" 
             name="<?php echo riake('name', $_item);?>" 
@@ -54,8 +67,8 @@ $datepicker = riake('datepicker', $_item);
         <?php endif; ?>
         <span class="form-text text-muted"><?php echo xss_clean($description);?></span>
     </div>
-    <?php endif;?>
 </div>
+<?php endif;?>
 
 <?php if ($datepicker) :?>
 <script>

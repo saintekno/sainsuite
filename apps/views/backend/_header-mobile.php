@@ -7,11 +7,8 @@
         <img alt="<?php echo get('app_name');?>" src="<?php echo $this->events->apply_filters( 'signin_logo_mobile', upload_url().'system/'.$logo); ?>" class="logo-default max-h-30px" />
     </a>
     <div class="d-flex align-items-center">
-		<button class="btn p-0 ml-2 burger-icon burger-icon-left" id="kt_aside_mobile_toggle">
-			<span></span>
-		</button>
-
-		<button class="btn btn-hover-icon-primary p-0 ml-5" id="kt_sidebar_mobile_toggle">
+		<?php if($this->events->has_filter('load_sidebar')) : ?>
+		<button class="btn btn-hover-icon-primary p-0" id="kt_sidebar_mobile_toggle">
 			<span class="svg-icon svg-icon-xl">
 				<!--begin::Svg Icon | path:/metronic/theme/html/demo10/dist/assets/media/svg/icons/Design/Substract.svg-->
 				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -24,10 +21,15 @@
 				<!--end::Svg Icon-->
 			</span>
 		</button>
+		<?php endif; ?>
+
+		<button class="btn p-0 ml-2 burger-icon burger-icon-left" id="kt_aside_mobile_toggle">
+			<span></span>
+		</button>
 		
 		<div class="dropdown">
 			<!--begin::Toggle-->
-            <a class="btn btn-icon btn-aside symbol symbol-30 symbol-circle ml-2" data-toggle="dropdown" data-offset="0px,0px" aria-expanded="false">
+            <a class="btn btn-icon btn-aside symbol symbol-30 symbol-circle ml-5" data-toggle="dropdown" data-offset="0px,0px" aria-expanded="false">
                 <img src="<?php echo $this->events->apply_filters('user_menu_card_avatar_src', '');?>" alt="<?php echo $this->events->apply_filters('user_menu_card_avatar_alt', '');?>">
             </a>
 			<!--end::Toggle-->
