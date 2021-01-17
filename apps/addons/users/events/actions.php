@@ -32,9 +32,9 @@ class Users_Action extends MY_Addon
     **/
     public function load_users_custom_fields($config)
     {
-        $this->polatan->add_item([
-            'type' => 'separator',
-        ], $config[ 'meta_namespace' ], $config[ 'col_id' ]);
+        // $this->polatan->add_item([
+        //     'type' => 'separator',
+        // ], $config[ 'meta_namespace' ], $config[ 'col_id' ]);
 
         $json_vars = $this->aauth->get_user_var( 'meta', $config[ 'user_id' ] );
         $meta = json_decode($json_vars);
@@ -79,6 +79,7 @@ class Users_Action extends MY_Addon
 
         $this->polatan->add_item( array(
             'type'  => 'input-image',
+            'wrapper'  => 'user',
             'accept' => '.png, .jpg, .jpeg',
             'label' => __('user_image'),
             'name'  => 'user_image',

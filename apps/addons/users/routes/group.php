@@ -50,9 +50,9 @@ class GroupsHomeController extends MY_Addon
         // BreadCrumb
         $this->breadcrumb->add(__('Home'), site_url('admin'));
         $this->breadcrumb->add(__('Group'), site_url('admin/group'));
-        
         $data['breadcrumbs'] = $this->breadcrumb->render();
-        $data['groups'] = $this->aauth->list_groups();
+        
+        $data['groups'] = json_encode($this->aauth->list_groups());
         $this->addon_view( 'users', 'group/read', $data );
     }
 
@@ -77,9 +77,17 @@ class GroupsHomeController extends MY_Addon
 			);
 			return $final;
         });
+        
+        // Title
+		Polatan::set_title(sprintf(__('Group &mdash; %s', 'group'), get('signature')));
+        
+        // BreadCrumb
+        $this->breadcrumb->add(__('Home'), site_url('admin'));
+        $this->breadcrumb->add(__('Group'), site_url('admin/group'));
+        $this->breadcrumb->add(__('Add New'), site_url('admin/group/add'));
+        $data['breadcrumbs'] = $this->breadcrumb->render();
 
         $this->load->library('form_validation');
-        
         $this->form_validation->set_rules('name', 'Group Name', 'required');
         if( $this->aauth->is_admin() ):
             $this->form_validation->set_rules('definition', 'Group Definition', 'required');
@@ -97,16 +105,7 @@ class GroupsHomeController extends MY_Addon
             
             $this->notice->push_notice_array($this->aauth->get_infos_array());
         }
-        
-        // Title
-		Polatan::set_title(sprintf(__('Group &mdash; %s', 'group'), get('signature')));
-        
-        // BreadCrumb
-        $this->breadcrumb->add(__('Home'), site_url('admin'));
-        $this->breadcrumb->add(__('Group'), site_url('admin/group'));
-        $this->breadcrumb->add(__('Add New'), site_url('admin/group/add'));
-        
-        $data['breadcrumbs'] = $this->breadcrumb->render();
+
         $this->addon_view( 'users', 'group/form', $data );
     }
 
@@ -133,8 +132,20 @@ class GroupsHomeController extends MY_Addon
 			return $final;
         });
 
-        $this->load->library('form_validation');
+        // Title
+		Polatan::set_title(sprintf(__('Group &mdash; %s', 'group'), get('signature')));
         
+        // BreadCrumb
+        $this->breadcrumb->add(__('Home'), site_url('admin'));
+        $this->breadcrumb->add(__('Group'), site_url('admin/group'));
+        $this->breadcrumb->add(__('Edit'), site_url('admin/group/edit'));
+        $data['breadcrumbs'] = $this->breadcrumb->render();
+
+        // Data
+        $data['group'] = $this->aauth->get_group($index);
+
+        // Submit
+        $this->load->library('form_validation');
         $this->form_validation->set_rules('name', 'Group Name', 'required');
         $this->form_validation->set_rules('definition', 'Group Definition', 'required');
         if ($this->form_validation->run()) 
@@ -153,16 +164,6 @@ class GroupsHomeController extends MY_Addon
             $this->notice->push_notice_array($this->aauth->get_errors_array());
         }
         
-        // Title
-		Polatan::set_title(sprintf(__('Group &mdash; %s', 'group'), get('signature')));
-        
-        // BreadCrumb
-        $this->breadcrumb->add(__('Home'), site_url('admin'));
-        $this->breadcrumb->add(__('Group'), site_url('admin/group'));
-        $this->breadcrumb->add(__('Edit'), site_url('admin/group/edit'));
-        
-        $data['breadcrumbs'] = $this->breadcrumb->render();
-        $data['group'] = $this->aauth->get_group($index);
         $this->addon_view( 'users', 'group/form', $data );
     }
 
@@ -171,36 +172,28 @@ class GroupsHomeController extends MY_Addon
      * @param int group id
      * @return redirect
      */
-    public function delete( $index )
+    public function delete( $index = null )
     {
         if (! User::control('delete.group')) {
             $this->session->set_flashdata('error_message', __( 'Access denied. Your are not allowed to see this page.' ));
             redirect(site_url('admin/page404'));
         }
 
-        $exec = $this->aauth->delete_group($index);
-        redirect(array( 'admin', 'users', 'group?notice=deleted'));
-    }
-
-    /**
-     * Delete user
-     * @return redirect
-     */
-
-    public function multidelete()
-    {
-        if (! User::control('delete.group')) {
-            $this->session->set_flashdata('info_message', __( 'Youre not allowed to see this page.' ));
-            redirect(site_url('admin/page404'));
+        // Multi delete
+        if ( $index == null ) 
+        {
+            $ids = $this->input->post('ids');
+    
+            foreach($ids as $id){
+                $this->aauth->delete_group($id);
+            }
+    
+            echo 1;
+            exit;
         }
-
-        $ids = $this->input->post('ids');
-
-        foreach($ids as $id){
-            $this->aauth->delete_group($id);
+        else {
+            $exec = $this->aauth->delete_group($index);
+            redirect(array( 'admin', 'users', 'group?notice=deleted'));
         }
-
-        echo 1;
-        exit;
     }
 }

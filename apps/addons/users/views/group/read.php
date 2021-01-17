@@ -12,36 +12,6 @@
  * @filesource
  */
 
-$complete_group = array();
-$edit_group     = '<i class="fas fa-pen"></i>';
-$hapus_group    = '<i class="fas fa-trash-alt"></i>';
-// adding group to complete_group array
-foreach ($groups as $row) {
-    if ( User::control('edit.group')) {
-        $edit_group = '<a href="' . site_url(array( 'admin', 'group', 'edit', $row->id )) . '" 
-                class="btn btn-icon btn-light btn-hover-primary btn-sm"><i class="fas fa-pen"></i></a>';
-    }
-    if ( User::control('delete.group')) {
-        $hapus_group = '<button class="btn btn-icon btn-light btn-hover-danger btn-sm"
-                data-head=\'' . _s( 'Would you like to delete data?', 'aauth' ) . '\'
-                data-url=\'' . site_url(array( 'admin', 'group', 'delete', $row->id )) . '\'
-                onclick="deleteConfirmation(this)"><i class="fas fa-trash-alt"></i></button>';
-    }
-    $complete_group[] = array(
-        $row->id,
-        '<div class="d-flex align-items-center">
-            <div class="symbol symbol-40 symbol-light-primary flex-shrink-0">
-                <span class="symbol-label font-size-h4 font-weight-bold">' . strtoupper(substr($row->name, 0, 1)) . '</span>
-            </div>
-            <div class="ml-4 d-none d-md-block">
-                <div class="">' . $row->name . '</div>
-            </div>
-        </div>',
-        $row->definition,
-        $edit_group.' '.$hapus_group
-    );
-}
-
 /**
  * Col Width
  */
@@ -60,23 +30,15 @@ $this->polatan->add_meta(array(
  * Item
  */
 $this->polatan->add_item(array(
-    'type'  => 'table-default',
-    'thead' => array(
-        __('Checkall'), 
-        'Name',
-        'Definition',
-        __('Actions') 
-    ),
-    'tbody' => $complete_group
+    'type'  => 'table-datatable',
+    'data' => $groups
 ), 'group', 1);
 
 /**
  * Script
  */
-if (count($complete_group) > 0) :
 $this->events->add_action( 'dashboard_footer', function() {
-    $this->load->addon_view( 'users', 'group/script');
+    $this->load->addon_view( 'users', 'group/datatable');
 });
-endif;
 
 $this->polatan->output();

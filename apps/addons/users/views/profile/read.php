@@ -39,7 +39,7 @@ $this->polatan->add_item( array(
  */
 
 $this->polatan->add_col(array(
-    'width' => 3,
+    'width' => 2,
     'class' => 'flex-row-fluid',
 ), 2);
 
@@ -48,7 +48,7 @@ $this->polatan->add_meta(array(
     'namespace' => 'user_profile',
     'gui_saver' => true,
     'form'      => array(
-        'action' => null
+        'action' => site_url('admin/profile')
     ),
     'type' => 'card',
     'header'    =>    array(
@@ -81,29 +81,6 @@ $this->polatan->add_item(array(
     )
 ), 'user_profile', 2);
 
-// user password
-if ( $this->events->apply_filters('show_old_pass', true) ) {
-$this->polatan->add_item(array(
-    'type'  => 'password',
-    'label' => __('Old Password', 'aauth'),
-    'name'  => 'old_pass',
-), 'user_profile', 2);
-}
-
-$this->polatan->add_item(array(
-    'type'  => 'password',
-    'cols'  => array(
-        [
-            'label' => __('New Password', 'aauth'),
-            'name'  => 'password',
-        ],
-        [
-            'label' => __('Confirm New', 'aauth'),
-            'name'  => 'confirm',
-        ]
-    )
-), 'user_profile', 2);
-
 // load custom field for user creatin
 $this->events->do_action('load_users_custom_fields', array(
     'meta_namespace' => 'user_profile',
@@ -112,19 +89,52 @@ $this->events->do_action('load_users_custom_fields', array(
     'user_id'        => User::get()->id
 ));
 
+/**
+ * 
+ */
+$this->polatan->add_col(array(
+    'width' => 1,
+    'class' => 'flex-row-fluid',
+), 3);
 // Connected Apps
-// $this->polatan->add_meta(array(
-//     'col_id'    => 2,
-//     'namespace' => 'user_apps',
-//     'type' => 'card',
-//     'header'    =>    array(
-//         'title'     => __( 'Connected Applications'),
-//         'sub_title' => 'Change your settings'
-//     ),
-//     'gui_saver' => false,
-//     'form'      => array(
-//         'action' => null
-//     )
-// ));
+$this->polatan->add_meta(array(
+    'col_id'    => 3,
+    'namespace' => 'user_pass',
+    'gui_saver' => true,
+    'form'      => array(
+        'action' => site_url('admin/profile/change_password')
+    ),
+    'type' => 'card',
+    'header'    =>    array(
+        'title'    =>  'Change Password',
+        'sub_title' => 'Change your account password'
+    ),
+    'footer'    =>    array(
+        'submit'    =>    array(
+            'label' => __('Edit Password')
+        )
+    ),
+));
+
+// user password
+if ( $this->events->apply_filters('show_old_pass', true) ) {
+$this->polatan->add_item(array(
+    'type'  => 'password',
+    'label' => __('Old Password', 'aauth'),
+    'name'  => 'old_pass',
+), 'user_pass', 3);
+}
+
+$this->polatan->add_item(array(
+    'type'  => 'password',
+    'label' => __('New Password', 'aauth'),
+    'name'  => 'password'
+), 'user_pass', 3);
+
+$this->polatan->add_item(array(
+    'type'  => 'password',
+    'label' => __('Confirm New', 'aauth'),
+    'name'  => 'confirm'
+), 'user_pass', 3);
 
 $this->polatan->output();
