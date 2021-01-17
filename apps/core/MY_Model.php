@@ -23,6 +23,9 @@ class MY_Model extends CI_Model
     /** @var string The primary key of the table. Used as the 'id' throughout. */
     protected $key = 'id';
 
+    /** @var string The primary key of the table. Used as the 'id' throughout. */
+    protected $autokey = [];
+
     /**
      * @var string Field name to use for the created time column in the DB table
      * if $set_created is enabled.
@@ -159,14 +162,6 @@ class MY_Model extends CI_Model
      * @see $before_insert
      */
     protected $after_delete = [];
-
-    /**
-     * @var string[] The names of callback methods within the extending model which
-     * will be called after the delete method.
-     *
-     * @see $before_insert
-     */
-    protected $autokey = [];
 
     /**
      * @var string[] The names of callback methods within the extending model which
@@ -455,8 +450,9 @@ class MY_Model extends CI_Model
     
             $this->load->library('autonumber');
             $config['id'] = ($last_id->num_rows() > 0) ? $last_id->row()->id : 0 ;
-            $config['digit'] = 4;
-            $config['awalan'] = $this->autokey['awalan'];
+            foreach($this->autokey as $key => $value) {
+                $config[$key] = $value;
+            }
             $this->autonumber->config($config);
             $auto_id = $this->autonumber->generate_id();
             

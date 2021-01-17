@@ -131,28 +131,14 @@ class User_model extends CI_Model
      * @param
     **/
 
-    public function edit($user_id, $email, $password, $group_id, $user_group, $old_password = null, $mode = 'edit', $user_status = '0')
+    public function edit($mode = 'edit', $user_id, $email = null, $group_id = null, $user_group = null, $user_status = '0')
     {
         $return = 'updated';
-        // old password has been defined
-        if ($old_password != null) 
-        {
-            // get user using old password
-            $query = $this->aauth->get_user($user_id);
-			$_password = ($this->aauth->config_vars['use_password_hash'] ? $old_password : $this->aauth->hash_password($old_password, $user_id));
-            // if password is correct
-			if ($this->aauth->verify_password($_password, $query->pass)) {
-                $this->aauth->update_user($user_id, $email, $password);
-            } 
-            else {
-                return 'old-pass-incorrect';
-            }
-        }
 
         if ($mode == 'profile') 
         {
             // Change user password and email
-            $this->aauth->update_user($user_id, $email, $password);
+            $this->aauth->update_user($user_id, $email);
         }
 
         // This prevent editing privilege on profile dash
@@ -164,7 +150,7 @@ class User_model extends CI_Model
             $this->aauth->add_member($user_id, $group_id);
 
             // Change user password and email
-            $this->aauth->update_user($user_id, $email, $password);
+            $this->aauth->update_user($user_id, $email);
 
             // User Status
             $user = $this->aauth->get_user($user_id);
@@ -188,6 +174,29 @@ class User_model extends CI_Model
         User::upload_user_image($user_id);
 
         return $return;
+    }
+
+    public function change_password($user_id, $password, $old_password)
+    {
+        $return = 'password_updated';
+        
+        // old password has been defined
+        if ($old_password != null) 
+        {
+            // get user using old password
+            $query = $this->aauth->get_user($user_id);
+            $_password = ($this->aauth->config_vars['use_password_hash'] ? $old_password : $this->aauth->hash_password($old_password, $user_id));
+            // if password is correct
+            if ($this->aauth->verify_password($_password, $query->pass)) {
+                $this->aauth->update_user($user_id, false, $password);
+                return $return;
+            } 
+            else {
+                return 'old-pass-incorrect';
+            }
+        }
+
+        return 'old-pass-empty';
     }
 
     /**

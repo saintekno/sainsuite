@@ -40,6 +40,8 @@ $lang[ 'recovery-notice-message' ]       = __('Please enter your email addresse.
 $lang[ 'user-logged-in' ]                = __('You logged in successfully.');
 $lang[ 'login-required' ]                = __('Login is required.');
 $lang[ 'old-pass-incorrect' ] = __('Your old password is not correct.');
+$lang[ 'password-updated' ] = __('Update password.');
+$lang[ 'old-pass-empty' ] = __('Your old password is empty.');
 
 // Registration
 $lang[ 'username-used' ]          = __('Username is already used by another user.');
