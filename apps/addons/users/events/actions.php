@@ -47,14 +47,14 @@ class Users_Action extends MY_Addon
                     'label' => __('First Name', 'aauth'),
                     'value' => ($json_vars == null) 
                         ? set_value('firstname') 
-                        : set_value('firstname', $meta->firstname),
+                        : set_value('firstname', riake('firstname', $meta )),
                 ],
                 [
                     'name'  => 'lastname',
                     'label' => __('Last Name', 'aauth'),
                     'value' => ($json_vars == null)
                         ? set_value('lastname') 
-                        : set_value('lastname', $meta->lastname),
+                        : set_value('lastname', riake('lastname', $meta )),
                 ]
             )
         ], $config[ 'meta_namespace' ], $config[ 'col_id' ]);
@@ -65,7 +65,7 @@ class Users_Action extends MY_Addon
             'label' => __('Phone'),
             'value' => ($json_vars == null) 
                 ? set_value('phone') 
-                : set_value('phone', $meta->phone),
+                : set_value('phone', riake('phone', $meta )),
         ], $config[ 'meta_namespace' ], $config[ 'col_id' ]);
 
         $this->polatan->add_item([
@@ -74,7 +74,7 @@ class Users_Action extends MY_Addon
             'label' => __('Address'),
             'value' => ($json_vars == null) 
                 ? set_value('address') 
-                : set_value('address', $meta->address),
+                : set_value('address', riake('address', $meta )),
         ], $config[ 'meta_namespace' ], $config[ 'col_id' ]);
 
         $this->polatan->add_item( array(
