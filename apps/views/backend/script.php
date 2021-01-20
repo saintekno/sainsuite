@@ -47,7 +47,7 @@
             } else if (result.dismiss === "cancel") {
                 Swal.fire(
                     "Cancelled",
-                    "Your imaginary file is safe :)",
+                    "Anda tidak memiliki izin hapus data :)",
                     "error"
                 )
             }
