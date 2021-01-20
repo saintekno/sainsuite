@@ -202,6 +202,13 @@ if ($addons) :
                                     class="btn btn-success btn-sm text-uppercase font-weight-bolder mr-2" data-action="enable">
                                         <i class="fa fa-toggle-on"></i> Enable
                                     </a>
+                                    
+                                    <a href="#" class="btn btn-light-danger font-weight-bold btn-sm"
+                                        data-head="<?php _e( 'Would you like to delete this addon?');?>"
+                                        data-url="<?php echo site_url(array( 'admin', 'addons', 'remove', $addon_namespace )); ?>"
+                                        onclick="deleteConfirmation(this)">
+                                        <i class="fa fa-trash p-0"></i>
+                                    </a>
                                     <?php
                                 } else {?>
                                     <a href="<?php echo site_url(array( 'admin', 'addons', 'disable', $addon_namespace ));?>" 
@@ -211,13 +218,6 @@ if ($addons) :
                                 <?php } ?>
     
                                 <?php $this->events->do_action('do_menu_addon', $addon_namespace) ?>
-    
-                                <a href="#" class="btn btn-light-danger font-weight-bold btn-sm"
-                                    data-head="<?php _e( 'Would you like to delete this addon?');?>"
-                                    data-url="<?php echo site_url(array( 'admin', 'addons', 'remove', $addon_namespace )); ?>"
-                                    onclick="deleteConfirmation(this)">
-                                    <i class="fa fa-trash p-0"></i>
-                                </a>
                             <?php endif;?>
                         </div>
                         <!--end::Footer-->

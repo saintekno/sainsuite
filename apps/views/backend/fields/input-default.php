@@ -3,7 +3,7 @@ $datepicker = riake('datepicker', $_item);
 ?>
 
 <?php if (riake('cols', $_item)) : ?>
-<div class="form-group row" id="<?php echo riake('row_id', $_item);?>">
+<div class="form-group row <?php echo riake('row_class', $_item);?>" id="<?php echo riake('row_id', $_item);?>">
     <?php
     foreach (force_array(riake('cols', $_item)) as $col) : 
     $count_cols = count(riake('cols', $_item));
@@ -39,7 +39,7 @@ $datepicker = riake('datepicker', $_item);
     <?php endforeach; ?>
 </div>
 <?php else :?>
-<div class="form-group row" id="<?php echo riake('row_id', $_item);?>">
+<div class="form-group row <?php echo riake('row_class', $_item);?>" id="<?php echo riake('row_id', $_item);?>">
     <div class="col-12">
         <label class="font-size-lg font-weight-bold">
             <?php echo riake('label', $_item);?>:

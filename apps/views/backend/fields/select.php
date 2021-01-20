@@ -2,9 +2,10 @@
 $select_ = @$_item[ 'data' ] != null;
 ?>
 
-<div class="form-group row">
-    <?php if (riake('cols', $_item)) :
-        foreach (force_array(riake('cols', $_item)) as $col) : 
+<?php if (riake('cols', $_item)) : ?>
+<div class="form-group row <?php echo riake('row_class', $_item);?>" id="<?php echo riake('row_id', $_item);?>">
+    <?php
+    foreach (force_array(riake('cols', $_item)) as $col) : 
         $count_cols = count(riake('cols', $_item));
         $select_ = @$col[ 'data' ] != null;
         ?>
@@ -14,7 +15,7 @@ $select_ = @$_item[ 'data' ] != null;
                 <?php echo riake('required', $col) === true ? '<span class="text-danger">*</span>' : '';?>
             </label>
 
-            <select class="form-control <?php echo ($type == 'multiple') ? 'selectpicker' : ''; ?> <?php echo riake('strings', $col);?>" 
+            <select class="form-control <?php echo ($type == 'multiple') ? 'selectpicker' : ''; ?> <?php echo riake('class', $col);?>" 
                 data-live-search="true"
                 <?php echo $multiple; ?> 
                 <?php echo riake('disabled', $col) === true ? 'disabled="disabled"' : '';?>
@@ -46,14 +47,16 @@ $select_ = @$_item[ 'data' ] != null;
             <span class="form-text text-muted"><?php echo $description;?></span>
         </div>
         <?php endforeach; ?>
-    <?php else :?>
+</div>
+<?php else :?>
+<div class="form-group row <?php echo riake('row_class', $_item);?>" id="<?php echo riake('row_id', $_item);?>">
     <div class="col-12">
         <label class="font-size-lg font-weight-bold" for="<?php echo $label; ?>">
             <?php echo $label; ?>
             <?php echo $required === true ? '<span class="text-danger">*</span>' : '';?>
         </label>
 
-        <select class="form-control <?php echo ($type == 'multiple') ? 'selectpicker' : ''; ?> <?php echo riake('strings', $_item);?>"
+        <select class="form-control <?php echo ($type == 'multiple') ? 'selectpicker' : ''; ?> <?php echo riake('class', $_item);?>"
             data-live-search="true"
             <?php echo $multiple; ?> 
             <?php echo $disabled === true ? 'disabled="disabled"' : '';?>
@@ -84,8 +87,8 @@ $select_ = @$_item[ 'data' ] != null;
         </select>
         <span class="form-text text-muted"><?php echo $description;?></span>
     </div>
-    <?php endif;?>
 </div>
+<?php endif;?>
 
 <?php if ($type == 'multiple' && $select_) : ?>
 <script>

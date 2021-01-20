@@ -8,6 +8,11 @@
             cancelButtonText: "No, cancel!",
             reverseButtons: true
         }).then(function(result) {
+            <?php if (! User::control('delete.'.$namespace)) { ?>
+                result.value = false;
+                result.dismiss = 'cancel';
+            <?php } ?>
+
             if (result.value) {
                 // Get value from checked checkboxes
                 var ids_arr = [];
@@ -60,16 +65,19 @@
             cancelButtonText: "No, cancel!",
             reverseButtons: true
         }).then(function(result) {
+            <?php if (! User::control('delete.'.$namespace)) { ?>
+                result.value = false;
+                result.dismiss = 'cancel';
+            <?php } ?>
+
             if (result.value) {
                 $.ajax({
                     url: url,
                     type: 'POST',
                     success: function(data) {
                         if ( $(el).closest('tr').length === 0 ) {
-                            $(el).closest('div.card').css('background','#F3F6F9');
                             $(el).closest('div.card').fadeOut(1500,function(){
                                 $(this).remove();
-                                location.reload(true);
                             });
                         } 
                         else {
@@ -88,7 +96,7 @@
             } else if (result.dismiss === "cancel") {
                 Swal.fire(
                     "Cancelled",
-                    "Your imaginary file is safe :)",
+                    "Anda tidak memiliki izin hapus data :)",
                     "error"
                 )
             }
