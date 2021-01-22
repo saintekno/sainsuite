@@ -198,7 +198,6 @@ class UsersHomeController extends MY_Addon
 
         // validation rules
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('user_email', __( 'User Email', 'aauth'), 'required|valid_email');
         $this->form_validation->set_rules('old_pass', __('Old Pass', 'aauth'), 'min_length[6]');
         $this->form_validation->set_rules('password', __( 'Password', 'aauth'), 'min_length[6]');
         $this->form_validation->set_rules('confirm', __( 'Confirm', 'aauth'), 'matches[password]');

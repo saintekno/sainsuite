@@ -48,8 +48,9 @@ class Users_Filters extends MY_Addon
 
     public function apps_logo()
     {
-		global $User_Options;
-        if ($this->aauth->is_loggedin()) {
+        global $User_Options;
+        if ($this->aauth->is_loggedin() && isset($User_Options['meta'])) 
+        {
             if (riake('theme-skin', $User_Options['meta']) == null) {
                 $logo = 'logo-dark.png';
             } 
