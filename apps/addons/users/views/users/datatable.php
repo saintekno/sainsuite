@@ -2,9 +2,14 @@
 var DatatableScript = function() {   
     // Read
     var read = function() {
-        var dataSet;
-		if ('<?php echo $users;?>' !== '') {
-            dataSet = JSON.parse('<?php echo $users;?>');
+        var dataSet = <?php echo $users;?>;
+        var temp;
+        for (i=0; i<dataSet.length; i++) 
+        {
+            if (isJson(dataSet[i].value)) {
+                temp = JSON.parse(dataSet[i].value.toString());
+                dataSet[i].value = temp;
+            }
         }
         var datatable = $('#kt_datatable').KTDatatable({
 			data: {
@@ -57,24 +62,22 @@ var DatatableScript = function() {
 						return output;
                     }
                 }, {
-                    field: 'group_name',
-                    title: 'Group',
-                }, {
                     field: 'last_login',
                     title: 'Last Login',
-					type: 'date',
-					format: 'MM/DD/YYYY',
                 }, {
                     field: 'last_activity',
                     title: 'Last Activity',
-					type: 'date',
+					template: function(row) {
+						return (row.last_activity) ? moment(row.last_activity).fromNow(true) : '-';
+					},
                 }, {
                     field: 'banned',
-                    title: 'Banned',
+                    title: 'Status',
+                    width: 50,
 					template: function(row) {
 						var banned = {
-							0   : {'title': 'None', 'class': ' label-light-primary'},
-							1: {'title': 'Banned', 'class': ' label-light-danger'},
+							0 : {'title': 'None', 'class': ' label-light-primary'},
+							1 : {'title': 'Banned', 'class': ' label-light-danger'},
 						};
 						return '<span class="label font-weight-bold label-lg ' + banned[row.banned].class + ' label-inline">' + banned[row.banned].title + '</span>';
 					},
@@ -129,7 +132,7 @@ var DatatableScript = function() {
         );
 
         $('#kt_datatable_search_status').on('change', function() {
-            datatable.search($(this).val().toLowerCase(), 'Group');
+            datatable.search($(this).val().toLowerCase(), 'group_name');
         });
     };
 
@@ -145,4 +148,21 @@ jQuery(document).ready(function() {
     DatatableScript.init();
 });
 
+function isJson(item) {
+    item = typeof item !== "string"
+        ? JSON.stringify(item)
+        : item;
+
+    try {
+        item = JSON.parse(item);
+    } catch (e) {
+        return false;
+    }
+
+    if (typeof item === "object" && item !== null) {
+        return true;
+    }
+
+    return false;
+}
 </script>
