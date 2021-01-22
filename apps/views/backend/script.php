@@ -8,7 +8,7 @@
             cancelButtonText: "No, cancel!",
             reverseButtons: true
         }).then(function(result) {
-            <?php if (! User::control('delete.'.$namespace)) { ?>
+            <?php if (isset($namespace) && ! User::control('delete.'.$namespace)) { ?>
                 result.value = false;
                 result.dismiss = 'cancel';
             <?php } ?>
@@ -65,7 +65,7 @@
             cancelButtonText: "No, cancel!",
             reverseButtons: true
         }).then(function(result) {
-            <?php if (! User::control('delete.'.$namespace)) { ?>
+            <?php if (isset($namespace) && ! User::control('delete.'.$namespace)) { ?>
                 result.value = false;
                 result.dismiss = 'cancel';
             <?php } ?>
