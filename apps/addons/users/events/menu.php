@@ -95,7 +95,7 @@ class Users_Menu extends MY_Addon
     public function after_user_card()
     {
         return '
-        <a href="'. xss_clean(site_url(array( 'admin', 'profile' ) ) ).'" class="navi-item hoverable ">
+        <a href="'. xss_clean(site_url(array( 'admin', 'profile' ) ) ).'" class="navi-item hoverable mb-0">
             <div class="navi-link">
                 <div class="symbol symbol-40 bg-light mr-3">
                     <div class="symbol-label bg-hover-white">

@@ -27,7 +27,7 @@
                     <!--begin::Logo-->
                     <div class="login-logo pb-xl-10 pb-5">
                         <a href="<?php echo site_url();?>">
-                            <img alt="<?php echo get('app_name');?>" src="<?php echo $this->events->apply_filters( 'signin_logo', upload_url().'system/logo-light-sm.png' ); ?>" class="max-h-40px" />
+                            <img alt="<?php echo get('app_name');?>" src="<?php echo $this->events->apply_filters( 'apps_logo', '' ); ?>" class="max-h-40px" />
                         </a>
                     </div>
                     <!--end::Logo-->

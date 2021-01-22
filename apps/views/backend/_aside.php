@@ -5,12 +5,12 @@
 	<div class="aside-primary d-flex flex-column align-items-center flex-row-auto">
 
         <!--begin::Brand-->
-		<div class="aside-brand d-flex flex-column align-items-center flex-column-auto py-7">
+		<div class="aside-brand d-flex flex-column align-items-center flex-column-auto py-5">
 
             <!--begin::Logo-->
             <a href="<?php echo site_url('admin'); ?>">
                 <div id="sain-spinner" class="position-absolute"></div>
-                <img alt="<?php echo get('app_name');?>" src="<?php echo $this->events->apply_filters( 'dashboard_logo_small', upload_url().'system/logo-light-sm.png' ); ?>" class="max-h-40px" />
+                <img alt="<?php echo get('app_name');?>" src="<?php echo upload_url().'system/logo-light-sm.png'; ?>" class="max-h-40px" />
             </a>
 
             <!--begin::Aside Toggle-->
@@ -125,9 +125,6 @@
                                 <span class="font-weight-bold font-size-h5 ">
                                     <?php echo User::get()->username;?>
                                 </span>
-                                <div class="text-muted mt-1">
-                                    <?php echo User::get_user_groups()[0]->definition;?>
-                                </div>
                                 <span class="navi-text text-muted text-hover-primary mt-1">
                                     <?php echo User::get()->email;?>
                                 </span>
@@ -139,12 +136,14 @@
 
                         <!--begin::Item-->
                         <li class="navi-item font-size-xs">
-                            <a href="<?php echo xss_clean( site_url('logout' ) . '?redirect=' . urlencode(current_url()) );?>" class="navi-link">
-                                <span class="navi-icon mr-2">
-                                    <span class="svg-icon">
-                                        <img src="<?php echo asset_url('svg/Sign-out.svg');?>" />
-                                    </span> 
-                                </span>  
+                            <a href="<?php echo xss_clean( site_url('logout' ) . '?redirect=' . urlencode(current_url()) );?>" class="navi-link hoverable mb-0">
+                                <div class="symbol symbol-40 bg-light mr-3">
+                                    <div class="symbol-label bg-hover-white">
+                                        <span class="svg-icon svg-icon-md svg-icon-success">
+                                        <i class="fas fa-sign-out-alt text-success"></i>
+                                        </span>
+                                    </div>
+                                </div>
                                 <span class="navi-text"><?php _e('Sign Out');?></span>
                             </a>
                         </li>

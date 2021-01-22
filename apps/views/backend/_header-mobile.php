@@ -1,10 +1,6 @@
 <div id="kt_header_mobile" class="header-mobile">
     <a href="<?php echo site_url('admin'); ?>">
-		<?php 
-		global $User_Options;
-		$meta = (isset($User_Options['meta'])) ? $User_Options['meta'] : '';
-		$logo = (riake('theme-skin', $meta) == 'skin-dark') ? 'logo-light.png' : 'logo-dark.png'; ?>
-        <img alt="<?php echo get('app_name');?>" src="<?php echo $this->events->apply_filters( 'signin_logo_mobile', upload_url().'system/'.$logo); ?>" class="logo-default max-h-30px" />
+        <img alt="<?php echo get('app_name');?>" src="<?php echo $this->events->apply_filters( 'apps_logo', ''); ?>" class="logo-default max-h-30px" />
     </a>
     <div class="d-flex align-items-center">
 		<?php if($this->events->has_filter('load_sidebar')) : ?>
@@ -70,8 +66,11 @@
 					<!--begin::Footer-->
 					<div class="navi-separator mt-3"></div>
 					<div class="navi-footer px-8 py-5">
-						<a href="<?php echo xss_clean($this->events->apply_filters('user_header_sign_out_link', site_url('logout' ) . '?redirect=' . urlencode(current_url())));?>" class="btn btn-light-primary font-weight-bold"><?php _e('Sign Out');?></a>
-						<a href="#" class="btn btn-clean font-weight-bold">Upgrade Plan</a>
+						<a href="#" class="font-weight-bold text-muted">Upgrade Plan</a>
+						<a href="<?php echo xss_clean($this->events->apply_filters('user_header_sign_out_link', site_url('logout' ) . '?redirect=' . urlencode(current_url())));?>" class="btn btn-light-danger font-weight-bold">
+							<?php _e('Sign Out');?>
+							<i class="fas fa-sign-out-alt"></i>
+						</a>
 					</div>
 					<!--end::Footer-->
 				</div>

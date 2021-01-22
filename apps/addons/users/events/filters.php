@@ -19,7 +19,7 @@ class Users_Filters extends MY_Addon
         parent::__construct();
         
         $this->events->add_filter('custom_user_meta', array( $this, 'custom_user_meta' ), 10, 1);
-        $this->events->add_filter('signin_logo', array( $this, 'signin_logo' ));
+        $this->events->add_filter('apps_logo', array( $this, 'apps_logo' ), 5, 1);
         $this->events->add_filter('dashboard_skin_class', array( $this, 'dashboard_skin_class' ), 5, 1);
         $this->events->add_filter('dashboard_body_class', array( $this, 'dashboard_body_class' ), 5, 1);
         $this->events->add_filter('user_menu_name', array( $this, 'user_menu_name' ));
@@ -46,9 +46,23 @@ class Users_Filters extends MY_Addon
         return $fields;
     }
 
-    public function signin_logo()
+    public function apps_logo()
     {
-        return upload_url('system/logo-dark.png');
+		global $User_Options;
+        if ($this->aauth->is_loggedin()) {
+            if (riake('theme-skin', $User_Options['meta']) == null) {
+                $logo = 'logo-dark.png';
+            } 
+            elseif (riake('theme-skin', $User_Options['meta']) == 'skin-light') {
+                $logo = 'logo-dark.png';
+            }
+            else {
+                $logo = 'logo-light.png';
+            }
+        } else {
+            $logo = 'logo-dark.png';
+        }
+        return upload_url('system/'.$logo);
     }
 
     /**

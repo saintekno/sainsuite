@@ -7,16 +7,15 @@
 
 		<!--begin::Copyright-->
 		<div class="text-muted order-2 order-md-1">
-			<?php _e( 'Thank you for using' );?>
 			<a href="http://saintekno.id/" target="_blank" class="text-muted text-hover-primary font-weight-bold">
-				<?php echo $this->events->apply_filters('dashboard_footer_text', sprintf( __( '%s' ), get( 'app_name' ) ) );?>
+				<?php echo $this->events->apply_filters('dashboard_footer_text', sprintf( __( '%s %s' ), __( 'Thank you for using' ), get( 'app_name' ) ) );?>
 			</a>
 		</div>
 
 		<!--begin::Nav-->
-		<div class="nav nav-dark order-1 order-md-2 text-muted"> 
-			<?php echo date('Y');?> &copy; &nbsp;
+		<div class="nav nav-dark order-1 order-md-2 text-muted text-center"> 
 			<a href="<?php echo site_url('admin/about'); ?>" class="nav-link p-0">
+				<?php echo date('Y');?> &copy;
 				<?php echo $this->events->apply_filters( 'dashboard_footer_right', sprintf( __( 'Version %s' ), get('version') ) );?>
 			</a>
 		</div>
