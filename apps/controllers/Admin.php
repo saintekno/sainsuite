@@ -259,7 +259,7 @@ class Admin extends MY_Controller
                 
             case "extract":
                 // Can user access.addons ?
-                if (! User::control('extract.addons')) {
+                if (! User::control('extract.addons') && $this->aauth->is_admin()) {
                     $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
                     redirect(site_url('admin/page404'));
                 }
@@ -469,7 +469,7 @@ class Admin extends MY_Controller
         elseif ($page === 'extract') 
         {
             // Can user access.themes ?
-            if (! User::control('extract.themes')) {
+            if (! User::control('extract.themes') && $this->aauth->is_admin()) {
                 $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
                 redirect(site_url('admin/page404'));
             }
@@ -490,7 +490,7 @@ class Admin extends MY_Controller
     {
         if (in_array($mode, array( 'save', 'merge' ))) 
         {
-            // Can user extract addons ?
+            // Can user edit options ?
             if (! User::control('edit.options')) {
                 $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
                 redirect(site_url('admin/page404'));
@@ -589,7 +589,7 @@ class Admin extends MY_Controller
     **/
     public function settings()
     {
-        // Can user access addons ?
+        // Can user access settings ?
         if (! User::control('create.options') &&
             ! User::control('read.options')
         ) {
