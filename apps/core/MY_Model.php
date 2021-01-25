@@ -469,9 +469,15 @@ class MY_Model extends CI_Model
         }
 
         // Insert it
-        if ($this->db->insert($this->table_name, $data)) {
-            if ($this->return_insert_id) {
-                $id = $this->db->insert_id();
+        if ($this->db->insert($this->table_name, $data)) 
+        {
+            if ($this->return_insert_id) 
+            {
+                if ( is_array($this->autokey) ) {
+                    $id = $auto_id;
+                } else {
+                    $id = $this->db->insert_id();
+                }
                 return $this->trigger('after_insert', $id);
             }
             return true;

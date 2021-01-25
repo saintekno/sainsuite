@@ -34,7 +34,7 @@ $datepicker = riake('datepicker', $_item);
             <div class="input-group-append"><span class="input-group-text"><?php echo riake('append', $col);?></span></div>
         </div>
         <?php endif; ?>
-        <span class="form-text text-muted"><?php echo xss_clean($description);?></span>
+        <span class="form-text text-muted"><?php echo xss_clean( riake('description', $col));?></span>
     </div>
     <?php endforeach; ?>
 </div>

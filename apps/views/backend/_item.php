@@ -21,7 +21,7 @@ foreach (force_array(riake('items', $meta)) as $_item)
     $description    =    @$_item[ 'description' ];
     $active         =    @$_item[ 'active' ];
     
-    if (in_array($type, array( 'text', 'password', 'email', 'tel' ))) 
+    if (in_array($type, array( 'text', 'password', 'email', 'tel', 'hidden' ))) 
     { 
         include( dirname( __FILE__ ) . '/fields/input-default.php' );
     }

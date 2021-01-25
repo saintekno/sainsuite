@@ -34,7 +34,7 @@ var DatatableScript = function() {
                 }, {
                     field: 'username',
                     title: 'User',
-                    width: 250,
+                    width: 200,
                     template: function(row) {
                         var stateNo = KTUtil.getRandomInt(0, 7);
                         var states = [
@@ -73,10 +73,10 @@ var DatatableScript = function() {
                 }, {
                     field: 'banned',
                     title: 'Status',
-                    width: 50,
+                    width: 100,
 					template: function(row) {
 						var banned = {
-							0 : {'title': 'None', 'class': ' label-light-primary'},
+							0 : {'title': 'Active', 'class': ' label-light-primary'},
 							1 : {'title': 'Banned', 'class': ' label-light-danger'},
 						};
 						return '<span class="label font-weight-bold label-lg ' + banned[row.banned].class + ' label-inline">' + banned[row.banned].title + '</span>';
