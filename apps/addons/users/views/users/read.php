@@ -32,7 +32,7 @@ $this->polatan->add_meta(array(
  */
 $this->polatan->add_item(array(
     'type'  => 'table-datatable',
-    'data' => $users,
+    'data' => json_decode($users),
 ), 'users', 1);
 
 /**

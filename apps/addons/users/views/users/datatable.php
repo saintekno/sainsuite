@@ -2,14 +2,17 @@
 var DatatableScript = function() {   
     // Read
     var read = function() {
-        var dataSet = <?php echo $users;?>;
-        var temp;
-        for (i=0; i<dataSet.length; i++) 
-        {
-            if (isJson(dataSet[i].value)) {
-                temp = JSON.parse(dataSet[i].value.toString());
-                dataSet[i].value = temp;
+        var array = <?php echo $users;?>;
+        var dataSet;
+        if (Object.keys(array).length) {
+            for (i=0; i<array.length; i++) 
+            {
+                if (isJson(array[i].value)) {
+                    dataSet = JSON.parse(array[i].value.toString());
+                    array[i].value = dataSet;
+                }
             }
+            dataSet = array;
         }
         var datatable = $('#kt_datatable').KTDatatable({
 			data: {
@@ -94,8 +97,8 @@ var DatatableScript = function() {
 					overflow: 'visible',
                     autoHide: false,
 					template: function(row) {
-                        var edit  = '<i class="fas fa-pen"></i>';
-                        var hapus = '<i class="fas fa-trash-alt"></i>';
+                        var edit  = '<button class="btn btn-sm btn-icon btn-light" disabled><i class="fas fa-pen"></i></button>';
+                        var hapus = '<button class="btn btn-sm btn-icon btn-light" disabled><i class="fas fa-trash-alt"></i></button>';
                         <?php if ( User::control('edit.users')) : ?>
 						edit = '\
                             <a class="btn btn-sm btn-icon btn-light-primary btn-hover-primary "\

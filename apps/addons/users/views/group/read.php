@@ -31,7 +31,7 @@ $this->polatan->add_meta(array(
  */
 $this->polatan->add_item(array(
     'type'  => 'table-datatable',
-    'data' => $groups
+    'data' => json_decode($groups),
 ), 'group', 1);
 
 /**

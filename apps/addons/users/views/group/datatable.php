@@ -2,8 +2,9 @@
 var DatatableScript = function() {   
     // Read
     var read = function() {
+        var array = <?php echo $groups;?>;
         var dataSet;
-		if ('<?php echo $groups;?>' !== '') {
+        if (Object.keys(array).length) {
             dataSet = JSON.parse('<?php echo $groups;?>');
         }
         var datatable = $('#kt_datatable').KTDatatable({
@@ -44,23 +45,31 @@ var DatatableScript = function() {
                             </div>\
                             <div class="ml-2">\
                                 <div class="text-dark-75 font-weight-bold line-height-sm">' + row.name + '</div>\
-                                <a href="#" class="font-size-sm text-dark-50 text-hover-primary">' +
-                                row.definition + '</a>\
                             </div>\
                         </div>';
 
 						return output;
                     }
                 }, {
+                    field: 'definition',
+                    title: 'Definition',
+                }, {
+                    field: '',
+                    title: 'Status',
+					template: function(row) {
+						return '<span class="label font-weight-bold label-lg label-light-primary label-inline">Active</span>';
+					},
+                }, {
 					field: 'Actions',
 					title: 'Actions',
                     textAlign: 'right',
 					sortable: false,
+                    width: 100,
 					overflow: 'visible',
                     autoHide: false,
 					template: function(row) {
-                        var edit  = '<i class="fas fa-pen"></i>';
-                        var hapus = '<i class="fas fa-trash-alt"></i>';
+                        var edit  = '<button class="btn btn-sm btn-icon btn-light" disabled><i class="fas fa-pen"></i></button>';
+                        var hapus = '<button class="btn btn-sm btn-icon btn-light" disabled><i class="fas fa-trash-alt"></i></button>';
                         <?php if ( User::control('edit.group')) : ?>
 						edit = '\
                             <a class="btn btn-sm btn-icon btn-light-primary btn-hover-primary "\
@@ -81,7 +90,7 @@ var DatatableScript = function() {
                         ';
                         <?php endif; ?>
 
-                        return edit +' '+hapus;
+                        return '<div class="btn-group">'+ edit +' '+ hapus +'</div>';
 					},
 				}
             ],
