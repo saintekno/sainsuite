@@ -10,9 +10,11 @@ global $Options;
                 
                 <div class="col-12 col-sm-6 order-2 order-xxl-1 d-md-flex align-items-center">
                     <div class="d-flex flex-wrap align-items-center mr-md-5 my-2">
+                        <?php if ( User::control('install.themes')) : ?>
                         <a href="#" class="btn btn-block btn-primary btn-lg font-weight-bold text-uppercase text-center" data-toggle="modal" data-target="#kt_inbox_compose">
                             <i class="ki ki-plus icon-1x"></i> themes
                         </a>
+                        <?php endif; ?>  
                     </div>
                     <div class="d-flex align-items-center mr-md-1 my-2">
                         <div class="input-group input-group-lg input-group-solid my-2">

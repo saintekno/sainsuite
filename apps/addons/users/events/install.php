@@ -180,7 +180,6 @@ class Users_Install extends MY_Addon
 
         // Addons Permissions
         $this->aauth->create_perm('read.addons', 'Read Addons');
-        $this->aauth->create_perm('create.addons', 'Create Addons');
         $this->aauth->create_perm('install.addons', 'Install Addons');
         $this->aauth->create_perm('update.addons', 'Update Addons');
         $this->aauth->create_perm('delete.addons', 'Delete Addons');
