@@ -34,7 +34,7 @@ var DatatableScript = function() {
                 }, {
                     field: 'username',
                     title: 'User',
-                    width: 200,
+					overflow: 'visible',
                     template: function(row) {
                         var stateNo = KTUtil.getRandomInt(0, 7);
                         var states = [
@@ -55,12 +55,16 @@ var DatatableScript = function() {
                             <div class="ml-2">\
                                 <div class="text-dark-75 font-weight-bold line-height-sm">' + row.username + '</div>\
                                 <a href="#" class="font-size-sm text-dark-50 text-hover-primary">' +
-                                row.email + '</a>\
+                                row.group_name + '</a>\
                             </div>\
                         </div>';
 
 						return output;
                     }
+                }, {
+                    field: 'email',
+                    title: 'Email',
+                    width: 200,
                 }, {
                     field: 'last_login',
                     title: 'Last Login',
@@ -73,7 +77,7 @@ var DatatableScript = function() {
                 }, {
                     field: 'banned',
                     title: 'Status',
-                    width: 100,
+                    width: 60,
 					template: function(row) {
 						var banned = {
 							0 : {'title': 'Active', 'class': ' label-light-primary'},
@@ -86,6 +90,7 @@ var DatatableScript = function() {
 					title: 'Actions',
                     textAlign: 'right',
 					sortable: false,
+                    width: 100,
 					overflow: 'visible',
                     autoHide: false,
 					template: function(row) {
@@ -111,7 +116,7 @@ var DatatableScript = function() {
                         ';
                         <?php endif; ?>
 
-                        return edit +' '+hapus;
+                        return '<div class="btn-group">'+ edit +' '+ hapus +'</div>';
 					},
 				}
             ],

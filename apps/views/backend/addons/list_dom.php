@@ -124,7 +124,7 @@ if ($addons) :
                 $addon_version = $_group[ 'application' ][ 'version' ];
                 $last_version = riake('migration_' . $addon_namespace, $Options);
                 ?>
-                <div class="col-xl-6">
+                <div class="col-xl-6 col-md-6">
                     <!--begin::Card-->
                     <div class="card card-custom gutter-b card-stretch">
                         <!--begin::Body-->
@@ -266,7 +266,7 @@ endif;
                             <div class="input-group">
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="customFile" name="extension_zip" required/>
-                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                    <label class="custom-file-label overflow-hidden" for="customFile">Choose file</label>
                                 </div>
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-primary mr-2">

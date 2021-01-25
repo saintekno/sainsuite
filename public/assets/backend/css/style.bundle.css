@@ -60343,6 +60343,10 @@ canvas {
     transition: all 0.3s ease;
     left: 60px; } }
 
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .header-fixed.sidebar-enabled .header {
+    right: 250px; } }
+
 .aside {
   -webkit-box-shadow: none;
   box-shadow: none;

@@ -111,7 +111,7 @@ if ($themes = Theme::get()) : ?>
             $theme_namespace = $_theme[ 'theme' ][ 'namespace' ];
             $theme_version = $_theme[ 'theme' ][ 'version' ];
             ?>
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-sm-6 col-md-4">
                 <!--begin::Card-->
                 <div class="card card-custom overlay gutter-b">
                     <div class="card-body p-0">
@@ -194,7 +194,7 @@ endif;
                             <div class="input-group">
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="customFile" name="extension_zip" required/>
-                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                    <label class="custom-file-label overflow-hidden" for="customFile">Choose file</label>
                                 </div>
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-primary mr-2">

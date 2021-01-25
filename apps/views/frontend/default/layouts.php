@@ -95,7 +95,9 @@
                     <?php echo $this->events->apply_filters( 'dashboard_footer_right', sprintf( __( '%s %s' ), get( 'app_name' ), get('version') ) );?>
                 </span>
                 <div class="links">
-                    <a href="http://saintekno.id/">Powered by SainTekno</a>
+                    <a href="http://saintekno.id/">
+                        <?php echo $this->events->apply_filters('dashboard_footer_text', sprintf( __( '%s' ), __( 'Powered by SainTekno' ) ) );?>
+                    </a>
                 </div>
             </div>
         </div>
