@@ -2716,8 +2716,10 @@ class Aauth {
 			return false;
 		}
 
+		$values = $this->get_user_var($key,$user_id);
+
 		// if var not set, set
-		if ($this->get_user_var($key,$user_id) ===false) {
+		if ( $values ===false) {
 
 			$data = array(
 				'data_key' => $key,
@@ -2729,16 +2731,25 @@ class Aauth {
 		}
 		// if var already set, overwrite
 		else {
-
-			$data = array(
-				'data_key' => $key,
-				'value' => $value,
-				'user_id' => $user_id
-			);
+			if ($key == 'meta') {
+				$values_row = json_decode($values, true);
+				$val = json_decode($value, true);
+				// Membaca data array menggunakan foreach
+				foreach (force_array($val) as $k => $d) {
+					// Perbarui data kedua
+					if (isset($val[$k])){
+						$values_row[$k] = $val[$k];
+					}
+				}
+				$values_row = ($values_row) ? $values_row : array();
+				$data['value'] = json_encode($values_row);
+			}
+			else {
+				$data['value'] = $value;
+			}
 
 			$this->aauth_db->where( 'data_key', $key );
 			$this->aauth_db->where( 'user_id', $user_id);
-
 			return $this->aauth_db->update( $this->config_vars['user_variables'], $data);
 		}
 	}
