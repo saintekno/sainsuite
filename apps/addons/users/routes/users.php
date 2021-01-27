@@ -189,11 +189,10 @@ class UsersHomeController extends MY_Addon
         $data['breadcrumbs'] = $this->breadcrumb->render();
 
         // Data
-        $user_group = farray($this->aauth->get_user_groups($user->id));
         $groups = $this->aauth->list_groups();
-        $user_group = farray($this->aauth->get_user_groups($index));
-		$data['groups'] = $groups;
+        $user_group = farray($this->aauth->get_user_groups($user->id));
 		$data['user'] = $user;
+		$data['groups'] = $groups;
 		$data['user_group'] = $user_group;
 
         // validation rules

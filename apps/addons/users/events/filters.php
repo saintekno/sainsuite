@@ -17,7 +17,11 @@ class Users_Filters extends MY_Addon
     public function __construct()
     {
         parent::__construct();
-        
+
+        $this->events->add_filter('load_user_profile', array( $this, 'load_user_profile' ));
+        $this->events->add_filter('load_user_pass', array( $this, 'load_user_pass' ));
+        $this->events->add_filter('load_users_advanced', array( $this, 'load_users_advanced' ));
+
         $this->events->add_filter('custom_user_meta', array( $this, 'custom_user_meta' ), 10, 1);
         $this->events->add_filter('apps_logo', array( $this, 'apps_logo' ), 5, 1);
         $this->events->add_filter('dashboard_skin_class', array( $this, 'dashboard_skin_class' ), 5, 1);
@@ -26,6 +30,172 @@ class Users_Filters extends MY_Addon
         $this->events->add_filter('user_menu_card_avatar_src', function () {
             return User::get_user_image_url(User::id());
         });
+    }
+    
+    /**
+    * Adds custom fields for user creation and edit
+    *
+    * @access : public
+    * @param : Array
+    * @return : Array
+    **/
+    public function load_user_profile($config)
+    {
+        $json_vars = (! empty($config['user'])) ? $this->aauth->get_user_var( 'meta', $config['user']->id ) : null;
+        $meta = ($json_vars) ? json_decode($json_vars) : null;
+        
+        $filed[] = array(
+            'type' => 'text',
+            'required'  => true,
+            'cols' => array(
+                [
+                    'label'    => __('User Name', 'aauth'),
+                    'name'     => 'username',
+                    (! empty($config['user'])) ? 'disabled' : '' => true,
+                    'value'    => (empty($config['user'])) 
+                        ? set_value('username')
+                        : set_value('username', $config['user']->username) 
+                ],
+                [
+                    'label'    => __('User Email', 'aauth'),
+                    'name'     => 'user_email',
+                    (! empty($config['user'])) ? 'disabled' : '' => true,
+                    'value'    => (empty($config['user'])) 
+                        ? set_value('user_email')
+                        : set_value('user_email', $config['user']->email) 
+                ]
+            )
+        );
+        $filed[] = array(
+            'type' => 'text',
+            'cols' => array(
+                [
+                    'name'  => 'firstname',
+                    'label' => __('First Name', 'aauth'),
+                    'value' => (empty($meta->firstname)) 
+                        ? set_value('firstname') 
+                        : set_value('firstname', $meta->firstname),
+                ],
+                [
+                    'name'  => 'lastname',
+                    'label' => __('Last Name', 'aauth'),
+                    'value' => (empty($meta->lastname)) 
+                        ? set_value('lastname') 
+                        : set_value('lastname', $meta->lastname),
+                ]
+            )
+        );
+        
+        if ($config['page'] != 'profile') :
+            $groups_array = array();
+            foreach ( force_array($config['groups']) as $group) {
+                $groups_array[ $group->id ] = $group->definition != null ? $group->definition : $group->name;
+            }
+            $filed[] = array(
+                'type' => 'select',
+                'cols' => array(
+                    [
+                        'name'  => 'user_status',
+                        'label' => __('User Status', 'aauth'),
+                        'options' => array(
+                            'default' => __( 'Default', 'aauth'),
+                            '0'       => __( 'Active' , 'aauth'),
+                            '1'       => __( 'Unactive' , 'aauth')
+                        ),
+                        'active' => (empty($config['user'])) 
+                            ? ''
+                            : $config['user']->banned 
+                    ],
+                    [
+                        'label'   => __('Add to a group', 'aauth'),
+                        'name'    => 'userprivilege',
+                        'disabled' => ($groups_array) 
+                            ? false 
+                            : true,
+                        'options' => $groups_array,
+                        'active'  => (empty($config['user_group'])) 
+                            ? null
+                            : $config['user_group']->group_id 
+                    ]
+                )
+            );
+        endif;
+
+        return $filed;
+    }
+    
+    public function load_user_pass($config)
+    {
+        if ( $this->events->apply_filters('show_old_pass', true) && $config['page'] == 'profile' ) {
+            $filed[] = array(
+                'type'  => 'password',
+                'label' => __('Old Password', 'aauth'),
+                'name'  => 'old_pass',
+            );
+        }
+        if ( ! empty($config['user']) && $config['page'] != 'profile' ) {
+            $filed[] = array(
+                'type'  => 'password',
+                'label' => __('Old Password', 'aauth'),
+                'name'  => 'old_pass',
+            );
+        }
+        $filed[] = array(
+            'type'  => 'password',
+            'required'  => (! empty($config['user']) && $config['page'] != 'profile') ? false : true,
+            'cols' => array(
+                [
+                    'label' => __('New Password', 'aauth'),
+                    'name'  => 'password'
+                ],
+                [
+                    'label' => __('Confirm New', 'aauth'),
+                    'name'  => 'confirm'
+                ]
+            )
+        );
+
+        return $filed;
+    }
+    
+    public function load_users_advanced($config)
+    {
+        $json_vars = (! empty($config['user'])) ? $this->aauth->get_user_var( 'meta', $config['user']->id ) : null;
+        $meta = ($json_vars) ? json_decode($json_vars) : null;
+        
+        $filed[] = array(
+            'type' => 'text',
+            'name'  => 'phone',
+            'label' => __('Phone'),
+            'value' => (empty($meta->phone)) 
+                ? set_value('phone') 
+                : set_value('phone', $meta->phone),
+        );
+        $filed[] = array(
+            'type' => 'textarea',
+            'name'  => 'address',
+            'label' => __('Address'),
+            'value' => (empty($meta->address)) 
+                ? set_value('address') 
+                : set_value('address', $meta->address),
+        );
+        $filed[] = array(
+            'type'  => 'input-image',
+            'wrapper'  => 'user',
+            'accept' => '.png, .jpg, .jpeg',
+            'label' => __('user_image'),
+            'name'  => 'user_image',
+            'id'  => 'user_image',
+            'value' => (empty($config['user'])) 
+                ? ''
+                : $config['user']->id
+        );
+        $filed[] = array(
+            'type' => 'dom',
+            'content' => $this->addon_view( 'users', 'profile/mode', compact( 'config' ), true )
+        );
+
+        return $filed;
     }
     
     /**
@@ -38,11 +208,19 @@ class Users_Filters extends MY_Addon
     
     public function custom_user_meta($fields)
     {
-        $fields[ 'phone' ] = ($fname = $this->input->post('phone')) ? $fname : '';
-        $fields[ 'address' ] = ($fname = $this->input->post('address')) ? $fname : '';
-        $fields[ 'firstname' ] = ($fname = $this->input->post('firstname')) ? $fname : '';
-        $fields[ 'lastname' ] = ($lname = $this->input->post('lastname')) ? $lname : '';
-        $fields[ 'theme-skin' ] = ($skin = $this->input->post('theme-skin')) ? $skin : '';
+        $item = array(
+            'phone' => '',
+            'address' => '',
+            'firstname' => '',
+            'lastname' => '',
+            'theme-skin' => '',
+        );
+        foreach (force_array($item) as $k => $d) {
+            // Perbarui data 
+            if ( $this->input->post($k) !== null) {
+                $fields[ $k ] = ($fname = $this->input->post($k)) ? $fname : '';
+            }
+        }
         return $fields;
     }
 

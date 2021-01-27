@@ -17,82 +17,9 @@ class Users_Action extends MY_Addon
     public function __construct()
     {
         parent::__construct();
-
-        $this->events->add_action('load_users_custom_fields', array( $this, 'load_users_custom_fields' ));
+        
         $this->events->add_action('registration_rules', array( $this, 'registration_rules' ));
         $this->events->add_action('app_init', array($this, 'check_login'));
-    }
-    
-    /**
-    * Adds custom fields for user creation and edit
-    *
-    * @access : public
-    * @param : Array
-    * @return : Array
-    **/
-    public function load_users_custom_fields($config)
-    {
-        // $this->polatan->add_item([
-        //     'type' => 'separator',
-        // ], $config[ 'meta_namespace' ], $config[ 'col_id' ]);
-
-        $json_vars = $this->aauth->get_user_var( 'meta', $config[ 'user_id' ] );
-        $meta = json_decode($json_vars);
-
-        $this->polatan->add_item([
-            'type' => 'text',
-            'cols' => array(
-                [
-                    'name'  => 'firstname',
-                    'label' => __('First Name', 'aauth'),
-                    'value' => ($json_vars == null) 
-                        ? set_value('firstname') 
-                        : set_value('firstname', riake('firstname', $meta )),
-                ],
-                [
-                    'name'  => 'lastname',
-                    'label' => __('Last Name', 'aauth'),
-                    'value' => ($json_vars == null)
-                        ? set_value('lastname') 
-                        : set_value('lastname', riake('lastname', $meta )),
-                ]
-            )
-        ], $config[ 'meta_namespace' ], $config[ 'col_id' ]);
-
-        $this->polatan->add_item([
-            'type' => 'text',
-            'name'  => 'phone',
-            'label' => __('Phone'),
-            'value' => ($json_vars == null) 
-                ? set_value('phone') 
-                : set_value('phone', riake('phone', $meta )),
-        ], $config[ 'meta_namespace' ], $config[ 'col_id' ]);
-
-        $this->polatan->add_item([
-            'type' => 'textarea',
-            'name'  => 'address',
-            'label' => __('Address'),
-            'value' => ($json_vars == null) 
-                ? set_value('address') 
-                : set_value('address', riake('address', $meta )),
-        ], $config[ 'meta_namespace' ], $config[ 'col_id' ]);
-
-        $this->polatan->add_item( array(
-            'type'  => 'input-image',
-            'wrapper'  => 'user',
-            'accept' => '.png, .jpg, .jpeg',
-            'label' => __('user_image'),
-            'name'  => 'user_image',
-            'id'  => 'user_image',
-            'value' => ($config[ 'user_id' ] != null) ? $config[ 'user_id' ] : '',
-        ), $config[ 'meta_namespace' ], $config[ 'col_id' ]);
-
-        riake( 'gui', $config )->add_item(array(
-            'type' => 'dom',
-            'content' => $this->addon_view( 'users', 'profile/mode', compact( 'config' ), true )
-        ), $config[ 'meta_namespace' ], $config[ 'col_id' ]);
-
-        unset( $config );
     }
     
     public function registration_rules()
