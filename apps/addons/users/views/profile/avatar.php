@@ -30,11 +30,11 @@
     </div>
     <div class="d-flex align-items-center justify-content-between mb-2">
         <span class="font-weight-bold mr-2">Phone:</span>
-        <span class="text-muted text-right"><?php echo (isset($User_Options['meta']) && $User_Options['meta']['phone'] != 0) ? $User_Options['meta']['phone'] : '-';?></span>
+        <span class="text-muted text-right"><?php echo (isset($User_Options['meta']) && !empty($User_Options['meta']['phone'])) ? $User_Options['meta']['phone'] : '-';?></span>
     </div>
     <div class="d-flex align-items-first justify-content-between">
         <span class="font-weight-bold mr-2">Address:</span>
-        <span class="text-muted text-right"><?php echo (isset($User_Options['meta']) && $User_Options['meta']['address'] != 0) ? $User_Options['meta']['address'] : '-';?></span>
+        <span class="text-muted text-right"><?php echo (isset($User_Options['meta']) && !empty($User_Options['meta']['address'])) ? $User_Options['meta']['address'] : '-';?></span>
     </div>
 </div>
 <!--end::Contact-->
