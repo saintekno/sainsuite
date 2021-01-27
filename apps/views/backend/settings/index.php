@@ -19,11 +19,6 @@ $this->polatan->add_meta(array(
     'col_id' => 1,
     'namespace' => 'settings',
     'gui_saver' => true,
-    'footer' => array(
-        'submit' => array(
-            'label' => __('Save Settings')
-        )
-    ),
     'type' => 'card'
 ));
 
@@ -66,7 +61,6 @@ $items_heading1 = $filed_heading1;
 /**
  * Heading 2
  */
-
 $filed_heading2[] = array(
     'permission'  => 'manage.core',
     'type'    => 'select',
@@ -85,10 +79,9 @@ $items_heading2 = $this->events->apply_filters('load_advance_setting', $filed_he
  */
 $this->polatan->add_item(array(
     'type'  => 'accordions',
-    'datepicker' => true,
     'accordion' => array(
         [
-            'id' => 'heading1',
+            'id' => 1,
             'heading'=> __('General Settings'),
             'description' => 'Update your site name, description, language, and visibility..',
             'body' => array(
@@ -96,7 +89,7 @@ $this->polatan->add_item(array(
             )
         ],
         [
-            'id' => 'heading2',
+            'id' => 2,
             'permission'  => 'manage.core',
             'heading'=> __('Advanced Settings'),
             'description' => 'Advanced settings, open register user',
