@@ -108,6 +108,7 @@ $autoload['helper'] = array(
     'theme',
     'request',
     'url_slug', 
+    'inflector', 
     'security',
     'multilanguage'
 );
