@@ -690,14 +690,18 @@ body.skin-dark {
   body.skin-dark .table.table-separate th,
   body.skin-dark .table.table-separate td {
     border-bottom: 1px solid #3F4254; }
-  body.skin-dark .accordion.accordion-toggle-arrow .card .card-header .card-title {
-    color: #ffffff; }
-    body.skin-dark .accordion.accordion-toggle-arrow .card .card-header .card-title:after {
+  body.skin-dark .accordion.accordion-toggle-arrow .card .card-header {
+    padding: 0 1rem;
+    background-color: #1a1e35;
+    border-radius: 0.42rem; }
+    body.skin-dark .accordion.accordion-toggle-arrow .card .card-header .card-title {
       color: #ffffff; }
-    body.skin-dark .accordion.accordion-toggle-arrow .card .card-header .card-title.collapsed {
-      color: #D1D3E0; }
-      body.skin-dark .accordion.accordion-toggle-arrow .card .card-header .card-title.collapsed:after {
+      body.skin-dark .accordion.accordion-toggle-arrow .card .card-header .card-title:after {
+        color: #ffffff; }
+      body.skin-dark .accordion.accordion-toggle-arrow .card .card-header .card-title.collapsed {
         color: #D1D3E0; }
+        body.skin-dark .accordion.accordion-toggle-arrow .card .card-header .card-title.collapsed:after {
+          color: #D1D3E0; }
   body.skin-dark .accordion.accordion-light .card {
     border-top: 1px solid #3F4254; }
     body.skin-dark .accordion.accordion-light .card:first-child {
@@ -1402,14 +1406,18 @@ body.skin-light {
   body.skin-light .table.table-separate th,
   body.skin-light .table.table-separate td {
     border-bottom: 1px solid #EBEDF3; }
-  body.skin-light .accordion.accordion-toggle-arrow .card .card-header .card-title {
-    color: #1d223c; }
-    body.skin-light .accordion.accordion-toggle-arrow .card .card-header .card-title:after {
+  body.skin-light .accordion.accordion-toggle-arrow .card .card-header {
+    padding: 0 1rem;
+    background-color: #F3F6F9;
+    border-radius: 0.42rem; }
+    body.skin-light .accordion.accordion-toggle-arrow .card .card-header .card-title {
       color: #1d223c; }
-    body.skin-light .accordion.accordion-toggle-arrow .card .card-header .card-title.collapsed {
-      color: #181C32; }
-      body.skin-light .accordion.accordion-toggle-arrow .card .card-header .card-title.collapsed:after {
+      body.skin-light .accordion.accordion-toggle-arrow .card .card-header .card-title:after {
+        color: #1d223c; }
+      body.skin-light .accordion.accordion-toggle-arrow .card .card-header .card-title.collapsed {
         color: #181C32; }
+        body.skin-light .accordion.accordion-toggle-arrow .card .card-header .card-title.collapsed:after {
+          color: #181C32; }
   body.skin-light .accordion.accordion-light .card {
     border-top: 1px solid #EBEDF3; }
     body.skin-light .accordion.accordion-light .card:first-child {
@@ -2135,14 +2143,18 @@ body.skin-tosca {
   body.skin-tosca .table.table-separate th,
   body.skin-tosca .table.table-separate td {
     border-bottom: 1px solid #EBEDF3; }
-  body.skin-tosca .accordion.accordion-toggle-arrow .card .card-header .card-title {
-    color: #1d223c; }
-    body.skin-tosca .accordion.accordion-toggle-arrow .card .card-header .card-title:after {
+  body.skin-tosca .accordion.accordion-toggle-arrow .card .card-header {
+    padding: 0 1rem;
+    background-color: #F3F6F9;
+    border-radius: 0.42rem; }
+    body.skin-tosca .accordion.accordion-toggle-arrow .card .card-header .card-title {
       color: #1d223c; }
-    body.skin-tosca .accordion.accordion-toggle-arrow .card .card-header .card-title.collapsed {
-      color: #181C32; }
-      body.skin-tosca .accordion.accordion-toggle-arrow .card .card-header .card-title.collapsed:after {
+      body.skin-tosca .accordion.accordion-toggle-arrow .card .card-header .card-title:after {
+        color: #1d223c; }
+      body.skin-tosca .accordion.accordion-toggle-arrow .card .card-header .card-title.collapsed {
         color: #181C32; }
+        body.skin-tosca .accordion.accordion-toggle-arrow .card .card-header .card-title.collapsed:after {
+          color: #181C32; }
   body.skin-tosca .accordion.accordion-light .card {
     border-top: 1px solid #EBEDF3; }
     body.skin-tosca .accordion.accordion-light .card:first-child {
