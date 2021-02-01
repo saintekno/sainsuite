@@ -1,44 +1,43 @@
-<?php
-$datepicker = riake('datepicker', $_item);
-?>
-
 <?php if (riake('cols', $_item)) : ?>
+
 <div class="form-group row <?php echo riake('row_class', $_item);?>" id="<?php echo riake('row_id', $_item);?>">
     <?php
     foreach (force_array(riake('cols', $_item)) as $col) : 
-    $count_cols = count(riake('cols', $_item));
-    $datepicker = riake('datepicker', $col);
-    ?>
-    <div class="col-<?php echo ($count_cols * 3) * 12 / ($count_cols * 3) / $count_cols ;?>">
-        <label class="font-size-lg font-weight-bold">
-            <?php echo riake('label', $col);?>:
-            <?php echo riake('required', $col) === true ? '<span class="text-danger">*</span>' : '';?>
-        </label>
-        
-        <?php if (riake('append', $col)) :?>
-        <div class="input-group">
-        <?php endif; ?>
+        $count_cols = count(riake('cols', $_item));
+        $datepicker = riake('datepicker', $col);
+        ?>
+        <div class="col-<?php echo ($count_cols * 3) * 12 / ($count_cols * 3) / $count_cols ;?> <?php echo riake('col_class', $col);?>">
+            <label class="font-size-lg font-weight-bold">
+                <?php echo riake('label', $col);?>:
+                <?php echo riake('required', $col) === true ? '<span class="text-danger">*</span>' : '';?>
+            </label>
+            
+            <?php if (riake('append', $col)) :?>
+            <div class="input-group">
+            <?php endif; ?>
 
-            <input class="form-control <?php echo riake('class', $col);?>" 
-                <?php echo riake('disabled', $col) === true ? 'disabled="disabled"' : '';?>
-                <?php echo riake('required', $col) === true ? 'required' : '';?>
-                <?php echo riake('readonly', $col) === true ? 'readonly' : '';?>
-                <?php echo riake('attr', $col);?>
-                type="<?php echo $type;?>" 
-                id="<?php echo riake('id', $col);?>" 
-                name="<?php echo riake('name', $col);?>" 
-                placeholder="<?php echo riake('placeholder', $col);?>"
-                value="<?php echo riake('value', $col);?>" />
-        
-        <?php if (riake('append', $col)) :?>
-            <div class="input-group-append"><span class="input-group-text"><?php echo riake('append', $col);?></span></div>
+                <input class="form-control <?php echo riake('class', $col);?>" 
+                    <?php echo riake('disabled', $col) === true ? 'disabled="disabled"' : '';?>
+                    <?php echo riake('required', $col) === true ? 'required' : '';?>
+                    <?php echo riake('readonly', $col) === true ? 'readonly' : '';?>
+                    <?php echo riake('attr', $col);?>
+                    type="<?php echo $type;?>" 
+                    id="<?php echo riake('id', $col);?>" 
+                    name="<?php echo riake('name', $col);?>" 
+                    placeholder="<?php echo riake('placeholder', $col);?>"
+                    value="<?php echo riake('value', $col);?>" />
+            
+            <?php if (riake('append', $col)) :?>
+                <div class="input-group-append"><span class="input-group-text"><?php echo riake('append', $col);?></span></div>
+            </div>
+            <?php endif; ?>
+            <span class="form-text text-muted"><?php echo xss_clean( riake('description', $col));?></span>
         </div>
-        <?php endif; ?>
-        <span class="form-text text-muted"><?php echo xss_clean( riake('description', $col));?></span>
-    </div>
     <?php endforeach; ?>
 </div>
+
 <?php else :?>
+
 <div class="form-group row <?php echo riake('row_class', $_item);?>" id="<?php echo riake('row_id', $_item);?>">
     <div class="col-12">
         <label class="font-size-lg font-weight-bold">
@@ -68,9 +67,13 @@ $datepicker = riake('datepicker', $_item);
         <span class="form-text text-muted"><?php echo xss_clean($description);?></span>
     </div>
 </div>
+
 <?php endif;?>
 
-<?php if ($datepicker) :?>
+<?php 
+$datepicker = riake('datepicker', $_item);
+if ($datepicker) :
+?>
 <script>
 var KTBootstrapDatepicker = function () {
 
@@ -78,6 +81,7 @@ var KTBootstrapDatepicker = function () {
         $(".datepicker").datepicker({
             format: "yyyy-mm-dd",
             todayHighlight: true,
+            clearBtn: true,
             autoclose: true
         }).attr("readonly", "readonly").css({"cursor":"pointer", "background":"white"});
     }

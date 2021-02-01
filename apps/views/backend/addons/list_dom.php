@@ -184,8 +184,8 @@ if ($addons) :
                                     class="btn btn-success btn-sm text-uppercase font-weight-bolder mr-2" data-action="enable">
                                         <i class="fa fa-toggle-on"></i> Enable
                                     </a>
-                                    
-                                    <?php if ( User::control('delete.addons')) : ?>
+               
+                                    <?php if ( $this->aauth->is_admin()) : ?>
                                     <a href="#" class="btn btn-light-danger font-weight-bold btn-sm"
                                         data-head="<?php _e( 'Would you like to delete this addon?');?>"
                                         data-url="<?php echo site_url(array( 'admin', 'addons', 'remove', $addon_namespace )); ?>"

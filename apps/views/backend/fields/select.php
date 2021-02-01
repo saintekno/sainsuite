@@ -1,15 +1,12 @@
-<?php
-$select_ = @$_item[ 'data' ] != null;
-?>
-
 <?php if (riake('cols', $_item)) : ?>
+
 <div class="form-group row <?php echo riake('row_class', $_item);?>" id="<?php echo riake('row_id', $_item);?>">
     <?php
     foreach (force_array(riake('cols', $_item)) as $col) : 
         $count_cols = count(riake('cols', $_item));
         $select_ = @$col[ 'data' ] != null;
         ?>
-        <div class="col-<?php echo ($count_cols * 3) * 12 / ($count_cols * 3) / $count_cols ;?>">
+        <div class="col-<?php echo ($count_cols * 3) * 12 / ($count_cols * 3) / $count_cols ;?> <?php echo riake('col_class', $col);?>">
             <label class="font-size-lg font-weight-bold" for="<?php echo riake('label', $col);?>">
                 <?php echo riake('label', $col);?>
                 <?php echo riake('required', $col) === true ? '<span class="text-danger">*</span>' : '';?>
@@ -48,7 +45,9 @@ $select_ = @$_item[ 'data' ] != null;
         </div>
         <?php endforeach; ?>
 </div>
+
 <?php else :?>
+
 <div class="form-group row <?php echo riake('row_class', $_item);?>" id="<?php echo riake('row_id', $_item);?>">
     <div class="col-12">
         <label class="font-size-lg font-weight-bold" for="<?php echo $label; ?>">
@@ -88,9 +87,13 @@ $select_ = @$_item[ 'data' ] != null;
         <span class="form-text text-muted"><?php echo $description;?></span>
     </div>
 </div>
+
 <?php endif;?>
 
-<?php if ($type == 'multiple' && $select_) : ?>
+<?php
+$select_ = @$_item[ 'data' ] != null;
+if ($type == 'multiple' && $select_) : 
+?>
 <script>
 var KTBootstrapSelect = function () {
 

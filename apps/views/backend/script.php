@@ -102,6 +102,24 @@
         });
     }
 
+    function isJson(item) {
+        item = typeof item !== "string"
+            ? JSON.stringify(item)
+            : item;
+
+        try {
+            item = JSON.parse(item);
+        } catch (e) {
+            return false;
+        }
+
+        if (typeof item === "object" && item !== null) {
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * Option
      */
@@ -119,8 +137,12 @@
                 var linkId = $(this).attr('href');
                 var target = $(this).data('target');
                 var toggle = $(this).data('toggle');
+                var site_url = '<?php echo site_url();?>';
 
-                if (menuAside != null && menuAside == linkId && url.indexOf(linkId) > -1) { 
+                if (menuAside == site_url) { 
+                    window.location.href = site_url;
+                } 
+                else if(menuAside != null && menuAside == linkId && url.indexOf(linkId) > -1) { 
                     e.preventDefault();
                     return
                 } 

@@ -1,9 +1,9 @@
 <div class="form-group" id="<?php echo riake('row_id', $_item);?>">
-	<div class="image-input image-input-empty image-input-outline" id="<?php echo riake('id', $_item);?>" style="background-image: url(<?php echo User::get_gravatar(false);?>)">
+	<div class="image-input image-input-empty" id="<?php echo riake('id', $_item);?>" style="background-image: url(<?php echo User::get_gravatar(false);?>)">
 		<div class="image-input-wrapper" style="background-image: url(
 			<?php 
 			if (riake('value', $_item)) :
-				(riake('wrapper', $_item) == 'user')
+				echo (riake('wrapper', $_item) == 'user')
 					? User::get_user_image_url(riake('value', $_item))
 					: upload_url(riake('value', $_item));
 			else :

@@ -6,8 +6,8 @@ foreach (force_array(riake('accordion', $_item)) as $index => $_row) :
     } 
     ?>
     <div class="card">
-		<div class="card-header" id="heading<?php echo $_row['id'];?>">
-			<div class="card-title" data-toggle="collapse" data-target="#collapse<?php echo $_row['id'];?>">
+		<div class="card-header mb-5" id="heading<?php echo $_row['id'];?>">
+			<div class="card-title pb-0" data-toggle="collapse" data-target="#collapse<?php echo $_row['id'];?>">
                 <?php echo $_row['heading'];?>
             </div>
             <p class="text-muted"><?php echo riake('description', $_row);?></p>
