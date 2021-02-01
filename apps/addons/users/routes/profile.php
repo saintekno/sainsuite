@@ -48,10 +48,10 @@ class UsersProfileController extends MY_Addon
         if ($param1 == 'change_password') 
         {
             if ( $this->events->apply_filters('show_old_pass', true) ) {
-                $this->form_validation->set_rules('old_pass', __('Old Pass', 'aauth'), 'min_length[6]');
+                $this->form_validation->set_rules('old_pass', __('Old Pass', 'aauth'), 'required|min_length[6]');
             }
-            $this->form_validation->set_rules('password', __('Password', 'aauth'), 'min_length[6]');
-            $this->form_validation->set_rules('confirm', __('Confirm', 'aauth'), 'matches[password]');
+            $this->form_validation->set_rules('password', __('Password', 'aauth'), 'required|min_length[6]');
+            $this->form_validation->set_rules('confirm', __('Confirm', 'aauth'), 'required|matches[password]');
     
             if ($this->form_validation->run()) 
             {
@@ -73,14 +73,15 @@ class UsersProfileController extends MY_Addon
             }
         }
         else {
+            // load custom rules
             $this->form_validation->set_rules('user_email', __('User Email', 'aauth'), 'valid_email');
-    
+            $this->events->do_action( 'user_modification_rules', User::id(), User::get() );
+
             if ($this->form_validation->run()) {
                 $exec = $this->user_model->edit(
                     'profile',
                     $this->aauth->get_user_id(),
-                    $this->input->post('user_email'),
-                    $this->input->post('userprivilege')
+                    $this->input->post('user_email')
                 );   
                 
                 $this->user_model->refresh_user_meta();

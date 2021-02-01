@@ -57,8 +57,6 @@ var DatatableScript = function() {
                             </div>\
                             <div class="ml-2">\
                                 <div class="text-dark-75 font-weight-bold line-height-sm">' + row.username + '</div>\
-                                <a href="#" class="font-size-sm text-dark-50 text-hover-primary">' +
-                                row.group_name + '</a>\
                             </div>\
                         </div>';
 
@@ -139,8 +137,12 @@ var DatatableScript = function() {
             }
         );
 
-        $('#kt_datatable_search_status').on('change', function() {
+        $('#kt_datatable_search_group').on('change', function() {
             datatable.search($(this).val().toLowerCase(), 'group_name');
+        });
+
+        $('#kt_datatable_search_status').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'banned');
         });
     };
 
@@ -155,22 +157,4 @@ var DatatableScript = function() {
 jQuery(document).ready(function() {
     DatatableScript.init();
 });
-
-function isJson(item) {
-    item = typeof item !== "string"
-        ? JSON.stringify(item)
-        : item;
-
-    try {
-        item = JSON.parse(item);
-    } catch (e) {
-        return false;
-    }
-
-    if (typeof item === "object" && item !== null) {
-        return true;
-    }
-
-    return false;
-}
 </script>

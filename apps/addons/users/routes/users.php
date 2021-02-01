@@ -44,8 +44,16 @@ class UsersHomeController extends MY_Addon
             return '
             <div class="d-flex align-items-center mr-2">
                 <select class="form-control form-control-sm"
-                    id="kt_datatable_search_status">
+                    id="kt_datatable_search_group">
                     '.$option.'
+                </select>
+            </div>
+            <div class="d-flex align-items-center mr-2">
+                <select class="form-control form-control-sm"
+                    id="kt_datatable_search_status">
+                    <option value="">All</option>
+                    <option value="0">Active</option>
+                    <option value="1">Unactive</option>
                 </select>
             </div>
             <div class="input-icon">
@@ -73,7 +81,8 @@ class UsersHomeController extends MY_Addon
         $data['breadcrumbs'] = $this->breadcrumb->render();
 
         // Data
-        $data['users'] = json_encode($this->aauth->list_users());
+        $list_users = ($this->aauth->is_admin()) ? $this->aauth->list_users(false, [], false, false, true) : $this->aauth->list_users();
+        $data['users'] = json_encode( $list_users );
         $this->addon_view( 'users', 'users/read', $data );
     }
 
@@ -117,7 +126,7 @@ class UsersHomeController extends MY_Addon
         $this->form_validation->set_rules('user_email', __('User Email', 'aauth'), 'required|valid_email');
         $this->form_validation->set_rules('password', __('Password', 'aauth'), 'required|min_length[6]');
         $this->form_validation->set_rules('confirm', __('Confirm', 'aauth'), 'required|matches[password]');
-        $this->form_validation->set_rules('userprivilege', __('User Privilege', 'aauth'), 'required');
+        $this->form_validation->set_rules('group', __('Group', 'aauth'), 'required');
 
         // load custom rules
         $this->events->do_action('user_creation_rules');
@@ -128,7 +137,7 @@ class UsersHomeController extends MY_Addon
                 $this->input->post('user_email'),
                 $this->input->post('password'),
                 $this->input->post('username'),
-                $this->input->post('userprivilege'),
+                $this->input->post('group'),
                 $this->input->post('user_status' )
             );
             
@@ -149,7 +158,7 @@ class UsersHomeController extends MY_Addon
      * @param int user id
      * @return void
      */
-    public function edit( $index )
+    public function edit($index, $param1 = '' )
     {
         // if current user matches user id
         if ($this->aauth->get_user_id() == $index) {
@@ -178,7 +187,7 @@ class UsersHomeController extends MY_Addon
 			);
 			return $final;
         });
-        
+
         // Title
 		Polatan::set_title(sprintf(__('Users &mdash; %s'), get('signature')));
         
@@ -189,38 +198,59 @@ class UsersHomeController extends MY_Addon
         $data['breadcrumbs'] = $this->breadcrumb->render();
 
         // Data
-        $groups = $this->aauth->list_groups();
-        $user_group = farray($this->aauth->get_user_groups($user->id));
 		$data['user'] = $user;
-		$data['groups'] = $groups;
-		$data['user_group'] = $user_group;
+		$data['groups'] = $this->aauth->list_groups();
+		$data['user_group'] = farray($this->aauth->get_user_groups($user->id));
 
         // validation rules
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('old_pass', __('Old Pass', 'aauth'), 'min_length[6]');
-        $this->form_validation->set_rules('password', __( 'Password', 'aauth'), 'min_length[6]');
-        $this->form_validation->set_rules('confirm', __( 'Confirm', 'aauth'), 'matches[password]');
-        $this->form_validation->set_rules('userprivilege', __('User Privilege', 'aauth'), 'required');
+        if ($param1 == 'change_password') 
+        {
+            if ( $this->events->apply_filters('show_old_pass', true) ) {
+                $this->form_validation->set_rules('old_pass', __('Old Pass', 'aauth'), 'required|min_length[6]');
+            }
+            $this->form_validation->set_rules('password', __('Password', 'aauth'), 'required|min_length[6]');
+            $this->form_validation->set_rules('confirm', __('Confirm', 'aauth'), 'required|matches[password]');
+    
+            if ($this->form_validation->run()) 
+            {
+                $exec = $this->user_model->change_password(
+                    $index,
+                    $this->input->post('password'),
+                    $this->input->post('old_pass')
+                );   
+    
+                if ($exec == 'password_updated') {
+                    $this->session->set_flashdata('flash_message', $this->lang->line($exec));
+                }
+                else {
+                    $this->session->set_flashdata('error_message', $this->lang->line($exec));
+                }
+                
+                $this->user_model->refresh_user_meta();
+                redirect(current_url(), 'refresh');
+            }
+        }
+        else {
+            // load custom rules
+            $this->form_validation->set_rules('user_email', __('User Email', 'aauth'), 'valid_email');
+            $this->events->do_action( 'user_modification_rules', $index, $user );
 
-        // load custom rules
-        $this->events->do_action( 'user_modification_rules', $index, $user );
-
-        if ($this->form_validation->run()) {
-
-            $exec =  $this->user_model->edit(
-                'edit',
-                $index,
-                $this->input->post('user_email'),
-                $this->input->post('userprivilege'),
-                $user_group,
-                $this->input->post( 'user_status' )
-            );
-
-            $this->session->set_flashdata('flash_message', $this->lang->line('updated'));
-            redirect(current_url(), 'refresh');
+            if ($this->form_validation->run()) {
+                $exec =  $this->user_model->edit(
+                    'edit',
+                    $index,
+                    $this->input->post('user_email'),
+                    $this->input->post('group'),
+                    $this->input->post('user_status' )
+                );
+    
+                $this->session->set_flashdata('flash_message', $this->lang->line('updated'));
+                redirect(current_url(), 'refresh');
+            }
         }
 
-        $this->addon_view( 'users', 'users/form', $data );
+        $this->addon_view( 'users', 'users/form_edit', $data );
     }
 
     /**

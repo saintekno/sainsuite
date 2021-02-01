@@ -23,9 +23,6 @@ class Users_Filters extends MY_Addon
         $this->events->add_filter('load_users_advanced', array( $this, 'load_users_advanced' ));
 
         $this->events->add_filter('custom_user_meta', array( $this, 'custom_user_meta' ), 10, 1);
-        $this->events->add_filter('apps_logo', array( $this, 'apps_logo' ), 5, 1);
-        $this->events->add_filter('dashboard_skin_class', array( $this, 'dashboard_skin_class' ), 5, 1);
-        $this->events->add_filter('dashboard_body_class', array( $this, 'dashboard_body_class' ), 5, 1);
         $this->events->add_filter('user_menu_name', array( $this, 'user_menu_name' ));
         $this->events->add_filter('user_menu_card_avatar_src', function () {
             return User::get_user_image_url(User::id());
@@ -51,7 +48,8 @@ class Users_Filters extends MY_Addon
                 [
                     'label'    => __('User Name', 'aauth'),
                     'name'     => 'username',
-                    (! empty($config['user'])) ? 'disabled' : '' => true,
+                    'disabled' => (empty($config['user'])) ? '' : true,
+                    'required' => (empty($config['user'])) ? true : '',
                     'value'    => (empty($config['user'])) 
                         ? set_value('username')
                         : set_value('username', $config['user']->username) 
@@ -59,7 +57,8 @@ class Users_Filters extends MY_Addon
                 [
                     'label'    => __('User Email', 'aauth'),
                     'name'     => 'user_email',
-                    (! empty($config['user'])) ? 'disabled' : '' => true,
+                    'disabled' => (empty($config['user'])) ? '' : true,
+                    'required' => (empty($config['user'])) ? true : '',
                     'value'    => (empty($config['user'])) 
                         ? set_value('user_email')
                         : set_value('user_email', $config['user']->email) 
@@ -86,7 +85,7 @@ class Users_Filters extends MY_Addon
             )
         );
         
-        if ($config['page'] != 'profile') :
+        if ($config['page'] != 'profile' && isset($config['groups'])) :
             $groups_array = array();
             foreach ( force_array($config['groups']) as $group) {
                 $groups_array[ $group->id ] = $group->definition != null ? $group->definition : $group->name;
@@ -108,10 +107,9 @@ class Users_Filters extends MY_Addon
                     ],
                     [
                         'label'   => __('Add to a group', 'aauth'),
-                        'name'    => 'userprivilege',
-                        'disabled' => ($groups_array) 
-                            ? false 
-                            : true,
+                        'name'    => 'group',
+                        'required'  => ($groups_array) ? true : false,
+                        'col_class' => ($groups_array) ? false : 'd-none',
                         'options' => $groups_array,
                         'active'  => (empty($config['user_group'])) 
                             ? null
@@ -133,7 +131,7 @@ class Users_Filters extends MY_Addon
                 'name'  => 'old_pass',
             );
         }
-        if ( ! empty($config['user']) && $config['page'] != 'profile' ) {
+        elseif ( ! empty($config['user']) && $config['page'] != 'profile' ) {
             $filed[] = array(
                 'type'  => 'password',
                 'label' => __('Old Password', 'aauth'),
@@ -142,13 +140,14 @@ class Users_Filters extends MY_Addon
         }
         $filed[] = array(
             'type'  => 'password',
-            'required'  => (! empty($config['user']) && $config['page'] != 'profile') ? false : true,
             'cols' => array(
                 [
+                    'required'  => (empty($config['user'])) ? true : '',
                     'label' => __('New Password', 'aauth'),
                     'name'  => 'password'
                 ],
                 [
+                    'required'  => (empty($config['user'])) ? true : '',
                     'label' => __('Confirm New', 'aauth'),
                     'name'  => 'confirm'
                 ]
@@ -162,6 +161,19 @@ class Users_Filters extends MY_Addon
     {
         $json_vars = (! empty($config['user'])) ? $this->aauth->get_user_var( 'meta', $config['user']->id ) : null;
         $meta = ($json_vars) ? json_decode($json_vars) : null;
+
+        $filed[] = array(
+            'type'  => 'input-image',
+            'wrapper'  => 'user',
+            'accept' => '.png, .jpg, .jpeg',
+            'label' => __('user_image'),
+            'name'  => 'user_image',
+            'id'  => 'user_image',
+            'description' => 'Allowed file types: png, jpg, jpeg.',
+            'value' => (empty($config['user'])) 
+                ? ''
+                : $config['user']->id
+        );
         
         $filed[] = array(
             'type' => 'text',
@@ -179,21 +191,24 @@ class Users_Filters extends MY_Addon
                 ? set_value('address') 
                 : set_value('address', $meta->address),
         );
-        $filed[] = array(
-            'type'  => 'input-image',
-            'wrapper'  => 'user',
-            'accept' => '.png, .jpg, .jpeg',
-            'label' => __('user_image'),
-            'name'  => 'user_image',
-            'id'  => 'user_image',
-            'value' => (empty($config['user'])) 
-                ? ''
-                : $config['user']->id
-        );
+
+        if ($config['page'] == 'profile') :
         $filed[] = array(
             'type' => 'dom',
             'content' => $this->addon_view( 'users', 'profile/mode', compact( 'config' ), true )
         );
+        endif;
+
+        $filed = $this->events->apply_filters_ref_array('load_users_advanced_filed', array( 
+            array_merge(
+                $filed,
+                ['user'=> $config['user']],
+                ['page'=> $config['page']]
+            )
+        ));
+        
+        unset( $filed[ 'page' ] );
+        unset( $filed[ 'user' ] );
 
         return $filed;
     }
@@ -215,64 +230,13 @@ class Users_Filters extends MY_Addon
             'lastname' => '',
             'theme-skin' => '',
         );
-        foreach (force_array($item) as $k => $d) {
+        foreach ($this->events->apply_filters('custom_user_meta_filed', $item) as $k => $d) {
             // Perbarui data 
             if ( $this->input->post($k) !== null) {
                 $fields[ $k ] = ($fname = $this->input->post($k)) ? $fname : '';
             }
         }
         return $fields;
-    }
-
-    public function apps_logo()
-    {
-        global $User_Options;
-        if ($this->aauth->is_loggedin() && isset($User_Options['meta'])) 
-        {
-            if (riake('theme-skin', $User_Options['meta']) == null) {
-                $logo = 'logo-dark.png';
-            } 
-            elseif (riake('theme-skin', $User_Options['meta']) == 'skin-light') {
-                $logo = 'logo-dark.png';
-            }
-            else {
-                $logo = 'logo-light.png';
-            }
-        } else {
-            $logo = 'logo-dark.png';
-        }
-        return upload_url('system/'.$logo);
-    }
-
-    /**
-     * Get dashboard sidebar for current user
-     *
-     * @access : public
-     * @param : string
-     * @return : string
-    **/
-    public function dashboard_body_class()
-    {
-        global $User_Options;        
-        // get user sidebar status
-        $class = ($sidebar = riake('dashboard-sidebar', $User_Options)) ? $sidebar : 'aside-minimize';
-        return $class;
-    }
-
-    /**
-     * Get dashboard skin for current user
-     *
-     * @access : public
-     * @param : string
-     * @return : string
-    **/
-    public function dashboard_skin_class($class)
-    {
-        global $User_Options;
-        $meta = (isset($User_Options['meta'])) ? $User_Options['meta'] : '';
-        // skin is defined by default
-        $class = ($db_skin = riake('theme-skin', $meta)) ? $db_skin : 'skin-light';
-        return $class;
     }
 
     /**

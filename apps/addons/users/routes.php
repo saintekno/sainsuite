@@ -18,7 +18,7 @@ global $Routes;
 $Routes->group(['prefix' => '/users'], function () use ( $Routes ) {
     $Routes->get( '/{page_id?}', 'UsersHomeController@index' )->where([ 'page_id' => '[0-9]+' ]);
     $Routes->match([ 'get', 'post' ], 'add', 'UsersHomeController@add' );
-    $Routes->match([ 'get', 'post' ], 'edit/{id}', 'UsersHomeController@edit' );
+    $Routes->match([ 'get', 'post' ], 'edit/{id}/{pages?}', 'UsersHomeController@edit' );
     $Routes->match([ 'get', 'post' ], 'delete/{id?}/{redirect?}', 'UsersHomeController@delete' );
 });
 
