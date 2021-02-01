@@ -107,6 +107,8 @@ class User_model extends CI_Model
             }
         }
 
+        $this->events->add_action('create_user_meta', $user_id);
+
         // add custom user vars
         $custom_vars = $this->events->apply_filters('custom_user_meta', []);
         $this->aauth->set_user_var('meta', json_encode($custom_vars), $user_id);
@@ -131,7 +133,7 @@ class User_model extends CI_Model
      * @param
     **/
 
-    public function edit($mode = 'edit', $user_id, $email = null, $group_id = null, $user_group = null, $user_status = '0')
+    public function edit($mode = 'edit', $user_id, $email = null, $group_id = null, $user_status = '0')
     {
         $return = 'updated';
 
@@ -144,7 +146,7 @@ class User_model extends CI_Model
         // This prevent editing privilege on profile dash
         if ($mode == 'edit') {
             // remove member
-            $this->aauth->remove_member($user_id, $user_group->group_id);
+            $this->aauth->remove_member($user_id, $group_id);
 
             // refresh group
             $this->aauth->add_member($user_id, $group_id);
@@ -195,8 +197,6 @@ class User_model extends CI_Model
                 return 'old-pass-incorrect';
             }
         }
-
-        return 'old-pass-empty';
     }
 
     /**

@@ -44,7 +44,7 @@ class Admin extends MY_Controller
         $this->events->do_action( 'common_header' );
 
         $this->enqueue->css_namespace( 'dashboard_header' );
-        $this->enqueue->addon_css('datatables', 'datatables.bundle');
+        $this->enqueue->css('datatables/datatables.bundle');
         $this->enqueue->css('skin/all');
         $this->enqueue->css('skin/tosca');
         $this->enqueue->load_css( 'dashboard_header' );
@@ -62,7 +62,7 @@ class Admin extends MY_Controller
         $this->enqueue->js('angular.min', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/');
 		$this->enqueue->js('underscore-min', 'https://cdn.jsdelivr.net/npm/underscore@1.11.0/');
 		$this->enqueue->js('heartcode-canvasloader-min', 'https://cdn.jsdelivr.net/canvasloader-ui/0.9/');
-        $this->enqueue->addon_js('datatables', 'datatables.bundle');
+        $this->enqueue->js('datatables/datatables.bundle');
         $this->enqueue->load_js( 'dashboard_footer' );
 
         $this->load->backend_view('script');
@@ -251,7 +251,6 @@ class Admin extends MY_Controller
                 
                 $this->events->do_action('do_remove_addon', $arg2);
     
-                MY_Addon::disable($arg2);
                 MY_Addon::uninstall($arg2);
     
                 redirect(array( 'admin', 'addons?notice=addon-removed' ));

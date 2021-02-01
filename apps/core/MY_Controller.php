@@ -31,7 +31,7 @@ class MY_Controller extends CI_Controller
             // load new connection
             @$this->load->database(); 
 
-            // Load Language
+            // Load Model
             $this->load->model('options_model');
             // language is set on dashboard
             $this->options_model->defineLanguage();

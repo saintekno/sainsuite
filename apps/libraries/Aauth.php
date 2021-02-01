@@ -931,6 +931,10 @@ class Aauth {
 		$this->aauth_db->where('id', $user_id);
 		$this->aauth_db->delete($this->config_vars['users']);
 
+		if ($this->CI->events->has_action('delete_user_meta')) {
+			$this->CI->events->add_action('delete_user_meta', $user_id);
+		}
+
 		if ($this->aauth_db->trans_status() === false) {
 			$this->aauth_db->trans_rollback();
 			return false;
@@ -952,9 +956,13 @@ class Aauth {
 	 * @param string $sort Order by MYSQL string (e.g. 'name ASC', 'email DESC')
 	 * @return array Array of users
 	 */
-	public function list_users($group_par = false, $limit = false, $offset = false, $include_banneds = false, $sort = false) {
+	public function list_users($group_par = false, $params = array(), $limit = false, $offset = false, $include_banneds = false, $sort = false) {
 
-        $select = "*, aauth_users.id as user_id, aauth_groups.name as group_name ";
+        $select = "
+		aauth_users.*, 
+		aauth_users.id as user_id, 
+		aauth_user_variables.value, 
+		aauth_groups.name as group_name";
 
         $user_group = farray($this->get_user_groups());
         if ( ! $this->is_admin() && $group_par == false) {
@@ -964,70 +972,33 @@ class Aauth {
 		// if group_par is given
 		if ($group_par != false) {
 			$group_par = $this->CI->events->apply_filters('fill_list_users', $this->get_group_id($group_par));
+			$is_member = $this->is_member($this->config_vars['member_group']);
 			$this->aauth_db->select($select)
-				->from($this->config_vars['users'])
-				->join($this->config_vars['user_to_group'], $this->config_vars['users'] . ".id = " . $this->config_vars['user_to_group'] . ".user_id")
-                ->join($this->config_vars[ 'groups' ], $this->config_vars[ 'groups' ] . '.id = ' . $this->config_vars['user_to_group']. '.group_id')
-				->join($this->config_vars[ 'user_variables' ], $this->config_vars[ 'user_variables' ] . '.user_id = ' . $this->config_vars['users']. '.id')
-				->group_by($this->config_vars['users'] . ".id")
-				->where($this->config_vars['user_to_group'] . ".group_id >", $group_par);
+				->from($this->config_vars[ 'users'])
+                ->join($this->config_vars[ 'user_to_group'], $this->config_vars['users'] . ".id = " . $this->config_vars['user_to_group'] . ".user_id")
+                ->join($this->config_vars[ 'groups' ], $this->config_vars[ 'groups' ] . '.id = ' . $this->config_vars['user_to_group']. '.group_id') 
+				->join($this->config_vars[ 'user_variables' ], $this->config_vars[ 'user_variables' ] . '.user_id = ' . $this->config_vars['users']. '.id');
+				
+				if ($is_member) {
+					$this->aauth_db->where($this->config_vars['user_to_group'] . ".group_id >=", $group_par);
+				} else {
+					$this->aauth_db->where_in($this->config_vars['user_to_group'] . ".group_id", $group_par);
+				}
 		// if group_par is not given, lists all users
 		} else {
 			$this->aauth_db->select($select)
-				->from($this->config_vars['users'])
-                ->join($this->config_vars['user_to_group'], $this->config_vars['users'] . ".id = " . $this->config_vars['user_to_group'] . ".user_id")
-				->join($this->config_vars[ 'user_variables' ], $this->config_vars[ 'user_variables' ] . '.user_id = ' . $this->config_vars['users']. '.id')
+				->from($this->config_vars[ 'users'])
+                ->join($this->config_vars[ 'user_to_group'], $this->config_vars['users'] . ".id = " . $this->config_vars['user_to_group'] . ".user_id")
                 ->join($this->config_vars[ 'groups' ], $this->config_vars[ 'groups' ] . '.id = ' . $this->config_vars['user_to_group']. '.group_id') 
-				->group_by($this->config_vars['users'] . ".id");
+				->join($this->config_vars[ 'user_variables' ], $this->config_vars[ 'user_variables' ] . '.user_id = ' . $this->config_vars['users']. '.id');
 		}
+		
+		$this->aauth_db->group_by($this->config_vars['users'] . ".id");
+		$this->aauth_db->where($this->config_vars['user_variables'] . ".data_key", "meta");
 
 		// banneds
 		if (!$include_banneds) {
 			$this->aauth_db->where('banned != ', 1);
-		}
-
-		// order_by
-		if ($sort) {
-			$this->aauth_db->order_by($sort);
-		}
-
-		// limit
-		if ($limit) {
-
-			if ($offset == false)
-				$this->aauth_db->limit($limit);
-			else
-				$this->aauth_db->limit($limit, $offset);
-		}
-
-		$query = $this->aauth_db->get();
-		return $query->result();
-	}
-     
-    /* 
-     * Fetch records from the database 
-     * @param array filter data based on the passed parameters 
-     */ 
-    public function list_users_search($params = array(), $group_par = false)
-    { 
-        $select = "*, aauth_users.id as user_id ";
-
-		// if group_par is given
-		if ($group_par != false) {
-			$group_par = $this->get_group_id($group_par);
-			$this->aauth_db->select($select)
-				->from($this->config_vars['users'])
-				->join($this->config_vars['user_to_group'], $this->config_vars['users'] . ".id = " . $this->config_vars['user_to_group'] . ".user_id")
-                ->join($this->config_vars[ 'groups' ], $this->config_vars[ 'groups' ] . '.id = ' . $this->config_vars['user_to_group']. '.group_id')
-				->join($this->config_vars[ 'user_variables' ], $this->config_vars[ 'user_variables' ] . '.user_id = ' . $this->config_vars['users']. '.id')
-				->where($this->config_vars['user_to_group'] . ".group_id", $group_par);
-			// if group_par is not given, lists all users
-		} else {
-			$this->aauth_db->select($select)
-				->from($this->config_vars['users'])
-                ->join($this->config_vars['user_to_group'], $this->config_vars['users'] . ".id = " . $this->config_vars['user_to_group'] . ".user_id")
-				->join($this->config_vars[ 'user_variables' ], $this->config_vars[ 'user_variables' ] . '.user_id = ' . $this->config_vars['users']. '.id')
-                ->join($this->config_vars[ 'groups' ], $this->config_vars[ 'groups' ] . '.id = ' . $this->config_vars['user_to_group']. '.group_id') ;
 		}
 
         if(array_key_exists("where", $params)){ 
@@ -1035,43 +1006,41 @@ class Aauth {
                 $this->aauth_db->where($key, $val); 
             } 
         } 
-		 
-        if(array_key_exists("search", $params)){ 
-			// Filter data by searched keywords 
-            if(!empty($params['search']['keywords'])){ 
-				$this->aauth_db->like('username', $params['search']['keywords']);
-				$this->aauth_db->or_like('email', $params['search']['keywords']);
+
+        if(array_key_exists("where_in", $params)){ 
+            foreach($params['where_in'] as $key => $val){ 
+                $this->aauth_db->where_in($key, $val); 
             } 
         } 
          
         if(array_key_exists("returnType",$params) && $params['returnType'] == 'count'){ 
             $result = $this->aauth_db->count_all_results(); 
         }
-        else { 
-            if(array_key_exists("id", $params) || (array_key_exists("returnType", $params) && $params['returnType'] == 'single')){ 
-                if(!empty($params['id'])){ 
-                    $this->aauth_db->where($this->config_vars['users'] . ".id", $params['id']); 
-                } 
-                $query = $this->aauth_db->get(); 
-                $result = $query->row_array(); 
+		else{ 
+			// order_by
+			if ($sort) {
+				$this->aauth_db->order_by($sort);
 			}
-			else{ 
-                $this->aauth_db->order_by($this->config_vars['users'] . ".id", 'desc'); 
-                if(array_key_exists("start",$params) && array_key_exists("limit",$params)){ 
-                    $this->aauth_db->limit($params['limit'],$params['start']); 
-				}
-				elseif(!array_key_exists("start",$params) && array_key_exists("limit",$params)){ 
-                    $this->aauth_db->limit($params['limit']); 
-                } 
-                 
-                $query = $this->aauth_db->get(); 
-                $result = ($query->num_rows() > 0)?$query->result():FALSE; 
-            } 
-        } 
+		 
+			if(array_key_exists("search", $params) && !empty($params['search']['keywords'])){ 
+				$this->aauth_db->like('username', $params['search']['keywords']);
+				$this->aauth_db->or_like('email', $params['search']['keywords']);
+			} 
+			elseif ($limit) {
+				// limit
+				if ($offset == false)
+					$this->aauth_db->limit($limit);
+				else
+					$this->aauth_db->limit($limit, $offset);
+			}
+
+			$query = $this->aauth_db->get();
+			$result = $query->result();
+		}
          
         // Return fetched data 
         return $result; 
-    } 
+	}
 
 	//tested
 	/**
