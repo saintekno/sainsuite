@@ -17,15 +17,70 @@ class Admin_Model extends CI_Model
     public function __construct()
     {
         parent::__construct();
+        $this->events->add_filter( 'apps_logo', array( $this, 'apps_logo' ), 5, 1);
+        
+        $this->events->add_filter( 'dashboard_skin_class', array( $this, 'dashboard_skin_class' ), 5, 1);
+        $this->events->add_filter( 'dashboard_body_class', array( $this, 'dashboard_body_class' ), 5, 1);
         
         $this->events->add_action( 'load_dashboard_homes', [ $this, 'load_dashboard_homes' ] );
         $this->events->add_action( 'load_abouts', [ $this, 'load_abouts' ] );
 
-        $this->events->add_action('load_dashboard', array( $this, 'set_help_menu' ));
-        $this->events->add_action('load_dashboard', array( $this, 'set_setting_menu' ));
-        $this->events->add_action('load_dashboard', array( $this, 'set_app_menu' ));
-        $this->events->add_action('load_dashboard', array( $this, 'set_system_menu' ));
-        $this->events->add_action('load_dashboard', array( $this, 'set_sidebar_menu' ));
+        $this->events->add_action( 'load_dashboard', array( $this, 'set_help_menu' ));
+        $this->events->add_action( 'load_dashboard', array( $this, 'set_setting_menu' ));
+        $this->events->add_action( 'load_dashboard', array( $this, 'set_app_menu' ));
+        $this->events->add_action( 'load_dashboard', array( $this, 'set_system_menu' ));
+        $this->events->add_action( 'load_dashboard', array( $this, 'set_sidebar_menu' ));
+    }
+
+    public function apps_logo()
+    {
+        global $User_Options;
+        if ($this->aauth->is_loggedin() && isset($User_Options['meta'])) 
+        {
+            if (riake('theme-skin', $User_Options['meta']) == null) {
+                $logo = 'logo-dark.png';
+            } 
+            elseif (riake('theme-skin', $User_Options['meta']) == 'skin-light') {
+                $logo = 'logo-dark.png';
+            }
+            else {
+                $logo = 'logo-light.png';
+            }
+        } else {
+            $logo = 'logo-dark.png';
+        }
+        return upload_url('system/'.$logo);
+    }
+
+    /**
+     * Get dashboard sidebar for current user
+     *
+     * @access : public
+     * @param : string
+     * @return : string
+    **/
+    public function dashboard_body_class()
+    {
+        global $User_Options;        
+        // get user sidebar status
+        $class = ($sidebar = riake('dashboard-sidebar', $User_Options)) ? $sidebar : 'aside-minimize';
+        return $class;
+    }
+
+    /**
+     * Get dashboard skin for current user
+     *
+     * @access : public
+     * @param : string
+     * @return : string
+    **/
+    public function dashboard_skin_class($class)
+    {
+        global $User_Options;
+        $meta = (isset($User_Options['meta'])) ? $User_Options['meta'] : '';
+        // skin is defined by default
+        $class = ($db_skin = riake('theme-skin', $meta)) ? $db_skin : 'skin-light';
+        return $class;
     }
 
     /**

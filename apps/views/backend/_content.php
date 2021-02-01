@@ -65,6 +65,7 @@
 
                 <?php if ( riake('gui_saver', $meta)) :?>
                 <form ng-non-bindable 
+                    autocomplete="off"
                     class="form <?php echo $class;?>" 
                     id="<?php echo $id;?>"
                     action="<?php echo $action;?>" 
@@ -78,6 +79,7 @@
                     <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
                 <?php elseif (in_array($action, array( null, false ), true)) :?>
                 <form ng-non-bindable 
+                    autocomplete="off"
                     class="form <?php echo $class;?>" 
                     id="<?php echo $id;?>"
                     enctype="<?php echo $enctype;?>" 
