@@ -9514,10 +9514,13 @@ var KTLayoutAside = function() {
                 } else if (menuAside == linkId && url.indexOf(linkId) > -1) { 
                     e.preventDefault();
                     return
+                } else if (linkId == sain.site_url) {
+                    e.preventDefault();
+                    return;
                 }
             }
-            
-            if(target == null) {
+
+            if (target == null) {
                 localStorage.clear();
                 localStorage.setItem("menuAside", linkId);
                 if (targetDropdown != null) {

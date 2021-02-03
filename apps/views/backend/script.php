@@ -127,24 +127,36 @@
     sain.form_expire = '<?php echo gmt_to_local(time(), 'UTC') + GUI_EXPIRE;?>';
     sain.user =	{ id : '<?php echo User::id();?>' }
     sain.dashboard_url = '<?php echo site_url(array( 'admin' ));?>';
+    sain.site_url = '<?php echo site_url();?>';
     sain.csrf_data = { '<?php echo $this->security->get_csrf_token_name();?>' : '<?php echo $this->security->get_csrf_hash();?>' };
     sain.suite = function(){
         $this =	this;
         this.sidebar =	new function() {
             var menuAside = localStorage.getItem("menuAside");
             var url = window.location.href;
+            
+            $('.aside-footer > a').on('click', function(e) { 
+                window.location.href = sain.site_url;
+            });
+            $('.aside-brand > a').on('click', function(e) { 
+                window.location.href = sain.dashboard_url;
+            });
+
             $('#kt_aside').on('click', '.aside-primary a', function(e) {
                 var linkId = $(this).attr('href');
                 var target = $(this).data('target');
                 var toggle = $(this).data('toggle');
-                var site_url = '<?php echo site_url();?>';
 
-                if (menuAside == site_url) { 
-                    window.location.href = site_url;
+                if(menuAside != null && menuAside == linkId) { 
+                    if(url.indexOf(linkId) > -1) {
+                        e.preventDefault();
+                        return
+                    }
                 } 
-                else if(menuAside != null && menuAside == linkId && url.indexOf(linkId) > -1) { 
-                    e.preventDefault();
-                    return
+
+                if(target != null) { 
+                    localStorage.setItem("menuAside", target);
+                    localStorage.setItem("menuToggle", target);
                 } 
 
                 if(toggle == null) {

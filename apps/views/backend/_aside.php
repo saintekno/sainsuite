@@ -86,7 +86,7 @@
             </a>
 
             <div class="dropdown" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Help Center">
-                <div class="btn btn-icon btn-aside symbol symbol-30 symbol-circle mb-1" data-toggle="dropdown" data-target="help" data-offset="0px,0px" aria-expanded="false">
+                <a class="btn btn-icon btn-aside symbol symbol-30 symbol-circle mb-1" data-toggle="dropdown" data-target="help" data-offset="0px,0px" aria-expanded="false">
                     <span class="svg-icon svg-icon-xl">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -96,7 +96,7 @@
                             </g>
                         </svg><!--end::Svg Icon-->
                     </span>
-                </div>
+                </a>
                 <!--begin::Dropdown-->
                 <div id="help" class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-left">
                     <!--begin::Nav-->
@@ -112,10 +112,10 @@
                 <?php 
                 global $User_Options;
                 $meta = (isset($User_Options['meta'])) ? $User_Options['meta'] : '';?>
-                <div class="btn btn-icon btn-aside symbol symbol-30 symbol-circle d-none d-lg-flex" data-toggle="dropdown" data-target="user" data-offset="0px,0px" aria-expanded="false">
+                <a class="btn btn-icon btn-aside symbol symbol-30 symbol-circle d-none d-lg-flex" data-toggle="dropdown" data-target="user" data-offset="0px,0px" aria-expanded="false">
                     <img src="<?php echo $this->events->apply_filters('user_menu_card_avatar_src', '');?>" alt="<?php echo $this->events->apply_filters('user_menu_card_avatar_alt', '');?>">
                     <i class="symbol-badge bg-success mt-3 mr-3 <?php echo (riake('theme-skin', $meta) == 'skin-dark') ? 'border-dark' : '';?>"></i>
-                </div>
+                </a>
                 <!--begin::Dropdown-->
                 <div id="user" class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-lg dropdown-menu-left">
                     <!--begin::Nav-->
