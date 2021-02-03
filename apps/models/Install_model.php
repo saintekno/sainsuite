@@ -106,9 +106,11 @@ class Install_Model extends CI_Model
         // Creating option table
         $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}options`;");
         $this->db->query("CREATE TABLE `{$database_prefix}options` (
+            `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
             `key` VARCHAR(200) NOT NULL,
             `value` TEXT NULL,
-            `app` VARCHAR(100) NOT NULL
+            `app` VARCHAR(100) NOT NULL,
+            PRIMARY KEY (`id`)
         ) COLLATE='utf8_general_ci' ENGINE=InnoDB ;");
 
         $this->events->do_action('settings_tables', array(

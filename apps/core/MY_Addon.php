@@ -59,7 +59,7 @@ class MY_Addon extends CI_Model
             $addons = self::get();
         }
 
-        foreach ( ( array ) $addons as $addon) 
+        foreach ( force_array($addons) as $addon) 
         {
             $init_file = $addon[ 'application' ][ 'main' ];
 
