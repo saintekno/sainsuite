@@ -2,9 +2,7 @@
 
 SainSuite adalah serangkaian aplikasi bisnis berbasis web.
 
-Aplikasi utama SainSuite termasuk CRM, eCommerce, Manajemen Gudang, Manajemen Proyek, Akuntansi, POS, Human Resources, Pemasaran, Manufaktur...**(soon)**
-
-Aplikasi SainSuite dapat digunakan sebagai aplikasi yang berdiri sendiri, tetapi juga terintegrasi dengan mulus sehingga Anda mendapatkan ERP berfitur lengkap saat Anda menginstal beberapa Aplikasi.
+SainSuite dapat digunakan sebagai aplikasi yang berdiri sendiri, Namun juga dapat terintegrasi dengan mulus sehingga Anda mendapatkan ERP berfitur lengkap saat Anda menginstal beberapa Aplikasi.
 
 ### Installing
 
