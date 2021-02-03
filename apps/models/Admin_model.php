@@ -16,9 +16,7 @@ class Admin_Model extends CI_Model
 {
     public function __construct()
     {
-        parent::__construct();
-        $this->events->add_filter( 'apps_logo', array( $this, 'apps_logo' ), 5, 1);
-        
+        parent::__construct();        
         $this->events->add_filter( 'dashboard_skin_class', array( $this, 'dashboard_skin_class' ), 5, 1);
         $this->events->add_filter( 'dashboard_body_class', array( $this, 'dashboard_body_class' ), 5, 1);
         
@@ -30,26 +28,6 @@ class Admin_Model extends CI_Model
         $this->events->add_action( 'load_dashboard', array( $this, 'set_app_menu' ));
         $this->events->add_action( 'load_dashboard', array( $this, 'set_system_menu' ));
         $this->events->add_action( 'load_dashboard', array( $this, 'set_sidebar_menu' ));
-    }
-
-    public function apps_logo()
-    {
-        global $User_Options;
-        if ($this->aauth->is_loggedin() && isset($User_Options['meta'])) 
-        {
-            if (riake('theme-skin', $User_Options['meta']) == null) {
-                $logo = 'logo-dark.png';
-            } 
-            elseif (riake('theme-skin', $User_Options['meta']) == 'skin-light') {
-                $logo = 'logo-dark.png';
-            }
-            else {
-                $logo = 'logo-light.png';
-            }
-        } else {
-            $logo = 'logo-dark.png';
-        }
-        return upload_url('system/'.$logo);
     }
 
     /**

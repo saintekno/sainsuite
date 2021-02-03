@@ -182,6 +182,8 @@
                         }
                         ?>
                     </h2>
+                    
+                    <?php $this->events->apply_filters('dashboard_title_button', '');?>
 				</div>
 
                 <div class="tab-pane px-4 pb-3 fade" id="kt_aside_tab_1">

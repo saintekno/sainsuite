@@ -47,7 +47,7 @@
     <div class="row">
     <?php foreach (force_array($this->polatan->get_cols()) as $col_id => $col_data):?>
         <?php if( $col_data ):?>
-            <div class="col-sm-12 col-xs-12 col-md-<?php echo ceil(riake('width', $col_data, 1) * 3) ;?> <?php echo riake('class', $col_data);?>" id="<?php echo riake('id', $col_data);?>">
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-<?php echo ceil(riake('width', $col_data, 1) * 3) ;?> <?php echo riake('class', $col_data);?>" id="<?php echo riake('id', $col_data);?>">
                 <?php foreach (force_array(riake('metas', $col_data)) as $meta) : ?>
                 <?php
                 // enable gui form saver

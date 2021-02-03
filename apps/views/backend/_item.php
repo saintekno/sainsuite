@@ -24,6 +24,10 @@ foreach (force_array(riake('items', $meta)) as $_item)
     if (in_array($type, array( 'text', 'password', 'email', 'tel', 'hidden' ))) 
     { 
         include( dirname( __FILE__ ) . '/fields/input-default.php' );
+    } 
+    elseif ($type == 'checkbox') 
+    {
+        include( dirname( __FILE__ ) . '/fields/checkbox.php' );    
     }
     elseif ( $type == 'input-file') 
     {

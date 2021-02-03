@@ -17,6 +17,7 @@ class Users_Filters extends MY_Addon
     public function __construct()
     {
         parent::__construct();
+        $this->events->add_filter( 'apps_logo', array( $this, 'apps_logo' ), 5, 1);
 
         $this->events->add_filter('load_user_profile', array( $this, 'load_user_profile' ));
         $this->events->add_filter('load_user_pass', array( $this, 'load_user_pass' ));
@@ -27,6 +28,26 @@ class Users_Filters extends MY_Addon
         $this->events->add_filter('user_menu_card_avatar_src', function () {
             return User::get_user_image_url(User::id());
         });
+    }
+
+    public function apps_logo()
+    {
+        global $User_Options;
+        if ($this->aauth->is_loggedin() && isset($User_Options['meta'])) 
+        {
+            if (riake('theme-skin', $User_Options['meta']) == null) {
+                $logo = 'logo-dark.png';
+            } 
+            elseif (riake('theme-skin', $User_Options['meta']) == 'skin-light') {
+                $logo = 'logo-dark.png';
+            }
+            else {
+                $logo = 'logo-light.png';
+            }
+        } else {
+            $logo = 'logo-dark.png';
+        }
+        return upload_url('system/'.$logo);
     }
     
     /**
@@ -230,7 +251,7 @@ class Users_Filters extends MY_Addon
             'lastname' => '',
             'theme-skin' => '',
         );
-        foreach ($this->events->apply_filters('custom_user_meta_filed', $item) as $k => $d) {
+        foreach (force_array($this->events->apply_filters('custom_user_meta_filed', $item)) as $k => $d) {
             // Perbarui data 
             if ( $this->input->post($k) !== null) {
                 $fields[ $k ] = ($fname = $this->input->post($k)) ? $fname : '';

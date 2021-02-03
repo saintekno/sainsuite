@@ -44,7 +44,12 @@ class Menu
         $core_menus = self::$setting_menus_core;
 
         foreach ($core_menus as $menu_namespacex => $current_menux) 
-        { ?>
+        { 
+            if( isset($current_menux[0][ 'permission' ]) && ! User::control( $current_menux[0][ 'permission' ] ) ) {
+                continue;
+            }
+            unset($current_menux[0]);
+            ?>
             <li class="menu-section px-4 m-0">
                 <h4 class="menu-text menu-text"><?php _e($menu_namespacex);?></h4>
                 <i class="menu-icon ki ki-bold-more-hor icon-md"></i>

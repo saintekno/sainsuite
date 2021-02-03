@@ -38,7 +38,7 @@ class UsersHomeController extends MY_Addon
         $this->events->add_filter('ui_subheader_search', function () { // disabling header
             $groups = $this->aauth->list_groups();
             $option = '<option value="">All</option>';
-            foreach ( $groups as $gr ) {
+            foreach ( force_array($groups) as $gr ) {
                 $option .= '<option value="'.strtolower($gr->name).'">'.$gr->definition.'</option>';
             }
             return '

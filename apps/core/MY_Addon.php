@@ -416,6 +416,10 @@ class MY_Addon extends CI_Model
 
     public static function extract($addon_namespace)
     {
+        if (! get_instance()->aauth->is_admin()) {
+            return;
+        }
+        
         $addon = self::get($addon_namespace);
         if ($addon) 
         {

@@ -64,13 +64,13 @@ $this->polatan->add_item(array(
 else :
 
 $groups_array = array();
-foreach ($this->aauth->list_groups(true) as $gr) 
+foreach (force_array($this->aauth->list_groups(true)) as $gr) 
 {
     $groups_array[ $gr->id ] = $gr->name;
     if ( ! $group_groups = $this->aauth->get_subgroups()) : continue;
     endif;
     
-    foreach ($group_groups as $item) 
+    foreach (force_array($group_groups) as $item) 
     {
         $name_group = $this->aauth->get_group_name($item->subgroup_id);
         if (in_array($name_group, $groups_array)) 
