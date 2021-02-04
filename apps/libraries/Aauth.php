@@ -534,7 +534,7 @@ class Aauth {
 			$this->CI->load->library('mailsender');
 			$this->CI->load->helper('url');
 
-			$mailer = new MailSender();
+			$mailer = new Mailsender();
 			// Set .html template
 			$this->CI->events->do_action('do_template_email_remind', $mailer);
 
@@ -587,7 +587,7 @@ class Aauth {
 
 			$this->CI->load->library('mailsender');
 
-			$mailer = new MailSender();
+			$mailer = new Mailsender();
 			// Set .html template
 			$this->CI->events->do_action('do_template_email_reset', $mailer);
 
@@ -1117,7 +1117,7 @@ class Aauth {
 			$this->CI->load->library('mailsender');
 			$this->CI->load->helper('url');
 
-			$mailer = new MailSender();
+			$mailer = new Mailsender();
 			// Set .html template
 			$this->CI->events->do_action('do_template_email', $mailer);
 
