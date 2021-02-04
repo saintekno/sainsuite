@@ -47,7 +47,7 @@
                 
                 <?php if ( User::control('manage.menu') && Menu::$setting_menus_core ) : ?>
                 <!--begin::Item-->
-				<li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Tools">
+				<li class="nav-item mb-3" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="<?php echo $this->options_model->get('site_name');?>">
 					<a class="nav-link btn btn-icon btn-aside" data-toggle="tab" data-target="#kt_aside_tab_2" role="tab">
 						<span class="svg-icon svg-icon-xl">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
