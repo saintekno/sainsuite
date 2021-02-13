@@ -36,7 +36,17 @@ if (! function_exists('asset_url')) {
         }
     }
 }
-
+if (! function_exists('fasset_url')) {
+    function fasset_url($uri = null)
+    {
+        $CI =& get_instance();
+        if ($uri === null) { 
+            return base_url(). $CI->config->item('asset_path') . $CI->config->item('frontend_path') . theme_frontend();
+        } else {
+            return base_url(). $CI->config->item('asset_path') . $CI->config->item('frontend_path') . theme_frontend() . $uri ;
+        }
+    }
+}
 
 /**
  * Get base URL
@@ -67,6 +77,13 @@ if (! function_exists('img_url')) {
         } else {
             return base_url(). $CI->config->item('asset_path') . $CI->config->item('addon_path') . $addon_namespace . '/' . $CI->config->item('img_path');
         }
+    }
+}
+if (! function_exists('fimg_url')) {
+    function fimg_url()
+    {
+        $CI =& get_instance();
+        return base_url(). $CI->config->item('asset_path') . $CI->config->item('frontend_path') . theme_frontend() . $CI->config->item('img_path');
     }
 }
 
@@ -102,7 +119,6 @@ if (! function_exists('download_url')) {
     }
 }
 
-
 // ------------------------------------------------------------------------
 // PATH HELPERS
 
@@ -117,6 +133,13 @@ if (! function_exists('asset_path')) {
     {
         $CI =& get_instance();
         return FCPATH . $CI->config->item('asset_path') . $CI->config->item('backend_path') . theme_backend();
+    }
+}
+if (! function_exists('fasset_path')) {
+    function fasset_path()
+    {
+        $CI =& get_instance();
+        return FCPATH . $CI->config->item('asset_path') . $CI->config->item('frontend_path') . theme_frontend();
     }
 }
 
@@ -175,7 +198,6 @@ if (! function_exists('download_path_relative')) {
         return './' . $CI->config->item('download_path');
     }
 }
-
 
 // ------------------------------------------------------------------------
 // EMBED HELPERS

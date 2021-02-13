@@ -116,10 +116,6 @@ class Install extends MY_Controller
 
             if ($exec == 'system-installed') 
             {                      
-                // $data_about = file_get_contents(APPPATH . 'config/about.php');
-                // $data_about = str_replace($this->config->item('app_name'), $this->input->post('site_name'), $data_about);
-                // file_put_contents(APPPATH . 'config/about.php', $data_about);
-
                 redirect('login?redirect=admin&notice=' . $exec . ( @$_GET[ 'lang' ] ? '&lang=' . $_GET[ 'lang' ] : '') );
             }
 

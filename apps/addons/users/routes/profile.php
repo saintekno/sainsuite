@@ -28,9 +28,9 @@ class UsersProfileController extends MY_Addon
             redirect(site_url('admin/page404'));
         }
         
-        $this->events->add_filter('ui_subheader_body', function () { 
-            return 'transparent';
-        });
+        // $this->events->add_filter('ui_subheader_body', function () { 
+        //     return 'transparent';
+        // });
 
         $this->events->add_filter('gui_before_cols', function () { 
             return '<button class="btn btn-primary mb-2 btn-lg btn-block d-lg-none" id="kt_subheader_mobile_toggle"> <i class="flaticon-menu-2"></i> Block level Menu</button>';

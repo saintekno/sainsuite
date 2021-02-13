@@ -150,10 +150,19 @@ class Theme
             $manifest_array = json_decode(file_get_contents($manifest_file), true);
             // removing file
             foreach ($manifest_array as $file) {
-                if (is_dir($file)):
-                    Filer::drop($file);
+                if (is_file($file)):
+                    unlink($file);
                 endif;
             }
+        }
+
+        // moving manifest file to temp folder
+        foreach (self::$allowed_app_folders as $reserved_folder) 
+        {
+            $folder = APPPATH . $reserved_folder .'/'. $theme_namespace;
+            if (is_dir($folder)):
+                Filer::drop($folder);
+            endif;
         }
 
         // Drop theme Folder
@@ -201,10 +210,25 @@ class Theme
                             {
                                 // we found a a file
                                 $path_splited = explode($path_id_separator, $file);
-                                Filer::copy(
-                                    APPPATH . $reserved_folder . $path_splited[1],
-                                    $temp_folder . '/' . $reserved_folder
-                                );
+                                if (is_dir(APPPATH . $reserved_folder . $path_splited[1])) {
+                                    $_temp_folder_controller = $temp_folder . '/' . $reserved_folder;
+                                    if (!is_dir($_temp_folder_controller)) {
+                                        mkdir($_temp_folder_controller);
+                                    }
+                                    if (!is_dir($_temp_folder_controller . $path_splited[1])) {
+                                        mkdir($_temp_folder_controller . $path_splited[1]);
+                                    }
+                                    Filer::copy(
+                                        APPPATH . $reserved_folder . $path_splited[1],
+                                        $_temp_folder_controller . $path_splited[1]
+                                    );
+                                }
+                                else {
+                                    Filer::file_copy(
+                                        APPPATH . $reserved_folder . $path_splited[1],
+                                        $temp_folder . '/' . $reserved_folder . $path_splited[1]
+                                    );
+                                }
                             }
                         }
                     }
@@ -235,6 +259,9 @@ class Theme
 
             // move theme file to temp folder
             Filer::copy($theme_installed_dir, $temp_folder);
+
+            // delete manifest file
+            unlink($temp_folder . '/' . self::$manifest_theme);
 
             // read temp folder and download it
             get_instance()->zip->read_dir( $temp_folder . '/', false );
@@ -533,13 +560,17 @@ class Theme
         foreach ($manifest as $_manifest) 
         {
             // removing raw_name from old manifest to ease copy
-            $relative_path_controllers_to_file = explode($extraction_data[ 'upload_data' ][ 'raw_name' ] . '/controllers/', $_manifest);
+            $relative_path_to_file = explode($extraction_data[ 'upload_data' ][ 'raw_name' ] . '/', $_manifest);
             
-            if ($relative_path_controllers_to_file[1]) {
+            if (! is_file($_manifest)) {
+                $dir_name = basename($_manifest);
+                Filer::copy($_manifest, $relative_path_to_file[1]);
+            } 
+            else {
                 // write file on the new folder
-                Filer::file_copy($_manifest,  APPPATH . 'controllers/' . $folder_to_lower . '/' . $relative_path_controllers_to_file[1]);
+                Filer::file_copy($_manifest,  APPPATH . $relative_path_to_file[1]);
                 // relative json manifest
-                $relative_json_manifest[] = APPPATH . 'controllers/' . $folder_to_lower;
+                $relative_json_manifest[] = APPPATH . $relative_path_to_file[1];
             }
         }
 

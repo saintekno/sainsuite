@@ -9138,6 +9138,9 @@ KTUtil.ready(function() {
     // Init Header Menu
     KTLayoutHeaderMenu.init('kt_header_menu', 'kt_header_menu_wrapper');
 
+    // Init Header Topbar For Mobile Mode
+    KTLayoutHeaderTopbar.init('kt_header_mobile_topbar_toggle');
+
     // Init Aside Menu
     KTLayoutAside.init('kt_aside');
 
@@ -9463,13 +9466,23 @@ var KTLayoutAside = function() {
     }
 
     var cekClass = function() {
+        // cek nav header bottom
         if ($(".navheader-nav .nav-item").length) {
-            $('#kt_body').addClass('header-fixed');
-            $('#kt_header').removeClass('d-none');
+            $('#kt_body').addClass('header-bottom-enable');
+            $('#kt_header .header-bottom').removeClass('d-none');
         }
-        if ($(".toolbar_menu a").length) {
-            $('#kt_body').addClass('subheader-enabled subheader-fixed');
-            $('#kt_subheader').removeClass('d-none');
+
+        // cek condition table
+        if ($("#kt_datatable").length) {
+            $('#kt_wrapper .header-bottom > div').addClass('container-fluid').removeClass('container');
+            $('#kt_subheader > div').addClass('container-fluid').removeClass('container');
+            $('#kt_data > div').addClass('container-fluid').removeClass('container');
+            $('#kt_footer > div').addClass('container-fluid').removeClass('container');
+        }
+
+        // cek condition home
+        if ($("#kt_home").length) {
+            $('#kt_subheader').addClass('d-none');
         }
     }
     

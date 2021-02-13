@@ -1,10 +1,11 @@
 <div id="kt_header_mobile" class="header-mobile">
-    <a href="<?php echo site_url('admin'); ?>">
-        <img alt="<?php echo get('app_name');?>" src="<?php echo $this->events->apply_filters( 'apps_logo', ''); ?>" class="logo-default max-h-30px" />
+    <a href="<?php echo site_url('admin'); ?>" class="header-logo d-flex">
+		<?php echo $this->events->apply_filters( 'apps_logo_sm', ''); ?>
     </a>
+	
     <div class="d-flex align-items-center">
 		<?php if($this->events->has_filter('load_sidebar')) : ?>
-		<button class="btn btn-hover-icon-primary p-0" id="kt_sidebar_mobile_toggle">
+		<button class="btn btn-icon btn-clean p-0" id="kt_sidebar_mobile_toggle">
 			<span class="svg-icon svg-icon-xl">
 				<!--begin::Svg Icon | path:/metronic/theme/html/demo10/dist/assets/media/svg/icons/Design/Substract.svg-->
 				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -19,65 +20,12 @@
 		</button>
 		<?php endif; ?>
 
-		<button class="btn p-0 ml-2 burger-icon burger-icon-left" id="kt_aside_mobile_toggle">
+		<button class="btn btn-clean p-0 burger-icon burger-icon-left" id="kt_aside_mobile_toggle">
 			<span></span>
 		</button>
 		
-		<div class="dropdown">
-			<!--begin::Toggle-->
-            <a class="btn btn-icon btn-aside symbol symbol-30 symbol-circle ml-5" data-toggle="dropdown" data-offset="0px,0px" aria-expanded="false">
-                <img src="<?php echo $this->events->apply_filters('user_menu_card_avatar_src', '');?>" alt="<?php echo $this->events->apply_filters('user_menu_card_avatar_alt', '');?>">
-            </a>
-			<!--end::Toggle-->
-
-			<!--begin::Dropdown-->
-			<div class="dropdown-menu dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg p-0">
-				<!--begin::Header-->
-				<div class="d-flex align-items-center p-8 rounded-top">
-					<!--begin::Symbol-->
-					<div class="symbol symbol-md bg-light-primary mr-3 flex-shrink-0">
-                        <img src="<?php echo $this->events->apply_filters('user_menu_card_avatar_src', '');?>" alt="<?php echo $this->events->apply_filters('user_menu_card_avatar_alt', '');?>">
-					</div>
-					<!--end::Symbol-->
-
-					<!--begin::Text-->
-					<div class="d-flex flex-column">
-						<div class="m-0 flex-grow-1 mr-3 font-size-h5"><?php echo User::get()->username;?></div>
-						<div class="text-muted mt-1">
-							<?php echo User::get_user_groups()[0]->definition;?>
-						</div>
-						<span class="navi-text text-muted text-hover-primary mt-1">
-							<?php echo User::get()->email;?>
-						</span>
-					</div>
-					<!--end::Text-->
-				</div>
-				<!--end::Header-->
-
-				<div class="separator separator-solid"></div>
-
-				<!--begin::Nav-->
-				<div class="navi navi-spacer-x-0 pt-5">
-
-					<div class="px-8">
-						<?php echo xss_clean($this->events->apply_filters('after_user_card', ''));?>
-					</div>
-
-					<!--begin::Footer-->
-					<div class="navi-separator mt-3"></div>
-					<div class="navi-footer px-8 py-5">
-						<a href="#" class="font-weight-bold text-muted">Upgrade Plan</a>
-						<a href="<?php echo xss_clean($this->events->apply_filters('user_header_sign_out_link', site_url('logout' ) . '?redirect=' . urlencode(current_url())));?>" class="btn btn-light-danger font-weight-bold">
-							<?php _e('Sign Out');?>
-							<i class="fas fa-sign-out-alt"></i>
-						</a>
-					</div>
-					<!--end::Footer-->
-				</div>
-				<!--end::Nav-->
-			</div>
-			<!--end::Dropdown-->
-		</div>
-		<!--end::User-->
+		<button class="btn p-0 ml-2" id="kt_header_mobile_topbar_toggle">
+			<i class="ki ki-bold-more-hor icon-2x"></i> 
+		</button>
     </div>
 </div>

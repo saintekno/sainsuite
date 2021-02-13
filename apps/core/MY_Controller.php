@@ -54,15 +54,13 @@ class MY_Controller extends CI_Controller
         }
         
         // Checks system status
-        if ( 
-            in_array( $this->uri->segment(1), $this->config->item('reserved_controllers') ) 
+        if ( in_array( $this->uri->segment(1), $this->config->item('reserved_controllers') ) 
             || $this->uri->segment(1) === null
         ) {
             // there are some section which need to be installed. Before getting there, controller checks if for those
             // section is installed. If segment(1) returns null, it means the current section is index. Even for index,
             // installation is required
-            if (( 
-                    in_array( $this->uri->segment(1), $this->config->item('controllers_requiring_installation') ) 
+            if (( in_array( $this->uri->segment(1), $this->config->item('controllers_requiring_installation') ) 
                     || $this->uri->segment(1) === null
                 ) 
                 && ! $this->install_model->is_installed()

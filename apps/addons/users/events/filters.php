@@ -18,6 +18,7 @@ class Users_Filters extends MY_Addon
     {
         parent::__construct();
         $this->events->add_filter( 'apps_logo', array( $this, 'apps_logo' ), 5, 1);
+        $this->events->add_filter( 'apps_logo_sm', array( $this, 'apps_logo_sm' ), 5, 1);
 
         $this->events->add_filter('load_user_profile', array( $this, 'load_user_profile' ));
         $this->events->add_filter('load_user_pass', array( $this, 'load_user_pass' ));
@@ -33,21 +34,44 @@ class Users_Filters extends MY_Addon
     public function apps_logo()
     {
         global $User_Options;
-        if ($this->aauth->is_loggedin() && isset($User_Options['meta'])) 
+        $meta = riake('meta', $User_Options);
+        if ($this->aauth->is_loggedin()) 
         {
-            if (riake('theme-skin', $User_Options['meta']) == null) {
+            if (riake('theme-skin', $meta) == null) {
                 $logo = 'logo-dark.png';
-            } 
-            elseif (riake('theme-skin', $User_Options['meta']) == 'skin-light') {
+            } elseif (riake('theme-skin', $meta) == 'skin-light') {
                 $logo = 'logo-dark.png';
-            }
-            else {
+            } else {
                 $logo = 'logo-light.png';
             }
         } else {
             $logo = 'logo-dark.png';
         }
+
         return upload_url('system/'.$logo);
+    }
+
+    public function apps_logo_sm()
+    {
+        global $User_Options;
+        $meta = riake('meta', $User_Options);
+        if ($this->aauth->is_loggedin()) 
+        {
+            if (riake('theme-skin', $meta) == null) {
+                $logo = 'logo-dark-sm.png';
+            } elseif (riake('theme-skin', $meta) == 'skin-light') {
+                $logo = 'logo-dark-sm.png';
+            } else {
+                $logo = 'logo-light-sm.png';
+            }
+
+            return '
+            <img alt="'.get('app_name').'" src="'.upload_url('system/'.$logo).'" class="max-h-35px" />
+            <div class="d-flex flex-column pl-3">
+                <span class="opacity-50 font-weight-bold font-size-sm">'.get('app_name').' for</span>
+                <span class="font-weight-bolder font-size-md">'.$this->options_model->get('site_name').'</span>
+            </div>';
+        } 
     }
     
     /**
@@ -271,7 +295,7 @@ class Users_Filters extends MY_Addon
     public function user_menu_name($user_name)
     {
         global $User_Options;
-        $meta = (isset($User_Options['meta'])) ? $User_Options['meta'] : '';
+        $meta = riake('meta', $User_Options);
         $name = riake('firstname', $meta);
         $last = riake('lastname', $meta);
         $full = trim(ucwords(substr($name, 0, 1)) . '.' . ucwords($last));

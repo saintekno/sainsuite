@@ -18,9 +18,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- favicon -->
         <link rel="shortcut icon" href="<?php echo base_url('uploads/system/favicon.png');?>">
         <!-- Bootstrap -->
-        <link href="<?=base_url();?>assets/frontend/<?=theme_frontend();?>css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?=fasset_url();?>css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <!-- Main Css -->
-        <link href="<?=base_url();?>assets/frontend/<?=theme_frontend();?>css/style.css" rel="stylesheet" type="text/css" id="theme-opt" />
+        <link href="<?=fasset_url();?>css/style.css" rel="stylesheet" type="text/css" id="theme-opt" />
 
     </head>
 

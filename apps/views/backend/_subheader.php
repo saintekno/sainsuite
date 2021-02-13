@@ -1,4 +1,4 @@
-<div class="subheader py-2 subheader-<?php echo $this->events->apply_filters('ui_subheader_body', 'solid d-none') ;?>" id="kt_subheader">
+<div class="subheader py-3 subheader-transparent" id="kt_subheader">
     <div class="container d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
 
         <div class="d-flex align-items-center flex-wrap mr-2">
@@ -12,8 +12,12 @@
         </div>
 
         <div class="d-flex align-items-center toolbar_menu">
-            <?php echo $this->events->apply_filters('ui_subheader_search', ''); ?>
-
+            <?php 
+            foreach ($this->events->apply_filters('toolbar_filter', []) as $key => $value) {
+                echo $value;
+            }; 
+            ?>
+            
             <?php 
             foreach ($this->events->apply_filters('toolbar_menu', []) as $namespace) {
                 Menu::add_toolbar_menu($namespace);

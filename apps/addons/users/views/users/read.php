@@ -12,32 +12,21 @@
  * @filesource
  */
 
-/**
- * Col Width
- */
-$this->polatan->col_width(1, 4);
+$this->polatan->add_col(array(
+    'width' => 4,
+), 1);
 
-/**
- * Meta
- */
 $this->polatan->add_meta(array(
     'namespace'  => 'users',
-    'pagination' => array( true ),
     'col_id'     => 1,
     'type' => 'card'
 ));
 
-/**
- * Item
- */
 $this->polatan->add_item(array(
     'type'  => 'table-datatable',
     'data' => json_decode($users),
 ), 'users', 1);
 
-/**
- * Script
- */
 $this->events->add_action( 'dashboard_footer', function() {
     $this->load->addon_view( 'users', 'users/datatable');
 });

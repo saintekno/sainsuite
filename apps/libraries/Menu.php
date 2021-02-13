@@ -251,7 +251,7 @@ class Menu
                 continue;
             }
             ?>
-            <a href="<?php echo riake('href', $current_menu); ?>" class="btn <?php echo riake('button', $current_menu); ?> font-weight-bolder btn-sm ml-2">
+            <a href="<?php echo riake('href', $current_menu); ?>" <?php echo riake('attr', $current_menu); ?> class="btn <?php echo riake('button', $current_menu); ?> font-weight-bolder btn-sm ml-2">
                 <i class="<?php echo riake('icon', $current_menu); ?> icon-1x p-0"></i>
                 <span class="d-none d-md-inline"><?php echo riake('title', $current_menu); ?></span> 
             </a>

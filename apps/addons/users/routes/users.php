@@ -35,6 +35,17 @@ class UsersHomeController extends MY_Addon
 		}
 
         // Toolbar
+        $this->events->add_filter( 'toolbar_menu', function( $final ) {
+            $final[] = array(
+                'title'   => __('Add A user'),
+                'icon'    => 'ki ki-plus',
+                'button'  => 'btn-light-primary',
+                'href'    => site_url([ 'admin', 'users', 'add' ]),
+                'permission' => 'create.users'
+            );
+            return $final;
+        });
+
         $this->events->add_filter('ui_subheader_search', function () { // disabling header
             $groups = $this->aauth->list_groups();
             $option = '<option value="">All</option>';
@@ -60,16 +71,6 @@ class UsersHomeController extends MY_Addon
                 <input type="text" class="form-control form-control-sm" placeholder="Search..." id="search_query" />
                 <span><i class="flaticon2-search-1 text-muted"></i></span>
             </div>';
-        });
-        $this->events->add_filter( 'toolbar_menu', function( $final ) {
-                $final[] = array(
-                    'title'   => __('Add A user'),
-                    'icon'    => 'ki ki-plus',
-                    'button'  => 'btn-light-primary',
-                    'href'    => site_url([ 'admin', 'users', 'add' ]),
-                    'permission' => 'create.users'
-                );
-            return $final;
         });
         
         // Title

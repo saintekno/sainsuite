@@ -18,19 +18,21 @@
 
 function theme_frontend()
 {
-    global $Options;
-    return @$Options[ 'theme_frontend' ] . '/' ;
+    $CI =& get_instance();
+    $CI->load->model('options_model');
+    return $CI->options_model->get('theme_frontend') . '/' ;
 }
 
 // --------------------------------------------------------------------
 
 function theme_backend()
 {
-    global $Options;
-    if (! @$Options[ 'theme_backend' ] ) : return '';
+    $CI =& get_instance();
+    $CI->load->model('options_model');
+    if (! $CI->options_model->get('theme_backend') ) : return '';
     endif;
 
-    return @$Options[ 'theme_backend' ] . '/' ;
+    return $CI->options_model->get('theme_backend') . '/' ;
 }
 
 // --------------------------------------------------------------------

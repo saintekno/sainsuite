@@ -5,10 +5,10 @@
 	<div class="aside-primary d-flex flex-column align-items-center flex-row-auto">
 
         <!--begin::Brand-->
-		<div class="aside-brand d-flex flex-column align-items-center flex-column-auto py-5">
+		<div class="aside-brand d-flex flex-column align-items-center flex-column-auto mb-3">
 
             <!--begin::Logo-->
-            <a href="<?php echo site_url('admin'); ?>">
+            <a href="<?php echo site_url('admin'); ?>" class="aside-logo">
                 <div id="sain-spinner" class="position-absolute"></div>
                 <img alt="<?php echo get('app_name');?>" src="<?php echo upload_url().'system/logo-light-sm.png'; ?>" class="max-h-40px" />
             </a>

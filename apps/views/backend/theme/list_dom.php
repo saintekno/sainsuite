@@ -1,90 +1,3 @@
-<!--begin::Container-->
-<?php
-global $Options;
-?>
-
-<div class="row">
-    <div class="col-12">
-        <div class="card card-custom gutter-b">
-            <div class="card-header border-0 align-items-center flex-wrap px-2 h-auto">
-                
-                <div class="col-12 col-sm-6 order-2 order-xxl-1 d-md-flex align-items-center">
-                    <div class="d-flex flex-wrap align-items-center mr-md-5 my-2">
-                        <?php if ( User::control('install.themes')) : ?>
-                        <a href="#" class="btn btn-block btn-primary btn-lg font-weight-bold text-uppercase text-center" data-toggle="modal" data-target="#kt_inbox_compose">
-                            <i class="ki ki-plus icon-1x"></i> themes
-                        </a>
-                        <?php endif; ?>  
-                    </div>
-                    <div class="d-flex align-items-center mr-md-1 my-2">
-                        <div class="input-group input-group-lg input-group-solid my-2">
-                            <input type="text" class="form-control pl-4" placeholder="Search..." />
-                            <div class="input-group-append">
-                                <span class="input-group-text pr-3">
-                                    <i class="fa fa-search"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--end::Toolbar-->
-
-                <!--begin::Pagination-->
-                <div class="col-12 col-sm-6 col-xxl-4 order-2 order-xxl-3 d-flex align-items-center justify-content-sm-end text-right my-2">
-                    
-                    <?php if ($this->aauth->is_admin()):?>
-                    <label class="col-form-label mr-2">Developer mode</label>
-
-                    <form class="form mr-5" 
-                        id="web_mode"
-                        action="<?php echo site_url(array( 'admin', 'options', 'ajax' ));?>" 
-                        method="post"> 
-                        <div class="row">
-                            <div class="col-3">
-                                <span class="switch switch-outline switch-icon switch-primary">
-                                    <label>
-                                        <input type="checkbox" 
-                                            <?php echo (intval(riake('webdev_mode', $Options))) ? 'checked="checked"' : '';?> 
-                                            name="webdev_mode">
-                                        <span></span>
-                                    </label>
-                                </span>
-                            </div>
-                        </div>
-                    </form>
-                    <?php endif; ?>
-
-                    <!--begin::Sort Dropdown-->
-                    <div class="dropdown" data-toggle="tooltip" title="Sort">
-                        <span class="btn btn-default btn-icon btn-sm"
-                            data-toggle="dropdown">
-                            <i class="flaticon2-console icon-1x"></i>
-                        </span>
-                        <div
-                            class="dropdown-menu dropdown-menu-right p-0 m-0 dropdown-menu-sm">
-                            <ul class="navi py-3">
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link active">
-                                        <span class="navi-text">Free</span>
-                                    </a>
-                                </li>
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
-                                        <span class="navi-text">Premium</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!--end::Sort Dropdown-->
-                </div>
-                <!--end::Pagination-->
-            </div>
-            <!--end::Header-->
-        </div>
-    </div>
-</div>
-
 <!--begin::Body-->
 <?php    
 if ($themes = Theme::get()) : ?>
@@ -162,7 +75,7 @@ endif;
 
 <!--begin::Compose-->
 <div class="modal modal-sticky modal-sticky-lg modal-sticky-bottom-right"
-    id="kt_inbox_compose" role="dialog" data-backdrop="false">
+    id="kt_theme_frontend" role="dialog" data-backdrop="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <!--begin::Form-->

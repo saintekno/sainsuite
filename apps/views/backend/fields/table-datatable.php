@@ -24,6 +24,10 @@
         <span class="text-uppercase font-weight-bold text-muted">WELL, THIS IS A BIT AWKWARD.</span> <br>
         <span>This space doesn't have a homepage so there's nothing to display here.</span>
     </div>
+<?php else: ?>
+    <div class="d-flex">
+        <?php echo $this->events->apply_filters('ui_subheader_search', ''); ?>
+    </div>
 <?php endif; ?>
 </table>
 <!--end::Datatable-->
