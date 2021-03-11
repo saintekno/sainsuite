@@ -16,7 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <img class="img-fluid avatar avatar-ex-sm mr-2 rounded-circle user-image" alt="<?php echo $this->events->apply_filters('user_menu_card_avatar_alt', '');?>" src="<?php echo $this->events->apply_filters('user_menu_card_avatar_src', '');?>"/>
                 <span class="hidden-xs"><?php echo User::get()->username;?></span> 
             </a> 
-            <a href="<?=site_url('logout')?>" class="btn btn-primary">logout</a>
+            <a href="<?=site_url('logout')?>" class="btn btn-danger">logout</a>
             <?php else : ?>
             <a href="<?=site_url('login')?>" class="btn btn-primary">Login</a>
             <?php endif; ?>
@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <img class="img-fluid avatar avatar-ex-sm mr-2 rounded-circle user-image" alt="<?php echo $this->events->apply_filters('user_menu_card_avatar_alt', '');?>" src="<?php echo $this->events->apply_filters('user_menu_card_avatar_src', '');?>"/>
                     <span><?php echo User::get()->username;?></span> 
                 </a> 
-                <a href="<?=site_url('logout')?>" class="btn btn-primary">logout</a>
+                <a href="<?=site_url('logout')?>" class="btn btn-danger">logout</a>
                 <?php else : ?>
                 <a href="<?=site_url('login')?>" class="btn btn-primary">Login</a>
                 <?php endif; ?>

@@ -509,6 +509,18 @@ var KTSains = function() {
             <?php if ($this->session->flashdata('flash_message') != ""):?>
                 toastr.success('<?php echo $this->session->flashdata("flash_message");?>');
             <?php endif;?>
+
+            <?php if (function_exists('validation_errors') && validation_errors()):?>
+                toastr.error('<?php echo strip_tags(validation_errors());?>');
+            <?php endif;?>
+
+            <?php if ($this->notice->output_notice(true)):?>
+                toastr.error('<?php echo $this->notice->output_notice();?>');
+            <?php endif;?>
+
+            <?php if (notice_from_url() != ""):?>
+                toastr.success('<?php echo notice_from_url();?>');
+            <?php endif;?>
         },
         isJson: function(item) {
             item = typeof item !== "string"

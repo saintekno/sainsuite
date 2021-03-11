@@ -32,22 +32,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         </a>
                     </div>
                     
-                    <?php if (function_exists('validation_errors')) {
-                        if (validation_errors()) : ?>
-                        <div class="alert alert-danger" role="alert">
-                            <?php echo strip_tags(validation_errors())?>
-                        </div>
-                        <?php endif; ?>
-                    <?php } ?>
+                    <?php if (function_exists('validation_errors') && validation_errors()) : ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?php echo strip_tags(validation_errors())?>
+                    </div>
+                    <?php endif; ?>
                     <?php if ($this->notice->output_notice(true)):?>
-                        <div class="alert alert-danger" role="alert">
-                            <?php echo $this->notice->output_notice();?>
-                        </div>
+                    <div class="alert alert-danger" role="alert">
+                        <?php echo $this->notice->output_notice();?>
+                    </div>
                     <?php endif;?>
                     <?php if (notice_from_url() != ""):?>
-                        <div class="alert alert-success" role="alert">
-                            <?php echo notice_from_url();?>
-                        </div>
+                    <div class="alert alert-success" role="alert">
+                        <?php echo notice_from_url();?>
+                    </div>
                     <?php endif;?>
 
                     <?php $this->load->backend_view('auth/'.$pages.'.php');?>

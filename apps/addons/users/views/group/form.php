@@ -79,13 +79,11 @@ foreach (force_array($this->aauth->list_groups(true)) as $gr)
     if ( ! $group_groups = $this->aauth->get_subgroups()) : continue;
     endif;
     
-    foreach (force_array($group_groups) as $item) 
+    foreach (force_array($group_groups) as $item)
     {
         $name_group = $this->aauth->get_group_name($item->subgroup_id);
-        if (in_array($name_group, $groups_array)) 
-        {
-            if (in_array($gr->name, $groups_array)) 
-            {
+        if (in_array($name_group, $groups_array)) {
+            if (in_array($gr->name, $groups_array)) {
                 unset( $groups_array[ $gr->id ] );
             }
         }
@@ -94,6 +92,7 @@ foreach (force_array($this->aauth->list_groups(true)) as $gr)
 
 $this->polatan->add_item(array(
     'type'     => 'select',
+    'class'     => 'col-6',
     'label'    => __('Name group', 'aauth'),
     'disabled' => ($groups_array) ? false : true,
     'name'     => 'name',

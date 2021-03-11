@@ -21,7 +21,8 @@
             <?php endif; ?>
 
             <p><?php echo get('app_name');?> <br>
-            © <?php echo date('Y'); ?> Saintekno. All rights reserved.</p>
+            Telp. - HP. +62 822 6920 4668 <br>
+            © <?php echo date('Y'); ?> SAINTEKNO. All rights reserved.</p>
         </div>
     </div>
 </div>
