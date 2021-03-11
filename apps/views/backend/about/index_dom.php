@@ -15,7 +15,7 @@
             </a>
             <?php else : ?>
             <p>
-            <?php echo get( 'app_name' ) . __("is up to date"); ?> <br>
+            <?php echo get( 'app_name' ) .' '. __("is up to date"); ?> <br>
             <?php echo sprintf( __( 'Version <b>%s</b> (Official build)' ), get('version') );?>
             </p>
             <?php endif; ?>
