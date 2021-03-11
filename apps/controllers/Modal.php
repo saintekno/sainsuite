@@ -11,7 +11,7 @@
  * @link        https://github.com/saintekno/sainsuite
  * @filesource
  */
-class Modal extends CI_Controller 
+class Modal extends MY_Controller 
 {
 	function __construct()
 	{

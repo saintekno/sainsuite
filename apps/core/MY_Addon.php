@@ -75,11 +75,20 @@ class MY_Addon extends CI_Model
             if ($filter === 'actives') 
             {                    
                 if (!isset($addons_actives)) {
-                    $addons_actives = get_instance()->events->apply_filters('addons_active_status', @$Options[ 'addons_actives' ]);
+                    $addons_actives = @$Options[ 'addons_actives' ];
                 }
                 
                 if (in_array(strtolower($addon[ 'application' ][ 'namespace' ]), $addons_actives)) 
                 {
+                    self::$actives[] = $addon[ 'application' ][ 'namespace' ];
+                    include_once($init_file);
+                }
+                else if(! $addon[ 'application' ][ 'readonly' ] 
+                    && in_array(
+                        strtolower($addon[ 'application' ][ 'namespace' ]), 
+                        get_instance()->events->apply_filters('addons_active_status', @$Options[ 'addons_actives' ])
+                    )
+                ) {
                     self::$actives[] = $addon[ 'application' ][ 'namespace' ];
                     include_once($init_file);
                 }

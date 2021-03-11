@@ -21,19 +21,6 @@ class Auth extends MY_Controller
 	{
 		parent::__construct();
         $this->load->library('form_validation');
-
-        $this->_auth_assets();
-    }
-    
-    /**
-     * Assets login
-     */
-    public function _auth_assets()
-    {
-        $this->enqueue->css_namespace( 'common_header' );
-        $this->enqueue->css('login');
-        $this->enqueue->js_namespace( 'common_footer' );
-        $this->enqueue->js('login');
     }
 
     /**
@@ -70,8 +57,8 @@ class Auth extends MY_Controller
 
         Polatan::set_title(sprintf(__('Sign In &mdash; %s'), get('app_name')));
         
-		$data['page_name'] = 'login';
-		$this->load->view('auth/index', $data);
+		$data['pages'] = 'login';
+        $this->load->view( 'backend/layouts_split', $data );
 	}
     
     /**
@@ -103,8 +90,8 @@ class Auth extends MY_Controller
         }
 		
 		Polatan::set_title(sprintf(__('Sign Up &mdash; %s'), get('app_name')));
-		$data['page_name'] = 'register';
-		$this->load->view('auth/index', $data);
+		$data['pages'] = 'register';
+        $this->load->view( 'backend/layouts_split', $data );
     }
     
     /**
@@ -142,8 +129,8 @@ class Auth extends MY_Controller
         }
 
         Polatan::set_title(sprintf(__('Recover Password &mdash; %s'), get('app_name')));
-        $data['page_name'] = 'recovery';
-		$this->load->view('auth/index', $data);
+        $data['pages'] = 'recovery';
+        $this->load->view( 'backend/layouts_split', $data );
     }
     
     /**

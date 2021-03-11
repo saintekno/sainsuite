@@ -21,14 +21,6 @@ class Install extends MY_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
-
-        $this->_install_assets();
-    }
-    
-    public function _install_assets()
-    {
-        $this->enqueue->css_namespace( 'common_header' );
-        $this->enqueue->css('login');
     }
 
     /**
@@ -46,8 +38,9 @@ class Install extends MY_Controller
         $this->events->add_filter('install_current', function(){ return 'current'; });
         
 		Polatan::set_title(sprintf(__('Welcome Page &mdash; %s'), get('app_name')));
-        $data['page_name'] = 'install';
-        $this->load->view('install/index', $data);
+        $data['pages'] = 'install';
+        $data['subpages'] = 'install';
+        $this->load->view( 'backend/layouts_split', $data );
     }
 
     /**
@@ -90,8 +83,9 @@ class Install extends MY_Controller
         }
 
 		Polatan::set_title(sprintf(__('Database config &mdash; %s'), get('app_name')));
-        $data['page_name'] = 'database';
-        $this->load->view('install/index', $data);
+        $data['pages'] = 'install';
+        $data['subpages'] = 'database';
+        $this->load->view( 'backend/layouts_split', $data );
     }
     
     /**
@@ -123,7 +117,8 @@ class Install extends MY_Controller
         }
 
         Polatan::set_title(sprintf(__('Site & Master account &mdash; %s'), get('core_signature')));
-        $data['page_name'] = 'site';
-        $this->load->view('install/index', $data);
+        $data['pages'] = 'install';
+        $data['subpages'] = 'site';
+        $this->load->view( 'backend/layouts_split', $data );
     }
 }

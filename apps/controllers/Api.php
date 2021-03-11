@@ -50,6 +50,79 @@ class Api extends MY_Controller
 		// 	}
 		// }
 	}
+
+	public function login()
+	{
+		if ($_POST) {
+			# code...
+    		$response = array();
+			$this->aauth->login(
+				$this->input->post( 'email' ),
+				$this->input->post( 'pass'),
+				$this->input->post( 'keep_connected' ) != null ? true : false
+			);
+		
+			if ($this->aauth->is_loggedin()) {
+
+				$select = "
+				aauth_users.*, 
+				aauth_users.id as user_id, 
+				aauth_groups.id as group_id,
+				aauth_groups.name as group_name";
+
+				$this->db->select($select)
+					->from($this->aauth->config_vars[ 'users'])
+					->join($this->aauth->config_vars[ 'user_to_group'], $this->aauth->config_vars['users'] . ".id = " . $this->aauth->config_vars['user_to_group'] . ".user_id")
+					->join($this->aauth->config_vars[ 'groups' ], $this->aauth->config_vars[ 'groups' ] . '.id = ' . $this->aauth->config_vars['user_to_group']. '.group_id');
+				
+				$this->db->where($this->aauth->config_vars['users'] . '.id', $this->session->userdata('id'));
+				$result = $this->db->get()->row();
+
+				# code...
+				$response['value']         = 1;
+				$response['message']       = "Login Berhasil";
+				$response['id']            = $result->user_id;
+				$response['email']         = $result->email;
+				$response['pass']          = $result->pass;
+				$response['username']      = $result->username;
+				$response['banned']        = $result->banned;
+				$response['group']         = $result->group_name;
+				$response['group_id']      = $result->group_id;
+				$response['last_login']    = $result->last_login;
+				$response['last_activity'] = $result->last_activity;
+				$response['date_created']  = $result->date_created;
+		
+				echo json_encode($response);
+			} 
+			else {
+				# code...
+				$response['value']   = 0;
+				$response['message'] = "Login Gagal";
+				echo json_encode($response);
+			}   
+		}
+	}
+
+	public function lists($group_par = false)
+	{
+		$select = "
+		aauth_users.*, 
+		aauth_users.id as user_id, 
+		aauth_groups.id as group_id,
+		aauth_groups.name as group_name";
+
+		$group_par = $this->aauth->get_group_id($group_par);
+
+		$this->db->select($select)
+			->from($this->aauth->config_vars[ 'users'])
+			->join($this->aauth->config_vars[ 'user_to_group'], $this->aauth->config_vars['users'] . ".id = " . $this->aauth->config_vars['user_to_group'] . ".user_id")
+			->join($this->aauth->config_vars[ 'groups' ], $this->aauth->config_vars[ 'groups' ] . '.id = ' . $this->aauth->config_vars['user_to_group']. '.group_id');
+		
+		$this->db->where_in($this->aauth->config_vars['user_to_group'] . '.group_id', $group_par);
+		$result = $this->db->get()->result();
+
+		echo json_encode($result); 
+	}
 	
 	/**
 	* Index for API

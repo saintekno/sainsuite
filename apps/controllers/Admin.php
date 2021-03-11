@@ -21,52 +21,13 @@ class Admin extends MY_Controller
 	public function __construct()
 	{
         parent::__construct();
-        $this->load->library('menu');
-        $this->load->model('admin_model');
-        $this->load->model('update_model');
+
+        $this->load->model( theme_backend().'menus_model' );
+        $this->load->model( 'admin_model' );
+        $this->load->model( 'update_model' );
 
         // Loading Admin Menu
         $this->events->do_action( 'load_dashboard' );
-        
-        // Load CSS and JS
-        $this->events->add_action( 'dashboard_header', array( $this, '_dashboard_header' ), 1 );
-        $this->events->add_action( 'dashboard_footer', array( $this, '_dashboard_footer' ), 1 );
-    }
-
-    /**
-     *  Dashboard header
-     *  @param void
-     *  @return void
-    **/
-
-    public function _dashboard_header()
-    {
-        $this->events->do_action( 'common_header' );
-
-        $this->enqueue->css_namespace( 'dashboard_header' );
-        $this->enqueue->css('datatables/datatables.bundle');
-        $this->enqueue->css('skin/all');
-        $this->enqueue->css('skin/tosca');
-        $this->enqueue->load_css( 'dashboard_header' );
-    }
-
-    /**
-     *  Dashboard Footer
-     *  @param void
-     *  @return void
-    **/
-
-    public function _dashboard_footer()
-    {
-        $this->enqueue->js_namespace( 'dashboard_footer' );
-        $this->enqueue->js('angular.min', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/');
-		$this->enqueue->js('underscore-min', 'https://cdn.jsdelivr.net/npm/underscore@1.11.0/');
-		$this->enqueue->js('heartcode-canvasloader-min', 'https://cdn.jsdelivr.net/canvasloader-ui/0.9/');
-        $this->enqueue->js('datatables/datatables.bundle');
-        $this->enqueue->load_js( 'dashboard_footer' );
-
-        $this->load->backend_view('script');
-        $this->events->do_action( 'common_footer' );
     }
 
 	// --------------------------------------------------------------------
@@ -133,11 +94,137 @@ class Admin extends MY_Controller
      * @return void
      */
 	public function index()
-	{
-		$this->events->do_action(
-			$this->events->apply_filters('load_dashboard_home', 'load_dashboard_homes')
-		);
+	{                
+        Polatan::set_title(sprintf(__('Dashboard &mdash; %s'), get('signature')));
+        $this->load->backend_view( 'dashboard/index' );
 	}
+
+    // --------------------------------------------------------------------
+
+    /**
+     * Options Management ocntroller
+     * [New Permission Ready]
+     *
+     * @access public
+     */
+    public function options($mode = 'list', $app = 'system')
+    {
+        if (in_array($mode, array( 'save', 'merge' ))) 
+        {
+            // Can user edit options ?
+            if (! User::control('edit.options')) 
+            {
+                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                redirect(site_url('admin/page404'));
+            }
+
+            if ($this->input->post('gui_saver_expiration_time') > gmt_to_local(time(), 'UTC')) 
+            {
+                // loping post value
+                foreach ($_POST as $key => $value) {
+                    if (! in_array($key, array( 'gui_saver_ref', 'gui_saver_expiration_time' ))) {
+                        
+                        $this->events->do_action('do_save_options');
+
+                        $this->options_model->set(
+                            $key, 
+                            $this->input->post($key),
+                            $app
+                        );
+                    }
+                };
+
+                $ref = @$_SERVER[ 'HTTP_REFERER' ] === null ? $this->input->post('gui_saver_ref') : $_SERVER[ 'HTTP_REFERER' ];
+                $hasQuery = strpos( $ref, '?' );
+                redirect( $ref . ( $hasQuery === false ? '?' : '&' ) . 'notice=option-saved');
+            }
+        } 
+        elseif (in_array($mode, array( 'save_user_meta', 'merge_user_meta' ))) 
+        {
+            if (! User::control('edit.profile')) 
+            {
+                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                redirect(site_url('admin/page404'));
+            }
+
+            if ($this->input->post('gui_saver_expiration_time') >  gmt_to_local(time(), 'UTC')) 
+            {
+                $content = array();
+                // loping post value
+                foreach ($_POST as $key => $value) 
+                {
+                    if (! in_array($key, array( 'gui_saver_option_namespace', 'gui_saver_ref', 'gui_saver_expiration_time', 'gui_saver_use_namespace', 'user_id' ))) 
+                    {
+                        if ($mode == 'merge_user_meta' && is_array($value)) 
+                        {
+                            $options = $this->aauth->get_user_var($key);
+                            $options = array_merge(force_array($options), $value);
+                        }
+
+                        // save only when it's not an array
+                        if (! is_array($_POST[ $key ])) {
+                            if ($this->input->post('gui_saver_use_namespace') === 'true') {
+                                $content[ $key ] = ($mode == 'merge') ? $options : $this->input->post($key);
+                            } 
+                            else {
+                                if ($mode == 'merge_user_meta' && is_array($value)) {
+                                    $this->aauth->set_user_var($key, $options, $this->input->post('user_id'));
+                                } else {
+                                    $this->aauth->set_user_var($key, $this->input->post($key), $this->input->post('user_id'));
+                                }
+                            }
+                        } 
+                        else {
+                            if ($this->input->post('gui_saver_use_namespace') === 'true') {
+                                $content[ $key ] = ($mode == 'merge') ? $options : xss_clean($_POST[ $key ]);
+                            } 
+                            else {
+                                if ($mode == 'merge_user_meta' && is_array($value)) {
+                                    $this->aauth->set_user_var($key, $options, $this->input->post('user_id'));
+                                } else {
+                                    $this->aauth->set_user_var($key, xss_clean($_POST[ $key ]), $this->input->post('user_id'));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        elseif (in_array($mode, array('ajax'))) {
+            // loping post value
+            foreach ($_POST as $key => $value) {
+                $this->options_model->set(
+                    $key, 
+                    $this->input->post($key)
+                );
+            };
+        }
+        else {
+            redirect(site_url('admin/page404'));
+        }
+    }
+
+    // --------------------------------------------------------------------
+
+    /**
+     * page404 controller
+     * [New Permission Ready]
+     *
+     * @access public
+     */
+    public function page404()
+    {
+        if ( $this->session->flashdata('error_message') == ""
+            && $this->session->flashdata('info_message') == ""
+            && $this->session->flashdata('flash_message') == ""
+        ) : return redirect(site_url('admin'));
+        endif;
+        
+        Polatan::set_title(sprintf(__('404 &mdash; %s'), get('signature')));
+        
+        Polatan::set_page('404');
+        $this->polatan->output();
+    }
 
     // --------------------------------------------------------------------
     
@@ -154,19 +241,6 @@ class Admin extends MY_Controller
     public function addons($page = 'list', $arg2 = null, $arg3 = null, $arg4 = null, $arg5 = null)
     {        
         switch ($page) {
-            case "list":
-                // Can user access.addons ?
-                if (! User::control('read.addons')) {
-                    $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
-                    redirect(site_url('admin/page404'));
-                }
-    
-                Polatan::set_title(sprintf(__('Addons List &mdash; %s'), get('signature')));
-                
-                $data['addons'] = $this->events->apply_filters('get_folder_addons', MY_Addon::get());
-                $this->load->view( 'backend/addons/list', $data );
-                break;
-
             case "install_zip":
                 // Can user access.addons ?
                 if (! User::control('install.addons')) {
@@ -203,7 +277,7 @@ class Admin extends MY_Controller
                 Polatan::set_title(sprintf(__('Addons List &mdash; %s'), get('signature')));
                 
                 $data['addons'] = $this->events->apply_filters('get_folder_addons', MY_Addon::get());
-                $this->load->view( 'backend/addons/list', $data );
+                $this->load->backend_view( 'addons/list', $data );
                 break;
 
             case "enable":
@@ -292,7 +366,7 @@ class Admin extends MY_Controller
                 $data['addon'] = $addon;
     
                 Polatan::set_title(sprintf(__('Migration &mdash; %s'), get('signature')));
-                $this->load->view( 'backend/addons/migrate', $data);
+                $this->load->backend_view( 'addons/migrate', $data);
                 break;
 
             case "exec":
@@ -372,13 +446,26 @@ class Admin extends MY_Controller
                 $this->events->do_action('do_private_page', $arg2);
                 break;
 
+            default:
+                // Can user access.addons ?
+                if (! User::control('read.addons')) {
+                    $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                    redirect(site_url('admin/page404'));
+                }
+
+                Polatan::set_title(sprintf(__('Addons List &mdash; %s'), get('signature')));
+                
+                $data['addons'] = $this->events->apply_filters('get_folder_addons', MY_Addon::get());
+                $this->load->backend_view( 'addons/list', $data );
+                break;
+
         }
     }
 
     // --------------------------------------------------------------------
     
     /**
-     * Themes
+     * Appearance
      *
      * @param string $page
      * @param [type] $arg2
@@ -387,183 +474,80 @@ class Admin extends MY_Controller
      * @param [type] $arg5
      * @return void
      */
-    public function themes($page = 'list', $arg2 = null, $arg3 = null, $arg4 = null, $arg5 = null)
+    public function appearance($page = 'list', $arg2 = null, $arg3 = null, $arg4 = null, $arg5 = null)
     {   
         Theme::load( FRONTENDPATH );  
 
-        if ($page === 'list') 
-        {
-            // Can user access.themes ?
-            if (! User::control('read.themes')) {
-                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
-                redirect(site_url('admin/page404'));
-            }
-            
-            Polatan::set_title(sprintf(__('Theme List &mdash; %s'), get('signature')));
-
-            $this->events->do_action('header_menu_themes');
-            $this->load->backend_view( 'theme/list' );
-        }
-        elseif ($page === 'install_zip') 
-        {
-            // Can user access.themes ?
-            if (! User::control('install.themes')) {
-                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
-                redirect(site_url('admin/page404'));
-            }
-
-            if (isset($_FILES[ 'extension_zip' ])) 
-            {
-                $notice = Theme::install('extension_zip');
-                // it means that addon has been installed
-                if (is_array($notice)) 
-                {
-                    redirect(array( 'admin', 'themes', 'list?highlight=' . @$notice[ 'namespace' ] . '&notice=' . $notice[ 'msg' ] . '#theme-' . $notice[ 'namespace' ] ));
-                } 
-
-                $this->notice->push_notice_array($notice);
-            }
-            
-            Polatan::set_title(sprintf(__('Theme List &mdash; %s'), get('signature')));
-
-            $this->events->do_action('header_menu_themes');
-            $this->load->backend_view( 'theme/list' );
-        }
-        elseif ($page === 'enable') 
-        {
-            // Can user access.themes ?
-            if (! User::control('toggle.themes')) {
-                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
-                redirect(site_url('admin/page404'));
-            }
-
-            Theme::enable($arg2);
-
-            redirect(array( 'admin', 'themes?notice=theme-enabled') );
-        }
-        elseif ($page === 'remove') 
-        {
-            // Can user access.themes ?
-            if (! User::control('delete.themes')) {
-                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
-                redirect(site_url('admin/page404'));
-            }
-
-            Theme::uninstall($arg2);
-
-            redirect(array( 'admin', 'themes?notice=theme-removed' ));
-        }
-        elseif ($page === 'extract') 
-        {
-            // Can user access.themes ?
-            if (! User::control('extract.themes') && $this->aauth->is_admin()) {
-                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
-                redirect(site_url('admin/page404'));
-            }
-
-            Theme::extract($arg2);
-        }
-    }
-
-    // --------------------------------------------------------------------
-
-    /**
-     * Options Management ocntroller
-     * [New Permission Ready]
-     *
-     * @access public
-     */
-    public function options($mode = 'list')
-    {
-        if (in_array($mode, array( 'save', 'merge' ))) 
-        {
-            // Can user edit options ?
-            if (! User::control('edit.options')) {
-                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
-                redirect(site_url('admin/page404'));
-            }
-
-            if (! $this->input->post('gui_saver_ref') && ! $this->input->post('gui_json')) {
-                // if JSON mode is enabled redirect is disabled
-                redirect(array( 'admin', 'options' ));
-            }
-
-            if ($this->input->post('gui_saver_expiration_time') > gmt_to_local(time(), 'UTC')) 
-            {
-                // loping post value
-                foreach ($_POST as $key => $value) {
-                    if (! in_array($key, array( 'gui_saver_ref', 'gui_saver_expiration_time' ))) {
-                        $this->options_model->set(
-                            $key, 
-                            $this->input->post($key)
-                        );
-                    }
-                };
-
-                $ref = @$_SERVER[ 'HTTP_REFERER' ] === null ? $this->input->post('gui_saver_ref') : $_SERVER[ 'HTTP_REFERER' ];
-                $hasQuery = strpos( $ref, '?' );
-                redirect( $ref . ( $hasQuery === false ? '?' : '&' ) . 'notice=option-saved');
-            }
-        } 
-        elseif (in_array($mode, array( 'save_user_meta', 'merge_user_meta' ))) 
-        {
-            if (! User::control('edit.profile')) 
-            {
-                $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
-                redirect(site_url('admin/page404'));
-            }
-
-            if ($this->input->post('gui_saver_expiration_time') >  gmt_to_local(time(), 'UTC')) 
-            {
-                $content = array();
-                // loping post value
-                foreach ($_POST as $key => $value) 
-                {
-                    if (! in_array($key, array( 'gui_saver_option_namespace', 'gui_saver_ref', 'gui_saver_expiration_time', 'gui_saver_use_namespace', 'user_id' ))) 
-                    {
-                        if ($mode == 'merge_user_meta' && is_array($value)) 
-                        {
-                            $options = $this->aauth->get_user_var($key);
-                            $options = array_merge(force_array($options), $value);
-                        }
-
-                        // save only when it's not an array
-                        if (! is_array($_POST[ $key ])) {
-                            if ($this->input->post('gui_saver_use_namespace') === 'true') {
-                                $content[ $key ] = ($mode == 'merge') ? $options : $this->input->post($key);
-                            } 
-                            else {
-                                if ($mode == 'merge_user_meta' && is_array($value)) {
-                                    $this->aauth->set_user_var($key, $options, $this->input->post('user_id'));
-                                } else {
-                                    $this->aauth->set_user_var($key, $this->input->post($key), $this->input->post('user_id'));
-                                }
-                            }
-                        } 
-                        else {
-                            if ($this->input->post('gui_saver_use_namespace') === 'true') {
-                                $content[ $key ] = ($mode == 'merge') ? $options : xss_clean($_POST[ $key ]);
-                            } 
-                            else {
-                                if ($mode == 'merge_user_meta' && is_array($value)) {
-                                    $this->aauth->set_user_var($key, $options, $this->input->post('user_id'));
-                                } else {
-                                    $this->aauth->set_user_var($key, xss_clean($_POST[ $key ]), $this->input->post('user_id'));
-                                }
-                            }
-                        }
-                    }
+        switch ($page) {
+            case 'install_zip':
+                // Can user access.themes ?
+                if (! User::control('install.themes')) {
+                    $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                    redirect(site_url('admin/page404'));
                 }
-            }
-        }
-        elseif (in_array($mode, array('ajax'))) {
-            // loping post value
-            foreach ($_POST as $key => $value) {
-                $this->options_model->set(
-                    $key, 
-                    $this->input->post($key)
-                );
-            };
+    
+                if (isset($_FILES[ 'extension_zip' ])) 
+                {
+                    $notice = Theme::install('extension_zip');
+                    // it means that addon has been installed
+                    if (is_array($notice)) 
+                    {
+                        redirect(array( 'admin', 'themes', 'list?highlight=' . @$notice[ 'namespace' ] . '&notice=' . $notice[ 'msg' ] . '#theme-' . $notice[ 'namespace' ] ));
+                    } 
+    
+                    $this->notice->push_notice_array($notice);
+                }
+                
+                Polatan::set_title(sprintf(__('Theme List &mdash; %s'), get('signature')));
+    
+                $this->load->backend_view( 'appearance/list' );
+                break;
+            
+            case 'enable':
+                // Can user access.themes ?
+                if (! User::control('toggle.themes')) {
+                    $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                    redirect(site_url('admin/page404'));
+                }
+    
+                Theme::enable($arg2);
+    
+                redirect(array( 'admin', 'themes?notice=theme-enabled') );
+                break;
+
+            case 'remove':
+                // Can user access.themes ?
+                if (! User::control('delete.themes')) {
+                    $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                    redirect(site_url('admin/page404'));
+                }
+    
+                Theme::uninstall($arg2);
+    
+                redirect(array( 'admin', 'themes?notice=theme-removed' ));
+                break;
+
+            case 'extract':
+                // Can user access.themes ?
+                if (! User::control('extract.themes') && $this->aauth->is_admin()) {
+                    $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                    redirect(site_url('admin/page404'));
+                }
+    
+                Theme::extract($arg2);
+                break;
+            
+            default:
+                // Can user access.themes ?
+                if (! User::control('read.themes')) {
+                    $this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+                    redirect(site_url('admin/page404'));
+                }
+                
+                Polatan::set_title(sprintf(__('Theme List &mdash; %s'), get('signature')));
+                
+                $this->load->backend_view( 'appearance/list');
+                break;
         }
     }
 
@@ -574,7 +558,7 @@ class Admin extends MY_Controller
      * [New Permission Ready]
      * @return void
     **/
-    public function settings()
+    public function settings($page = 'home')
     {
         // Can user access settings ?
         if (! User::control('create.options') &&
@@ -584,8 +568,17 @@ class Admin extends MY_Controller
             redirect(site_url('admin/page404'));
         }
 
-        Polatan::set_title(sprintf(__('Settings &mdash; %s'), get('signature')));
-        $this->load->backend_view( 'settings/index');
+        switch ($page) {
+            case 'preferences':
+                Polatan::set_title(sprintf(__('Preferences &mdash; %s'), get('signature')));
+                $this->load->backend_view( 'settings/preferences');
+                break;
+            
+            default:
+                Polatan::set_title(sprintf(__('Settings &mdash; %s'), get('signature')));
+                $this->load->backend_view( 'settings/index' );
+                break;
+        }
     }
 
     // --------------------------------------------------------------------
@@ -598,47 +591,42 @@ class Admin extends MY_Controller
      */
     public function about($page = 'home',  $version = null)
     {
-        if ($page === 'core') {
-            Polatan::set_title(sprintf(__('Updating... &mdash; %s'), get('signature')));
-            $data['release'] = $version;
-            $data['update'] = $this->update_model->get($version);
-            $this->load->backend_view( 'about/update', $data );
-        } 
-        elseif ($page === 'download') {
-            echo json_encode($this->update_model->install(1, $version));
-        } 
-        elseif ($page === 'extract') {
-            echo json_encode($this->update_model->install(2));
-        } 
-        elseif ($page === 'install') {
-            echo json_encode($this->update_model->install(3));
-        } 
-        elseif ($page === 'updated') {
-            echo json_encode($this->update_model->install(4));
-        } 
-        else {
-            $this->events->do_action( $this->events->apply_filters('load_about', 'load_abouts') );
+        if (! $this->aauth->is_admin()) {
+            redirect(site_url());
         }
-    }
 
-    // --------------------------------------------------------------------
+        switch ($page) {
+            case 'core':
+                Polatan::set_title(sprintf(__('Updating... &mdash; %s'), get('signature')));
+                $data['release'] = $version;
+                $data['update'] = $this->update_model->get($version);
+                $this->load->backend_view( 'about/update', $data );
+                break;
 
-    /**
-     * page404 controller
-     * [New Permission Ready]
-     *
-     * @access public
-     */
-    public function page404()
-    {
-        if ( $this->session->flashdata('error_message') == ""
-            && $this->session->flashdata('info_message') == ""
-            && $this->session->flashdata('flash_message') == ""
-        ) : return redirect(site_url('admin'));
-        endif;
-        
-        Polatan::set_title(sprintf(__('404 &mdash; %s'), get('signature')));
-        Polatan::set_page('404');
-        $this->polatan->output();
+            case 'download':
+                echo json_encode($this->update_model->install(1, $version));
+                break;
+
+            case 'extract':
+                echo json_encode($this->update_model->install(2));
+                break;
+
+            case 'install':
+                echo json_encode($this->update_model->install(3));
+                break;
+
+            case 'updated':
+                echo json_encode($this->update_model->install(4));
+                break;
+            
+            default:
+                $this->load->library('markdown');
+                Polatan::set_title(sprintf(__('About &mdash; %s'), get('signature')));
+
+                // Can user access addons ?
+                $data['check'] = (! User::control('manage.core') ) ? false : $this->update_model->check();
+                $this->load->backend_view( 'about/index', $data );
+                break;
+        }
     }
 }
