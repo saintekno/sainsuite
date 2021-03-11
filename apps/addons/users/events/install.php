@@ -23,15 +23,7 @@ class Users_Install extends MY_Addon
         $this->events->add_action('settings_tables', array( $this, 'settings_tables' ));
         $this->events->add_action('settings_final_config', array( $this, 'permissions' ));
         $this->events->add_action('settings_final_config', array( $this, 'final_config' ));
-        $this->events->add_action('settings_setup', array( $this, 'registration_rules' ));
-    }
-    
-    public function registration_rules()
-    {
-        $this->form_validation->set_rules('username', 'User Name', 'required|min_length[5]');
-        $this->form_validation->set_rules('email', 'Email', 'valid_email|required');
-        $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
-        $this->form_validation->set_rules('confirm', 'Confirm', 'matches[password]');
+        $this->events->add_action('settings_setup', array( new Users_Action, 'registration_rules' ));
     }
 
     public function enable_addon()

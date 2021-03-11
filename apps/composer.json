@@ -2,7 +2,6 @@
     "require": {
         "pecee/simple-router": "4.2.0.6",
         "nesbot/carbon": "^2.39",
-        "phpoffice/phpspreadsheet": "^1.14",
         "sepia/po-parser": "4.2.2",
         "google/apiclient": "^2.8",
         "phpmailer/phpmailer": "^6.2"

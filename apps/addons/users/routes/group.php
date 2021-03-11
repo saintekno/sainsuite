@@ -14,11 +14,29 @@ defined('BASEPATH') or exit('No direct script access allowed');
  */
 class GroupsHomeController extends MY_Addon
 {
+    private $breadcrumbs = array();
+    
     public function __construct()
     {
         parent::__construct();
 
-        $this->events->add_filter( 'header_menu', array( new Users_Menu, '_header_menu' ));
+        $this->events->add_filter( 'header_nav', array( new Users_Menu, '_header_menu' ));
+    }
+
+    private function breadcrumb($array = array())
+    {
+        $this->breadcrumbs[] = array(
+            'id'     => 1,
+            'name' => __('Home'), 
+            'slug' => site_url('admin')
+        );
+        $this->breadcrumbs[] = array(
+            'id'     => 2,
+            'name' => __('Group'), 
+            'slug' => site_url('admin/group')
+        );
+        ($array) ? $this->breadcrumbs[] = $array : '';
+        return $this->breadcrumbs;
     }
 
     /**
@@ -31,26 +49,12 @@ class GroupsHomeController extends MY_Addon
             $this->session->set_flashdata('error_message', __( 'Access denied. Your are not allowed to see this page.' ));
             redirect(site_url('admin/page404'));
 		}
-
-        // Toolbar
-        $this->events->add_filter( 'toolbar_menu', function( $final ) {
-            $final[] = array(
-                'title'   => __('Add A group'),
-                'icon'    => 'ki ki-plus',
-                'button'  => 'btn-light-primary',
-                'href'    => site_url([ 'admin', 'group', 'add' ]),
-                'permission' => 'create.group'
-            );
-            return $final;
-        });
         
         // Title
 		Polatan::set_title(sprintf(__('Group &mdash; %s', 'group'), get('signature')));
         
         // BreadCrumb
-        $this->breadcrumb->add(__('Home'), site_url('admin'));
-        $this->breadcrumb->add(__('Group'), site_url('admin/group'));
-        $data['breadcrumbs'] = $this->breadcrumb->render();
+        $data['breadcrumbs'] = $this->breadcrumb();
         
         $data['groups'] = json_encode($this->aauth->list_groups());
         $this->addon_view( 'users', 'group/read', $data );
@@ -66,26 +70,6 @@ class GroupsHomeController extends MY_Addon
             $this->session->set_flashdata('error_message', __( 'Access denied. Your are not allowed to see this page.' ));
             redirect(site_url('admin/page404'));
         }
-
-        // Toolbar
-        $this->events->add_filter( 'toolbar_menu', function( $final ) {
-			$final[] = array(
-				'title'   => __('Back to the list'),
-				'icon'    => 'ki ki-long-arrow-back',
-				'button'  => 'btn-light',
-				'href'    => site_url([ 'admin', 'group' ])
-			);
-			return $final;
-        });
-        
-        // Title
-		Polatan::set_title(sprintf(__('Group &mdash; %s', 'group'), get('signature')));
-        
-        // BreadCrumb
-        $this->breadcrumb->add(__('Home'), site_url('admin'));
-        $this->breadcrumb->add(__('Group'), site_url('admin/group'));
-        $this->breadcrumb->add(__('Add New'), site_url('admin/group/add'));
-        $data['breadcrumbs'] = $this->breadcrumb->render();
 
         $this->load->library('form_validation');
         $this->form_validation->set_rules('name', 'Group Name', 'required');
@@ -105,6 +89,16 @@ class GroupsHomeController extends MY_Addon
             
             $this->notice->push_notice_array($this->aauth->get_infos_array());
         }
+        
+        // Title
+		Polatan::set_title(sprintf(__('Group &mdash; %s', 'group'), get('signature')));
+        
+        // BreadCrumb
+        $data['breadcrumbs'] = $this->breadcrumb(array(
+            'id' => 2,
+            'name' => __('Add New'), 
+            'slug' => site_url('admin/group/add')
+        ));
 
         $this->addon_view( 'users', 'group/form', $data );
     }
@@ -120,29 +114,6 @@ class GroupsHomeController extends MY_Addon
             $this->session->set_flashdata('error_message', __( 'Access denied. Your are not allowed to see this page.' ));
             redirect(site_url('admin/page404'));
         }
-
-        // Toolbar
-        $this->events->add_filter( 'toolbar_menu', function( $final ) {
-			$final[] = array(
-				'title'   => __('Back to the list'),
-				'icon'    => 'ki ki-long-arrow-back',
-				'button'  => 'btn-light',
-				'href'    => site_url([ 'admin', 'group' ])
-			);
-			return $final;
-        });
-
-        // Title
-		Polatan::set_title(sprintf(__('Group &mdash; %s', 'group'), get('signature')));
-        
-        // BreadCrumb
-        $this->breadcrumb->add(__('Home'), site_url('admin'));
-        $this->breadcrumb->add(__('Group'), site_url('admin/group'));
-        $this->breadcrumb->add(__('Edit'), site_url('admin/group/edit'));
-        $data['breadcrumbs'] = $this->breadcrumb->render();
-
-        // Data
-        $data['group'] = $this->aauth->get_group($index);
 
         // Submit
         $this->load->library('form_validation');
@@ -163,6 +134,19 @@ class GroupsHomeController extends MY_Addon
             
             $this->notice->push_notice_array($this->aauth->get_errors_array());
         }
+
+        // Title
+		Polatan::set_title(sprintf(__('Group &mdash; %s', 'group'), get('signature')));
+        
+        // BreadCrumb
+        $data['breadcrumbs'] = $this->breadcrumb( array( 
+            'id' => 3,
+            'name' => __('Edit'), 
+            'slug' => site_url('admin/group/edit') )
+        );
+
+        // Data
+        $data['group'] = $this->aauth->get_group($index);
         
         $this->addon_view( 'users', 'group/form', $data );
     }
@@ -187,7 +171,6 @@ class GroupsHomeController extends MY_Addon
             foreach($ids as $id){
                 $this->aauth->delete_group($id);
             }
-    
             echo 1;
             exit;
         }

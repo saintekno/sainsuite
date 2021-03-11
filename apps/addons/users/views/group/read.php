@@ -12,10 +12,18 @@
  * @filesource
  */
 
-/**
- * Col Width
- */
-$this->polatan->col_width(1, 4);
+// Toolbar
+$this->events->add_filter( 'toolbar_nav', function( $final ) {
+    $final[] = array(
+        'id' => 1,
+        'name'   => __('Add A group'),
+        'icon'    => 'ki ki-plus',
+        'attr_anchor'  => 'class="btn btn-light-primary btn-sm font-weight-bolder"',
+        'slug'    => [ 'admin', 'group', 'add' ],
+        'permission' => 'create.group'
+    );
+    return $final;
+});
 
 /**
  * Meta
@@ -23,6 +31,7 @@ $this->polatan->col_width(1, 4);
 $this->polatan->add_meta(array(
     'namespace'  => 'group',
     'col_id' => 1,
+    'class'     => 'col-12',
     'type' => 'card'
 ));
 
@@ -32,7 +41,7 @@ $this->polatan->add_meta(array(
 $this->polatan->add_item(array(
     'type'  => 'table-datatable',
     'data' => json_decode($groups),
-), 'group', 1);
+), 'group');
 
 /**
  * Script

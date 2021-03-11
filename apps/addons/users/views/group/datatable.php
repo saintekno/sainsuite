@@ -40,7 +40,7 @@ var DatatableScript = function() {
                         var state = states[stateNo];
 
                         var output = '<div class="d-flex align-items-center">\
-                            <div class="symbol symbol-40 symbol-'+state+' flex-shrink-0">\
+                            <div class="symbol symbol-30 symbol-'+state+' flex-shrink-0">\
                                 <div class="symbol-label">' + row.name.substring(0, 1) + '</div>\
                             </div>\
                             <div class="ml-2">\
@@ -84,7 +84,7 @@ var DatatableScript = function() {
                             <button class="btn btn-sm btn-icon btn-light-danger btn-hover-danger "\
                                 data-head="<?php echo _s( 'Would you like to delete this data?' ) ;?>"\
                                 data-url="<?php echo site_url(array( 'admin', 'group', 'delete'));?>/'+ row.id +'"\
-                                onclick="deleteConfirmation(this)">\
+                                onclick="KTSains.deleteConfirmation(this)">\
                                 <i class="fas fa-trash-alt"></i>\
                             </button>\
                         ';

@@ -17,21 +17,23 @@ class Users_Menu extends MY_Addon
     public function __construct()
     {
 		parent::__construct();
-		$this->events->add_filter( 'system_menu', array( $this, 'system_menu' ));
-        $this->events->add_filter( 'after_user_card', array( $this, 'after_user_card' ));
+		
+        $this->events->add_filter( 'aside_nav', array( $this, 'aside_nav' ));
     }
 
 	public function _header_menu($menu) {
         $menu[] = array(
-            'title' => __('Users'),
-            'href' => site_url([ 'admin', 'users' ]),
-            'icon' => 'la la-user',
+            'id' => 3,
+            'name' => __('Users'),
+            'slug' => [ 'admin', 'users' ],
+            'order' => 3,
             'permission' => 'read.users'
         );
         $menu[] = array(
-            'title' => __('Group'),
-            'href' => site_url([ 'admin', 'group' ]),
-            'icon' => 'la la-user-friends',
+            'id' => 4,
+            'name' => __('Group'),
+            'slug' => [ 'admin', 'group' ],
+            'order' => 4,
             'permission' => 'read.group'
         );
 
@@ -66,54 +68,28 @@ class Users_Menu extends MY_Addon
      * Load Dashboard Menu
      * [New Permission Ready]
     **/
-    public function system_menu($system)
+    public function aside_nav($menus)
     {
-        $system[] = array(
-            'title' => __('Users', 'aauth'),
-            'icon'  => 'svg/Group.svg',
-            'href'  => site_url('admin/users'),
-            'permission' => 'read.users'
+        $menus[] = array(
+            'id' => 4,
+            'parent'  => NULL,
+            'name' => __('Users', 'aauth'),
+            'icon' => 'icon-2x flaticon2-user-1',
+            'slug'  => 'admin/users',
+            // 'permission' => 'read.users',
+            'order' => 4
         );
-        
-        global $Options;
-        if( $this->aauth->is_admin() ):
-        $system[] = array(
-            'title' => __('Reset'),
-            'icon'  => 'svg/Time-schedule.svg',
-            'href'  => site_url('admin/addons/enable/reset'),
-            'permission' => 'read.users'
+        $menus[] = array(
+            'id' => 5,
+            'parent'  => NULL,
+            'name' => __('Inbox', 'aauth'),
+            'icon' => 'icon-2x flaticon2-chat-1',
+            'slug'  => 'admin/chat',
+            // 'permission' => 'read.users',
+            'order' => 5
         );
-        endif;
 
-        return $system;
-    }
-
-    /**
-     * Load Dashboard Menu
-     * [New Permission Ready]
-    **/
-    public function after_user_card()
-    {
-        return '
-        <a href="'. xss_clean(site_url(array( 'admin', 'profile' ) ) ).'" class="navi-item hoverable mb-0">
-            <div class="navi-link">
-                <div class="symbol symbol-40 bg-light mr-3">
-                    <div class="symbol-label bg-hover-white">
-                        <span class="svg-icon svg-icon-md svg-icon-success">
-                        <i class="flaticon-user text-success"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="navi-text">
-                    <div class="font-weight-bold">
-                    '.__('Personal Settings').'
-                    </div>
-                    <div class="text-muted">
-                        Account settings and more
-                    </div>
-                </div>
-            </div>
-        </a>';
+        return $menus;
     }
 }
 new Users_Menu;

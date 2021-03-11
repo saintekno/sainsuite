@@ -14,11 +14,29 @@ defined('BASEPATH') or exit('No direct script access allowed');
  */
 class UsersHomeController extends MY_Addon
 {
+    private $breadcrumbs = array();
+
     public function __construct()
     {
         parent::__construct();
 
-        $this->events->add_filter( 'header_menu', array( new Users_Menu, '_header_menu' ));
+        $this->events->add_filter( 'header_nav', array( new Users_Menu, '_header_menu' ));
+    }
+
+    private function breadcrumb($array = array())
+    {
+        $this->breadcrumbs[] = array(
+            'id'     => 1,
+            'name' => __('Home', 'addkit'), 
+            'slug' => site_url('admin')
+        );
+        $this->breadcrumbs[] = array(
+            'id'     => 2,
+            'name' => __('AddKit', 'addkit'), 
+            'slug' => site_url('admin/addkit')
+        );
+        ($array) ? $this->breadcrumbs[] = $array : '';
+        return $this->breadcrumbs;
     }
 
     /**
@@ -33,53 +51,12 @@ class UsersHomeController extends MY_Addon
             $this->session->set_flashdata('info_message', __( 'Youre not allowed to see this page.' ));
             redirect(site_url('admin/page404'));
 		}
-
-        // Toolbar
-        $this->events->add_filter( 'toolbar_menu', function( $final ) {
-            $final[] = array(
-                'title'   => __('Add A user'),
-                'icon'    => 'ki ki-plus',
-                'button'  => 'btn-light-primary',
-                'href'    => site_url([ 'admin', 'users', 'add' ]),
-                'permission' => 'create.users'
-            );
-            return $final;
-        });
-
-        $this->events->add_filter('ui_subheader_search', function () { // disabling header
-            $groups = $this->aauth->list_groups();
-            $option = '<option value="">All</option>';
-            foreach ( force_array($groups) as $gr ) {
-                $option .= '<option value="'.strtolower($gr->name).'">'.$gr->definition.'</option>';
-            }
-            return '
-            <div class="d-flex align-items-center mr-2">
-                <select class="form-control form-control-sm"
-                    id="kt_datatable_search_group">
-                    '.$option.'
-                </select>
-            </div>
-            <div class="d-flex align-items-center mr-2">
-                <select class="form-control form-control-sm"
-                    id="kt_datatable_search_status">
-                    <option value="">All</option>
-                    <option value="0">Active</option>
-                    <option value="1">Unactive</option>
-                </select>
-            </div>
-            <div class="input-icon">
-                <input type="text" class="form-control form-control-sm" placeholder="Search..." id="search_query" />
-                <span><i class="flaticon2-search-1 text-muted"></i></span>
-            </div>';
-        });
         
         // Title
 		Polatan::set_title(sprintf(__('Users &mdash; %s'), get('signature')));
         
         // BreadCrumb
-        $this->breadcrumb->add(__('Home'), site_url('admin'));
-        $this->breadcrumb->add(__('Users'), site_url('admin/users'));
-        $data['breadcrumbs'] = $this->breadcrumb->render();
+        $data['breadcrumbs'] = $this->breadcrumb();
 
         // Data
         $list_users = ($this->aauth->is_admin()) ? $this->aauth->list_users(false, [], false, false, true) : $this->aauth->list_users();
@@ -98,29 +75,6 @@ class UsersHomeController extends MY_Addon
             $this->session->set_flashdata('info_message', __( 'Youre not allowed to see this page.' ));
             redirect(site_url('admin/page404'));
         }
-
-        // Toolbar
-        $this->events->add_filter( 'toolbar_menu', function( $final ) {
-			$final[] = array(
-				'title'   => __('Back to the list'),
-				'icon'    => 'ki ki-long-arrow-back',
-				'button'  => 'btn-light',
-				'href'    => site_url([ 'admin', 'users' ])
-			);
-			return $final;
-        });
-        
-        // Title
-		Polatan::set_title(sprintf(__('Users &mdash; %s'), get('signature')));
-        
-        // BreadCrumb
-        $this->breadcrumb->add(__('Home') , site_url('admin'));
-        $this->breadcrumb->add(__('Users') , site_url('admin/users'));
-        $this->breadcrumb->add(__('Add New') , site_url('admin/users/add'));
-        $data['breadcrumbs'] = $this->breadcrumb->render();
-
-        // Data
-        $data['groups'] = $this->aauth->list_groups();
         
         $this->load->library('form_validation');
         $this->form_validation->set_rules('username', __('User Name', 'aauth'), 'required|min_length[5]');
@@ -150,7 +104,19 @@ class UsersHomeController extends MY_Addon
 
             $this->notice->push_notice_array($this->aauth->get_errors_array());
         }
+        
+        // Title
+		Polatan::set_title(sprintf(__('Users &mdash; %s'), get('signature')));
+        
+        // BreadCrumb
+        $data['breadcrumbs'] = $this->breadcrumb(array(
+            'id' => 2,
+            'name' => __('Add New'), 
+            'slug' => site_url('admin/addkit')
+        ));
 
+        // Data
+        $data['groups'] = $this->aauth->list_groups();
         $this->addon_view( 'users', 'users/form', $data );
     }
 
@@ -177,31 +143,6 @@ class UsersHomeController extends MY_Addon
             $this->session->set_flashdata('info_message', __( 'Unknow user. The use you attempted to edit has not been found.' ));
             redirect(site_url('admin/page404'));
         }
-
-        // Toolbar
-        $this->events->add_filter( 'toolbar_menu', function( $final ) {
-			$final[] = array(
-				'title'   => __('Back to the list'),
-				'icon'    => 'ki ki-long-arrow-back',
-				'button'  => 'btn-light',
-				'href'    => site_url([ 'admin', 'users' ])
-			);
-			return $final;
-        });
-
-        // Title
-		Polatan::set_title(sprintf(__('Users &mdash; %s'), get('signature')));
-        
-        // BreadCrumb
-        $this->breadcrumb->add(__('Home') , site_url('admin'));
-        $this->breadcrumb->add(__('Users') , site_url('admin/users'));
-        $this->breadcrumb->add(__('Edit') , site_url('admin/users/edit'));
-        $data['breadcrumbs'] = $this->breadcrumb->render();
-
-        // Data
-		$data['user'] = $user;
-		$data['groups'] = $this->aauth->list_groups();
-		$data['user_group'] = farray($this->aauth->get_user_groups($user->id));
 
         // validation rules
         $this->load->library('form_validation');
@@ -251,6 +192,20 @@ class UsersHomeController extends MY_Addon
             }
         }
 
+        // Title
+		Polatan::set_title(sprintf(__('Users &mdash; %s'), get('signature')));
+        
+        // BreadCrumb
+        $data['breadcrumbs'] = $this->breadcrumb( array( 
+            'id' => 3,
+            'name' => __('Edit'), 
+            'slug' => site_url('admin') )
+        );
+
+        // Data
+		$data['user'] = $user;
+		$data['groups'] = $this->aauth->list_groups();
+		$data['user_group'] = farray($this->aauth->get_user_groups($user->id));
         $this->addon_view( 'users', 'users/form_edit', $data );
     }
 

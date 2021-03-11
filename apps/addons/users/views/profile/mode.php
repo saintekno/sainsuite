@@ -1,7 +1,7 @@
 <?php
 global $User_Options;
-if (isset($User_Options['meta']) && !empty($User_Options['meta']['theme-skin'])) {
-    $skin = $User_Options['meta']['theme-skin'];
+if (riake('theme-skin', $User_Options) && !empty($User_Options['theme-skin'])) {
+    $skin = $User_Options['theme-skin'];
 } else {
     $skin = 'skin-light';
 }

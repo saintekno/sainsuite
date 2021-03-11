@@ -12,11 +12,23 @@
  * @filesource
  */
 
-$this->polatan->col_width(1, 4);
+// Toolbar
+$this->events->add_filter( 'toolbar_nav', function( $final ) {
+    $final[] = array(
+        'id' => 1,
+        'name'   => __('Back to the list'),
+        'icon'    => 'ki ki-long-arrow-back',
+        'attr_anchor'  => 'class="btn btn-light btn-sm font-weight-bolder"',
+        'slug'    => [ 'admin', 'users' ],
+        'permission' => 'create.users'
+    );
+    return $final;
+});
 
 $this->polatan->add_meta(array(
-    'col_id' => 1,
     'namespace' => 'users',
+    'class' => 'col-12',
+    'col_id' => 1,
     'gui_saver' => false,
     'type' => 'card',
     'form' => array(
@@ -80,6 +92,6 @@ $this->polatan->add_item(array(
             )
         ]
     )
-), 'users', 1);
+), 'users');
 
 $this->polatan->output();

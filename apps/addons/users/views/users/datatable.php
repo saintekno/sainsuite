@@ -7,7 +7,7 @@ var DatatableScript = function() {
         if (Object.keys(array).length) {
             for (i=0; i<array.length; i++) 
             {
-                if (isJson(array[i].value)) {
+                if (KTSains.isJson(array[i].value)) {
                     dataSet = JSON.parse(array[i].value.toString());
                     array[i].value = dataSet;
                 }
@@ -52,7 +52,7 @@ var DatatableScript = function() {
                         var state = states[stateNo];
 
                         var output = '<div class="d-flex align-items-center">\
-                            <div class="symbol symbol-40 symbol-'+state+' flex-shrink-0">\
+                            <div class="symbol symbol-30 symbol-'+state+' flex-shrink-0">\
                                 <div class="symbol-label">' + row.username.substring(0, 1) + '</div>\
                             </div>\
                             <div class="ml-2">\
@@ -97,25 +97,29 @@ var DatatableScript = function() {
 					template: function(row) {
                         var edit  = '<button class="btn btn-sm btn-icon btn-light" disabled><i class="fas fa-pen"></i></button>';
                         var hapus = '<button class="btn btn-sm btn-icon btn-light" disabled><i class="fas fa-trash-alt"></i></button>';
-                        <?php if ( User::control('edit.users')) : ?>
-						edit = '\
-                            <a class="btn btn-sm btn-icon btn-light-primary btn-hover-primary "\
+                        if (<?php echo $this->aauth->get_user_id(); ?> == row.user_id) {
+						edit = '\<a class="btn btn-sm btn-icon btn-light-primary btn-hover-primary "\
                                 href="<?php echo site_url(array( 'admin', 'users', 'edit'));?>/'+ row.user_id +'">\
-                                <i class="fas fa-pen"></i>\
-                            </a>\
-                        ';
-                        <?php endif; ?>
+                                <i class="fas fa-user"></i>\
+                            </a>';
+                        hapus = '';                        
+                        } else {
+                            <?php if ( User::control('edit.users')) : ?>
+                            edit = '\<a class="btn btn-sm btn-icon btn-light-primary btn-hover-primary "\
+                                    href="<?php echo site_url(array( 'admin', 'users', 'edit'));?>/'+ row.user_id +'">\
+                                    <i class="fas fa-pen"></i>\
+                                </a>';
+                            <?php endif; ?>
 
-                        <?php if ( User::control('delete.users')) : ?>
-                        hapus = '\
-                            <button class="btn btn-sm btn-icon btn-light-danger btn-hover-danger "\
-                                data-head="<?php echo _s( 'Would you like to delete this data?' ) ;?>"\
-                                data-url="<?php echo site_url(array( 'admin', 'users', 'delete'));?>/'+ row.user_id +'"\
-                                onclick="deleteConfirmation(this)">\
-                                <i class="fas fa-trash-alt"></i>\
-                            </button>\
-                        ';
-                        <?php endif; ?>
+                            <?php if ( User::control('delete.users')) : ?>
+                            hapus = '\<button class="btn btn-sm btn-icon btn-light-danger btn-hover-danger "\
+                                    data-head="<?php echo _s( 'Would you like to delete this data?' ) ;?>"\
+                                    data-url="<?php echo site_url(array( 'admin', 'users', 'delete'));?>/'+ row.user_id +'"\
+                                    onclick="KTSains.deleteConfirmation(this)">\
+                                    <i class="fas fa-trash-alt"></i>\
+                                </button>';
+                            <?php endif; ?>
+                        }
 
                         return '<div class="btn-group">'+ edit +' '+ hapus +'</div>';
 					},

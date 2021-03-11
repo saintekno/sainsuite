@@ -12,15 +12,16 @@
  * @filesource
  */
 
+// load field for user_profile
 $this->polatan->add_col(array(
-    'width' => 1,
-    'class' => 'flex-row-auto offcanvas-mobile aside-profile',
+    'class' => 'p-10 p-lg-2 flex-row-auto offcanvas-mobile w-200px',
     'id'=> 'kt_profile_aside',
 ), 1);
 
 $this->polatan->add_meta(array(
     'col_id'    => 1,
     'namespace' => 'profile',
+    'card' => 'card-px-0 border-0',
     'type' => 'card'
 ));
 
@@ -34,18 +35,17 @@ $this->polatan->add_item( array(
     'content' => $this->addon_view( 'users', 'profile/menu', array(), true )
 ), 'profile',  1 );
 
-
 // =============================================================================== 
+
+// load field for user_profile
 $this->polatan->add_col(array(
-    'width' => 3,
-    'class' => 'flex-row-fluid',
+    'class' => 'flex-row-fluid ml-lg-5',
 ), 2);
-
-// =============================================================================== 
 
 // load field for user_profile
 $this->polatan->add_meta(array(
     'col_id' => 2,
+    'class'     => 'col-12',
     'namespace' => 'user_profile',
     'gui_saver' => true,
     'type' => 'card',
@@ -58,6 +58,7 @@ $this->polatan->add_item(array(
     'accordion' => array(
         [
             'id' => 1,
+            'class' => 'card-header-light',
             'heading'=> __('Personal Information'),
             'description' => 'Update your personal informaiton',
             'body' => array(
@@ -77,6 +78,7 @@ $this->polatan->add_item(array(
 // load field for user_pass
 $this->polatan->add_meta(array(
     'col_id' => 2,
+    'class'     => 'col-12',
     'namespace' => 'user_pass',
     'gui_saver' => true,
     'type' => 'card',
@@ -89,6 +91,7 @@ $this->polatan->add_item(array(
     'accordion' => array(
         [
             'id' => 2,
+            'class' => 'card-header-light',
             'heading'=> __('Change Password'),
             'description' => 'Change your account password',
             'body' => array(
@@ -108,6 +111,7 @@ $this->polatan->add_item(array(
 // load custom field for user creatin
 $this->polatan->add_meta(array(
     'col_id' => 2,
+    'class'     => 'col-12',
     'namespace' => 'users_advanced',
     'gui_saver' => true,
     'type' => 'card',
@@ -120,6 +124,7 @@ $this->polatan->add_item(array(
     'accordion' => array(
         [
             'id' => 3,
+            'class' => 'card-header-light',
             'heading'=> __('Advanced'),
             'description' => 'Perform advanced options',
             'body' => array(

@@ -14,11 +14,23 @@ defined('BASEPATH') or exit('No direct script access allowed');
  */
 class UsersProfileController extends MY_Addon
 {
+    private $breadcrumbs = array();
+
     public function __construct()
     {
         parent::__construct();
 
         $this->events->add_filter( 'aside_menu', array( new Users_Menu, '_aside_menu' ));
+    }
+
+    private function breadcrumb($array)
+    {
+        $this->breadcrumbs = array_merge(
+            array( 'name' => __('Home', 'addkit'), 'slug' => site_url('admin') ),
+            array( 'name' => User::get()->username, 'slug' => '#' ), 
+            $array
+        );
+       return $this->breadcrumbs;
     }
     
     public function index($param1 = '')
@@ -27,22 +39,6 @@ class UsersProfileController extends MY_Addon
             $this->session->set_flashdata('error_message', __( 'Youre not allowed to see this page.' ));
             redirect(site_url('admin/page404'));
         }
-        
-        // $this->events->add_filter('ui_subheader_body', function () { 
-        //     return 'transparent';
-        // });
-
-        $this->events->add_filter('gui_before_cols', function () { 
-            return '<button class="btn btn-primary mb-2 btn-lg btn-block d-lg-none" id="kt_subheader_mobile_toggle"> <i class="flaticon-menu-2"></i> Block level Menu</button>';
-        });
-        
-        Polatan::set_title(__( 'My Profile' ));
-        
-        // BreadCrumb
-        $this->breadcrumb->add( User::get()->username, '#');
-        $data['breadcrumbs'] = $this->breadcrumb->render();
-
-        $data[ 'apps' ] = '';
 
         $this->load->library('form_validation');
         if ($param1 == 'change_password') 
@@ -90,6 +86,14 @@ class UsersProfileController extends MY_Addon
             }
         }
 
+        $this->events->add_filter('kt_subheader_mobile_toggle', function () { return true; });
+        $this->events->add_filter('kt_subheader_mobile_toggle_row', function () { 
+            return 'd-flex flex-row';
+        });
+        
+        Polatan::set_title(__( 'My Profile' ));
+
+        $data[ 'apps' ] = '';
         $this->addon_view( 'users', 'profile/read', $data );
     }
 }
