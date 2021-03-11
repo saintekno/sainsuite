@@ -107,11 +107,7 @@ class User_model extends CI_Model
             }
         }
 
-        $this->events->add_action('create_user_meta', $user_id);
-
-        // add custom user vars
-        $custom_vars = $this->events->apply_filters('custom_user_meta', []);
-        $this->aauth->set_user_var('meta', json_encode($custom_vars), $user_id);
+        $this->events->do_action('custom_user_meta', $user_id);
 
         // add custom user fields
         $custom_fields = $this->events->apply_filters('custom_user_vars', []);
@@ -164,9 +160,7 @@ class User_model extends CI_Model
             }
         }
 
-        // add custom user vars
-        $custom_vars = $this->events->apply_filters('custom_user_meta', []);
-        $this->aauth->set_user_var('meta', json_encode($custom_vars), $user_id);
+        $this->events->do_action('custom_user_meta', $user_id);
 
         $custom_fields = $this->events->apply_filters('custom_user_vars', array());
         foreach ( force_array($custom_fields) as $key => $value) {

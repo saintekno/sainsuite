@@ -139,7 +139,12 @@ class Install_Model extends CI_Model
         // Saving Site name
         $this->options_model->set('site_name', $this->input->post('site_name'));
         $this->options_model->set('site_language', $this->input->post('lang'));
+        $this->options_model->set('site_timezone', 'Asia/Jakarta');
+        $this->options_model->set('site_description', '');
+        $this->options_model->set('site_keywords', '');
+        $this->options_model->set('site_title', '');
         $this->options_model->set('theme_frontend', 'default');
+        $this->options_model->set('enable_frontend', true);
 
         // Do actions
         $this->events->do_action('settings_final_config');
