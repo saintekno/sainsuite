@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | URI ROUTING
 | -------------------------------------------------------------------------
 */
-$route['404_override']         = 'welcome';
+$route['404_override']         = 'welcome/error_404';
 $route['default_controller']   = 'welcome';
 $route['translate_uri_dashes'] = FALSE;
 
@@ -27,7 +27,7 @@ foreach($addons as $addon)
         $routes_path = $addons_path . $addon . '/controllers.php';
         if(file_exists($routes_path))
         {
-            require($routes_path);
+            require_once($routes_path);
         }
         else
         {

@@ -59,7 +59,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
 $autoload['libraries'] = array(
-    'breadcrumb',
+    'multimenu',
     'polatan',
     'notice', 
     'events', 
@@ -105,7 +105,8 @@ $autoload['helper'] = array(
     'core', 
     'form', 
     'url', 
-    'theme',
+    'string',
+    'polatan',
     'request',
     'url_slug', 
     'inflector', 
