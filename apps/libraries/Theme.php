@@ -29,7 +29,7 @@ class Theme
 
     private static $manifest_theme = 'manifest.json';
 
-    private static $allowed_app_folders = array( 'controllers' );
+    private static $allowed_app_folders = array( 'controllers', 'models' );
 
     public function __construct()
     {
@@ -105,7 +105,8 @@ class Theme
     {
         global $Options;
 
-        if ( $theme_namespace == get_instance()->events->apply_filters('load_theme_active', @$Options[ 'theme_frontend' ]) ) {
+        $activated_themes = get_instance()->events->apply_filters('load_theme_active', @$Options[ 'theme_frontend' ]);
+        if ( $theme_namespace == $activated_themes ) {
             return true;
         }
         return false;
@@ -138,7 +139,8 @@ class Theme
     {
         global $Options;
 
-        if ( $theme_namespace == get_instance()->events->apply_filters('load_theme_active', @$Options[ 'theme_frontend' ]) ) : 
+        $activated_themes = get_instance()->events->apply_filters('load_theme_active', @$Options[ 'theme_frontend' ]);
+        if ( $theme_namespace == $activated_themes ) : 
             get_instance()->events->do_action('load_theme_uninstall');
         endif;
 
@@ -210,25 +212,10 @@ class Theme
                             {
                                 // we found a a file
                                 $path_splited = explode($path_id_separator, $file);
-                                if (is_dir(APPPATH . $reserved_folder . $path_splited[1])) {
-                                    $_temp_folder_controller = $temp_folder . '/' . $reserved_folder;
-                                    if (!is_dir($_temp_folder_controller)) {
-                                        mkdir($_temp_folder_controller);
-                                    }
-                                    if (!is_dir($_temp_folder_controller . $path_splited[1])) {
-                                        mkdir($_temp_folder_controller . $path_splited[1]);
-                                    }
-                                    Filer::copy(
-                                        APPPATH . $reserved_folder . $path_splited[1],
-                                        $_temp_folder_controller . $path_splited[1]
-                                    );
-                                }
-                                else {
-                                    Filer::file_copy(
-                                        APPPATH . $reserved_folder . $path_splited[1],
-                                        $temp_folder . '/' . $reserved_folder . $path_splited[1]
-                                    );
-                                }
+                                Filer::file_copy(
+                                    APPPATH . $reserved_folder . $path_splited[1],
+                                    $temp_folder . '/' . $reserved_folder . $path_splited[1]
+                                );
                             }
                         }
                     }

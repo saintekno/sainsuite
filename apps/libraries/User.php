@@ -120,7 +120,11 @@ class User
 
     public static function upload_user_image($user_id) {
         if (isset($_FILES['user_image']) && $_FILES['user_image']['name'] != "") {
-            @move_uploaded_file($_FILES['user_image']['tmp_name'], upload_path().'user_image/'.$user_id.'.jpg');
+            $destination_user = upload_path()."user_image/" ;
+            if (!is_dir($destination_user)) {
+                mkdir($destination_user);
+            }
+            @move_uploaded_file($_FILES['user_image']['tmp_name'], $destination_user.$user_id.'.jpg');
         }
     }
 }

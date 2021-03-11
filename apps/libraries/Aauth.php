@@ -119,6 +119,9 @@ class Aauth {
 		$this->errors = $this->CI->session->flashdata('errors') ?: array();
 		$this->infos = $this->CI->session->flashdata('infos') ?: array();
 
+		if (! $this->CI->install_model->is_installed()) : return ;
+		endif;
+
 		// $this->aauth_db = $this->CI->load->database($this->config_vars['db_profile'], true);
 		$this->aauth_db = $this->CI->db;
 		
@@ -127,12 +130,9 @@ class Aauth {
 		$this->cache_group_id = array();
 		
 		// Initialize Variables
-		if ($this->CI->install_model->is_installed())  
-		{	
-			// Pre-Cache IDs
-			$this->precache_perms();
-			$this->precache_groups();
-		}
+		// Pre-Cache IDs
+		$this->precache_perms();
+		$this->precache_groups();
 	}
 	
 	/**
@@ -961,7 +961,6 @@ class Aauth {
         $select = "
 		aauth_users.*, 
 		aauth_users.id as user_id, 
-		aauth_user_variables.value, 
 		aauth_groups.name as group_name";
 
         $user_group = farray($this->get_user_groups());
@@ -976,8 +975,7 @@ class Aauth {
 			$this->aauth_db->select($select)
 				->from($this->config_vars[ 'users'])
                 ->join($this->config_vars[ 'user_to_group'], $this->config_vars['users'] . ".id = " . $this->config_vars['user_to_group'] . ".user_id")
-                ->join($this->config_vars[ 'groups' ], $this->config_vars[ 'groups' ] . '.id = ' . $this->config_vars['user_to_group']. '.group_id') 
-				->join($this->config_vars[ 'user_variables' ], $this->config_vars[ 'user_variables' ] . '.user_id = ' . $this->config_vars['users']. '.id');
+                ->join($this->config_vars[ 'groups' ], $this->config_vars[ 'groups' ] . '.id = ' . $this->config_vars['user_to_group']. '.group_id');
 				
 				if ($is_member) {
 					$this->aauth_db->where($this->config_vars['user_to_group'] . ".group_id >=", $group_par);
@@ -989,13 +987,9 @@ class Aauth {
 			$this->aauth_db->select($select)
 				->from($this->config_vars[ 'users'])
                 ->join($this->config_vars[ 'user_to_group'], $this->config_vars['users'] . ".id = " . $this->config_vars['user_to_group'] . ".user_id")
-                ->join($this->config_vars[ 'groups' ], $this->config_vars[ 'groups' ] . '.id = ' . $this->config_vars['user_to_group']. '.group_id') 
-				->join($this->config_vars[ 'user_variables' ], $this->config_vars[ 'user_variables' ] . '.user_id = ' . $this->config_vars['users']. '.id');
+                ->join($this->config_vars[ 'groups' ], $this->config_vars[ 'groups' ] . '.id = ' . $this->config_vars['user_to_group']. '.group_id');
 		}
 		
-		$this->aauth_db->group_by($this->config_vars['users'] . ".id");
-		$this->aauth_db->where($this->config_vars['user_variables'] . ".data_key", "meta");
-
 		// banneds
 		if (!$include_banneds) {
 			$this->aauth_db->where('banned != ', 1);
@@ -1580,11 +1574,15 @@ class Aauth {
 	 * @param int|bool $user_id User id, if not given current user
 	 * @return bool
 	 */
-	public function is_member( $group_par, $user_id = false ) {
+	public function is_member( $group_par = null, $user_id = false ) {
 
 		// if user_id FALSE (not given), current user
 		if( ! $user_id){
 			$user_id = $this->CI->session->userdata('id');
+		}
+
+		if($group_par == null) {
+			$group_par = $this->config_vars['member_group'];
 		}
 
 		$group_id = $this->get_group_id($group_par);

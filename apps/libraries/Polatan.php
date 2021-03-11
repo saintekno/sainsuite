@@ -21,12 +21,7 @@ class Polatan
 	 */
     public $CI;
     
-    public $cols = array(
-        1 => array(),
-        2 => array(),
-        3 => array(),
-        4 => array(),
-    );
+    public $cols;
 
     private static $page_name;
     private static $page_title = 'Untitled Page';
@@ -110,22 +105,6 @@ class Polatan
     }
 
     /**
-     * Set cols width
-     *
-     * col_id should be between 1 and 4. Every cols are loaded even if they width is not set
-     * @access : public
-     * @param : int cold id
-     * @param : int width
-     * @return : void
-    **/
-    public function col_width($col_id, $width)
-    {
-        if (in_array($col_id, array( 1, 2, 3, 4 ))) {
-            $this->cols[ $col_id ][ 'width' ] = $width;
-        }
-    }
-
-    /**
      * 	Get GUI cols
      *	@access		:	Public
      *	@returns	:	Array
@@ -135,31 +114,9 @@ class Polatan
         return $this->cols;
     }
 
-    /**
-     * Get Col
-     *
-     * @param int Col Id
-     * @return bool
-    **/
-    public function get_col($col_id)
+    public function add_col($col, $col_id = 1)
     {
-        return riake($col_id, $this->cols);
-    }
-
-    /**
-     * Set cols width
-     *
-     * col_id should be between 1 and 4. Every cols are loaded even if they width is not set
-     * @access : public
-     * @param : int cold id
-     * @param : int width
-     * @return : void
-    **/
-    public function add_col($col, $col_id)
-    {
-        if (in_array($col_id, array( 1, 2, 3, 4 ))) {
-            $this->cols[ $col_id ] = $col;
-        }
+        $this->cols[ $col_id ] = $col;
     }
     
     /**
@@ -174,8 +131,6 @@ class Polatan
     **/
     public function add_meta($namespace, $title = 'Unamed', $type = 'default', $col_id = 1)
     {
-        if (in_array($col_id, array( 1, 2, 3, 4 ))) 
-        {
             if (is_array($namespace)) {
                 $rnamespace = riake('namespace', $namespace);
                 $col_id     = riake('col_id', $namespace);
@@ -192,7 +147,6 @@ class Polatan
                     'title'     => $title
                 );
             }
-        }
     }
 
     /**
@@ -204,11 +158,9 @@ class Polatan
      * @param int Col id
      * @return void
     **/
-    public function add_item($config, $metanamespace, $col_id)
+    public function add_item($config, $metanamespace, $col_id = 1)
     {
-        if (in_array($col_id, array( 1, 2, 3, 4 )) && riake('type', $config)) {
-            $this->cols[ $col_id ][ 'metas' ][ $metanamespace ][ 'items' ][] = $config;
-        }
+        $this->cols[ $col_id ][ 'metas' ][ $metanamespace ][ 'items' ][] = $config;
     }
 
     /**
@@ -216,8 +168,8 @@ class Polatan
      * Output GUI content
      * @return void
     **/
-    public function output()
+    public function output($data = null)
     {
-        $this->CI->load->backend_view('index');
+        $this->CI->load->backend_view('layouts', $data);
     }
 }
