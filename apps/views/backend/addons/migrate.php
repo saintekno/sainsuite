@@ -17,6 +17,7 @@ $this->polatan->col_width(1, 4);
 
 $this->polatan->add_meta(array(
     'col_id' => 1,
+    'class'     => 'col-12',
     'namespace' => 'migrate'
 ));
 

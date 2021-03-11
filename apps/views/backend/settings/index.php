@@ -13,12 +13,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @filesource
  */
 
-$this->polatan->col_width(1, 4);
-
 $this->polatan->add_meta(array(
     'col_id' => 1,
+    'class'     => 'col-12',
     'namespace' => 'settings',
     'gui_saver' => true,
+    'card' => 'card-px-0 border-0',
     'type' => 'card'
 ));
 
@@ -26,36 +26,65 @@ $this->polatan->add_meta(array(
  * Heading 1
  */
 $filed_heading1[] = array(
-    'permission'  => 'manage.core',
-    'type'  => 'text',
-    'required'  => true,
-    'label' => __('Site Name'),
-    'name'  => 'site_name',
-    'value' => set_value('site_name', $this->options_model->get('site_name')),
-    'description' => 'Enter your site name'
+    [
+        'permission'  => 'manage.core',
+        'type'  => 'text',
+        'class'  => 'col-6',
+        'required'  => true,
+        'label' => __('Site Name'),
+        'name'  => 'site_name',
+        'value' => set_value('site_name', $this->options_model->get('site_name')),
+        'description' => 'Enter your site name'
+    ],
+    [
+        'permission'  => 'manage.core',
+        'type'  => 'text',
+        'class'  => 'col-6',
+        'label' => __('Site Title'),
+        'name'  => 'site_title',
+        'value' => set_value('site_title', $this->options_model->get('site_title')),
+        'description' => 'Enter your site title'
+    ]
 );
 $filed_heading1[] = array(
-    'permission'  => 'manage.core',
-    'type'  => 'textarea',
-    'label' => __('Site Description'),
-    'name'  => 'site_description',
-    'value' => set_value('site_description', $this->options_model->get('site_description')),
-    'description' => 'Enter your site description'
+    [
+        'permission'  => 'manage.core',
+        'type'  => 'textarea',
+        'class'  => 'col-6',
+        'label' => __('Site Description'),
+        'name'  => 'site_description',
+        'value' => set_value('site_description', $this->options_model->get('site_description')),
+        'description' => 'Enter your site description'
+    ],
+    [
+        'permission'  => 'manage.core',
+        'type'  => 'textarea',
+        'class'  => 'col-6',
+        'label' => __('Site Keywords'),
+        'name'  => 'site_keywords',
+        'value' => set_value('site_keywords', $this->options_model->get('site_keywords')),
+        'description' => 'Enter your site keywords'
+    ]
 );
 $filed_heading1[] = array(
-    'type'    => 'select',
-    'name'    => 'site_timezone',
-    'label'   => __('Timezone'),
-    'options' => $this->config->item('site_timezone'),
-    'active'  => $this->options_model->get('site_timezone')
+    [
+        'type'    => 'select',
+        'name'    => 'site_timezone',
+        'class'  => 'col-6',
+        'label'   => __('Timezone'),
+        'options' => $this->config->item('site_timezone'),
+        'active'  => $this->options_model->get('site_timezone')
+    ],
+    [
+        'type'    => 'select',
+        'name'    => 'site_language',
+        'class'  => 'col-6',
+        'label'   => __('Language'),
+        'options' => $this->config->item('supported_languages'),
+        'active'  => $this->options_model->get('site_language')
+    ]
 );
-$filed_heading1[] = array(
-    'type'    => 'select',
-    'name'    => 'site_language',
-    'label'   => __('Language'),
-    'options' => $this->config->item('supported_languages'),
-    'active'  => $this->options_model->get('site_language')
-);
+
 $items_heading1 = $filed_heading1;
 
 /**
@@ -64,6 +93,7 @@ $items_heading1 = $filed_heading1;
 $filed_heading2[] = array(
     'permission'  => 'manage.core',
     'type'    => 'select',
+    'class'  => 'col-6',
     'name'    => 'demo_mode',
     'label'   => __('Enable Demo ?'),
     'active'  => $this->options_model->get('demo_mode'),

@@ -49,6 +49,18 @@
  */
 
 /*
+ *----------------------
+ * TIMEZONE
+ *----------------------
+ *
+ * If timezone has not been set, give it a default
+ *
+ */
+if(ini_get('date.timezone') == '' || ini_get('date.timezone') == 'Timezone' ) {
+	date_default_timezone_set('GMT');
+}
+
+/*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
  *---------------------------------------------------------------

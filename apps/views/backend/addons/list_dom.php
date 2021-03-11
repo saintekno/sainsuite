@@ -12,7 +12,7 @@ if ($addons) :
 
     foreach ($group as $group) 
     {
-        echo '<h4 class="pt-5">'.$group[0]['group'].'</h4>
+        echo '<h4 class="pt-3">'.$group[0]['group'].'</h4>
         <div class="row">';
         foreach ( $group as $_group ) 
         {
@@ -22,105 +22,93 @@ if ($addons) :
                 $addon_version = $_group[ 'application' ][ 'version' ];
                 $last_version = riake('migration_' . $addon_namespace, $Options);
                 ?>
-                <div class="col-xl-6 col-md-6">
+                <div class="col-12 col-md-6 col-lg-6 col-xxl-4">
                     <!--begin::Card-->
-                    <div class="card card-custom gutter-b card-stretch">
+                    <div class="card card-custom gutter-b card-stretch" data-card="true" data-card-tooltips="false">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="card-title m-0">
+                                <span class="font-weight-bolder label label-xl label-light-success label-inline p-1 mr-2 min-w-45px">
+                                <?php echo 'v' . (isset($_group[ 'application' ][ 'version' ]) ? $_group[ 'application' ][ 'version' ] : 0.1);?>
+                                </span>
+                                <a class="text-dark-75 font-weight-bolder font-size-h5" data-card-tool="toggle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Toggle Card">
+                                <?php echo isset($_group[ 'application' ][ 'name' ]) ? $_group[ 'application' ][ 'name' ] : __('Addons');?>
+                                </a>
+                            </div>
+                            <div class="card-toolbar <?php echo ( $_group[ 'application' ][ 'readonly' ]) ? 'webdev_mode d-none':'';?>">
+                                
+                                <?php
+                                // Extrax
+                                if ($this->aauth->is_admin()):?>
+                                <a href="<?php echo site_url(array( 'admin', 'addons', 'extract', $addon_namespace ));?>" class="btn btn-icon btn-circle btn-sm btn-light-info ml-1 <?php echo ( !$_group[ 'application' ][ 'readonly' ]) ? 'webdev_mode d-none':'';?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?php _e('Extract');?>">
+                                    <i class="fas fa-download"></i>
+                                </a>
+                                <?php endif; ?>
+    
+                                <?php
+                                // Migration
+                                $hasMigration = MY_Addon::migration_files( 
+                                    $addon_namespace, 
+                                    $last_version, 
+                                    $addon_version
+                                );
+                                if( $hasMigration && $this->aauth->is_admin()):?>
+                                <a href="<?php echo site_url([ 'admin', 'addons', 'migrate', $addon_namespace, $last_version ]);?>" class="btn btn-icon btn-sm btn-light-dark ml-1" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?php _e('Migrate');?>">
+                                    <i class="fas fa-database"></i>
+                                </a>
+                                <?php endif;?>
+
+                                <?php if( !$_group[ 'application' ][ 'readonly' ] ) : ?>
+                                    <?php $this->events->do_action('do_menu_addon', $addon_namespace) ?>
+
+                                    <?php if (! MY_Addon::is_active($addon_namespace, true)) {?>
+                                        <?php if ( $this->aauth->is_admin()) : ?>
+                                        <a href="#" class="btn btn-circle btn-icon btn-sm btn-light-danger ml-1" 
+                                            data-url="<?php echo site_url(array( 'admin', 'addons', 'remove', $addon_namespace )); ?>" 
+                                            data-head="<?php _e( 'Would you like to delete this addon?');?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Remove"
+                                            onclick="KTSains.deleteConfirmation(this)">
+                                            <i class="ki ki-close icon-nm"></i>
+                                        </a>
+                                        <?php endif;?>
+                                        
+                                        <span class="switch switch-outline switch-icon switch-success ml-2" >
+                                            <label data-toggle="tooltip" data-placement="top" title="" data-original-title="Disable">
+                                                <input type="checkbox" onclick="window.location.href='<?php echo site_url(array( 'admin', 'addons', 'enable', $addon_namespace ));?>'"/>
+                                                <span></span>
+                                            </label>
+                                        </span>
+                                        
+                                    <?php } else {?>
+                                        <?php if (! MY_Addon::is_share($addon_namespace) && $this->aauth->is_admin()) : ?>
+                                        <span class="switch switch-outline switch-icon switch-success ml-2" >
+                                            <label data-toggle="tooltip" data-placement="top" title="" data-original-title="Enable">
+                                                <input type="checkbox" checked="checked" onclick="window.location.href='<?php echo site_url(array( 'admin', 'addons', 'disable', $addon_namespace ));?>'"/>
+                                                <span></span>
+                                            </label>
+                                        </span>
+                                        <?php elseif (! $this->aauth->is_admin()) : ?>
+                                        <span class="switch switch-outline switch-icon switch-success ml-2" >
+                                            <label data-toggle="tooltip" data-placement="top" title="" data-original-title="Enable">
+                                                <input type="checkbox" checked="checked" onclick="window.location.href='<?php echo site_url(array( 'admin', 'addons', 'disable', $addon_namespace ));?>'"/>
+                                                <span></span>
+                                            </label>
+                                        </span>
+                                        <?php endif;?>
+                                    <?php } ?>
+        
+                                <?php endif;?>
+                                <!-- <a href="#" class="btn btn-icon btn-sm btn-light-dark ml-1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Extract">
+                                    <i class="fas fa-lock"></i>
+                                </a> -->
+                            </div>
+                        </div>
+
                         <!--begin::Body-->
                         <div class="card-body">
-                            <!--begin::Section-->
-                            <div class="d-flex align-items-center">
-                                <!--begin::Pic-->
-                                <div class="flex-shrink-0 mr-4 symbol symbol-65 symbol-circle">
-                                    <div class="symbol symbol-40 symbol-light-primary flex-shrink-0">
-                                        <span class="symbol-label font-size-h4 font-weight-bold"><?php echo strtoupper(substr($_group[ 'application' ][ 'name' ], 0, 1)) ?></span>
-                                    </div>
-                                </div>
-                                <!--end::Pic-->
-                                <!--begin::Info-->
-                                <div class="d-flex flex-column mr-auto">
-                                    <span class="text-hover-primary font-size-h4 font-weight-bolder mb-1">
-                                        <?php echo isset($_group[ 'application' ][ 'name' ]) ? $_group[ 'application' ][ 'name' ] : __('Addons');?>   
-                                    </span>
-                                    <span class="text-muted font-weight-bold">
-                                    <?php echo isset($_group[ 'application' ][ 'description' ]) ? $_group[ 'application' ][ 'description' ] : '';?>
-                                    </span>
-                                </div>
-                                <!--end::Info-->
-                                <!--begin::Toolbar-->
-                                <div class="card-toolbar mb-auto">
-                                    <a href="<?php echo site_url(['admin','addabout']); ?>"
-                                        class="font-weight-bolder label label-xl label-light-success label-inline p-1 mb-1 min-w-45px">
-                                        <?php echo 'v' . (isset($_group[ 'application' ][ 'version' ]) ? $_group[ 'application' ][ 'version' ] : 0.1);?>
-                                    </a>
-                                </div>
-                                <!--end::Toolbar-->
-                            </div>
+                            <span class="text-dark-50 line-height-lg">
+                            <?php echo isset($_group[ 'application' ][ 'description' ]) ? $_group[ 'application' ][ 'description' ] : '';?>
+                            </span>
                         </div>
                         <!--end::Body-->
-                        <!--begin::Footer-->
-                        <div class="card-footer p-5 <?php echo ( $_group[ 'application' ][ 'readonly' ]) ? 'webdev_mode d-none':'';?>">
-                            <?php if (MY_Addon::is_share($addon_namespace) && $this->aauth->is_admin()) {?>
-                            <div class="btn btn-outline-dark btn-sm text-uppercase font-weight-bolder mr-2 ml-sm-auto">
-                                <span class="navi-text">share in</span>
-                            </div>
-                            <?php } ?>
-    
-                            <?php if ($this->aauth->is_admin()):?>
-                            <a href="<?php echo site_url(array( 'admin', 'addons', 'extract', $addon_namespace ));?>" 
-                            class="btn btn-info btn-sm text-uppercase font-weight-bolder mr-2 ml-sm-auto <?php echo ( !$_group[ 'application' ][ 'readonly' ]) ? 'webdev_mode d-none':'';?>">
-                                <span class="navi-icon"><i class="fas fa-archive"></i></span>
-                                <span class="navi-text">
-                                <?php _e('Extract');?>
-                                </span>
-                            </a>
-                            <?php endif; ?>
-    
-                            <?php
-                            $hasMigration = MY_Addon::migration_files( 
-                                $addon_namespace, 
-                                $last_version, 
-                                $addon_version
-                            );
-    
-                            if( $hasMigration && $this->aauth->is_admin()):?>
-                            <a href="<?php echo site_url([ 'admin', 'addons', 'migrate', $addon_namespace, $last_version ]);?>"  
-                                class="btn btn-light-success btn-sm text-uppercase font-weight-bolder mr-2 ml-2">
-                                <span class="navi-icon">
-                                <i class="fa fa-database"></i> 
-                                </span>
-                                <span class="navi-text">
-                                <?php _e('Migrate');?>
-                                </span>
-                            </a>
-                            <?php endif;?>
-    
-                            <?php if( !$_group[ 'application' ][ 'readonly' ] ) : ?>
-                                <?php if (! MY_Addon::is_active($addon_namespace, true)) {?>
-                                    <a href="<?php echo site_url(array( 'admin', 'addons', 'enable', $addon_namespace ));?>" 
-                                    class="btn btn-success btn-sm text-uppercase font-weight-bolder mr-2" data-action="enable">
-                                        <i class="fa fa-toggle-on"></i> Enable
-                                    </a>
-               
-                                    <?php if ( $this->aauth->is_admin()) : ?>
-                                    <a href="#" class="btn btn-light-danger font-weight-bold btn-sm"
-                                        data-head="<?php _e( 'Would you like to delete this addon?');?>"
-                                        data-url="<?php echo site_url(array( 'admin', 'addons', 'remove', $addon_namespace )); ?>"
-                                        onclick="deleteConfirmation(this)">
-                                        <i class="fa fa-trash p-0"></i>
-                                    </a>
-                                    <?php endif;?>
-                                    
-                                <?php } else {?>
-                                    <a href="<?php echo site_url(array( 'admin', 'addons', 'disable', $addon_namespace ));?>" 
-                                    class="btn btn-warning btn-sm text-uppercase font-weight-bolder mr-2" data-action="disable">
-                                        <i class="fa fa-toggle-off"></i> Disable
-                                    </a>
-                                <?php } ?>
-    
-                                <?php $this->events->do_action('do_menu_addon', $addon_namespace) ?>
-                            <?php endif;?>
-                        </div>
-                        <!--end::Footer-->
                     </div>
                     <!--end::Card-->
                 </div>
@@ -147,7 +135,7 @@ endif;
             <!--begin::Form-->
             <form class="form" action="<?php echo site_url(['admin', 'addons', 'install_zip']);?>" method="POST" enctype="multipart/form-data">
                 <!--begin::Header-->
-                <div class="d-flex align-items-center justify-content-between py-5 pl-8 pr-5 border-bottom">
+                <div class="d-flex align-items-center justify-content-between py-5 pl-8 pr-5">
                     <h5 class="font-weight-bold m-0"><?php echo __('Choose the addons zip file');?></h5>
                     <div class="d-flex ml-2">
                         <span class="btn btn-clean btn-sm btn-icon" data-dismiss="modal">
@@ -158,7 +146,7 @@ endif;
                 <!--end::Header-->
 
                 <!--begin::Footer-->
-                <div class="row py-5 pl-8 pr-5 border-top">
+                <div class="row py-5 pl-8 pr-5">
                     <!--begin::Actions-->
                     <div class="col-12">
                         <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
