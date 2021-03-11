@@ -29,10 +29,12 @@ function theme_backend()
 {
     $CI =& get_instance();
     $CI->load->model('options_model');
-    if (! $CI->options_model->get('theme_backend') ) : return '';
-    endif;
+    if ($CI->install_model->is_installed()) :
+        if (! $CI->options_model->get('theme_backend') ) : return '';
+        endif;
 
-    return $CI->options_model->get('theme_backend') . '/' ;
+        return $CI->options_model->get('theme_backend') . '/' ;
+    endif;
 }
 
 // --------------------------------------------------------------------
