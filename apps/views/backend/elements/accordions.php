@@ -15,9 +15,7 @@ foreach (force_array(riake('accordion', $_item)) as $index => $_row) :
 
 		<div id="collapse<?php echo $_row['id'];?>" class="collapse <?php echo (riake('show', $_row)) ? 'show' : ''; ?>" data-parent="#accordion">
 			<div class="card-body py-3">            
-                <?php echo $this->load->backend_view('elements/_init', array(
-                    'meta' => $_row['body']
-                ), true);?>
+                <?php echo $this->load->backend_view('elements/_init', array( 'meta' => $_row['body'] ), true);?>
 
                 <?php if (riake('hide_footer', $_row) == false) : ?>
                 <div class="row">

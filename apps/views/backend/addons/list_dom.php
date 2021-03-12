@@ -62,7 +62,7 @@ if ($addons) :
 
                                     <?php if (! MY_Addon::is_active($addon_namespace, true)) {?>
                                         <?php if ( $this->aauth->is_admin()) : ?>
-                                        <a href="#" class="btn btn-circle btn-icon btn-sm btn-light-danger ml-1" 
+                                        <a href="#" class="btn btn-circle btn-icon btn-sm btn-light-danger ml-2" 
                                             data-url="<?php echo site_url(array( 'admin', 'addons', 'remove', $addon_namespace )); ?>" 
                                             data-head="<?php _e( 'Would you like to delete this addon?');?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Remove"
                                             onclick="KTSains.deleteConfirmation(this)">

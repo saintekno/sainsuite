@@ -65,6 +65,12 @@ if ($this->polatan->get_page() === '404') : ?>
                 $use_namespace = riake('use_namespace', $meta, false);
                 ?>
 
+                <?php if (function_exists('validation_errors') && validation_errors()) : ?>
+                <div class="alert alert-danger" role="alert">
+                    <?php echo strip_tags(validation_errors())?>
+                </div>
+                <?php endif; ?>
+
                 <?php if ( riake('gui_saver', $meta)) :?>
                 <form ng-non-bindable 
                     autocomplete="off"

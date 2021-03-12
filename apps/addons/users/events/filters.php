@@ -109,10 +109,11 @@ class Users_Filters extends MY_Addon
                 ],
                 [
                     'type' => 'select',
-                    'class' => ($groups_array) ? 'col-6' : 'col-6 d-none',
+                    'class'     => 'col-6',
                     'widget' => 'select2',
                     'label'   => __('Add to a group', 'aauth'),
                     'name'    => 'group',
+                    'disabled' => ($groups_array) ? false : true,
                     'required'  => ($groups_array) ? true : false,
                     'options' => $groups_array,
                     'active'  => (empty($config['user_group'])) 

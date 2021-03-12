@@ -405,27 +405,6 @@ var KTSains = function() {
             }
         }
     };
-    
-    var error_required_field = function() {
-        toastr.error("<?php _e('please_fill_all_the_required_fields'); ?>");
-    }
-
-    var checkRequiredFields = function() {
-        var pass = 1;
-        $('form.required-form').find('input, select').each(function(){
-            if($(this).prop('required')){
-                if ($(this).val() === "") {
-                    pass = 0;
-                }
-            }
-        });
-
-        if (pass === 1) {
-            $('form.required-form').submit();
-        }else {
-            error_required_field();
-        }
-    }
 
     // Form
     var setDatePicker = function (){
@@ -510,10 +489,6 @@ var KTSains = function() {
                 toastr.success('<?php echo $this->session->flashdata("flash_message");?>');
             <?php endif;?>
 
-            <?php if (function_exists('validation_errors') && validation_errors()):?>
-                toastr.error('<?php echo strip_tags(validation_errors());?>');
-            <?php endif;?>
-
             <?php if ($this->notice->output_notice(true)):?>
                 toastr.error('<?php echo $this->notice->output_notice();?>');
             <?php endif;?>
@@ -586,6 +561,21 @@ var KTSains = function() {
 }();
 var AppAngular = angular.module( 'SainSuite', <?php echo json_encode( ( Array ) $this->events->apply_filters( 'admin_dependencies', array() ) );?> );
 var _buttonSpinnerClasses = 'spinner spinner-right spinner-white pr-15';
+
+function checkRequiredFields() {
+    var pass = 1;
+    $('form.required-form').find('input, select').each(function(){
+        if($(this).prop('required')) {
+            if ($(this).val() === "") { pass = 0; }
+        }
+    });
+
+    if (pass === 1) {
+        $('form.required-form').submit();
+    } else {
+        toastr.error("<?php _e('please_fill_all_the_required_fields'); ?>");
+    }
+}
 
 // Webpack support
 if (typeof module !== 'undefined') {

@@ -969,21 +969,26 @@ class Aauth {
 		}
 		
 		// if group_par is given
-		if ($group_par != false) {
+		if ($group_par != false) 
+		{
 			$group_par = $this->CI->events->apply_filters('fill_list_users', $this->get_group_id($group_par));
+			if ($group_par == false) : return [];
+			endif;
+
 			$is_member = $this->is_member($this->config_vars['member_group']);
 			$this->aauth_db->select($select)
 				->from($this->config_vars[ 'users'])
                 ->join($this->config_vars[ 'user_to_group'], $this->config_vars['users'] . ".id = " . $this->config_vars['user_to_group'] . ".user_id")
                 ->join($this->config_vars[ 'groups' ], $this->config_vars[ 'groups' ] . '.id = ' . $this->config_vars['user_to_group']. '.group_id');
 				
-				if ($is_member) {
-					$this->aauth_db->where($this->config_vars['user_to_group'] . ".group_id >=", $group_par);
-				} else {
-					$this->aauth_db->where_in($this->config_vars['user_to_group'] . ".group_id", $group_par);
-				}
+			if ($is_member) {
+				$this->aauth_db->where($this->config_vars['user_to_group'] . ".group_id >=", $group_par);
+			} else {
+				$this->aauth_db->where_in($this->config_vars['user_to_group'] . ".group_id", $group_par);
+			}
 		// if group_par is not given, lists all users
-		} else {
+		} 
+		else {
 			$this->aauth_db->select($select)
 				->from($this->config_vars[ 'users'])
                 ->join($this->config_vars[ 'user_to_group'], $this->config_vars['users'] . ".id = " . $this->config_vars['user_to_group'] . ".user_id")

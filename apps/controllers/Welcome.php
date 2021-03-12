@@ -34,6 +34,7 @@ class Welcome extends MY_Controller
     // not found page
     public function error_404()
     {
-        $this->load->frontend_view( 'layouts_404' );
+        $data['pages'] = '404';
+        $this->load->frontend_view( 'layouts', $data );
     }
 }
