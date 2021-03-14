@@ -21,7 +21,8 @@ class Users_Filters extends MY_Addon
         $this->events->add_filter('load_user_pass', array( $this, 'load_user_pass' ));
         $this->events->add_filter('load_users_advanced', array( $this, 'load_users_advanced' ));
 
-        $this->events->add_filter('apps_logo', array( $this, 'apps_logo' ), 5, 1);
+        $this->events->add_filter('apps_logo', array( $this, 'apps_logo' ), 1, 1);
+        $this->events->add_filter('apps_description', array( $this, 'apps_description' ), 5, 1);
         $this->events->add_filter('custom_user_vars', array( $this, 'custom_user_vars' ), 10, 1);
         $this->events->add_filter('user_menu_name', array( $this, 'user_menu_name' ));
         $this->events->add_filter('user_menu_card_avatar_src', function () {
@@ -239,16 +240,26 @@ class Users_Filters extends MY_Addon
     public function apps_logo($config_logo = null)
     {
         global $User_Options;
+        global $Options;
         if ( riake('theme-skin', $User_Options) == 'dark-mode'
             && $this->aauth->is_loggedin()
             || $config_logo == 'light') {
-            $logo = 'logo-light.png';
+            $logo = ( $logo_new = riake('logo', $Options)) ? $logo_new : 'system/logo-light.png';
         } 
         else {
-            $logo = 'logo-dark.png';
+            $logo = ( $logo_new = riake('logo', $Options)) ? $logo_new : 'system/logo-dark.png';
         }
 
-        return ($config_logo == 'sm') ? upload_url('system/logo-sm.png') : upload_url('system/'.$logo);
+        if ($config_logo == 'sm') {
+            $logo = ( $logo_new = riake('logo', $Options)) ? $logo_new : 'system/logo-sm.png';
+        }
+
+        return upload_url($logo);
+    }
+
+    public function apps_description($config_logo = null)
+    {
+        return $this->addon_view( 'users', 'contact', array(), true );
     }
 }
 new Users_Filters;

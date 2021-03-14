@@ -83738,7 +83738,7 @@ canvas {
   display: flex;
   padding: 0.5rem;
 }
-.aside-menu .menu-nav .menu-section.menu-section-first {
+.aside-menu .menu-nav .menu-section:first-child {
   margin-top: 0 !important;
 }
 .aside-menu .menu-nav .menu-section .menu-text {

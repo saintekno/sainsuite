@@ -1,27 +1,60 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+global $Options;
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-        <meta charset="utf-8" />
-        <title><?php echo get('app_name') ; ?></title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="<?php echo $this->options_model->get('site_description');?>" />
-        <meta name="keywords" content="Saas, Software, multi-uses, HTML, Clean, Modern" />
-        <meta name="author" content="<?php echo theme_config('author');?>" />
-        <meta name="email" content="<?php echo theme_config('email');?>" />
-        <meta name="website" content="<?php echo site_url();?>" />
-        <meta name="Version" content="<?php echo theme_config('version');?>" />
-        <!-- favicon -->
-        <link rel="shortcut icon" href="<?php echo base_url('uploads/system/favicon.png');?>">
-        <!-- Bootstrap -->
-        <link href="<?=fasset_url();?>css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <!-- Main Css -->
-        <link href="<?=fasset_url();?>css/style.css" rel="stylesheet" type="text/css" id="theme-opt" />
-
-    </head>
-
-<body>
+<header id="topnav" class="defaultscroll sticky">
+    <div class="container">
+        <!-- Logo container-->
+        <div>
+            <a class="logo" href="<?=site_url();?>">
+                <img src="<?php echo $this->events->apply_filters( 'apps_logo', '' ); ?>" height="45" alt="<?php echo $Options['site_name']; ?>">
+            </a>
+        </div>                      
+        <div class="buy-button">
+            <?php if (User::is_loggedin()) : ?>
+            <a href="<?=site_url('admin')?>" class="mr-2">
+                <img class="img-fluid avatar avatar-ex-sm mr-2 rounded-circle user-image" alt="<?php echo $this->events->apply_filters('user_menu_card_avatar_alt', '');?>" src="<?php echo $this->events->apply_filters('user_menu_card_avatar_src', '');?>"/>
+                <span class="hidden-xs"><?php echo User::get()->username;?></span> 
+            </a> 
+            <a href="<?=site_url('logout')?>" class="btn btn-danger">logout</a>
+            <?php else : ?>
+            <a href="<?=site_url('login')?>" class="btn btn-primary">Login</a>
+            <?php endif; ?>
+        </div><!--end login button-->
+        <!-- End Logo container-->
+        <div class="menu-extras">
+            <div class="menu-item">
+                <!-- Mobile menu toggle-->
+                <a class="navbar-toggle">
+                    <div class="lines">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </a>
+                <!-- End mobile menu toggle-->
+            </div>
+        </div>
+        
+        <div id="navigation">
+            <!-- Navigation Menu-->   
+            <ul class="navigation-menu">
+                <li><a href="javascript:void(0)">Documentation</a></li>
+                <li><a href="javascript:void(0)">Changelog</a></li>
+                <li><a href="javascript:void(0)">Addons</a></li>
+            </ul><!--end navigation menu-->
+            <div class="buy-menu-btn d-none">
+                <?php if (User::is_loggedin()) : ?>
+                <a href="<?=site_url('admin')?>">
+                    <img class="img-fluid avatar avatar-ex-sm mr-2 rounded-circle user-image" alt="<?php echo $this->events->apply_filters('user_menu_card_avatar_alt', '');?>" src="<?php echo $this->events->apply_filters('user_menu_card_avatar_src', '');?>"/>
+                    <span><?php echo User::get()->username;?></span> 
+                </a> 
+                <a href="<?=site_url('logout')?>" class="btn btn-danger">logout</a>
+                <?php else : ?>
+                <a href="<?=site_url('login')?>" class="btn btn-primary">Login</a>
+                <?php endif; ?>
+            </div><!--end login button-->
+        </div><!--end navigation-->
+    </div><!--end container-->
+</header><!--end header-->

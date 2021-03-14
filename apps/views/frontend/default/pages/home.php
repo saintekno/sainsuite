@@ -2,10 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 
-<!-- Navbar STart -->
-<?php $this->load->frontend_view('partials/navbar.php');?>
-<!-- Navbar End -->
-
 <!-- Hero Start -->
 <section class="bg-marketing d-table w-100" id="home">
     <div class="container">

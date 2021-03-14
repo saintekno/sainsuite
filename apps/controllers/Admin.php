@@ -492,7 +492,7 @@ class Admin extends MY_Controller
                     // it means that addon has been installed
                     if (is_array($notice)) 
                     {
-                        redirect(array( 'admin', 'themes', 'list?highlight=' . @$notice[ 'namespace' ] . '&notice=' . $notice[ 'msg' ] . '#theme-' . $notice[ 'namespace' ] ));
+                        redirect(array( 'admin', 'appearance', 'list?highlight=' . @$notice[ 'namespace' ] . '&notice=' . $notice[ 'msg' ] . '#theme-' . $notice[ 'namespace' ] ));
                     } 
     
                     $this->notice->push_notice_array($notice);
@@ -512,7 +512,7 @@ class Admin extends MY_Controller
     
                 Theme::enable($arg2);
     
-                redirect(array( 'admin', 'themes?notice=theme-enabled') );
+                redirect(array( 'admin', 'appearance?notice=theme-enabled') );
                 break;
 
             case 'remove':
@@ -524,7 +524,7 @@ class Admin extends MY_Controller
     
                 Theme::uninstall($arg2);
     
-                redirect(array( 'admin', 'themes?notice=theme-removed' ));
+                redirect(array( 'admin', 'appearance?notice=theme-removed' ));
                 break;
 
             case 'extract':

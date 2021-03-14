@@ -1,4 +1,4 @@
-<?php global $User_Options; ?>
+<?php global $User_Options, $Options; ?>
 
 <!--begin::Aside-->
 <div class="aside d-flex" id="kt_aside">
@@ -108,13 +108,13 @@
 		<div class="tab-title mb-3">
 			<div class="aside-brand border-bottom border-bottom-secondary">
 				<!--begin::Logo-->
-				<div class="d-flex mr-5">
+				<a href="<?php echo site_url(); ?>" class="d-flex mr-5">
 					<img alt="Logo" src="<?php echo $this->events->apply_filters_ref_array( 'apps_logo', ['sm']); ?>" class="max-h-40px" />
-					<div class="d-flex flex-column justify-content-end pl-3">
+					<div class="flex-column justify-content-end pl-3 <?php echo (riake('logo', $Options)) ? 'd-none' : 'd-flex'; ?>">
 						<span class="opacity-50 font-weight-bold font-size-sm d-none d-md-inline"><?php echo get('app_name');?> for</span>
 						<span class="font-weight-bolder font-size-md d-none d-md-inline"><?php echo $this->options_model->get('site_name');?></span>
 					</div>
-				</div>
+				</a>
 				<!--end::Logo-->
 			</div>
 		</div>

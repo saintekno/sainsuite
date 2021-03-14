@@ -309,6 +309,6 @@ class Menus_Model extends CI_Model
         $config["item_divider"]       = '<li class="menu-section"><h4 class="menu-text">%s</h4></li>';
 
         // call render in view
-        return get_instance()->multimenu->render($config, ['']);
+        return get_instance()->multimenu->render($config, $this->events->apply_filters('menu_nav_divider', ['']));
     }
 }

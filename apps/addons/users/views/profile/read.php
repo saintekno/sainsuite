@@ -53,24 +53,25 @@ $this->polatan->add_meta(array(
         'action' => site_url('admin/profile')
     ),
 ));
+$user_profile[] = array(
+    [
+        'id' => 1,
+        'class' => 'card-header-light',
+        'heading'=> __('Personal Information'),
+        'description' => 'Update your personal informaiton',
+        'body' => array(
+            'items' => $this->events->apply_filters_ref_array('load_user_profile', array( 
+                array_merge(
+                    ['user'=> User::get()], 
+                    ['page'=> 'profile']
+                )
+             ))
+        )
+    ]
+);
 $this->polatan->add_item(array(
     'type'  => 'accordions',
-    'accordion' => array(
-        [
-            'id' => 1,
-            'class' => 'card-header-light',
-            'heading'=> __('Personal Information'),
-            'description' => 'Update your personal informaiton',
-            'body' => array(
-                'items' => $this->events->apply_filters_ref_array('load_user_profile', array( 
-                    array_merge(
-                        ['user'=> User::get()], 
-                        ['page'=> 'profile']
-                    )
-                 ))
-            )
-        ]
-    )
+    'accordion' => $user_profile
 ), 'user_profile', 2);
 
 // =============================================================================== 
@@ -86,24 +87,25 @@ $this->polatan->add_meta(array(
         'action' => site_url('admin/profile/change_password')
     ),
 ));
+$user_pass[] = array(
+    [
+        'id' => 2,
+        'class' => 'card-header-light',
+        'heading'=> __('Change Password'),
+        'description' => 'Change your account password',
+        'body' => array(
+            'items' => $this->events->apply_filters_ref_array('load_user_pass', array( 
+                array_merge(
+                    ['user'=> User::get()], 
+                    ['page'=> 'profile']
+                )
+             ))
+        )
+    ]
+);
 $this->polatan->add_item(array(
     'type'  => 'accordions',
-    'accordion' => array(
-        [
-            'id' => 2,
-            'class' => 'card-header-light',
-            'heading'=> __('Change Password'),
-            'description' => 'Change your account password',
-            'body' => array(
-                'items' => $this->events->apply_filters_ref_array('load_user_pass', array( 
-                    array_merge(
-                        ['user'=> User::get()], 
-                        ['page'=> 'profile']
-                    )
-                 ))
-            )
-        ]
-    )
+    'accordion' => $user_pass
 ), 'user_pass', 2);
 
 // =============================================================================== 
@@ -119,24 +121,25 @@ $this->polatan->add_meta(array(
         'action' => site_url('admin/profile')
     ),
 ));
+$users_advanced[] = array(
+    [
+        'id' => 3,
+        'class' => 'card-header-light',
+        'heading'=> __('Advanced'),
+        'description' => 'Perform advanced options',
+        'body' => array(
+            'items' => $this->events->apply_filters_ref_array('load_users_advanced', array( 
+                array_merge(
+                    ['user'=> User::get()], 
+                    ['page'=> 'profile']
+                )
+             ))
+        )
+    ]
+);
 $this->polatan->add_item(array(
     'type'  => 'accordions',
-    'accordion' => array(
-        [
-            'id' => 3,
-            'class' => 'card-header-light',
-            'heading'=> __('Advanced'),
-            'description' => 'Perform advanced options',
-            'body' => array(
-                'items' => $this->events->apply_filters_ref_array('load_users_advanced', array( 
-                    array_merge(
-                        ['user'=> User::get()], 
-                        ['page'=> 'profile']
-                    )
-                 ))
-            )
-        ]
-    )
+    'accordion' => $users_advanced
 ), 'users_advanced', 2);
 
 $this->polatan->output();

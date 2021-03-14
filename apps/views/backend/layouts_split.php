@@ -57,13 +57,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <!--begin::Aside-->
             <div class="login-aside order-1 order-lg-2 bgi-no-repeat bgi-position-x-right">
                 <div class="login-conteiner d-flex flex-center flex-row flex-row-fluid bgi-no-repeat bgi-position-x-right bgi-position-y-bottom">
-                    <!--begin::Aside title-->
-                    <h3 class="m-0 d-flex justify-content-lg-start font-weight-boldest display5 display1-lg text-white">
-                        We Got<br />
-                        A Surprise<br />
-                        For You
-                    </h3>
-                    <!--end::Aside title-->
+                    <?php echo $this->events->apply_filters( 'apps_description', '' ); ?>
                 </div>
             </div>
             <!--end::Aside-->

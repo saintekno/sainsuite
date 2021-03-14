@@ -261,9 +261,9 @@ function do_upload($photo)
         $CI->image_lib->clear() ;
 
         $data_image = array(
-            'thumb' => $CI->config->item('upload_path').'thumbnail/'.$thumb_nail,
-            'medium' => $CI->config->item('upload_path').'medium/'.$medium,
-            'big' => $CI->config->item('upload_path').'big/'.$album_picture
+            'thumb' => 'thumbnail/'.$thumb_nail,
+            'medium' => 'medium/'.$medium,
+            'big' => 'big/'.$album_picture
         );
 
         unlink($source) ;   
@@ -359,8 +359,8 @@ function upload_image($max_size)
         $CI->image_lib->clear() ;
 
         // set upload path
-        $images = $CI->config->item('upload_path').'medium/'.$mid;
-        $thumb  = $CI->config->item('upload_path').'thumbnail/'.$thumb_nail;
+        $images = 'medium/'.$mid;
+        $thumb  = 'thumbnail/'.$thumb_nail;
 
         unlink($source);
         return array(

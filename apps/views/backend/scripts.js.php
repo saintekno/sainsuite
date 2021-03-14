@@ -160,6 +160,13 @@ var KTSains = function() {
             fileName = _currentURL.substring(0, (_currentURL.indexOf("#") == -1) ? _currentURL.length : _currentURL.indexOf("#")), 
             fileName = fileName.substring(0, (fileName.indexOf("?") == -1) ? fileName.length : fileName.indexOf("?"));
 
+        if (fileName.match('page404')) {
+            localStorage.removeItem("menuMobilePrimary");
+            localStorage.removeItem("menuHeaderPrimary");
+            localStorage.removeItem("menuAsidePrimary");
+            localStorage.removeItem("menuDropdown");
+        }
+
         $(_link).each(function() {
             var self = $(this), _self_link = self.attr('href');
             if (fileName.match(_self_link)) {
@@ -226,16 +233,19 @@ var KTSains = function() {
     }
 
     var accordion = function() {
-        var accordionPrimary = '#kt_accordion .card-title';
+        var accordionPrimary = '#accordion .card-header';
 
         $(accordionPrimary).on('click', function(e) {
-            var linkId = $(this).parents().next().attr('id');
+            var linkId = $(this).next().attr('id');
             localStorage.setItem("accordionHeaderPrimary", linkId);
         });
 
         var accordionHeader = localStorage.getItem("accordionHeaderPrimary");
         if (accordionHeader != null) {
             $('#'+accordionHeader).addClass('show');
+        }
+        else {
+            $('#collapse1').addClass('show');
         }
     }
 
