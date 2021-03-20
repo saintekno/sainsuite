@@ -48,12 +48,12 @@
 			
 			<?php echo $this->menus_model->asidefooter_nav(); ?>
 
-			<div class="dropdown dropright">
+			<div class="dropdown dropup">
 				<a class="btn btn-icon btn-clean btn-lg mb-2" data-toggle="dropdown" data-target="help" data-offset="0px,0px" aria-expanded="false">
 					<i class="icon-2x flaticon-questions-circular-button"></i>
 				</a>
 				<!--begin::Dropdown-->
-				<div id="help" class="dropdown-menu dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right">
+				<div id="help" class="dropdown-menu dropdown-menu-sm">
 					<!--begin::Nav-->
 					<?php echo $this->menus_model->infocenter_nav(); ?>
 					<!--end::Nav-->
@@ -62,12 +62,12 @@
 			</div>
 			
 			<div class="aside-users d-none d-lg-flex">
-				<div class="dropdown dropright">
+				<div class="dropdown dropup">
 					<a class="symbol symbol-users" data-toggle="dropdown" data-target="user" data-offset="0px,0px" aria-expanded="false">
 						<img src="<?php echo $this->events->apply_filters('user_menu_card_avatar_src', '');?>" alt="<?php echo $this->events->apply_filters('user_menu_card_avatar_alt', '');?>">
 					</a>
 					<!--begin::Dropdown-->
-					<div id="user" class="dropdown-menu dropdown-menu-anim-up dropdown-menu-lg dropdown-menu-left">
+					<div id="user" class="dropdown-menu dropdown-menu-lg">
 						<!--begin::Nav-->
 						<ul class="navi">
 							<li class="navi-section py-0">
@@ -109,11 +109,7 @@
 			<div class="aside-brand border-bottom border-bottom-secondary">
 				<!--begin::Logo-->
 				<a href="<?php echo site_url(); ?>" class="d-flex mr-5">
-					<img alt="Logo" src="<?php echo $this->events->apply_filters_ref_array( 'apps_logo', ['sm']); ?>" class="max-h-40px" />
-					<div class="flex-column justify-content-end pl-3 <?php echo (riake('logo', $Options)) ? 'd-none' : 'd-flex'; ?>">
-						<span class="opacity-50 font-weight-bold font-size-sm d-none d-md-inline"><?php echo get('app_name');?> for</span>
-						<span class="font-weight-bolder font-size-md d-none d-md-inline"><?php echo $this->options_model->get('site_name');?></span>
-					</div>
+					<img alt="Logo" src="<?php echo $this->events->apply_filters( 'apps_logo', ''); ?>" class="max-h-40px" />
 				</a>
 				<!--end::Logo-->
 			</div>

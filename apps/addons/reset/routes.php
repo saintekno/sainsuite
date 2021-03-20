@@ -13,4 +13,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @filesource
  */
 
-$this->polatan->output();
+global $Routes;
+
+$Routes->group(['prefix' => '/reset'], function () use ( $Routes ) {
+    $Routes->get( '/', 'Reset@index' );
+});

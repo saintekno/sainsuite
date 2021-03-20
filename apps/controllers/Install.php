@@ -40,7 +40,7 @@ class Install extends MY_Controller
 		Polatan::set_title(sprintf(__('Welcome Page &mdash; %s'), get('app_name')));
         $data['pages'] = 'install';
         $data['subpages'] = 'install';
-        $this->load->view( 'backend/layouts_split', $data );
+        $this->load->backend_view('layouts_split', $data );
     }
 
     /**
@@ -85,7 +85,7 @@ class Install extends MY_Controller
 		Polatan::set_title(sprintf(__('Database config &mdash; %s'), get('app_name')));
         $data['pages'] = 'install';
         $data['subpages'] = 'database';
-        $this->load->view( 'backend/layouts_split', $data );
+        $this->load->backend_view('layouts_split', $data );
     }
     
     /**
@@ -119,6 +119,6 @@ class Install extends MY_Controller
         Polatan::set_title(sprintf(__('Site & Master account &mdash; %s'), get('core_signature')));
         $data['pages'] = 'install';
         $data['subpages'] = 'site';
-        $this->load->view( 'backend/layouts_split', $data );
+        $this->load->backend_view('layouts_split', $data );
     }
 }

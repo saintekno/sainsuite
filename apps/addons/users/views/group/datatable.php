@@ -2,10 +2,10 @@
 var DatatableScript = function() {   
     // Read
     var read = function() {
-        var array = <?php echo $groups;?>;
+        var array = '<?php echo $groups;?>';
         var dataSet;
         if (Object.keys(array).length) {
-            dataSet = JSON.parse('<?php echo $groups;?>');
+            dataSet = JSON.parse(array);
         }
         var datatable = $('#kt_datatable').KTDatatable({
 			data: {
@@ -13,6 +13,10 @@ var DatatableScript = function() {
 				source: dataSet,
 				pageSize: 10, // display 20 records per page
 			},
+            search: {
+                input: $('#search_query'),
+                key: 'generalSearch'
+            },  
             // columns definition
             columns: [
                 {
@@ -26,6 +30,7 @@ var DatatableScript = function() {
                 }, {
                     field: 'username',
                     title: 'User',
+                    width: 200,
                     template: function(row) {
                         var stateNo = KTUtil.getRandomInt(0, 7);
                         var states = [
@@ -53,9 +58,11 @@ var DatatableScript = function() {
                 }, {
                     field: 'definition',
                     title: 'Definition',
+                    width: 200,
                 }, {
                     field: '',
                     title: 'Status',
+                    width: 200,
 					template: function(row) {
 						return '<span class="label font-weight-bold label-lg label-light-primary label-inline">Active</span>';
 					},
@@ -84,7 +91,7 @@ var DatatableScript = function() {
                             <button class="btn btn-sm btn-icon btn-light-danger btn-hover-danger "\
                                 data-head="<?php echo _s( 'Would you like to delete this data?' ) ;?>"\
                                 data-url="<?php echo site_url(array( 'admin', 'group', 'delete'));?>/'+ row.id +'"\
-                                onclick="KTSains.deleteConfirmation(this)">\
+                                onclick="deleteConfirmation(this)">\
                                 <i class="fas fa-trash-alt"></i>\
                             </button>\
                         ';

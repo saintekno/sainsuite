@@ -8,7 +8,7 @@ global $Options;
         <!-- Logo container-->
         <div>
             <a class="logo" href="<?=site_url();?>">
-                <img src="<?php echo $this->events->apply_filters( 'apps_logo', '' ); ?>" height="45" alt="<?php echo $Options['site_name']; ?>">
+                <img src="<?php echo $this->events->apply_filters( 'apps_logo', '' ); ?>" height="45" alt="<?php echo riake('site_name',$Options); ?>">
             </a>
         </div>                      
         <div class="buy-button">

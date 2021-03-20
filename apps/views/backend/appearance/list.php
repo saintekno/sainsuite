@@ -14,28 +14,27 @@ defined('BASEPATH') or exit('No direct script access allowed');
  */
 
 // Toolbar
-$this->events->add_filter( 'toolbar_nav', function( $final ) {
-    $final[] = array(
-        'id' => 1,
-        'name' => __('Add themes'),
-        'icon' => 'ki ki-plus',
-        'slug' => 'javascript:void(0)',
-        'attr_anchor' => 'class="btn btn-light-primary btn-sm font-weight-bolder" data-toggle="modal" data-target="#kt_theme_frontend"',
-        'permission' => 'install.themes'
-    );
-    return $final;
-});
-
 $this->events->add_filter('toolbar_filter', function ($filter) { 
+    $filter[] = '<div class="row">';
     if ($this->aauth->is_admin()):
     $filter[] = '
-    <span class="switch switch-primary mr-2">
-        <label data-toggle="tooltip" title="Developer mode">
-            <input type="checkbox" '.$this->events->apply_filters('dashboard_dev_class', '').' id="dev_mode">
-            <span></span>
-        </label>
-    </span>';
+    <div class="col-auto col-sm-auto mb-1 mb-sm-0">
+        <span class="switch switch-primary mr-2">
+            <label data-toggle="tooltip" title="Developer mode">
+                <input type="checkbox" '.$this->events->apply_filters('dashboard_dev_class', '').' id="dev_mode">
+                <span></span>
+            </label>
+        </span>
+    </div>';
     endif;
+    $filter[] = '
+    <div class="col-auto col-sm-auto mb-1 mb-sm-0">
+        <button class="btn btn-light-primary font-weight-bolder" 
+            onclick="composeModal(\''.site_url(['admin', 'appearance', 'install_zip']).'\', \''.__('Choose the themes zip file').'\')" >
+            '.__('Add themes').'
+        </button>
+    </div>';
+    $filter[] = '</div>';
 
     return $filter;
 });
@@ -51,6 +50,6 @@ $this->polatan->add_item(array(
     'content' => $this->load->backend_view('appearance/list_dom', array(), true )
 ), 'theme', 1);
 
-$this->events->do_action('header_menu_themes');
+$this->events->do_action('header_nav_themes');
 
 $this->polatan->output();

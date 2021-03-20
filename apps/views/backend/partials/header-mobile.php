@@ -1,14 +1,11 @@
+<?php global $Options; ?>
 
 <!--begin::Header Mobile-->
 <div id="kt_header_mobile" class="header-mobile header-mobile-fixed ">
 
 	<!--begin::Logo-->
 	<a href="<?php echo site_url('admin'); ?>" class="header-logo d-flex">
-		<img alt="Logo" src="<?php echo $this->events->apply_filters_ref_array( 'apps_logo', ['sm']); ?>" class="max-h-35px" />
-		<div class="d-flex flex-column pl-3">
-			<span class="opacity-50 font-weight-bold font-size-sm"><?php echo get('app_name');?> for</span>
-			<span class="font-weight-bolder font-size-md"><?php echo $this->options_model->get('site_name');?></span>
-		</div>
+		<img alt="Logo" src="<?php echo $this->events->apply_filters( 'apps_logo', 'light'); ?>" class="max-h-35px" />
 	</a>
 
 	<!--end::Logo-->

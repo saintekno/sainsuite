@@ -107,11 +107,8 @@ class User_model extends CI_Model
             }
         }
 
-        $this->events->do_action('custom_user_meta', $user_id);
-
-        // add custom user fields
-        $custom_fields = $this->events->apply_filters('custom_user_vars', []);
-        foreach (force_array($custom_fields) as $key => $value) {
+        $fields_user_vars = $this->events->apply_filters('fields_user_vars', []);
+        foreach (force_array($fields_user_vars) as $key => $value) {
             $this->aauth->set_user_var($key, $value, $user_id);
         }
 
@@ -160,12 +157,20 @@ class User_model extends CI_Model
             }
         }
 
-        $this->events->do_action('custom_user_meta', $user_id);
+        // add custom user fields
+        $fields_user_meta = $this->events->apply_filters('fields_user_meta', []);
+        foreach (force_array($fields_user_meta) as $key => $value) {
+            if ( ! empty($this->input->post($key)) ) {
+                $fields[$key] = $this->input->post($key);
+                $this->db->where('id', $user_id);
+                $this->db->update($this->aauth->config_vars['users'], $fields);
+            }
+        }
 
-        $custom_fields = $this->events->apply_filters('custom_user_vars', array());
-        foreach ( force_array($custom_fields) as $key => $value) {
-            $this->aauth->set_user_var($key, strip_tags( $value ), $user_id);
-        } 
+        $fields_user_vars = $this->events->apply_filters('fields_user_vars', []);
+        foreach (force_array($fields_user_vars) as $key => $value) {
+            $this->aauth->set_user_var($key, $value, $user_id);
+        }
 
         User::upload_user_image($user_id);
 

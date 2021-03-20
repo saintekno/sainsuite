@@ -22,7 +22,6 @@ var Resets = function() {
             html: `<?php echo _s( 'You don\'t wish to reset right now ?', 'reset');?>`,
         }).then(function(result) {
             if ( result.value ) {
-                document.location = '<?php echo site_url( 'admin/addons/disable/reset' );?>';
                 return false;
             } else {
                 askReset();

@@ -22,8 +22,8 @@ apps/logs/*
 
 !apps/*/.htaccess
 
-apps/composer.lock
 apps/vendor/
+composer.lock
 
 # Upload
 public/uploads/*

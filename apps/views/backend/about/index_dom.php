@@ -1,3 +1,8 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+global $Options;
+?>
+
 <!--begin::Section-->
 <div class="row">
     <div class="col-lg-8">
@@ -11,7 +16,7 @@
             <p><?php echo $this->markdown->parse(riake('content', $check[0])); ?></p>
             
             <a class="btn btn-primary" href="<?php echo site_url(array( 'admin', 'about', 'core', riake('version', $check[0]) )); ?>">
-                <?php _e('Click Here to Update'); ?>
+            <?php _e('Click Here to Update'); ?>
             </a>
             <?php else : ?>
             <p>
@@ -19,10 +24,15 @@
             <?php echo sprintf( __( 'Version <b>%s</b> (Official build)' ), get('version') );?>
             </p>
             <?php endif; ?>
+            
+            <?php if (riake('site_title', $Options)) : ?>
+            <p class="flex-column justify-content-end d-flex">
+                <span class="opacity-50 font-weight-bold font-size-sm"><?php echo get('app_name');?> for</span>
+                <span class="font-size-md"><?php echo riake('site_title', $Options);?></span>
+            </p>
+            <?php endif; ?>
 
-            <p><?php echo get('app_name');?> <br>
-            Telp. - HP. +62 822 6920 4668 <br>
-            © <?php echo date('Y'); ?> SAINTEKNO. All rights reserved.</p>
+            <p><?php echo $this->events->apply_filters('dashboard_footer_text', sprintf( __( 'Copyright © %s %s. All rights reserved.' ), date('Y'), $this->aauth->config_vars['name'] ) );?></p>
         </div>
     </div>
 </div>

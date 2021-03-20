@@ -23,14 +23,6 @@ foreach (force_array(riake('items', $meta)) as $_item)
     {
         include( dirname( __FILE__ ) . '/accordions.php' );               
     }
-    elseif ( $type == 'search') 
-    {
-        include( dirname( __FILE__ ) . '/search.php' );                
-    }
-    elseif ( $type == 'separator') 
-    {
-        echo '<div class="separator separator-dashed my-8"></div>';               
-    }
     elseif ($type == 'dom') 
     {
         echo riake('content', $_item);

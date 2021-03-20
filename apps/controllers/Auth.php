@@ -58,7 +58,7 @@ class Auth extends MY_Controller
         Polatan::set_title(sprintf(__('Sign In &mdash; %s'), get('app_name')));
         
 		$data['pages'] = 'login';
-        $this->load->view( 'backend/layouts_split', $data );
+        $this->load->backend_view('layouts_split', $data );
 	}
     
     /**
@@ -91,7 +91,7 @@ class Auth extends MY_Controller
 		
 		Polatan::set_title(sprintf(__('Sign Up &mdash; %s'), get('app_name')));
 		$data['pages'] = 'register';
-        $this->load->view( 'backend/layouts_split', $data );
+        $this->load->backend_view('layouts_split', $data );
     }
     
     /**
@@ -130,7 +130,7 @@ class Auth extends MY_Controller
 
         Polatan::set_title(sprintf(__('Recover Password &mdash; %s'), get('app_name')));
         $data['pages'] = 'recovery';
-        $this->load->view( 'backend/layouts_split', $data );
+        $this->load->backend_view('layouts_split', $data );
     }
     
     /**

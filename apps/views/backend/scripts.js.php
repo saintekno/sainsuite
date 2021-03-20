@@ -25,7 +25,6 @@ var KTSains = function() {
     };
     
     var $body = $('body'),
-    sain_app = angular.module( 'SainSuite', <?php echo json_encode( ( Array ) $this->events->apply_filters( 'admin_dependencies', array() ) );?> ),
     sain_form_expire = '<?php echo gmt_to_local(time(), 'UTC') + GUI_EXPIRE;?>',
     sain_dashboard_url = '<?php echo site_url(array( 'admin' ));?>',
     sain_site_url = '<?php echo site_url();?>',
@@ -52,6 +51,9 @@ var KTSains = function() {
         if ($("#kt_aside_menu .menu-nav li").length) {
             $('#kt_aside .aside-primary a[data-toggle="tab"]').removeClass('d-none');
         }
+        else {
+            $('#kt_aside').attr('style', 'width: 0px !important');
+        }
 
         // cek condition table
         if ($("#kt_datatable").length) {
@@ -73,11 +75,7 @@ var KTSains = function() {
         $(asidePrimary).on('click', function(e) {
             var linkId = $(this).attr('href');
 
-            if (localStorage.getItem("menuAsidePrimary") != linkId) {
-                localStorage.removeItem("menuHeaderPrimary");
-            } else {
-                e.preventDefault();
-            }
+            localStorage.removeItem("menuHeaderPrimary");
 
             if ($(this).is('[data-toggle]') && $(this).data('toggle') == 'dropdown') {
                 $(this).addClass('active');
@@ -117,6 +115,7 @@ var KTSains = function() {
             $('#kt_body').addClass('aside-minimize').removeClass('aside-secondary-enabled');
         } else {
             $('#kt_body').addClass('aside-secondary-enabled').removeClass('aside-minimize');
+            $('#kt_aside_toggle').removeClass('d-none');
         }
 
         var menuDropdown = localStorage.getItem("menuDropdown");
@@ -326,61 +325,6 @@ var KTSains = function() {
                 });
             }
         }
-    
-        $('#delete_all').click(function(){
-            Swal.fire({
-                title: 'Would you like to delete all ?',
-                icon: "question",
-                showCancelButton: true,
-                confirmButtonText: "Yes, delete it!",
-                cancelButtonText: "No, cancel!",
-                reverseButtons: true
-            }).then(function(result) {
-                <?php if (isset($namespace) && ! User::control('delete.'.$namespace)) { ?>
-                    result.value = false;
-                    result.dismiss = 'cancel';
-                <?php } ?>
-
-                if (result.value) {
-                    // Get value from checked checkboxes
-                    var ids_arr = [];
-                    $("input[type=checkbox]:checked").each(function(){
-                        ids_arr.push($(this).val());
-                    });
-
-                    // Array length
-                    var length = ids_arr.length;
-
-                    if(length > 0){
-                        $.ajax({
-                            url: '<?= site_url(['admin', (isset($namespace)) ? $namespace : '', 'delete']) ?>',
-                            type: 'post',
-                            data: {ids: ids_arr},
-                            success: function(data) {
-                                // Remove <tr>
-                                $("input[type=checkbox]:checked").each(function(){
-                                    $(this).closest('tr').fadeOut(1500,function(){
-                                        $('#kt_datatable_group_action_form').collapse('hide');
-                                        $(this).remove();
-                                    });
-                                });
-                                Swal.fire(
-                                    "Deleted!",
-                                    "Your file has been deleted.",
-                                    "success"
-                                )
-                            }
-                        });
-                    }
-                } else if (result.dismiss === "cancel") {
-                    Swal.fire(
-                        "Cancelled",
-                        "Anda tidak memiliki izin hapus data :)",
-                        "error"
-                    )
-                }
-            });
-        });
     };
     
     var sain_loader = new function(){
@@ -523,49 +467,6 @@ var KTSains = function() {
             }
 
             return false;
-        },
-        deleteConfirmation: function(el) {
-            var url = $(el).data('url');
-            var header = $(el).data('head');
-            Swal.fire({
-                title: header,
-                icon: "question",
-                showCancelButton: true,
-                confirmButtonText: "Yes, delete it!",
-                cancelButtonText: "No, cancel!",
-                reverseButtons: true
-            }).then(function(result) {
-                <?php if (isset($namespace) && ! User::control('delete.'.$namespace)) { ?>
-                    result.value = false;
-                    result.dismiss = 'cancel';
-                <?php } ?>
-
-                if (result.value) {
-                    $.ajax({
-                        url: url,
-                        type: 'POST',
-                        success: function(data) {
-                            if ( $(el).closest('tr').length === 0 ) {
-                                $(el).closest('div.card').fadeOut(1000,function(){
-                                    $(this).remove();
-                                });
-                            } 
-                            else {
-                                $(el).closest('tr').fadeOut(1500,function(){
-                                    $(this).remove();
-                                });
-                            }
-                            location.reload();
-                        }
-                    });
-                } else if (result.dismiss === "cancel") {
-                    Swal.fire(
-                        "Cancelled",
-                        "Anda tidak memiliki izin hapus data :)",
-                        "error"
-                    )
-                }
-            });
         }
     };
 }();
@@ -573,18 +474,103 @@ var AppAngular = angular.module( 'SainSuite', <?php echo json_encode( ( Array ) 
 var _buttonSpinnerClasses = 'spinner spinner-right spinner-white pr-15';
 
 function checkRequiredFields() {
-    var pass = 1;
+    var required = 1;
     $('form.required-form').find('input, select').each(function(){
         if($(this).prop('required')) {
-            if ($(this).val() === "") { pass = 0; }
+            if ($(this).val() === "") { required = 0; }
         }
     });
 
-    if (pass === 1) {
+    if (required === 1) {
         $('form.required-form').submit();
     } else {
         toastr.error("<?php _e('please_fill_all_the_required_fields'); ?>");
     }
+}
+
+function deleteConfirmation(el) {
+    var url = $(el).data('url');
+    var header = $(el).data('head');
+    Swal.fire({
+        title: (header ? header : 'Would you like to delete all ?'),
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true
+    }).then(function(result) {
+        <?php if (isset($namespace) && ! User::control('delete.'.$namespace)) { ?>
+        Swal.fire(
+            "Cancelled",
+            "Anda tidak memiliki izin hapus data :)",
+            "error"
+        )
+        return
+        <?php } ?>
+
+        if (result.value) {
+            if(url){
+                // Get value from checked checkboxes
+                var ids_arr = [];
+                $("input[type=checkbox]:checked").each(function(){
+                    ids_arr.push($(this).val());
+                });
+
+                // Array length
+                var length = ids_arr.length;
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    beforeSend: function() {
+                        if ( $(el).closest('tr').length === 0 ) {
+                            KTApp.block($(el).closest('div.card'), {
+                                overlayColor: '#000000',
+                                state: 'primary',
+                                message: 'Processing...'
+                            });
+                        } 
+                    },
+                    success: function(data) {
+                        if ( $(el).closest('tr').length === 0 ) {
+                            $(el).closest('div.card').fadeOut(1000,function(){
+                                $(this).remove();
+                            });
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1000);
+                        } 
+                        else {
+                            $(el).closest('tr').fadeOut(1000,function(){
+                                $(this).remove();
+                            });
+                        }
+                    }
+                });
+            }
+            else {
+                $.ajax({
+                    url: '<?= site_url(['admin', (isset($namespace)) ? $namespace : '', 'delete']) ?>',
+                    type: 'post',
+                    data: {ids: ids_arr},
+                    success: function(data) {
+                        // Remove <tr>
+                        $("input[type=checkbox]:checked").each(function(){
+                            $(this).closest('tr').fadeOut(1000,function(){
+                                $('#kt_datatable_group_action_form').collapse('hide');
+                                $(this).remove();
+                            });
+                        });
+                    }
+                });
+            }
+        } else if (result.dismiss === "cancel") {
+            Swal.fire(
+                "Cancelled",
+                "Anda membatalkan hapus data :)",
+                "error"
+            )
+        }
+    });
 }
 
 // Webpack support

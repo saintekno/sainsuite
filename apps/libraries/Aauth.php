@@ -931,10 +931,6 @@ class Aauth {
 		$this->aauth_db->where('id', $user_id);
 		$this->aauth_db->delete($this->config_vars['users']);
 
-		if ($this->CI->events->has_action('delete_user_meta')) {
-			$this->CI->events->add_action('delete_user_meta', $user_id);
-		}
-
 		if ($this->aauth_db->trans_status() === false) {
 			$this->aauth_db->trans_rollback();
 			return false;
@@ -1017,6 +1013,7 @@ class Aauth {
         }
 		else{ 
 			// order_by
+        	$this->aauth_db->order_by('username', 'ASC');
 			if ($sort) {
 				$this->aauth_db->order_by($sort);
 			}
@@ -1034,11 +1031,17 @@ class Aauth {
 			}
 
 			$query = $this->aauth_db->get();
-			$result = $query->result();
+			$result = $query->result_array();
 		}
-         
-        // Return fetched data 
-        return $result; 
+
+		foreach ($result as $row => $value) :
+		$result[$row]['picture'] = User::get_user_image_url($value['id']);
+		endforeach;
+		
+        if (empty($return)) {
+            return false;
+        }
+		return $result; 
 	}
 
 	//tested

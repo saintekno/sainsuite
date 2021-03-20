@@ -6,8 +6,7 @@
             Selected <span id="kt_datatable_selected_records">0</span> records:
         </div>
 
-        <button class="btn btn-sm btn-danger mr-2" type="button"
-            id="delete_all">
+        <button class="btn btn-sm btn-danger mr-2" type="button" onclick="deleteConfirmation(this)">
             Delete All
         </button>
     </div>

@@ -64207,7 +64207,7 @@ code {
 
 @media (max-width: 600px) {
   .dropdown-menu {
-    width: 85vw;
+    width: 97vw;
   }
 }
 @media (min-width: 205px) {
@@ -64435,6 +64435,9 @@ code {
 .input-group .input-group-prepend + .form-control.is-valid,
 .input-group .input-group-prepend + .form-control.is-invalid {
   margin-left: 1px;
+}
+.input-group > .custom-file:not(:last-child) .custom-file-label {
+  border-radius: 0;
 }
 .input-group i {
   line-height: 0;
@@ -64745,8 +64748,8 @@ code {
 }
 @media (max-width: 991.98px) {
   .modal.modal-sticky.modal-sticky-bottom-right {
-    bottom: 10px;
-    right: 10px;
+    bottom: 0;
+    right: 0;
   }
 }
 @media (max-width: 767.98px) {
@@ -65297,7 +65300,7 @@ code {
 .datatable.datatable-default > .datatable-table {
   background-color: #ffffff;
   border-collapse: collapse;
-  overflow: hidden;
+  overflow: auto;
   display: none;
   width: 100%;
 }
@@ -65738,7 +65741,7 @@ code {
 }
 .datatable.datatable-default > .datatable-pager {
   margin: 0px;
-  padding: 1rem 0;
+  border-top: 1px solid #EBEDF3;
   padding-bottom: 0;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -83786,8 +83789,8 @@ canvas {
 .aside-menu .menu-nav > .menu-item > .menu-heading .menu-icon,
 .aside-menu .menu-nav > .menu-item > .menu-link .menu-icon {
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 35px;
-  flex: 0 0 35px;
+  -ms-flex: 0 0 25px;
+  flex: 0 0 25px;
   font-size: 1.3rem;
 }
 .aside-menu .menu-nav > .menu-item > .menu-heading .menu-icon svg,
@@ -83958,7 +83961,7 @@ canvas {
   transition: all 0.3s ease;
 }
 .aside-menu .menu-nav > .menu-item .menu-submenu .menu-section {
-  margin: 20px 0 0 0;
+  margin: 10px 0 0 0;
   height: 40px;
 }
 .aside-menu .menu-nav > .menu-item .menu-submenu .menu-section .menu-text {
@@ -83974,7 +83977,7 @@ canvas {
   margin: 0;
 }
 .aside-menu .menu-nav > .menu-section {
-  margin: 20px 0 0 0;
+  margin: 10px 0 0 0;
   height: 40px;
 }
 .aside-menu .menu-nav > .menu-section .menu-text {
@@ -84285,7 +84288,7 @@ canvas {
   }
   .aside-minimize:not(.aside-minimize-hover) .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav > .menu-section,
 .aside-menu.aside-menu-dropdown .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav > .menu-section {
-    margin: 20px 0 0 0;
+    margin: 10px 0 0 0;
     height: 40px;
   }
   .aside-minimize:not(.aside-minimize-hover) .aside-menu .menu-nav .menu-item:not([data-menu-submenu-mode=accordion]).menu-item-hover > .menu-submenu .menu-subnav > .menu-section .menu-text,

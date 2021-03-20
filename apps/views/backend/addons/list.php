@@ -14,30 +14,26 @@ defined('BASEPATH') or exit('No direct script access allowed');
  */
 
 // Toolbar
-$this->events->add_filter( 'toolbar_nav', function( $final ) {
-    $final[] = array(
-        'id' => 1,
-        'name' => __('Add AddOns'),
-        'icon' => 'ki ki-plus',
-        'slug' => 'javascript:void(0)',
-        'attr_anchor' => 'class="btn btn-light-primary btn-sm font-weight-bolder" data-toggle="modal" data-target="#kt_inbox_compose"',
-        'permission' => 'install.addons'
-    );
-    return $final;
-});
-
 $this->events->add_filter('toolbar_filter', function ($filter) { 
+    $filter[] = '<div class="row">';
     if ($this->aauth->is_admin()):
-    global $Options;
-    $check = (intval(riake('webdev_mode', $Options))) ? 'checked="checked"' : '';
     $filter[] = '
-    <span class="switch switch-primary mr-2">
-        <label data-toggle="tooltip" title="Developer mode">
-            <input type="checkbox" '.$check.' id="dev_mode">
-            <span></span>
-        </label>
-    </span>';
+    <div class="col-auto col-sm-auto mb-1 mb-sm-0">
+        <span class="switch switch-primary">
+            <label data-toggle="tooltip" title="Developer mode">
+                <input type="checkbox" '.$this->events->apply_filters('dashboard_dev_class', '').' id="dev_mode">
+                <span></span>
+            </label>
+        </span>
+    </div>
+    <div class="col-auto col-sm-auto mb-1 mb-sm-0">
+        <button class="btn btn-light-primary font-weight-bolder" 
+            onclick="composeModal(\''.site_url(['admin', 'addons', 'install_zip']).'\', \''.__('Choose the addons zip file').'\')" >
+            '.__('Add AddOns').'
+        </button>
+    </div>';
     endif;
+    $filter[] = '</div>';
 
     return $filter;
 });

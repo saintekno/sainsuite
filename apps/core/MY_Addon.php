@@ -307,6 +307,11 @@ class MY_Addon extends CI_Model
     */
     public static function disable($addon_namespace)
     {
+        $addon = self::get( $addon_namespace );
+        if ($addon[ 'application' ][ 'readonly' ]) {
+            return;
+        }
+
         global $Options;
 
         $addons_active = ( array ) @$Options[ 'addons_actives' ];
@@ -374,7 +379,8 @@ class MY_Addon extends CI_Model
 
     public static function uninstall($addon_namespace)
     {
-        if (! get_instance()->aauth->is_admin()) {
+        $addon = self::get( $addon_namespace );
+        if (! get_instance()->aauth->is_admin() || $addon[ 'application' ][ 'readonly' ]) {
             return;
         }
         

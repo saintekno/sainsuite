@@ -25,6 +25,23 @@ $this->events->add_filter( 'toolbar_nav', function( $final ) {
     return $final;
 });
 
+$this->events->add_filter('toolbar_filter', function ($filter) { // disabling header
+    $groups = $this->aauth->list_groups();
+    $option = '<option value="">All</option>';
+    foreach ( force_array($groups) as $gr ) {
+        $option .= '<option value="'.strtolower($gr->name).'">'.$gr->definition.'</option>';
+    }
+    $filter[] = '
+    <div class="row">
+        <div class="input-icon col-12 col-sm-auto mb-1 mb-sm-0">
+            <input type="text" class="form-control form-control-sm" placeholder="Search..." id="search_query" />
+            <span><i class="flaticon2-search-1 text-muted"></i></span>
+        </div>
+    </div>';
+
+    return $filter;
+});
+
 /**
  * Meta
  */

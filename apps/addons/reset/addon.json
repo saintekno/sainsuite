@@ -1,13 +1,13 @@
 {
     "application": {
-        "name": "Reset on Active",
+        "name": "Reset Data",
         "namespace": "reset",
-        "version": "3.10.0",
+        "version": "3.13.0",
         "author": "saintekno",
-        "description": "Enabling this Addon will delete all the data. It's action cannot be undone.",
+        "description": "This Addon will delete all the data. It's action cannot be undone.",
         "main": "main.php",
         "language": "language",
         "readonly": true
-    },
+    }, 
     "group": "By Sainsuite"
 }

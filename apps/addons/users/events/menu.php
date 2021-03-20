@@ -21,7 +21,7 @@ class Users_Menu extends MY_Addon
         $this->events->add_filter( 'aside_nav', array( $this, 'aside_nav' ));
     }
 
-	public function _header_menu($menu) {
+	public function _header_nav($menu) {
         $menu[] = array(
             'id' => 3,
             'name' => __('Users'),
@@ -37,9 +37,9 @@ class Users_Menu extends MY_Addon
             'permission' => 'read.group'
         );
 
-        $header_menu = $this->events->apply_filters('header_menu_users', $menu);
+        $header_nav = $this->events->apply_filters('header_nav_users', $menu);
         
-        return $header_menu;
+        return $header_nav;
 	}
 
 	public function _aside_menu($menu) {

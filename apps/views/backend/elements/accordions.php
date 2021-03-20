@@ -1,7 +1,6 @@
 <div class="accordion accordion-light accordion-toggle-arrow" id="accordion">
-<?php 
-foreach (riake('accordion', $_item) as $index_row) : 
-foreach ($index_row as $index => $_row) : 
+
+<?php foreach (riake('accordion', $_item) as $index => $_row) : 
     if( @$_row[ 'permission' ] != null && ! User::control( $_row[ 'permission' ] ) ) {
         continue;
     } 
@@ -29,6 +28,5 @@ foreach ($index_row as $index => $_row) :
 		</div>
 	</div>
     <?php 
-endforeach;
 endforeach;?>
 </div>

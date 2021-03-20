@@ -20,7 +20,7 @@ class GroupsHomeController extends MY_Addon
     {
         parent::__construct();
 
-        $this->events->add_filter( 'header_nav', array( new Users_Menu, '_header_menu' ));
+        $this->events->add_filter( 'header_nav', array( new Users_Menu, '_header_nav' ));
     }
 
     private function breadcrumb($array = array())

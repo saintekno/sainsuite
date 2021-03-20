@@ -18,7 +18,6 @@ $this->polatan->add_meta(array(
     'class'     => 'col-12',
     'namespace' => 'settings',
     'gui_saver' => true,
-    'card' => 'card-px-0 border-0',
     'type' => 'card'
 ));
 
@@ -93,10 +92,22 @@ $filed_heading2[] = array(
     [
         'permission'  => 'manage.core',
         'type'    => 'select',
-        'class'  => 'col-12',
+        'class'  => 'col-12 col-lg-6',
         'name'    => 'demo_mode',
         'label'   => __('Enable Demo ?'),
         'active'  => $this->options_model->get('demo_mode'),
+        'options' => array(
+            0 => __('No'),
+            1 => __('Yes')
+        ),
+    ],
+    [
+        'permission'  => 'manage.core',
+        'type'    => 'select',
+        'class'  => 'col-12 col-lg-6',
+        'name'    => 'enable_frontend',
+        'label'   => __('Enable Frontend ?'),
+        'active'  => $this->options_model->get('enable_frontend'),
         'options' => array(
             0 => __('No'),
             1 => __('Yes')
@@ -109,25 +120,21 @@ $items_heading2 = $this->events->apply_filters('load_advance_setting', $filed_he
  * Items
  */
 $item[] = array(
-    [
-        'id' => 1,
-        'heading'=> __('General Settings'),
-        'description' => 'Update your site name, description, language, and visibility..',
-        'body' => array(
-            'items' => $items_heading1
-        )
-    ],
+    'id' => 1,
+    'heading'=> __('General Settings'),
+    'description' => 'Update your site name, description, language, and visibility..',
+    'body' => array(
+        'items' => $items_heading1
+    )
 );
 $item[] = array(
-    [
-        'id' => 2,
-        'permission'  => 'manage.core',
-        'heading'=> __('Advanced Settings'),
-        'description' => 'Advanced settings, open register user',
-        'body' => array(
-            'items' => $items_heading2
-        )
-    ],
+    'id' => 2,
+    'permission'  => 'manage.core',
+    'heading'=> __('Advanced Settings'),
+    'description' => 'Advanced settings, open register user',
+    'body' => array(
+        'items' => $items_heading2
+    )
 );
 $items = $this->events->apply_filters('load_items_setting', $item);
 

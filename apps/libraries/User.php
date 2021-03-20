@@ -81,11 +81,8 @@ class User
 
     public static function get_user_image_url($user_id = 0)
     {
-        global $User_Options;
         if (file_exists(upload_path().'user_image/'.$user_id.'.jpg'))
             return upload_url().'user_image/'.$user_id.'.jpg';
-        elseif (riake('picture', $User_Options))
-            return riake('picture', $User_Options);
         else
             $current_user = get_instance()->aauth->get_user();
             return self::get_gravatar($current_user->email, 90);

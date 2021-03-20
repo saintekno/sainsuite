@@ -2,17 +2,10 @@
 var DatatableScript = function() {   
     // Read
     var read = function() {
-        var array = <?php echo $users;?>;
+        var array = '<?php echo $users;?>';
         var dataSet;
         if (Object.keys(array).length) {
-            for (i=0; i<array.length; i++) 
-            {
-                if (KTSains.isJson(array[i].value)) {
-                    dataSet = JSON.parse(array[i].value.toString());
-                    array[i].value = dataSet;
-                }
-            }
-            dataSet = array;
+            dataSet = JSON.parse(array);
         }
         var datatable = $('#kt_datatable').KTDatatable({
 			data: {
@@ -38,6 +31,7 @@ var DatatableScript = function() {
                     field: 'username',
                     title: 'User',
 					overflow: 'visible',
+                    width: 200,
                     template: function(row) {
                         var stateNo = KTUtil.getRandomInt(0, 7);
                         var states = [
@@ -51,12 +45,14 @@ var DatatableScript = function() {
                             'info'];
                         var state = states[stateNo];
 
-                        var output = '<div class="d-flex align-items-center">\
-                            <div class="symbol symbol-30 symbol-'+state+' flex-shrink-0">\
+                        output = '<div class="d-flex align-items-center">\
+                            <div class="symbol symbol-40 symbol-'+state+' flex-shrink-0">\
                                 <div class="symbol-label">' + row.username.substring(0, 1) + '</div>\
                             </div>\
                             <div class="ml-2">\
                                 <div class="text-dark-75 font-weight-bold line-height-sm">' + row.username + '</div>\
+                                <a href="#" class="font-size-sm text-dark-50 text-hover-primary">' +
+                                row.group_name + '</a>\
                             </div>\
                         </div>';
 
@@ -69,9 +65,11 @@ var DatatableScript = function() {
                 }, {
                     field: 'last_login',
                     title: 'Last Login',
+                    width: 200,
                 }, {
                     field: 'last_activity',
                     title: 'Last Activity',
+                    width: 200,
 					template: function(row) {
 						return (row.last_activity) ? moment(row.last_activity).fromNow(true) : '-';
 					},
@@ -115,7 +113,7 @@ var DatatableScript = function() {
                             hapus = '\<button class="btn btn-sm btn-icon btn-light-danger btn-hover-danger "\
                                     data-head="<?php echo _s( 'Would you like to delete this data?' ) ;?>"\
                                     data-url="<?php echo site_url(array( 'admin', 'users', 'delete'));?>/'+ row.user_id +'"\
-                                    onclick="KTSains.deleteConfirmation(this)">\
+                                    onclick="deleteConfirmation(this)">\
                                     <i class="fas fa-trash-alt"></i>\
                                 </button>';
                             <?php endif; ?>

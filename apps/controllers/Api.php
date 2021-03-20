@@ -64,33 +64,12 @@ class Api extends MY_Controller
 		
 			if ($this->aauth->is_loggedin()) {
 
-				$select = "
-				aauth_users.*, 
-				aauth_users.id as user_id, 
-				aauth_groups.id as group_id,
-				aauth_groups.name as group_name";
-
-				$this->db->select($select)
-					->from($this->aauth->config_vars[ 'users'])
-					->join($this->aauth->config_vars[ 'user_to_group'], $this->aauth->config_vars['users'] . ".id = " . $this->aauth->config_vars['user_to_group'] . ".user_id")
-					->join($this->aauth->config_vars[ 'groups' ], $this->aauth->config_vars[ 'groups' ] . '.id = ' . $this->aauth->config_vars['user_to_group']. '.group_id');
+				$result = (array) $this->aauth->get_user();
+				$array['value'] = 1;
+				$array['message'] = "Login Berhasil";
+				$array['picture'] = User::get_user_image_url($result['id']);
 				
-				$this->db->where($this->aauth->config_vars['users'] . '.id', $this->session->userdata('id'));
-				$result = $this->db->get()->row();
-
-				# code...
-				$response['value']         = 1;
-				$response['message']       = "Login Berhasil";
-				$response['id']            = $result->user_id;
-				$response['email']         = $result->email;
-				$response['pass']          = $result->pass;
-				$response['username']      = $result->username;
-				$response['banned']        = $result->banned;
-				$response['group']         = $result->group_name;
-				$response['group_id']      = $result->group_id;
-				$response['last_login']    = $result->last_login;
-				$response['last_activity'] = $result->last_activity;
-				$response['date_created']  = $result->date_created;
+				$response = array_merge($array, $result);
 		
 				echo json_encode($response);
 			} 
@@ -101,27 +80,6 @@ class Api extends MY_Controller
 				echo json_encode($response);
 			}   
 		}
-	}
-
-	public function lists($group_par = false)
-	{
-		$select = "
-		aauth_users.*, 
-		aauth_users.id as user_id, 
-		aauth_groups.id as group_id,
-		aauth_groups.name as group_name";
-
-		$group_par = $this->aauth->get_group_id($group_par);
-
-		$this->db->select($select)
-			->from($this->aauth->config_vars[ 'users'])
-			->join($this->aauth->config_vars[ 'user_to_group'], $this->aauth->config_vars['users'] . ".id = " . $this->aauth->config_vars['user_to_group'] . ".user_id")
-			->join($this->aauth->config_vars[ 'groups' ], $this->aauth->config_vars[ 'groups' ] . '.id = ' . $this->aauth->config_vars['user_to_group']. '.group_id');
-		
-		$this->db->where_in($this->aauth->config_vars['user_to_group'] . '.group_id', $group_par);
-		$result = $this->db->get()->result();
-
-		echo json_encode($result); 
 	}
 	
 	/**

@@ -19,8 +19,8 @@ class Welcome extends MY_Controller
 		parent::__construct();
         
         global $Options;
-        if (riake('enable_frontend', $Options) && intval(riake('enable_frontend', $Options)) == false) {
-            redirect($this->config->item('login_route') . '?notice=redirect=' . urlencode(current_url()) );
+        if (! riake('enable_frontend', $Options)) {
+            redirect($this->config->item('login_route') . '?redirect=' . urlencode(current_url()) );
         }
 	}
 

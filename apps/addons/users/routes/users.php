@@ -20,20 +20,20 @@ class UsersHomeController extends MY_Addon
     {
         parent::__construct();
 
-        $this->events->add_filter( 'header_nav', array( new Users_Menu, '_header_menu' ));
+        $this->events->add_filter( 'header_nav', array( new Users_Menu, '_header_nav' ));
     }
 
     private function breadcrumb($array = array())
     {
         $this->breadcrumbs[] = array(
             'id'     => 1,
-            'name' => __('Home', 'addkit'), 
+            'name' => __('Home'), 
             'slug' => site_url('admin')
         );
         $this->breadcrumbs[] = array(
             'id'     => 2,
-            'name' => __('AddKit', 'addkit'), 
-            'slug' => site_url('admin/addkit')
+            'name' => __('Users'), 
+            'slug' => site_url('admin/users')
         );
         ($array) ? $this->breadcrumbs[] = $array : '';
         return $this->breadcrumbs;
@@ -59,8 +59,7 @@ class UsersHomeController extends MY_Addon
         $data['breadcrumbs'] = $this->breadcrumb();
 
         // Data
-        $list_users = ($this->aauth->is_admin()) ? $this->aauth->list_users(false, [], false, false, true) : $this->aauth->list_users();
-        $data['users'] = json_encode( $list_users );
+        $data['users'] = ( $list_users = $this->aauth->list_users() ) ? json_encode($list_users) : $list_users;
         $this->addon_view( 'users', 'users/read', $data );
     }
 
@@ -112,7 +111,7 @@ class UsersHomeController extends MY_Addon
         $data['breadcrumbs'] = $this->breadcrumb(array(
             'id' => 2,
             'name' => __('Add New'), 
-            'slug' => site_url('admin/addkit')
+            'slug' => site_url('admin/users/add')
         ));
 
         // Data

@@ -22,7 +22,7 @@ class Users_Filters extends MY_Addon
         $this->events->add_filter('load_users_advanced', array( $this, 'load_users_advanced' ));
 
         $this->events->add_filter('apps_logo', array( $this, 'apps_logo' ), 1, 1);
-        $this->events->add_filter('apps_description', array( $this, 'apps_description' ), 5, 1);
+        $this->events->add_filter('apps_contact', array( $this, 'apps_contact' ), 5, 1);
         $this->events->add_filter('custom_user_vars', array( $this, 'custom_user_vars' ), 10, 1);
         $this->events->add_filter('user_menu_name', array( $this, 'user_menu_name' ));
         $this->events->add_filter('user_menu_card_avatar_src', function () {
@@ -38,10 +38,7 @@ class Users_Filters extends MY_Addon
     * @return : Array
     **/
     public function load_user_profile($config)
-    {
-        $json_vars = (! empty($config['user'])) ? $this->aauth->get_user_var( 'meta', $config['user']->id ) : null;
-        $meta = ($json_vars) ? json_decode($json_vars) : null;
-        
+    {        
         $filed[] = array(
             [
                 'label'    => __('User Name', 'aauth'),
@@ -72,18 +69,18 @@ class Users_Filters extends MY_Addon
                 'class' => 'col-12 col-lg-6 col-md-6',
                 'type' => 'text',
                 'label' => __('First Name', 'aauth'),
-                'value' => (empty($meta->firstname)) 
-                    ? set_value('firstname') 
-                    : set_value('firstname', $meta->firstname),
+                'value'    => (empty($config['user'])) 
+                    ? set_value('firstname')
+                    : set_value('firstname', riake('firstname', $config['user'])) 
             ],
             [
                 'type' => 'text',
                 'class' => 'col-12 col-lg-6 col-md-6',
                 'name'  => 'lastname',
                 'label' => __('Last Name', 'aauth'),
-                'value' => (empty($meta->lastname)) 
-                    ? set_value('lastname') 
-                    : set_value('lastname', $meta->lastname),
+                'value'    => (empty($config['user'])) 
+                    ? set_value('lastname')
+                    : set_value('lastname', riake('lastname', $config['user'])) 
             ]
         );
         
@@ -167,9 +164,6 @@ class Users_Filters extends MY_Addon
     
     public function load_users_advanced($config)
     {
-        $json_vars = (! empty($config['user'])) ? $this->aauth->get_user_var( 'meta', $config['user']->id ) : null;
-        $meta = ($json_vars) ? json_decode($json_vars) : null;
-
         $filed[] = array(
             'type'  => 'input-image',
             'wrapper'  => 'user',
@@ -244,22 +238,23 @@ class Users_Filters extends MY_Addon
         if ( riake('theme-skin', $User_Options) == 'dark-mode'
             && $this->aauth->is_loggedin()
             || $config_logo == 'light') {
-            $logo = ( $logo_new = riake('logo', $Options)) ? $logo_new : 'system/logo-light.png';
+            $logo = ( $logo_new = riake('logo_light', $Options)) ? $logo_new : 'system/logo-light.png';
         } 
         else {
             $logo = ( $logo_new = riake('logo', $Options)) ? $logo_new : 'system/logo-dark.png';
         }
 
         if ($config_logo == 'sm') {
-            $logo = ( $logo_new = riake('logo', $Options)) ? $logo_new : 'system/logo-sm.png';
+            $logo = ( $logo_new = riake('logo_small', $Options)) ? $logo_new : 'system/logo-sm.png';
         }
 
         return upload_url($logo);
     }
 
-    public function apps_description($config_logo = null)
+    public function apps_contact($config_logo = null)
     {
-        return $this->addon_view( 'users', 'contact', array(), true );
+        $data['start'] = true;
+        return $this->load->backend_view( 'about/contact', $data, true );
     }
 }
 new Users_Filters;

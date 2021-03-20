@@ -22,10 +22,10 @@ class Menus_Model extends CI_Model
     /**
      * Load Dashboard Menu
      * [New Permission Ready]
-    **/
+     **/
     public function usercard_nav()
     {
-		get_instance()->multimenu->set_items(
+        get_instance()->multimenu->set_items(
             $this->events->apply_filters('after_user_card', [])
         );
 
@@ -44,7 +44,7 @@ class Menus_Model extends CI_Model
     /**
      * Load Dashboard Menu
      * [New Permission Ready]
-    **/
+     **/
     public function aside_nav()
     {
         $aside_nav[] = array(
@@ -55,7 +55,7 @@ class Menus_Model extends CI_Model
             'slug'   => 'admin/notification',
             'order'  => 3,
         );
-		get_instance()->multimenu->set_items(
+        get_instance()->multimenu->set_items(
             $this->events->apply_filters('aside_nav', $aside_nav)
         );
 
@@ -72,7 +72,7 @@ class Menus_Model extends CI_Model
     /**
      * Load Dashboard Menu
      * [New Permission Ready]
-    **/
+     **/
     public function asidefooter_nav()
     {
         $asidefooter_nav[] = array(
@@ -100,18 +100,18 @@ class Menus_Model extends CI_Model
             'slug'   => 'admin/settings',
             'order'  => 5,
         );
-        if( $this->aauth->is_admin() ):
-        $asidefooter_nav[] = array(
-            'id'         => 6,
-            'parent'     => null,
-            'name'       => __('Reset', 'aauth'),
-            'icon'       => 'icon-2x flaticon2-refresh-button',
-            'slug'       => 'admin/addons/enable/reset',
-            'permission' => 'read.users',
-            'order'      => 6
-        );
+        if ($this->aauth->is_admin()) :
+            $asidefooter_nav[] = array(
+                'id'         => 6,
+                'parent'     => null,
+                'name'       => __('Reset', 'aauth'),
+                'icon'       => 'icon-2x flaticon2-refresh-button',
+                'slug'       => 'admin/reset',
+                'permission' => 'read.users',
+                'order'      => 6
+            );
         endif;
-		get_instance()->multimenu->set_items(
+        get_instance()->multimenu->set_items(
             $this->events->apply_filters('asidefooter_nav', $asidefooter_nav)
         );
 
@@ -129,7 +129,7 @@ class Menus_Model extends CI_Model
     /**
      * Load Dashboard Menu
      * [New Permission Ready]
-    **/
+     **/
     public function infocenter_nav()
     {
         $infocenter_nav[] = array(
@@ -176,7 +176,7 @@ class Menus_Model extends CI_Model
             'slug'   => 'admin/about',
             'order'  => 7
         );
-		get_instance()->multimenu->set_items(
+        get_instance()->multimenu->set_items(
             $this->events->apply_filters('infocenter_nav', $infocenter_nav)
         );
 
@@ -195,10 +195,10 @@ class Menus_Model extends CI_Model
     /**
      * Load Dashboard Menu
      * [New Permission Ready]
-    **/
+     **/
     public function header_nav()
     {
-		get_instance()->multimenu->set_items(
+        get_instance()->multimenu->set_items(
             $this->events->apply_filters('header_nav', [])
         );
 
@@ -218,14 +218,15 @@ class Menus_Model extends CI_Model
     /**
      * Load Dashboard Menu
      * [New Permission Ready]
-    **/
+     **/
     public function create_nav()
     {
-		get_instance()->multimenu->set_items(
+        get_instance()->multimenu->set_items(
             $this->events->apply_filters('create_nav', [])
         );
 
         $config["nav_tag_open"]   = '<div class="px-2 pt-2 pb-5 border-bottom">';
+        $config["nav_tag_close"]  = '</div>';
         $config["item_tag_open"]  = '';
         $config["item_tag_close"] = '';
         $config["item_icon"]      = '<i class="%s"></i>';
@@ -241,10 +242,10 @@ class Menus_Model extends CI_Model
     /**
      * Load Dashboard Menu
      * [New Permission Ready]
-    **/
+     **/
     public function toolbar_nav()
     {
-		get_instance()->multimenu->set_items(
+        get_instance()->multimenu->set_items(
             $this->events->apply_filters('toolbar_nav', [])
         );
 
@@ -253,7 +254,7 @@ class Menus_Model extends CI_Model
         $config["item_tag_open"]  = '';
         $config["item_tag_close"] = '';
         $config["item_icon"]      = '<i class="%s"></i>';
-        $config["item_label"]     = '<span class="d-none d-md-inline">%s</span>';
+        $config["item_label"]     = '<span>%s</span>';
         $config["item_anchor"]    = '<a href="%s">%s</a>';
         $config["item_divider"] = '';
         get_instance()->multimenu->initialize($config);
@@ -265,16 +266,16 @@ class Menus_Model extends CI_Model
     /**
      * Load Dashboard Menu
      * [New Permission Ready]
-    **/
-    public function breadcrumb_nav( $item = null )
-    {   
-        if ( $item == null ) {
+     **/
+    public function breadcrumb_nav($item = null)
+    {
+        if ($item == null) {
             return false;
         }
 
         get_instance()->multimenu->set_items($item);
 
-        $config["nav_tag_open"]  = '<ul class="d-none d-md-flex breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">';
+        $config["nav_tag_open"]  = '<ul class="d-none d-md-flex breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 mr-4 font-size-sm">';
         $config["nav_tag_close"]  = '</ul>';
         $config["item_tag_open"] = '<li class="breadcrumb-item">';
         $config["item_tag_close"] = '</li>';
@@ -288,14 +289,15 @@ class Menus_Model extends CI_Model
     /**
      * Load Dashboard Menu
      * [New Permission Ready]
-    **/
+     **/
     public function menu_nav()
-    {   
-		get_instance()->multimenu->set_items(
+    {
+        get_instance()->multimenu->set_items(
             $this->events->apply_filters('menu_nav', [])
         );
 
         $config["nav_tag_open"]       = '<ul class="menu-nav">';
+        $config["nav_tag_close"]      = '';
         $config["parent_tag_open"]    = '<li class="menu-item menu-item-submenu">';
         $config["parent_anchor"]      = '<a class="menu-link menu-toggle" href="%s">%s</a>';
         $config["children_tag_open"]  = '<div class="menu-submenu"><ul class="menu-subnav">';

@@ -30,7 +30,7 @@ if ($this->polatan->get_page() === '404') : ?>
 <div class="d-flex flex-column-fluid flex-center" id="kt_home">
     <div class="d-flex flex-column justify-content-center align-items-center px-5 text-center">
         <img class="w-150px" src="<?=img_url();?>svg/empty-state.svg"/>
-        <h3 class="display-4 font-weight-bold mt-7 mb-2">Welcome to <?php echo $this->options_model->get('site_name');?>! Let's get started</h3>
+        <h3 class="display-4 mt-7 mb-2">Hello <span class="font-weight-bold">Buddy!</span> Let's get started</h3>
         <p class="font-weight-bold opacity-80">
         Get started building your personal projects, testing out ideas, and more in your spontaner workspace.
         </p>
@@ -45,7 +45,7 @@ if ($this->polatan->get_page() === '404') : ?>
         <div class="<?php echo $this->events->apply_filters('kt_subheader_mobile_toggle_row', 'row');?>">
         <?php foreach (force_array($this->polatan->get_cols()) as $col_id => $col_data):?>
         <?php if (riake('class', $col_data)) : ?>
-        <div class="<?php echo riake('class', $col_data);?>" id="<?php echo riake('id', $col_data);?>">
+        <div class="<?php echo riake('class', $col_data);?>" id="<?php echo riake('id', $col_data);?>" style="<?php echo riake('style', $col_data);?>">
         <div class="row"> 
         <?php endif;?>
 
@@ -121,11 +121,9 @@ if ($this->polatan->get_page() === '404') : ?>
                         <?php if ($footer = riake('footer', $meta)) : ?>
                         <div class="card-footer">
                             <div class="row">
-                                <?php if ($footer_submit = riake('submit', $footer)) :?>
                                 <div class="col-lg-6">
-                                    <input type="submit" onclick="checkRequiredFields()" name="submit" class="btn btn-primary mr-2" value="<?php echo riake('label', $footer_submit);?>">
+                                    <input type="submit" onclick="checkRequiredFields()" name="submit" class="btn btn-primary mr-2" value="<?php echo ($footer == 'add') ? __('Save New') : __('Save changes');?>">
                                 </div>
-                                <?php endif; ?>
                             </div>
                         </div>
                         <?php endif;?>

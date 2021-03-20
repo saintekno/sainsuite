@@ -35,11 +35,7 @@ $this->polatan->add_meta(array(
     'form'      => array(
         'action' => null,
     ),
-    'footer' => array(
-        'submit' => array(
-            'label' => __('Submit Group', 'aauth')
-        )
-    ),
+    'footer' => (isset($group)) ? 'edit' : 'add',
     'type' => 'card',
 ));
 

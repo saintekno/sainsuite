@@ -21,7 +21,6 @@ $this->polatan->add_col(array(
 $this->polatan->add_meta(array(
     'col_id'    => 1,
     'namespace' => 'profile',
-    'card' => 'card-px-0 border-0',
     'type' => 'card'
 ));
 
@@ -54,20 +53,18 @@ $this->polatan->add_meta(array(
     ),
 ));
 $user_profile[] = array(
-    [
-        'id' => 1,
-        'class' => 'card-header-light',
-        'heading'=> __('Personal Information'),
-        'description' => 'Update your personal informaiton',
-        'body' => array(
-            'items' => $this->events->apply_filters_ref_array('load_user_profile', array( 
-                array_merge(
-                    ['user'=> User::get()], 
-                    ['page'=> 'profile']
-                )
-             ))
-        )
-    ]
+    'id' => 1,
+    'class' => 'card-header-light',
+    'heading'=> __('Personal Information'),
+    'description' => 'Update your personal informaiton',
+    'body' => array(
+        'items' => $this->events->apply_filters_ref_array('load_user_profile', array( 
+            array_merge(
+                ['user'=> User::get()], 
+                ['page'=> 'profile']
+            )
+        ))
+    )
 );
 $this->polatan->add_item(array(
     'type'  => 'accordions',
@@ -88,20 +85,18 @@ $this->polatan->add_meta(array(
     ),
 ));
 $user_pass[] = array(
-    [
-        'id' => 2,
-        'class' => 'card-header-light',
-        'heading'=> __('Change Password'),
-        'description' => 'Change your account password',
-        'body' => array(
-            'items' => $this->events->apply_filters_ref_array('load_user_pass', array( 
-                array_merge(
-                    ['user'=> User::get()], 
-                    ['page'=> 'profile']
-                )
-             ))
-        )
-    ]
+    'id' => 2,
+    'class' => 'card-header-light',
+    'heading'=> __('Change Password'),
+    'description' => 'Change your account password',
+    'body' => array(
+        'items' => $this->events->apply_filters_ref_array('load_user_pass', array( 
+            array_merge(
+                ['user'=> User::get()], 
+                ['page'=> 'profile']
+            )
+            ))
+    )
 );
 $this->polatan->add_item(array(
     'type'  => 'accordions',
@@ -122,20 +117,18 @@ $this->polatan->add_meta(array(
     ),
 ));
 $users_advanced[] = array(
-    [
-        'id' => 3,
-        'class' => 'card-header-light',
-        'heading'=> __('Advanced'),
-        'description' => 'Perform advanced options',
-        'body' => array(
-            'items' => $this->events->apply_filters_ref_array('load_users_advanced', array( 
-                array_merge(
-                    ['user'=> User::get()], 
-                    ['page'=> 'profile']
-                )
-             ))
-        )
-    ]
+    'id' => 3,
+    'class' => 'card-header-light',
+    'heading'=> __('Advanced'),
+    'description' => 'Perform advanced options',
+    'body' => array(
+        'items' => $this->events->apply_filters_ref_array('load_users_advanced', array( 
+            array_merge(
+                ['user'=> User::get()], 
+                ['page'=> 'profile']
+            )
+            ))
+    )
 );
 $this->polatan->add_item(array(
     'type'  => 'accordions',

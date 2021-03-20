@@ -96,7 +96,7 @@ class Admin extends MY_Controller
 	public function index()
 	{                
         Polatan::set_title(sprintf(__('Dashboard &mdash; %s'), get('signature')));
-        $this->load->backend_view( 'dashboard/index' );
+        $this->events->apply_filters('dashboard_home', $this->polatan->output());
 	}
 
     // --------------------------------------------------------------------

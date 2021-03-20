@@ -68,11 +68,65 @@
     </div>
 </div>
 
+<!--begin::Compose-->
+<div class="modal modal-sticky modal-sticky-lg modal-sticky-bottom-right" id="kt_compose" role="dialog" data-backdrop="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--begin::Form-->
+            <form class="form" action="#" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
+                <!--begin::Header-->
+                <div class="d-flex align-items-center justify-content-between py-5 pl-8 pr-5">
+                    <h5 class="font-weight-bold m-0 modal-title">....</h5>
+                    <div class="d-flex ml-2">
+                        <span class="btn btn-clean btn-sm btn-icon" data-dismiss="modal">
+                            <i class="ki ki-close icon-1x"></i>
+                        </span>
+                    </div>
+                </div>
+                <!--end::Header-->
+
+                <!--begin::Footer-->
+                <div class="row py-5 pl-8 pr-5">
+                    <!--begin::Actions-->
+                    <div class="col-12">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="customFile" name="extension_zip" required/>
+                                    <label class="custom-file-label overflow-hidden" for="customFile">Choose file</label>
+                                </div>
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-primary mr-2">
+                                        <i class="fa fa-upload"></i> <?php echo __('Upload');?>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Actions-->
+                </div>
+                <!--end::Footer-->
+            </form>
+            <!--end::Form-->
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     function confirm_modal(delete_url)
     {
         $('#alert-modal').modal('show');
         document.getElementById('update_link').setAttribute('href' , delete_url);
+    }
+
+    function composeModal(url, header)
+    {
+        // SHOWING AJAX PRELOADER IMAGE
+        $('#kt_compose .modal-title').html(header);
+        $('#kt_compose .form').attr('action', url);
+        // LOADING THE AJAX MODAL
+        $('#kt_compose').modal('show', {backdrop: 'true'});
     }
 
     function showAjaxModal(url, header)
