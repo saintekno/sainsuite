@@ -11,18 +11,18 @@ global $Options;
             <img alt="<?php echo get('app_name');?>" src="<?php echo upload_url().'system/logo-dark.png'; ?>" class="max-h-40px" />
         </h3>
         <div class="font-weight-nromal font-size-lg mb-6">
+            <p class="lead">
+            <?php echo get( 'app_name' ) .' '. __("is up to date"); ?> <br>
+            <?php echo sprintf( __( 'Version <b>%s</b> (Official build)' ), get('version') );?>
+            </p>
+            
             <?php if ($check) : ?>
-            <h6><?php echo sprintf(__('%s : %s is available'), get('app_name'), riake('title', $check[0])); ?></h6>
+            <h6 class="font-weight-bold mb-0 text-dark"><?php echo sprintf(__('%s : %s is available'), get('app_name'), riake('title', $check[0])); ?></h6>
             <p><?php echo $this->markdown->parse(riake('content', $check[0])); ?></p>
             
             <a class="btn btn-primary" href="<?php echo site_url(array( 'admin', 'about', 'core', riake('version', $check[0]) )); ?>">
             <?php _e('Click Here to Update'); ?>
             </a>
-            <?php else : ?>
-            <p>
-            <?php echo get( 'app_name' ) .' '. __("is up to date"); ?> <br>
-            <?php echo sprintf( __( 'Version <b>%s</b> (Official build)' ), get('version') );?>
-            </p>
             <?php endif; ?>
             
             <?php if (riake('site_title', $Options)) : ?>
@@ -32,7 +32,7 @@ global $Options;
             </p>
             <?php endif; ?>
 
-            <p><?php echo $this->events->apply_filters('dashboard_footer_text', sprintf( __( 'Copyright © %s %s. All rights reserved.' ), date('Y'), $this->aauth->config_vars['name'] ) );?></p>
+            <p class="mt-10"><?php echo $this->events->apply_filters('dashboard_footer_text', sprintf( __( 'Copyright © %s %s. All rights reserved.' ), date('Y'), $this->aauth->config_vars['name'] ) );?></p>
         </div>
     </div>
 </div>

@@ -1038,7 +1038,7 @@ class Aauth {
 		$result[$row]['picture'] = User::get_user_image_url($value['id']);
 		endforeach;
 		
-        if (empty($return)) {
+        if (empty($result)) {
             return false;
         }
 		return $result; 
