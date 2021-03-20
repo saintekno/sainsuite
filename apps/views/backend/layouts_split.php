@@ -31,7 +31,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
         <div class="login login-4 wizard d-flex flex-column flex-lg-row flex-column-fluid wizard" id="kt_login">
             <!--begin::Content-->
             <div
-                class="login-container d-flex flex-center flex-row flex-row-fluid order-2 order-lg-1 bg-white py-10 px-10">
+                class="login-container d-flex flex-center flex-row flex-row-fluid order-2 order-lg-1 bg-white p-5 p-md-10">
                 <!--begin::Container-->
                 <div class="login-content d-flex flex-column">
                     <!--begin::Logo-->

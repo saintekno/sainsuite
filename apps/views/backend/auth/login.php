@@ -40,10 +40,10 @@ global $Options;
                 <?php
                 // Should checks whether a registration is enabled
                 if (intval(riake('site_registration', $Options)) == true) : ?>
-                    <a href="<?php echo site_url(['recovery']) ; ?>"
-                        class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">
-                        <?php _e('I Lost My Password'); ?>
-                    </a>
+                <a href="<?php echo site_url(['recovery']) ; ?>"
+                    class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">
+                    <?php _e('I Lost My Password'); ?>
+                </a>
                 <?php endif; ?>
             </div>
             <input class="form-control form-control-solid h-auto font-size-h5 p-6 rounded-lg border-0"
@@ -60,7 +60,7 @@ global $Options;
 
         <!--begin::Action-->
         <div class="pb-lg-0 pb-5">
-            <button type="submit" id="kt_login_singin_form_submit_button" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3"><?php _e('Sign In' ) ?></button>
+            <button type="submit" id="kt_login_singin_form_submit_button" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 btn-block"><?php _e('Sign In' ) ?></button>
             <?php
             // Should checks whether a registration is enabled
             if (intval(riake('site_registration', $Options)) == true) : 

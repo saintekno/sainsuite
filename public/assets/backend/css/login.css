@@ -160,7 +160,7 @@
     width: 100% !important;
   }
   .login.login-4 .login-aside .login-conteiner {
-    min-height: 210px !important;
+    min-height: 10px !important;
     background-size: 200px;
   }
 }

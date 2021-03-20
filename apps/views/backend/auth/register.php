@@ -45,9 +45,11 @@ global $Options;
     <!--end::Form group-->
 
     <!--begin::Form group-->
-    <div class="form-group d-flex flex-wrap">
-        <button type="submit" onclick="checkRequiredFields()" id="kt_login_singin_form_submit_button" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-4"><?php _e('Sign Up' ); ?></button>
-        <a href="<?php echo site_url(array( 'login' ));?>" id="kt_login_forgot_cancel" class="btn btn-light-primary font-weight-bolder font-size-h6 px-8 py-4 my-3">Cancel</a>
+    <div class="row form-group d-flex flex-wrap">
+        <div class="btn-group col">
+            <button type="submit" onclick="checkRequiredFields()" id="kt_login_singin_form_submit_button" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3"><?php _e('Sign Up' ); ?></button>
+            <a href="<?php echo site_url(array( 'login' ));?>" id="kt_login_forgot_cancel" class="btn btn-light-primary btn-hover-light-primary font-weight-bolder font-size-h6 py-4 my-3">Cancel</a>
+        </div>
     </div>
     <!--end::Form group-->
 </form>
