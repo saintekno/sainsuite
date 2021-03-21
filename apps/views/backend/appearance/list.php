@@ -15,11 +15,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 // Toolbar
 $this->events->add_filter('toolbar_filter', function ($filter) { 
-    $filter[] = '<div class="row">';
+    $filter[] = '<div class="row d-flex align-items-center">';
     if ($this->aauth->is_admin()):
     $filter[] = '
     <div class="col-auto col-sm-auto mb-1 mb-sm-0">
-        <span class="switch switch-primary mr-2">
+        <span class="switch switch-primary">
             <label data-toggle="tooltip" title="Developer mode">
                 <input type="checkbox" '.$this->events->apply_filters('dashboard_dev_class', '').' id="dev_mode">
                 <span></span>

@@ -10,7 +10,7 @@
                     <label class="checkbox">
                         <input type="checkbox"
                             <?php echo riake('disabled', $col) === true ? 'disabled="disabled"' : '';?>
-                            <?php echo ($active == riake('value', $col)) ? 'checked="checked"' : '';?> 
+                            <?php echo (riake('active', $col) == riake('value', $col)) ? 'checked="checked"' : '';?> 
                             name="<?php echo riake('name', $col);?>"
                             value="<?php echo strip_tags( xss_clean( riake('value', $col) ) );?>"/>
                         <span></span>

@@ -47,7 +47,7 @@ $this->events->add_filter('toolbar_filter', function ($filter) { // disabling he
                 <option value="1">Unactive</option>
             </select>
         </div>
-        <div class="input-icon col-12 col-sm-auto mb-1 mb-sm-0">
+        <div class="input-icon col mb-1 mb-sm-0">
             <input type="text" class="form-control form-control-sm" placeholder="Search..." id="search_query" />
             <span><i class="flaticon2-search-1 text-muted"></i></span>
         </div>
@@ -65,7 +65,6 @@ $this->polatan->add_meta(array(
 
 $this->polatan->add_item(array(
     'type' => 'table-datatable',
-    'data' => json_decode($users),
 ), 'users');
 
 $this->events->add_action( 'dashboard_footer', function() {

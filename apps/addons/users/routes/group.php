@@ -56,7 +56,6 @@ class GroupsHomeController extends MY_Addon
         // BreadCrumb
         $data['breadcrumbs'] = $this->breadcrumb();
         
-        $data['groups'] = json_encode($this->aauth->list_groups());
         $this->addon_view( 'users', 'group/read', $data );
     }
 

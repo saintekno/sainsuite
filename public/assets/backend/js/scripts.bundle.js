@@ -5319,6 +5319,20 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 			params: null,
 		};
 
+		datatable.on(
+			'datatable-on-check datatable-on-uncheck',
+			function(e) {
+				var checkedNodes = datatable.rows('.datatable-row-active').nodes();
+				var count = checkedNodes.length;
+				$('#kt_datatable_selected_records').html(count);
+				if (count > 0) {
+					$('#kt_datatable_group_action_form').collapse('show');
+				} else {
+					$('#kt_datatable_group_action_form').collapse('hide');
+				}
+			}
+		);
+
 		var Plugin = {
 			/********************
 			 ** PRIVATE METHODS
@@ -5816,16 +5830,35 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 				if (options.layout.height && options.layout.scroll) {
 					var theadHeight = $(datatable.tableHead).find('.' + pfx + 'datatable-row').outerHeight();
 					var tfootHeight = $(datatable.tableFoot).find('.' + pfx + 'datatable-row').outerHeight();
-					var bodyHeight = options.layout.height;
+					var bodyHeight = $(window).height();
+                    if (window.innerWidth < 992) {
+                        var kt_header_mobile = $('#kt_header_mobile').outerHeight();
+                        bodyHeight -= kt_header_mobile;
+                    }
+                    
+                    if ($("#kt_header .navheader-nav a").length) {
+                        var kt_header = $('#kt_header').outerHeight();
+                        bodyHeight -= kt_header;
+                    }
+                    if ($("#kt_subheader > div").length) {
+                        var kt_subheader = $('#kt_subheader').outerHeight();
+						bodyHeight -= kt_subheader;
+                    }
+                    if ($("#kt_footer > div").length) {
+                        var kt_footer = $('#kt_footer').outerHeight();
+						bodyHeight -= kt_footer;
+                    }
+
 					if (theadHeight > 0) {
 						bodyHeight -= theadHeight;
 					}
 					if (tfootHeight > 0) {
 						bodyHeight -= tfootHeight;
 					}
+					bodyHeight -= $('#kt_datatable .datatable-pager').outerHeight();
 
-					// scrollbar offset
-					bodyHeight -= 2;
+					// // scrollbar offset
+					bodyHeight -= 22;
 
 					$(datatable.tableBody).css('max-height', Math.floor(parseFloat(bodyHeight)));
 
@@ -5872,8 +5905,8 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 				if (Plugin.getOption('layout.minHeight'))
 					$(datatable.table).css('min-height', Plugin.getOption('layout.minHeight'));
 
-				if (Plugin.getOption('layout.height'))
-					$(datatable.table).css('max-height', Plugin.getOption('layout.height'));
+				// if (Plugin.getOption('layout.height'))
+				// 	$(datatable.table).css('max-height', Plugin.getOption('layout.height'));
 
 				// for normal table load
 				if (options.data.type === null) {
@@ -6544,6 +6577,7 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 					util.addClass(errorSpan, pfx + 'datatable-error');
 					errorSpan.innerHTML = Plugin.getOption('translate.records.noRecords');
 					tableBody.appendChild(errorSpan);
+                    $(datatable.tableHead).hide();
 					$(datatable.wrap).addClass(pfx + 'datatable-error ' + pfx + 'datatable-loaded');
 					Plugin.spinnerCallback(false);
 				}
@@ -8684,8 +8718,8 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 		layout: {
 			theme: 'default', // datatable will support multiple themes and designs
 			class: pfx + 'datatable-primary', // custom wrapper class
-			scroll: false, // enable/disable datatable scroll both horizontal and vertical when needed.
-			height: null, // datatable's body's fixed height
+			scroll: true, // enable/disable datatable scroll both horizontal and vertical when needed.
+			height: true, // datatable's body's fixed height
 			minHeight: null,
 			footer: false, // display/hide footer
 			header: true, // display/hide header
@@ -8808,7 +8842,7 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 		translate: {
 			records: {
 				processing: 'Please wait...',
-				noRecords: 'No records found',
+				noRecords: '<div class="text-center p-10"><img class="w-150px mb-5" src="'+sain_site_url+'assets/backend/img/svg/not_found.svg"/><br><span class="text-uppercase font-weight-bold text-muted">WELL, BUDDY.</span> <br><span>This space doesn\'t have a records so there\'s nothing to display here.</span></div>',
 			},
 			toolbar: {
 				pagination: {

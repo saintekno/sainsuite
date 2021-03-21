@@ -1007,32 +1007,23 @@ class Aauth {
                 $this->aauth_db->where_in($key, $val); 
             } 
         } 
-         
-        if(array_key_exists("returnType",$params) && $params['returnType'] == 'count'){ 
-            $result = $this->aauth_db->count_all_results(); 
-        }
-		else{ 
-			// order_by
-        	$this->aauth_db->order_by('username', 'ASC');
-			if ($sort) {
-				$this->aauth_db->order_by($sort);
-			}
-		 
-			if(array_key_exists("search", $params) && !empty($params['search']['keywords'])){ 
-				$this->aauth_db->like('username', $params['search']['keywords']);
-				$this->aauth_db->or_like('email', $params['search']['keywords']);
-			} 
-			elseif ($limit) {
-				// limit
-				if ($offset == false)
-					$this->aauth_db->limit($limit);
-				else
-					$this->aauth_db->limit($limit, $offset);
-			}
-
-			$query = $this->aauth_db->get();
-			$result = $query->result_array();
+		
+		// order_by
+		$this->aauth_db->order_by('username', 'ASC');
+		if ($sort) {
+			$this->aauth_db->order_by($sort);
 		}
+	 
+		if ($limit) {
+			// limit
+			if ($offset == false)
+				$this->aauth_db->limit($limit);
+			else
+				$this->aauth_db->limit($limit, $offset);
+		}
+
+		$query = $this->aauth_db->get();
+		$result = $query->result_array();
 
 		foreach ($result as $row => $value) :
 		$result[$row]['picture'] = User::get_user_image_url($value['id']);

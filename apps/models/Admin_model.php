@@ -41,6 +41,7 @@ class Admin_Model extends CI_Model
         $this->enqueue->css('skin/all');
         $this->enqueue->load_css( 'dashboard_header' );
 
+        $this->load->backend_view('settings.js.php');
         $this->enqueue->js_namespace( 'dashboard_header' );
         $this->enqueue->js('plugins.bundle');
         $this->enqueue->js('scripts.bundle');
@@ -56,7 +57,6 @@ class Admin_Model extends CI_Model
     public function _dashboard_footer()
     {
         $this->enqueue->js_namespace( 'dashboard_footer' );
-        $this->enqueue->js('settings');
         $this->enqueue->js('angular.min', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/');
 		$this->enqueue->js('underscore-min', 'https://cdn.jsdelivr.net/npm/underscore@1.11.0/');
 		$this->enqueue->js('heartcode-canvasloader-min', 'https://cdn.jsdelivr.net/canvasloader-ui/0.9/');

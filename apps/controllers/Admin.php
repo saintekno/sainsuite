@@ -76,8 +76,14 @@ class Admin extends MY_Controller
 
             $Routes->error(function($request, \Exception $exception) {
                 if($exception instanceof NotFoundHttpException && $exception->getCode() == 404) {
-                    $this->session->set_flashdata('error_message', $exception->getMessage());
-                    redirect(site_url('admin/page404'));
+                    global $Options;
+                    if (riake('demo_mode', $Options) && !$this->aauth->is_admin()) :
+                        $this->session->set_flashdata('error_message', 'this demo application');
+                        redirect(array( 'admin')); 
+                    else :
+                        $this->session->set_flashdata('error_message', $exception->getMessage());
+                        redirect(site_url('admin/page404'));
+                    endif;
                 }
             });
             
@@ -96,7 +102,9 @@ class Admin extends MY_Controller
 	public function index()
 	{                
         Polatan::set_title(sprintf(__('Dashboard &mdash; %s'), get('signature')));
-        $this->events->apply_filters('dashboard_home', $this->polatan->output());
+        ($this->events->has_action('dashboard_home')) 
+            ? $this->events->do_action('dashboard_home') 
+            : $this->polatan->output();
 	}
 
     // --------------------------------------------------------------------
@@ -213,13 +221,7 @@ class Admin extends MY_Controller
      * @access public
      */
     public function page404()
-    {
-        if ( $this->session->flashdata('error_message') == ""
-            && $this->session->flashdata('info_message') == ""
-            && $this->session->flashdata('flash_message') == ""
-        ) : return redirect(site_url('admin'));
-        endif;
-        
+    {        
         Polatan::set_title(sprintf(__('404 &mdash; %s'), get('signature')));
         
         Polatan::set_page('404');

@@ -59,7 +59,6 @@ class UsersHomeController extends MY_Addon
         $data['breadcrumbs'] = $this->breadcrumb();
 
         // Data
-        $data['users'] = ( $list_users = $this->aauth->list_users() ) ? json_encode($list_users) : $list_users;
         $this->addon_view( 'users', 'users/read', $data );
     }
 

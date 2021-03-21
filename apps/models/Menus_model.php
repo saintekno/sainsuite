@@ -225,7 +225,7 @@ class Menus_Model extends CI_Model
             $this->events->apply_filters('create_nav', [])
         );
 
-        $config["nav_tag_open"]   = '<div class="px-2 pt-2 pb-5 border-bottom">';
+        $config["nav_tag_open"]   = '<div class="px-3 pt-2 pb-5 border-bottom">';
         $config["nav_tag_close"]  = '</div>';
         $config["item_tag_open"]  = '';
         $config["item_tag_close"] = '';

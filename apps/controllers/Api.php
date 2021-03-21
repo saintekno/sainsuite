@@ -71,13 +71,13 @@ class Api extends MY_Controller
 				
 				$response = array_merge($array, $result);
 		
-				echo json_encode($response);
+				return response()->json($response);
 			} 
 			else {
 				# code...
 				$response['value']   = 0;
 				$response['message'] = "Login Gagal";
-				echo json_encode($response);
+				return response()->json($response);
 			}   
 		}
 	}

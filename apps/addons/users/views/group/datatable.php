@@ -2,21 +2,18 @@
 var DatatableScript = function() {   
     // Read
     var read = function() {
-        var array = '<?php echo $groups;?>';
-        var dataSet;
-        if (Object.keys(array).length) {
-            dataSet = JSON.parse(array);
-        }
         var datatable = $('#kt_datatable').KTDatatable({
 			data: {
-				type: 'local',
-				source: dataSet,
-				pageSize: 10, // display 20 records per page
+				type: 'remote',
+                source: '<?php echo site_url(['api', 'groups']);?>',
+				pageSize: 20, // display 20 records per page
 			},
+
             search: {
                 input: $('#search_query'),
                 key: 'generalSearch'
             },  
+            
             // columns definition
             columns: [
                 {
@@ -102,20 +99,6 @@ var DatatableScript = function() {
 				}
             ],
         });
-        
-        datatable.on(
-            'datatable-on-check datatable-on-uncheck',
-            function(e) {
-                var checkedNodes = datatable.rows('.datatable-row-active').nodes();
-                var count = checkedNodes.length;
-                $('#kt_datatable_selected_records').html(count);
-                if (count > 0) {
-                    $('#kt_datatable_group_action_form').collapse('show');
-                } else {
-                    $('#kt_datatable_group_action_form').collapse('hide');
-                }
-            }
-        );
     };
 
     return {

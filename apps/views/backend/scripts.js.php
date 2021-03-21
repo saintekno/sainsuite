@@ -26,8 +26,6 @@ var KTSains = function() {
     
     var $body = $('body'),
     sain_form_expire = '<?php echo gmt_to_local(time(), 'UTC') + GUI_EXPIRE;?>',
-    sain_dashboard_url = '<?php echo site_url(array( 'admin' ));?>',
-    sain_site_url = '<?php echo site_url();?>',
     sain_csrf_data = { '<?php echo $this->security->get_csrf_token_name();?>' : '<?php echo $this->security->get_csrf_hash();?>' };
 
 	// Private functions
@@ -298,7 +296,7 @@ var KTSains = function() {
                 Objdata.gui_saver_expiration_time =	sain_form_expire;
                 Objdata = _.extend( sain_csrf_data, Objdata );
                 $.ajax({
-                    url : sain_dashboard_url + '/options/save_user_meta?mode=json',
+                    url : sain_site_url + 'admin/options/save_user_meta?mode=json',
                     data: Objdata,
                     type : 'POST',
                     success	: function(){
@@ -314,7 +312,7 @@ var KTSains = function() {
                 Objdata.gui_saver_expiration_time =	sain_form_expire;
                 Objdata = _.extend( sain_csrf_data, Objdata );
                 $.ajax({
-                    url : sain_dashboard_url + '/options/save?mode=json',
+                    url : sain_site_url + 'admin/options/save?mode=json',
                     data: Objdata,
                     type : 'POST',
                     success	: function(){
@@ -510,14 +508,6 @@ function deleteConfirmation(el) {
 
         if (result.value) {
             if(url){
-                // Get value from checked checkboxes
-                var ids_arr = [];
-                $("input[type=checkbox]:checked").each(function(){
-                    ids_arr.push($(this).val());
-                });
-
-                // Array length
-                var length = ids_arr.length;
                 $.ajax({
                     url: url,
                     type: 'POST',
@@ -533,21 +523,26 @@ function deleteConfirmation(el) {
                     success: function(data) {
                         if ( $(el).closest('tr').length === 0 ) {
                             $(el).closest('div.card').fadeOut(1000,function(){
-                                $(this).remove();
-                            });
-                            setTimeout(function() {
                                 location.reload();
-                            }, 1000);
+                            });
                         } 
                         else {
                             $(el).closest('tr').fadeOut(1000,function(){
-                                $(this).remove();
+                                $('#kt_datatable').KTDatatable('reload');
                             });
                         }
                     }
                 });
             }
             else {
+                // Get value from checked checkboxes
+                var ids_arr = [];
+                $("input[type=checkbox]:checked").each(function(){
+                    ids_arr.push($(this).val());
+                });
+
+                // Array length
+                var length = ids_arr.length;
                 $.ajax({
                     url: '<?= site_url(['admin', (isset($namespace)) ? $namespace : '', 'delete']) ?>',
                     type: 'post',
@@ -555,9 +550,9 @@ function deleteConfirmation(el) {
                     success: function(data) {
                         // Remove <tr>
                         $("input[type=checkbox]:checked").each(function(){
-                            $(this).closest('tr').fadeOut(1000,function(){
+                            $(this).closest('tbody tr').fadeOut(1000,function(){
                                 $('#kt_datatable_group_action_form').collapse('hide');
-                                $(this).remove();
+                                $('#kt_datatable').KTDatatable('reload');
                             });
                         });
                     }

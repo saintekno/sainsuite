@@ -65304,6 +65304,10 @@ code {
   display: none;
   width: 100%;
 }
+.datatable.datatable-default > .datatable-table::after {
+  -webkit-box-shadow: 0px -20px 15px -15px inset #ffffff;
+  box-shadow: 0px -20px 15px -15px inset #ffffff;
+}
 .datatable.datatable-default > .datatable-table > .datatable-head,
 .datatable.datatable-default > .datatable-table > .datatable-body,
 .datatable.datatable-default > .datatable-table > .datatable-foot {
@@ -65719,7 +65723,7 @@ code {
 .datatable.datatable-default.datatable-subtable > .datatable-table > .datatable-head .datatable-row-subtable > .datatable-subtable > .datatable,
 .datatable.datatable-default.datatable-subtable > .datatable-table > .datatable-body .datatable-row-subtable > .datatable-subtable > .datatable,
 .datatable.datatable-default.datatable-subtable > .datatable-table > .datatable-foot .datatable-row-subtable > .datatable-subtable > .datatable {
-  padding: 0 1rem;
+  /* padding: 0 1rem; */
 }
 .datatable.datatable-default.datatable-subtable > .datatable-table > .datatable-head .datatable-row-subtable > .datatable-subtable > .datatable > .datatable-pager,
 .datatable.datatable-default.datatable-subtable > .datatable-table > .datatable-body .datatable-row-subtable > .datatable-subtable > .datatable > .datatable-pager,

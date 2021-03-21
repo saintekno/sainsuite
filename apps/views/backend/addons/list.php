@@ -15,7 +15,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 // Toolbar
 $this->events->add_filter('toolbar_filter', function ($filter) { 
-    $filter[] = '<div class="row">';
+    $filter[] = '<div class="row d-flex align-items-center">';
     if ($this->aauth->is_admin()):
     $filter[] = '
     <div class="col-auto col-sm-auto mb-1 mb-sm-0">
