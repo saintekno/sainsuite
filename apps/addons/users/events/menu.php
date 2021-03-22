@@ -76,7 +76,7 @@ class Users_Menu extends MY_Addon
             'name' => __('Users', 'aauth'),
             'icon' => 'icon-2x flaticon2-user-1',
             'slug'  => 'admin/users',
-            // 'permission' => 'read.users',
+            'permission' => 'read.users',
             'order' => 4
         );
         $menus[] = array(
@@ -85,7 +85,7 @@ class Users_Menu extends MY_Addon
             'name' => __('Inbox', 'aauth'),
             'icon' => 'icon-2x flaticon2-chat-1',
             'slug'  => 'admin/chat',
-            // 'permission' => 'read.users',
+            'permission' => 'read.users',
             'order' => 5
         );
 

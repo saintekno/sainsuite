@@ -54,7 +54,7 @@ var KTSains = function() {
         }
 
         // cek condition table
-        if ($("#kt_datatable").length) {
+        if ($("#kt_datatable").length && $("#kt_profile_aside").length == 0) {
             $('#kt_header > div').addClass('container-fluid').removeClass('container');
             $('#kt_subheader > div').addClass('container-fluid').removeClass('container');
             $('#kt_data > div').addClass('container-fluid').removeClass('container');

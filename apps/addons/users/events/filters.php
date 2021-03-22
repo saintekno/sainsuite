@@ -107,7 +107,7 @@ class Users_Filters extends MY_Addon
                 ],
                 [
                     'type' => 'select',
-                    'class'     => 'col-6',
+                    'class' => 'col-12 col-lg-6 col-md-6',
                     'widget' => 'select2',
                     'label'   => __('Add to a group', 'aauth'),
                     'name'    => 'group',

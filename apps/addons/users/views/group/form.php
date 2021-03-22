@@ -43,7 +43,7 @@ $this->polatan->add_meta(array(
 /**
  * Item
  */
-if( $this->aauth->is_admin() ):
+if( ! $this->events->has_filter('fill_list_users') ):
 
 $this->polatan->add_item(array(
     [
@@ -88,7 +88,7 @@ foreach (force_array($this->aauth->list_groups(true)) as $gr)
 
 $this->polatan->add_item(array(
     'type'     => 'select',
-    'class'     => 'col-6',
+    'class' => 'col-12 col-lg-6 col-md-6',
     'label'    => __('Name group', 'aauth'),
     'disabled' => ($groups_array) ? false : true,
     'name'     => 'name',

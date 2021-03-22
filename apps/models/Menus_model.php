@@ -53,6 +53,7 @@ class Menus_Model extends CI_Model
             'name'   => __('Notification'),
             'icon'   => 'icon-2x flaticon2-bell-4',
             'slug'   => 'admin/notification',
+            'permission' => 'read.users',
             'order'  => 3,
         );
         get_instance()->multimenu->set_items(
@@ -90,6 +91,7 @@ class Menus_Model extends CI_Model
             'name'   => __('Addons'),
             'icon'   => 'icon-2x flaticon2-layers-1',
             'slug'   => 'admin/addons',
+            'permission' => 'read.addons',
             'order'  => 4,
         );
         $asidefooter_nav[] = array(
@@ -98,19 +100,18 @@ class Menus_Model extends CI_Model
             'name'   => __('Setting'),
             'icon'   => 'icon-2x flaticon2-settings',
             'slug'   => 'admin/settings',
+            'permission' => 'read.options',
             'order'  => 5,
         );
-        if ($this->aauth->is_admin()) :
-            $asidefooter_nav[] = array(
-                'id'         => 6,
-                'parent'     => null,
-                'name'       => __('Reset', 'aauth'),
-                'icon'       => 'icon-2x flaticon2-refresh-button',
-                'slug'       => 'admin/reset',
-                'permission' => 'read.users',
-                'order'      => 6
-            );
-        endif;
+        $asidefooter_nav[] = array(
+            'id'         => 6,
+            'parent'     => null,
+            'name'       => __('Reset', 'aauth'),
+            'icon'       => 'icon-2x flaticon2-refresh-button',
+            'slug'       => 'admin/reset',
+            'permission' => 'read.users',
+            'order'      => 6
+        );
         get_instance()->multimenu->set_items(
             $this->events->apply_filters('asidefooter_nav', $asidefooter_nav)
         );

@@ -222,13 +222,9 @@ class UsersHomeController extends MY_Addon
         if ( $index == null ) 
         {
             $ids = $this->input->post('ids');
-    
             foreach($ids as $id){
                 $this->aauth->delete_user($id);
             }
-    
-            echo 1;
-            exit;
         }
         else {
             $user = $this->aauth->get_user($index);
@@ -241,8 +237,13 @@ class UsersHomeController extends MY_Addon
                 redirect( array( 'admin', 'users?notice=cant-delete-yourself' ) );
             endif;
     
-            $this->aauth->delete_user($index);
-            redirect(array( 'admin', $redirect.'?notice=deleted' ));
+            $exec = $this->aauth->delete_user($index);
+
+            if ($exec) {
+                $this->session->set_flashdata('flash_message', __('deleted'));
+            } else {
+                $this->session->set_flashdata('flash_message', __('unexpected-error'));
+            };
         }
     }
 }

@@ -72,7 +72,7 @@ class GroupsHomeController extends MY_Addon
 
         $this->load->library('form_validation');
         $this->form_validation->set_rules('name', 'Group Name', 'required');
-        if( $this->aauth->is_admin() ):
+        if( ! $this->events->has_filter('fill_list_users') ):
             $this->form_validation->set_rules('definition', 'Group Definition', 'required');
         endif;
         if ($this->form_validation->run()) 
@@ -117,7 +117,9 @@ class GroupsHomeController extends MY_Addon
         // Submit
         $this->load->library('form_validation');
         $this->form_validation->set_rules('name', 'Group Name', 'required');
-        $this->form_validation->set_rules('definition', 'Group Definition', 'required');
+        if( ! $this->events->has_filter('fill_list_users') ):
+            $this->form_validation->set_rules('definition', 'Group Definition', 'required');
+        endif;
         if ($this->form_validation->run()) 
         { 
             $exec = $this->aauth->update_group(
@@ -166,16 +168,18 @@ class GroupsHomeController extends MY_Addon
         if ( $index == null ) 
         {
             $ids = $this->input->post('ids');
-    
             foreach($ids as $id){
                 $this->aauth->delete_group($id);
             }
-            echo 1;
-            exit;
         }
         else {
             $exec = $this->aauth->delete_group($index);
-            redirect(array( 'admin', 'users', 'group?notice=deleted'));
+
+            if ($exec) {
+                $this->session->set_flashdata('flash_message', __('deleted'));
+            } else {
+                $this->session->set_flashdata('flash_message', __('unexpected-error'));
+            };
         }
     }
 }
