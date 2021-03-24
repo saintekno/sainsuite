@@ -107,6 +107,8 @@ class User_model extends CI_Model
             }
         }
 
+        $this->events->do_action('do_create_users', $user_id);
+
         $fields_user_vars = $this->events->apply_filters('fields_user_vars', []);
         foreach (force_array($fields_user_vars) as $key => $value) {
             $this->aauth->set_user_var($key, $value, $user_id);
