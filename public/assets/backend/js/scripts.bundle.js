@@ -5831,10 +5831,6 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 					var theadHeight = $(datatable.tableHead).find('.' + pfx + 'datatable-row').outerHeight();
 					var tfootHeight = $(datatable.tableFoot).find('.' + pfx + 'datatable-row').outerHeight();
 					var bodyHeight = $(window).height();
-                    if (window.innerWidth < 992) {
-                        var kt_header_mobile = $('#kt_header_mobile').outerHeight();
-                        bodyHeight -= kt_header_mobile;
-                    }
                     
                     if ($("#kt_header .navheader-nav a").length) {
                         var kt_header = $('#kt_header').outerHeight();
@@ -5860,7 +5856,9 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 					// // scrollbar offset
 					bodyHeight -= 22;
 
+                    if (window.innerWidth > 992) {
 					$(datatable.tableBody).css('max-height', Math.floor(parseFloat(bodyHeight)));
+                    }
 
 					// set scrollable area fixed height
 					// $(datatable.tableBody).find('.' + pfx + 'datatable-lock-scroll').css('height', Math.floor(parseFloat(bodyHeight)));
@@ -5999,14 +5997,14 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 							}
 						});
 					}
-
+                    
 					$(tr).find('.' + pfx + 'datatable-cell').each(function(tdi, td) {
-						// get column settings by field
+                        // get column settings by field
 						var column = $.grep(columns, function(n, i) {
-							return $(td).data('field') === n.field;
+                            return $(td).data('field') === n.field;
 						})[0];
 						if (typeof column !== 'undefined') {
-							// column template
+                            // column template
 							if (typeof column.template !== 'undefined') {
 								var finalValue = '';
 								// template string
@@ -6567,6 +6565,10 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 						td.setAttribute('aria-label', Plugin.getObject(column.field, row));
 						tr.appendChild(td);
 					}
+                    
+                    if (datatable.tableHead.hasClass('d-none')) {
+                        datatable.tableHead.removeClass('d-none');
+                    }
 
 					tableBody.appendChild(tr);
 				});
@@ -6577,7 +6579,7 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 					util.addClass(errorSpan, pfx + 'datatable-error');
 					errorSpan.innerHTML = Plugin.getOption('translate.records.noRecords');
 					tableBody.appendChild(errorSpan);
-                    $(datatable.tableHead).hide();
+                    datatable.tableHead.addClass('d-none');
 					$(datatable.wrap).addClass(pfx + 'datatable-error ' + pfx + 'datatable-loaded');
 					Plugin.spinnerCallback(false);
 				}
@@ -7196,7 +7198,7 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 						// get data by primary id
 						$.map(datatable.dataSet, function(n, i) {
 							// primary id must be at the first column, otherwise e.data will be undefined
-							if (primaryKey === n[options.columns[0].field]) {
+							if (primaryKey.toString() === n[options.columns[0].field]) {
 								e.data = n;
 								return true;
 							}
@@ -8842,7 +8844,7 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 		translate: {
 			records: {
 				processing: 'Please wait...',
-				noRecords: '<div class="text-center p-10"><img class="w-150px mb-5" src="'+sain_site_url+'assets/backend/img/svg/not_found.svg"/><br><span class="text-uppercase font-weight-bold text-muted">WELL, BUDDY.</span> <br><span>This space doesn\'t have a records so there\'s nothing to display here.</span></div>',
+				noRecords: '<img class="w-150px mb-5" src="'+sain_site_url+'assets/backend/img/svg/not_found.svg"/><br><span class="text-uppercase font-weight-bold text-muted">WELL, BUDDY.</span> <br><span>This space doesn\'t have a records so there\'s nothing to display here.</span>',
 			},
 			toolbar: {
 				pagination: {

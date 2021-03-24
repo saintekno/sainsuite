@@ -24,6 +24,6 @@ class usersApiController extends MY_Addon
 	{
         $users = ($u = $this->aauth->list_users($group_par)) ? $u : [];
 
-        return response()->json($users);
+        return response()->json($users, JSON_PRETTY_PRINT);
 	}
 }

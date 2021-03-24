@@ -65304,10 +65304,6 @@ code {
   display: none;
   width: 100%;
 }
-.datatable.datatable-default > .datatable-table::after {
-  -webkit-box-shadow: 0px -20px 15px -15px inset #ffffff;
-  box-shadow: 0px -20px 15px -15px inset #ffffff;
-}
 .datatable.datatable-default > .datatable-table > .datatable-head,
 .datatable.datatable-default > .datatable-table > .datatable-body,
 .datatable.datatable-default > .datatable-table > .datatable-foot {
@@ -65335,6 +65331,13 @@ code {
 .datatable.datatable-default > .datatable-table > .datatable-body .datatable-row > .datatable-cell:last-child,
 .datatable.datatable-default > .datatable-table > .datatable-foot .datatable-row > .datatable-cell:last-child {
   padding-right: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  margin-right: 5px;
 }
 .datatable.datatable-default > .datatable-table > .datatable-head .datatable-row > .datatable-cell.datatable-cell-left,
 .datatable.datatable-default > .datatable-table > .datatable-body .datatable-row > .datatable-cell.datatable-cell-left,
@@ -65723,7 +65726,7 @@ code {
 .datatable.datatable-default.datatable-subtable > .datatable-table > .datatable-head .datatable-row-subtable > .datatable-subtable > .datatable,
 .datatable.datatable-default.datatable-subtable > .datatable-table > .datatable-body .datatable-row-subtable > .datatable-subtable > .datatable,
 .datatable.datatable-default.datatable-subtable > .datatable-table > .datatable-foot .datatable-row-subtable > .datatable-subtable > .datatable {
-  /* padding: 0 1rem; */
+  padding: 0px;
 }
 .datatable.datatable-default.datatable-subtable > .datatable-table > .datatable-head .datatable-row-subtable > .datatable-subtable > .datatable > .datatable-pager,
 .datatable.datatable-default.datatable-subtable > .datatable-table > .datatable-body .datatable-row-subtable > .datatable-subtable > .datatable > .datatable-pager,
@@ -83517,7 +83520,7 @@ canvas {
     width: 26px;
   }
   .aside .aside-secondary .aside-workspace {
-    width: 240px;
+    width: 220px;
     -ms-flex-negative: 0;
     flex-shrink: 0;
     overflow: auto;
@@ -85103,11 +85106,6 @@ canvas {
 @media (max-width: 991.98px) {
   .aside-overlay {
     background: rgba(0, 0, 0, 0.1);
-  }
-}
-@media (max-width: 325px) {
-  .aside {
-    width: 90% !important;
   }
 }
 @media (max-width: 991.98px) {

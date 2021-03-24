@@ -1,7 +1,6 @@
-<?php $multiple = $col_type == 'multiple' ? $col_type : ''; ?>
+<?php $multiple = ($col_type == 'multiple') ? $col_type : ''; ?>
 
-<select class="form-control <?php echo ($multiple) ? 'selectpicker' : ''; ?> <?php echo riake('widget', $col);?>" 
-    data-live-search="true"
+<select class="form-control select2" 
     <?php echo $multiple; ?> 
     <?php echo riake('disabled', $col) === true ? 'disabled="disabled"' : '';?>
     <?php echo riake('required', $col) === true ? 'required' : '';?>
@@ -14,8 +13,8 @@
         if (riake('gui_saver', $meta) === true  && in_array(riake('action', riake('form', $meta)), array( null, false ))) {
             $selected = $db_value == $value ? 'selected="selected"' : '';
         } else {
-            if (! is_array($active = riake('active', $col))) {
-                $selected = $active == $value ? 'selected="selected"' : '';
+            if (! is_array($active = riake('active', $col)) ) {
+                $selected = ($active == $value && ! empty($active)) ? 'selected="selected"' : '';
             } else {
                 $selected = in_array($value, $active) ? 'selected="selected"' : '';
             }
@@ -35,15 +34,12 @@ $.ajax({
     data :{<?php echo riake('data', $_item) ;?>},
     cache:false,
     success : function(data){
-        var item=data;
-        var val1=item.replace('[','');
+        var val1=data.replace('[','');
         var val2=val1.replace(']','');
-        var values=val2;
-        $.each(values.split(","), function(i,e){
+        $.each(val2.split(","), function(i,e){
             var d=e.replace('"','');
             var k=d.replace('"','');
-            $(".strings option[value='" + k + "']").prop("selected", true).trigger('change');
-            $(".strings").selectpicker('refresh');
+            $(".select2 option[value='" + k + "']").prop("selected", true).trigger('change');
         });
     }
 });

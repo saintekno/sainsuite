@@ -57,21 +57,21 @@ var DatatableScript = function() {
                 }, {
                     field: 'email',
                     title: 'Email',
+                    responsive: {
+                        visible: 'md'
+                    }
                 }, {
                     field: 'last_login',
                     title: 'Last Login',
-                    width: 200,
                 }, {
                     field: 'last_activity',
                     title: 'Last Activity',
-                    width: 200,
 					template: function(row) {
 						return (row.last_activity) ? moment(row.last_activity).fromNow(true) : '-';
 					},
                 }, {
                     field: 'banned',
                     title: 'Status',
-                    width: 60,
 					template: function(row) {
 						var banned = {
 							0 : {'title': 'Active', 'class': ' label-light-primary'},

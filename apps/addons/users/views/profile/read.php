@@ -14,12 +14,13 @@
 
 // load field for user_profile
 $this->polatan->add_col(array(
-    'class' => 'p-10 p-lg-2 flex-row-auto offcanvas-mobile w-200px',
+    'class' => 'p-10 p-lg-0 flex-row-auto offcanvas-mobile w-200px',
     'id'=> 'kt_profile_aside',
 ), 1);
 
 $this->polatan->add_meta(array(
     'col_id'    => 1,
+    'class'     => 'col-12',
     'namespace' => 'profile',
     'type' => 'card'
 ));

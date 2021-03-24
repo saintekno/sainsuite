@@ -17,6 +17,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     $this->enqueue->load_css('header');
 
     // Enqueueing header
+    $this->load->backend_view('settings.js.php');
     $this->enqueue->js_namespace('header');
     $this->enqueue->js('plugins.bundle');
     $this->enqueue->js('scripts.bundle');
@@ -79,7 +80,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <?php
     // Enqueueing footer
     $this->enqueue->js_namespace('footer');
-    $this->enqueue->js('settings');
     $this->enqueue->js('login');
     $this->enqueue->load_js('footer');
     ?>

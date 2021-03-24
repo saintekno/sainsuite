@@ -28,7 +28,7 @@ $filed_heading1[] = array(
     [
         'permission'  => 'manage.core',
         'type'  => 'text',
-        'class'  => 'col-6',
+        'class'  => 'col-12 col-lg-6',
         'required'  => true,
         'label' => __('Site Name'),
         'name'  => 'site_name',
@@ -38,7 +38,7 @@ $filed_heading1[] = array(
     [
         'permission'  => 'manage.core',
         'type'  => 'text',
-        'class'  => 'col-6',
+        'class'  => 'col-12 col-lg-6',
         'label' => __('Site Title'),
         'name'  => 'site_title',
         'value' => set_value('site_title', $this->options_model->get('site_title')),
@@ -69,7 +69,7 @@ $filed_heading1[] = array(
     [
         'type'    => 'select',
         'name'    => 'site_timezone',
-        'class'  => 'col-6',
+        'class'  => 'col-12 col-lg-6',
         'label'   => __('Timezone'),
         'options' => $this->config->item('site_timezone'),
         'active'  => $this->options_model->get('site_timezone')
@@ -77,7 +77,7 @@ $filed_heading1[] = array(
     [
         'type'    => 'select',
         'name'    => 'site_language',
-        'class'  => 'col-6',
+        'class'  => 'col-12 col-lg-6',
         'label'   => __('Language'),
         'options' => $this->config->item('supported_languages'),
         'active'  => $this->options_model->get('site_language')

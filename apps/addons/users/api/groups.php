@@ -24,6 +24,6 @@ class groupsApiController extends MY_Addon
 	{
         $groups = $this->aauth->list_groups();
 
-        return response()->json($groups);
+        return response()->json($groups, JSON_PRETTY_PRINT);
 	}
 }

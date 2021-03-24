@@ -27,7 +27,6 @@ var DatatableScript = function() {
                 }, {
                     field: 'username',
                     title: 'User',
-                    width: 200,
                     template: function(row) {
                         var stateNo = KTUtil.getRandomInt(0, 7);
                         var states = [

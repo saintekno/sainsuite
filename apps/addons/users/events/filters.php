@@ -93,7 +93,6 @@ class Users_Filters extends MY_Addon
                 [
                     'type' => 'select',
                     'class' => 'col-12 col-lg-6 col-md-6',
-                    'widget' => 'select2',
                     'name'  => 'user_status',
                     'label' => __('User Status', 'aauth'),
                     'options' => array(
@@ -108,7 +107,6 @@ class Users_Filters extends MY_Addon
                 [
                     'type' => 'select',
                     'class' => 'col-12 col-lg-6 col-md-6',
-                    'widget' => 'select2',
                     'label'   => __('Add to a group', 'aauth'),
                     'name'    => 'group',
                     'disabled' => ($groups_array) ? false : true,
