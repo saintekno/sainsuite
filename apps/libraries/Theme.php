@@ -256,7 +256,7 @@ class Theme
             // delete temp folder
             Filer:: drop($temp_folder);
 
-            get_instance()->zip->download($theme[ 'theme' ][ 'name' ] . '-' . $theme[ 'theme' ][ 'version' ]);
+            get_instance()->zip->download($theme[ 'theme' ][ 'name' ] . '_' . $theme[ 'theme' ][ 'version' ] . '_(' . get('version') .')');
         }
     }
 

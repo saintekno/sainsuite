@@ -236,9 +236,11 @@ class Menus_Model extends CI_Model
         $config["item_divider"] = '';
         get_instance()->multimenu->initialize($config);
 
-        $permission = $this->events->apply_filters('create_nav', [])[0]['permission'];
+        if (empty($this->events->apply_filters('create_nav', []))) : return;
+        endif;
+
         // call render in view
-        if (User::control( $permission )) :
+        if (User::control( $this->events->apply_filters('create_nav', [])[0]['permission'] )) :
         return get_instance()->multimenu->render();
         endif;
     }
