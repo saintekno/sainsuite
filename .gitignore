@@ -29,7 +29,6 @@ composer.lock
 public/uploads/*
 !public/uploads/index.html
 !public/uploads/system/
-!public/uploads/captcha/index.html
 
 # Vendor Style
 public/assets/node_modules/*

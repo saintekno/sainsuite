@@ -60,6 +60,9 @@ class Auth extends MY_Controller
 
         // Add Captcha
 		$this->load->helper('captcha');
+        if (!is_dir(upload_path() . 'captcha/')) {
+            mkdir(upload_path() . 'captcha/');
+        }
         $captcha = create_captcha(array(
             'img_path'      => upload_path() . 'captcha/',
             'img_url'       => upload_url('captcha'),
