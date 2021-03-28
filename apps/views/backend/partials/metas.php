@@ -21,12 +21,12 @@ global $Options;
 <meta property="og:type" content="website" />
 <meta property="og:title" content="<?php echo riake('site_title', $Options); ?>">
 <meta property="og:description" content="<?php echo riake('site_description', $Options); ?>">
-<meta property="og:image" content="<?=fasset_url();?>preview.jpg" />
-<meta name="og:image" content="<?=fasset_url();?>preview.jpg" />
+<meta property="og:image" content="<?=asset_url();?>preview.jpg" />
+<meta name="og:image" content="<?=asset_url();?>preview.jpg" />
 
 <meta name="twitter:title" content="<?php echo riake('site_title', $Options); ?>" />
 <meta name="twitter:description" content="<?php echo riake('site_description', $Options); ?>" />
-<meta property="twitter:image" content="<?=fasset_url();?>preview.jpg" />
+<meta property="twitter:image" content="<?=asset_url();?>preview.jpg" />
 <meta content="true" name="HandheldFriendly"/>
 <meta content="320" name="MobileOptimized"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>

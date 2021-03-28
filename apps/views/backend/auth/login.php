@@ -25,7 +25,7 @@ global $Options;
         <!--begin::Form group-->
         <div class="form-group">
             <label class="font-size-h6 font-weight-bolder "><?php _e('Email or User Name' ) ?></label>
-            <input class="form-control form-control-solid h-auto font-size-h5 p-6 rounded-lg border-0"
+            <input class="form-control form-control-solid h-auto font-size-h5 p-5 rounded-lg border-0"
                 type="text" 
                 id="form-username"
                 name="username_or_email" />
@@ -46,12 +46,21 @@ global $Options;
                 </a>
                 <?php endif; ?>
             </div>
-            <input class="form-control form-control-solid h-auto font-size-h5 p-6 rounded-lg border-0"
+            <input class="form-control form-control-solid h-auto font-size-h5 p-5 rounded-lg border-0"
                 type="password" 
                 id="form-password"
                 name="password" />
         </div>
         <!--end::Form group-->
+        
+        <div class="form-group">
+            <label class="font-size-h6 font-weight-bolder" for="captcha"><?php echo __('Captcha') ?> <?php echo $captcha_image ?></label>
+            <input class="form-control form-control-solid h-auto font-size-h5 p-5 rounded-lg border-0"
+                type="captcha"  
+                name="captcha" 
+                id="captcha" 
+                autocomplete="off"> 
+        </div> 
 
         <!-- <div class="custom-control custom-checkbox mb-3">
             <input id="customCheck1" name="keep_connected" type="checkbox" class="custom-control-input">

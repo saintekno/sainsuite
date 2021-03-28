@@ -23,7 +23,7 @@ class Admin extends MY_Controller
         parent::__construct();
 
         $this->load->model( theme_backend().'menus_model' );
-        $this->load->model( 'admin_model' );
+        $this->load->model( theme_backend().'admin_model' );
         $this->load->model( 'update_model' );
 
         // Loading Admin Menu

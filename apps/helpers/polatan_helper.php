@@ -18,23 +18,16 @@
 
 function theme_frontend()
 {
-    $CI =& get_instance();
-    $CI->load->model('options_model');
-    return $CI->options_model->get('theme_frontend') . '/' ;
+    global $Options;
+    return riake('theme_frontend', $Options) . '/' ;
 }
 
 // --------------------------------------------------------------------
 
 function theme_backend()
 {
-    $CI =& get_instance();
-    $CI->load->model('options_model');
-    if ($CI->install_model->is_installed()) :
-        if (! $CI->options_model->get('theme_backend') ) : return '';
-        endif;
-
-        return $CI->options_model->get('theme_backend') . '/' ;
-    endif;
+    global $Options;
+    return ($theme = riake('theme_backend', $Options)) ? $theme. '/' : '' ;
 }
 
 // --------------------------------------------------------------------

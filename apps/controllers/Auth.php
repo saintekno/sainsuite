@@ -33,7 +33,12 @@ class Auth extends MY_Controller
 
         $this->form_validation->set_rules('username_or_email', __('Email or User Name' ), 'required|min_length[5]');
         $this->form_validation->set_rules('password', __('Password' ), 'required|min_length[6]');
-        $this->form_validation->set_rules('submit_button', __('Submit button'), 'alpha_dash');
+        $this->form_validation->set_rules('captcha', __('captcha'),  array('matches[captcha]', function($captcha){ 
+            $oldCaptcha = $this->session->userdata('captcha');
+            if ($captcha == $oldCaptcha) {
+                return true;
+            } } )
+        );
 		
         // Log User After Applying Filters
         if ($this->form_validation->run()) 
@@ -53,6 +58,28 @@ class Auth extends MY_Controller
             $this->notice->push_notice_array($this->aauth->get_errors_array());
         }
 
+        // Add Captcha
+		$this->load->helper('captcha');
+        $captcha = create_captcha(array(
+            'img_path'      => upload_path() . 'captcha/',
+            'img_url'       => upload_url('captcha'),
+            'font_path'     => asset_path() . 'css/fonts/captcha.ttf',
+            'expiration'    => 600, //5 min
+            'word_length'   => 4,
+            'img_id'        => 'Imageid',
+
+            // White background and border, black text and red grid
+            'colors' => array(
+                'background' => array(255, 255, 255),
+                'border' => array(255, 255, 255),
+                'text' => array(21, 110, 231),
+                'grid' => array(241, 243, 246)
+            )
+        ));
+        $data['captcha_image'] = $captcha['image'];
+        $this->session->set_userdata('captcha', $captcha['word']);
+
+        // Do events
         $this->events->do_action('oauth_client');
 
         Polatan::set_title(sprintf(__('Sign In &mdash; %s'), get('app_name')));
