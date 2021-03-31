@@ -84,7 +84,7 @@ class User
         if (file_exists(upload_path().'user_image/'.$user_id.'.jpg'))
             return upload_url().'user_image/'.$user_id.'.jpg';
         else
-            $current_user = get_instance()->aauth->get_user();
+            $current_user = get_instance()->aauth->get_user($user_id);
             return self::get_gravatar($current_user->email, 90);
     }
 

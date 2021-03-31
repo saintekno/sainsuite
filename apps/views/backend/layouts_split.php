@@ -79,12 +79,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
     $this->enqueue->js('login');
     $this->enqueue->load_js('footer');
     ?>
-    <script>
-    // cek nav aside secondary
-    if ($("#kt_login_signup_form").length) {
-        $('#kt_login .login-content').addClass('login-content-signup');
-    }
-    </script>
 </BODY>
 
 </HTML>

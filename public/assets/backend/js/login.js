@@ -1,5 +1,16 @@
 "use strict";
 
+// cek nav aside secondary
+if ($("#kt_login_signup_form").length) {
+	$('#kt_login .login-content').addClass('login-content-signup');
+}
+$('.copy-login').click(function () {
+	var email = $(this).data('email');
+	var password = $(this).data('password');
+	$('#form-username').val(email);
+	$('#form-password').val(password);
+})
+
 // Class Definition
 var KTLogin = function() {
 	var _buttonSpinnerClasses = 'spinner spinner-right spinner-white pr-15';

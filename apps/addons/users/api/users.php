@@ -20,7 +20,7 @@ class usersApiController extends MY_Addon
 		parent::__construct();
 	}
 
-	public function index($group_par = false)
+	public function index($group_par = 'api')
 	{
         $users = ($u = $this->aauth->list_users($group_par)) ? $u : [];
 

@@ -965,7 +965,7 @@ class Aauth {
 		}
 		
 		// if group_par is given
-		if ($group_par != false) 
+		if ($group_par != false && $group_par != 'api') 
 		{
 			$group_par = $this->CI->events->apply_filters('fill_list_users', $this->get_group_id($group_par));
 			if ($group_par == false) : return [];
