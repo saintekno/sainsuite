@@ -68,9 +68,10 @@ class Api extends MY_Controller
 				$array['value'] = 1;
 				$array['message'] = "Login Berhasil";
 				$array['picture'] = User::get_user_image_url($result['id']);
+				foreach ($this->aauth->get_user_groups() as $key) {
+					$array['group'] = $key->name;
+				}
 				
-				$response = array_merge($array, $result);
-		
 				return response()->json($response);
 			} 
 			else {

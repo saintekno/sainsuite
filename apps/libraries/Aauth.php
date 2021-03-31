@@ -957,7 +957,7 @@ class Aauth {
         $select = "
 		aauth_users.*, 
 		aauth_users.id as user_id, 
-		aauth_groups.name as group_name";
+		aauth_groups.name as group";
 
         $user_group = farray($this->get_user_groups());
         if ( ! $this->is_admin() && $group_par == false) {

@@ -48,7 +48,7 @@ var DatatableScript = function() {
                             <div class="ml-2">\
                                 <div class="text-dark-75 font-weight-bold line-height-sm">' + row.username + '</div>\
                                 <a href="#" class="font-size-sm text-dark-50 text-hover-primary">' +
-                                row.group_name + '</a>\
+                                row.group + '</a>\
                             </div>\
                         </div>';
 
@@ -121,7 +121,7 @@ var DatatableScript = function() {
         });
 
         $('#kt_datatable_search_group').on('change', function() {
-            datatable.search($(this).val().toLowerCase(), 'group_name');
+            datatable.search($(this).val().toLowerCase(), 'group');
         });
 
         $('#kt_datatable_search_status').on('change', function() {
