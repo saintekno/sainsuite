@@ -71,7 +71,8 @@ class Api extends MY_Controller
 				foreach ($this->aauth->get_user_groups() as $key) {
 					$array['group'] = $key->name;
 				}
-				
+
+				$response = array_merge($array, $result);
 				return response()->json($response);
 			} 
 			else {
