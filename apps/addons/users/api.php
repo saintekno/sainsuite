@@ -17,6 +17,7 @@ global $Routes;
 
 $Routes->group(['prefix' => '/users'], function () use ( $Routes ) {
     $Routes->match([ 'get', 'post' ], '/{page?}', 'usersApiController@index' );
+    $Routes->match([ 'get', 'post' ], 'userid/{page?}', 'usersApiController@get_user' );
 });
 
 $Routes->group(['prefix' => '/groups'], function () use ( $Routes ) {

@@ -26,4 +26,17 @@ class usersApiController extends MY_Addon
 
         return response()->json($users, JSON_PRETTY_PRINT);
 	}
+
+	public function get_user($user_id = false)
+	{
+		$result = (array) $this->aauth->get_user($user_id);
+		$array['picture'] = User::get_user_image_url($result['id']);
+		foreach ($this->aauth->get_user_groups($result['id']) as $key) {
+			$array['group'] = $key->name;
+		}
+
+		$response = array_merge($array, $result);
+
+		return response()->json($response);
+	}
 }
