@@ -22,6 +22,19 @@ class usersApiController extends MY_Addon
 
 	public function index($group_par = 'api')
 	{
+        if (isset($_GET['id'])) 
+		{
+			$result = (array) $this->aauth->get_user($_GET['id']);
+			$array['picture'] = User::get_user_image_url($result['id']);
+			foreach ($this->aauth->get_user_groups($result['id']) as $key) {
+				$array['group'] = $key->name;
+			}
+	
+			$response = array_merge($array, $result);
+	
+			return response()->json($response);
+		}
+
         $users = ($u = $this->aauth->list_users($group_par)) ? $u : [];
 
         return response()->json($users, JSON_PRETTY_PRINT);
