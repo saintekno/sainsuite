@@ -1,0 +1,14 @@
+{
+    "application": {
+        "name": "Users",
+        "namespace": "users",
+        "package": "sainsuite",
+        "version": "3.17.0",
+        "author": "saintekno",
+        "description": "Management Users",
+        "main": "main.php",
+        "language": "language",
+        "readonly": true
+    },
+    "group": "By Sainsuite"
+}

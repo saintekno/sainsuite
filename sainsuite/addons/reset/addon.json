@@ -1,0 +1,14 @@
+{
+    "application": {
+        "name": "Reset Data",
+        "namespace": "reset",
+        "package": "sainsuite",
+        "version": "3.17.0",
+        "author": "saintekno",
+        "description": "This Addon will delete all the data. It's action cannot be undone.",
+        "main": "main.php",
+        "language": "language",
+        "readonly": true
+    }, 
+    "group": "By Sainsuite"
+}

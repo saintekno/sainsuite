@@ -1,7 +1,7 @@
 {
     "config": {
         "process-timeout": 1800,
-        "vendor-dir": "apps/vendor"
+        "vendor-dir": "sainsuite/third_party"
     },
     "require": {
         "pecee/simple-router": "4.2.0.6",

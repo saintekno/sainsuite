@@ -78,6 +78,7 @@ if(ini_get('date.timezone') == '' || ini_get('date.timezone') == 'Timezone' ) {
  * NOTE: If you change these, also change the error_reporting() code below
  */
 	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+	define('APPNAME', 'system');
 
 /*
  *---------------------------------------------------------------
@@ -139,7 +140,7 @@ switch (ENVIRONMENT)
  *
  * NO TRAILING SLASH!
  */
-	$application_folder = $path_folder.DIRECTORY_SEPARATOR.'apps';
+	$application_folder = $path_folder.DIRECTORY_SEPARATOR.'sainsuite';
 
 /*
  *---------------------------------------------------------------

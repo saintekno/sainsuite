@@ -1,6 +1,27 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.17.0] - 2021-04-12
+### Changed
+- normalisasi path frontend
+
+### Fixed
+- library Events
+- Perbaikan penggunaan memory
+
+## [3.16.0] - 2021-04-04
+### Changed
+- normalisasi path apps
+
+## [3.15.0] - 2021-03-28
+### Fixed
+- Perbaikan Avatar
+- Perbaikan Api groups
+- Perbaikan Api users
+
+### Added
+- penambahan captcha
+
 ## [3.14.0] - 2021-03-24
 ### Fixed
 - Perbaikan layout
@@ -27,142 +48,14 @@ All notable changes to this project will be documented in this file.
 - penambahan menus model
 
 ## [3.12.0] - 2021-02-01
-### Changed
-- Perbaikan addon users
-
 ## [3.11.0] - 2021-01-18
-### Added
-- Penambahan skin terbaru
-- Pembaharuan metode view data dengan datatable
-
 ## [3.10.0] - 2020-12-25
-### Added
-- Penambahan addon reset db
-- Penambahan fitur filter user
-
-### Changed
-- Perbaikan skin tema
-- Perbaikan mode developer
-- Perbaikan ui daftar addons
-
 ## [3.9.0] - 2020-12-13
-### Added
-- Penambahan avatar pada daftar users
-- Penambahan helper calendar
-- Penambahan library theme
-- Penambahan field users
-
-### Changed
-- Perbaiakan namespace addons
-- Perubahan table options
-- Perubahan events addons
-- Peningkatan laman profile
-- Peningkatan library polatan
-- Peningkatan ui ux
-- Perbaikan multibahasa
-
 ## [3.8.0] - 2020-11-26
-### Added
-- Penambahan fitur sending mail dengan phpmailer
-- Penambahan fitur autonumber
-
-### Changed
-- Perubahan table instalasi addon users
-
-### Fixed
-- Perbaikan notice error
-
 ## [3.7.0] - 2020-11-26
-### Added
-- Penambahan fitur multidelete
-
-### Changed
-- Peningkatan UI UX 
-- Peningkatan fitur notice array
-- Peningkatan Item table default dengan polatan
-
 ## [3.6.0] - 2020-11-25
-### Added
-- Penambahan item separator di library polatan
-- Penambahan item table-datatable di library polatan
-- Penambahan item accordions di library polatan
-- Penambahan item input image di library polatan
-- Penambahan item textarea di library polatan
-- Penambahan fungsi mode skin dashboard
-- Penambahan fungsi multibahasa dengan library sepia/po-parser
-- Penambahan event oauth_client
-- Penambahan fitur login dengan sosmed google
-
-### Changed
-- Perubahan CI_Model ke MY_Addon
-- Perubahan Class Addon ke MY_Addon
-- Perubahan event common header ke dashboard_header pada laman admin
-- Peningkatan url delete users
-- Peningkatan fungsi addon_view
-- Peningkatan fungsi library polatan
-- Peningkatan konfirmasi delete dengan sweet alert
-
-### Fixed
-- Perbaikan nama event enable addon
-- Perbaikan fitur lupa password
-- Perbaikan fitur register
-- Perbaikan fungsi kirim email dengan smtp google
-
 ## [3.5.4] - 2020-11-15
-### Added
-- Penambahan library Breadcrumb
-
-### Fixed
-- Perbaikan form input
-- Perbaikan form select
-- Perbaikan table
-- Perbaikan permission
-
-## [3.4.12] - 2020-11-15
-### Fixed
-- Perbaikan ux menu
-
-## [3.4.3] - 2020-11-14
-### Fixed
-- Perbaikan libary notice
-- Perbaikan fungsi simpan options
-
-## [3.4.2] - 2020-11-10
-### Fixed
-- Peningkatan ui/ux
-
-## [3.4.1] - 2020-11-09
-### Fixed
-- Peningkatan ux menu
-- perbaikan option admin
-- perbaikan konfirmasi delete addons
-- perbaikan sistem update
-
 ## [3.4.0] - 2020-11-07
-### Added
-- Penambahan Controller API
-- penambahan fungsi currency
-- penambahan fungsi active menu
-- penambahan fungsi url api
-- penambahan event after_db_setup setelah instalasi table db
-
-### Changed
-- menggunakan password hash
-- menggunakan date berdasarkan timezone
-- tampilan error route
-- batasan login maximal 5
-
-### Removed
-- Hapus Model Aauth
-- Hapus views home
-
-### Fixed
-- Peningkatan style responsive
-- Peningkatan library Aauth
-- Peningkatan library Menu
-- Peningkatan library User
-- Peningkatan Model User
-
 ## [3.3.0] - 2020-10-12
 ## [3.2.0] - 2020-10-01
 ## [3.1.0] - 2020-09-29

@@ -1,47 +1,26 @@
-.DS_Store
+**/cache/apps/*
+!**/cache/apps/index.html
+**/cache/sessions/*
+!**/cache/sessions/index.html
+**/cache/database/*
+!**/cache/database/index.html
 
-apps/cache/
-!apps/cache/index.html
-!apps/cache/apps/index.html
-!apps/cache/sessions/index.html
-!apps/cache/database/index.html
+**/config/database.php
 
-apps/config/database.php
+**/temp/*
+!**/temp/index.html
 
-apps/debug/*
-!apps/debug/index.html
+**/logs/*
+!**/logs/index.html
 
-apps/temp/*
-!apps/temp/index.html
+!**/*/.htaccess
 
-apps/cache/*
-!apps/cache/index.html
-
-apps/logs/*
-!apps/logs/index.html
-
-!apps/*/.htaccess
-
-apps/vendor/
+**/third_party/*
+!**/third_party/index.html
 composer.lock
+tools/**/node_modules
 
 # Upload
-public/uploads/*
-!public/uploads/index.html
-!public/uploads/system/
-
-# Vendor Style
-public/assets/node_modules/*
-public/assets/yarn.lock
-
-# IDE Files
-#-------------------------
-/nbproject/
-.idea/*
-
-## Sublime Text cache files
-*.tmlanguage.cache
-*.tmPreferences.cache
-*.stTheme.cache
-*.sublime-workspace
-*.sublime-project
+**/uploads/*
+!**/uploads/system/
+!**/uploads/index.html
