@@ -45,11 +45,11 @@ global $Options;
 
                             </div>
                             <div class="cc_socialmedia">
-                                <a href="https://www.facebook.com/saintekno.id/">
-                                    <i class="tio facebook_square"></i>
-                                </a>
                                 <a href="https://github.com/saintekno">
                                     <i class="tio github"></i>
+                                </a>
+                                <a href="https://www.facebook.com/saintekno.id/">
+                                    <i class="tio facebook_square"></i>
                                 </a>
                                 <a href="https://www.instagram.com/saintekno/">
                                     <i class="tio instagram"></i>

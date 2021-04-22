@@ -24,9 +24,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="nav_account btn_demo3 ml-auto">
                     <?php if (User::is_loggedin()) : ?>
-                    <button type="button" class="btn btn-default c-gray">
+                    <a href="<?=site_url('admin')?>" class="btn btn_demo3 btn_sm_primary rounded-pill">
                         <?php echo User::get()->username;?>
-                    </button>
+                    </a>
                     <a href="<?=site_url('logout')?>" class="btn btn_sm_primary border-0 effect-letter bg-dark c-white rounded-pill">
                         Sign Out
                     </a>
