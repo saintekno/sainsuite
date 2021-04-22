@@ -26,19 +26,20 @@ if ($addons) :
                 <div class="col-12 col-md-6 col-lg-3 col-xxl-3">
                     <div class="card card-custom gutter-b card-stretch" data-card="true" data-card-tooltips="false">     
                         <div class="card-header min-h-20px d-flex align-items-center justify-content-between px-2 py-2">
-                            <div class="card-title font-weight-bolder text-dark m-0 text-hover-primary ml-2">
+                            <div class="text-dark m-0 text-hover-primary ml-2">
+                                <span class="font-weight-bolder">
                                 <?php echo isset($_group[ 'application' ][ 'name' ]) ? $_group[ 'application' ][ 'name' ] : __('Addons');?>
+                                </span> | 
+                                <?php echo 'v' . (isset($_group[ 'application' ][ 'version' ]) ? $_group[ 'application' ][ 'version' ] : 0.1);?>
                             </div>
                             <div>
-                                <span class="btn btn-sm btn-light-primary font-weight-bold" data-card-tool="toggle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Toggle Card">
-                                    <?php echo 'v' . (isset($_group[ 'application' ][ 'version' ]) ? $_group[ 'application' ][ 'version' ] : 0.1);?>
-                                </span>
                                 <?php $this->events->do_action('do_menu_addon_header', $_group) ?>
                             </div>
                         </div>   
-                        <div class="card-body bgi-no-repeat p-2 min-h-150px" style="background-color: #4AB58E; background-position: center center; background-size: 100% auto; background-image: url(<?php echo fasset_url('preview.jpg')?>)">
+                        <div class="card-body bgi-no-repeat p-4 min-h-100px bg-secondary">
+                            <p><?php echo $_group[ 'application' ][ 'description' ];?></p>
                         </div> 
-                        <div class="card-header border-0 min-h-50px d-flex justify-content-between align-items-center px-1">
+                        <div class="p-1 min-h-40px d-flex justify-content-between align-items-center">
                             <div class="d-flex">
                             <?php if ($this->aauth->is_admin()): // Extrax ?>
                             <a href="<?php echo site_url(array( 'admin', 'addons', 'extract', $addon_namespace ));?>" class="btn btn-icon btn-circle btn-sm btn-light-info ml-1 webdev_mode d-none" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?php _e('Extract');?>">
@@ -62,7 +63,7 @@ if ($addons) :
                             <?php endif;?>
 
                             <?php if (! MY_Addon::is_active($addon_namespace, true)) {?>
-                            <?php if ( $this->aauth->is_admin()) : ?>
+                            <?php if ( $this->aauth->is_admin() && APPNAME == 'system') : ?>
                             <a href="#" class="btn btn-circle btn-icon btn-sm btn-light-danger ml-2" 
                                 data-url="<?php echo site_url(array( 'admin', 'addons', 'remove', $addon_namespace )); ?>" 
                                 data-head="<?php _e( 'Would you like to delete this addon?');?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Remove"
@@ -95,7 +96,7 @@ if ($addons) :
                         </div>
                     </div>
                 </div>
-            <?php
+                <?php
             }
             else {
                 $found = false;

@@ -17,18 +17,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 function theme_frontend()
 {
-    global $Options, $App_Options;
-    $app_theme = riake('theme_frontend', $App_Options);
-    return (! $app_theme ) ? @$Options[ 'theme_frontend' ] . '/' : $app_theme . '/' ;
+    $theme_frontend = get_instance()->events->apply_filters('fill_theme_frontend', riake( 'theme_frontend', options() ));
+    return $theme_frontend . '/';
 }
 
 // --------------------------------------------------------------------
 
 function theme_backend()
 {
-    global $Options, $App_Options;
-    $app_theme = riake('theme_backend', $App_Options);
-    return (! $app_theme ) ? (($back = @$Options[ 'theme_backend' ]) ? $back.'/' : '') : $app_theme . '/' ;
+    $theme_backend = get_instance()->events->apply_filters('fill_theme_backend', riake( 'theme_backend', options() ));
+    return ($theme_backend) ? $theme_backend . '/' : '';
 }
 
 // --------------------------------------------------------------------

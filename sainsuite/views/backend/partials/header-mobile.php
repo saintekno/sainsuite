@@ -3,7 +3,7 @@
 
 	<!--begin::Logo-->
 	<a href="<?php echo site_url('admin'); ?>" class="header-logo d-flex">
-		<img alt="Logo" src="<?php echo $this->events->apply_filters( 'apps_logo', 'light'); ?>" class="max-h-35px" />
+		<img alt="Logo" src="<?php echo $this->events->apply_filters( 'apps_logo', 'light'); ?>" class="max-h-30px" />
 	</a>
 
 	<!--end::Logo-->
@@ -53,7 +53,7 @@
 		</div>
 		<!--end::User-->
 
-		<button class="btn btn-icon btn-clean btn-lg ml-2" id="kt_aside_mobile_toggle">
+		<button class="btn btn-icon btn-clean ml-2" id="kt_aside_mobile_toggle">
 			<i class="icon-lg ki ki-bold-more-ver"></i>
 		</button>
 	</div>

@@ -27,7 +27,7 @@ class Admin extends MY_Controller
         $this->load->model( 'update_model' );
 
         // Loading Admin Menu
-        $this->events->do_action( 'load_dashboard' );
+        $this->events->do_action( 'do_dashboard_init' );
     }
 
 	// --------------------------------------------------------------------
@@ -102,10 +102,33 @@ class Admin extends MY_Controller
 	public function index()
 	{                
         Polatan::set_title(sprintf(__('Dashboard &mdash; %s'), get('signature')));
-        ($this->events->has_action('dashboard_home')) 
-            ? $this->events->do_action('dashboard_home') 
-            : $this->polatan->output();
+        if ($this->events->has_action('do_dashboard_home')) :
+            $this->events->do_action('do_dashboard_home');
+        else :
+            $this->events->add_filter( 'gui_before_cols', function() {
+                return $this->load->backend_view( 'partials/home', null, true );
+            });
+            $this->polatan->output();
+        endif;
 	}
+
+    // --------------------------------------------------------------------
+
+    /**
+     * page404 controller
+     * [New Permission Ready]
+     *
+     * @access public
+     */
+    public function page404()
+    {        
+        Polatan::set_title(sprintf(__('404 &mdash; %s'), get('signature')));
+        
+        $this->events->add_filter( 'gui_before_cols', function() {
+            return $this->load->backend_view( 'partials/error_404', null, true );
+        });
+        $this->polatan->output();
+    }
 
     // --------------------------------------------------------------------
 
@@ -209,22 +232,6 @@ class Admin extends MY_Controller
         else {
             redirect(site_url('admin/page404'));
         }
-    }
-
-    // --------------------------------------------------------------------
-
-    /**
-     * page404 controller
-     * [New Permission Ready]
-     *
-     * @access public
-     */
-    public function page404()
-    {        
-        Polatan::set_title(sprintf(__('404 &mdash; %s'), get('signature')));
-        
-        Polatan::set_page('404');
-        $this->polatan->output();
     }
 
     // --------------------------------------------------------------------

@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-global $App_Options;
+$App_Options = options(APPNAME);
 ?>
 
 <!--begin::Section-->

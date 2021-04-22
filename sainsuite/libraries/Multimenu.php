@@ -357,9 +357,10 @@ class Multimenu {
 		foreach ($data as $item) 
 		{
 			if (!isset($item[$this->menu_parent])) {
-				$items[$item[$this->menu_id]] = $item;
+				$item[$this->menu_parent] = null;
 			}
-			elseif ($item[$this->menu_parent] == $parent) 
+			
+			if ($item[$this->menu_parent] == $parent) 
 			{
 				$items[$item[$this->menu_id]] = $item;
 				$items[$item[$this->menu_id]]['children'] = $this->prepare_items($data, $item[$this->menu_id]);

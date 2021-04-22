@@ -246,7 +246,7 @@ var KTSains = function() {
         }
     }
 
-    var sain_suite = function(){
+    var sainsuite = function(){
         // Dark Mode Switch @since v2.0
         var skin = new function() {
             var toggle = $('.dark-switch');
@@ -343,8 +343,8 @@ var KTSains = function() {
             }
         }
     };
-    
-    var sain_loader = new function(){
+
+    var setloader = new function(){
         this.int =	0;
         this.timeOutToClose;
         this.show =	function(){
@@ -430,7 +430,7 @@ var KTSains = function() {
         init: function() {            
 			_initAside();
             cekClass();
-            sain_suite();
+            sainsuite();
             menuAsidePrimary();
             menuMobilePrimary();
             menuHeaderPrimary();
@@ -440,14 +440,15 @@ var KTSains = function() {
             setSelectpicker();
             setSelects();
             $( document ).ajaxComplete(function() {
-                sain_loader.hide();
+                setloader.hide();
             });
             $( document ).ajaxError(function() {
-                sain_loader.hide();
+                setloader.hide();
             });
             $( document ).ajaxSend(function() {
-                sain_loader.show();
+                setloader.show();
             });
+
             <?php if ($this->session->flashdata('info_message') != ""):?>
                 toastr.info('<?php echo $this->session->flashdata("info_message");?>');
             <?php endif;?>
@@ -487,6 +488,7 @@ var KTSains = function() {
         }
     };
 }();
+
 var AppAngular = angular.module( 'SainSuite', <?php echo json_encode( ( Array ) $this->events->apply_filters( 'admin_dependencies', array() ) );?> );
 var _buttonSpinnerClasses = 'spinner spinner-right spinner-white pr-15';
 

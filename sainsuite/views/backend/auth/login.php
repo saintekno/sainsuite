@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-global $App_Options;
+$App_Options = options(APPNAME);
 ?>
     
 <div class="login-form">
@@ -33,19 +33,9 @@ global $App_Options;
         <!--end::Form group-->
 
         <!--begin::Form group-->
-        <div class="form-group mt-n5">
-            <label class="font-size-h6 font-weight-bolder pt-5"><?php _e('Password' ) ?></label>
-            <input class="form-control form-control-solid h-auto font-size-h5 p-5 rounded-lg border-0"
-                type="password" 
-                id="form-password"
-                name="password" />
-        </div>
-        <!--end::Form group-->
-        
-        <?php if (isset($captcha_image)) : ?>
-        <div class="form-group">
+        <div class="form-group pt-0">
             <div class="d-flex justify-content-between">
-                <label class="font-size-h6 font-weight-bolder" for="captcha"><?php echo __('Security Code') ?> <?php echo $captcha_image ?></label>
+                <label class="font-size-h6 font-weight-bolder"><?php _e('Password' ) ?></label>
 
                 <?php if (intval(riake('site_registration', $App_Options)) == true) : ?>
                 <a href="<?php echo site_url(['recovery']) ; ?>"
@@ -54,6 +44,22 @@ global $App_Options;
                 </a>
                 <?php endif; ?>
             </div>
+            <div class="form-control-wrap">
+                <a tabindex="-1" href="#" class="form-icon form-icon-right passcode-switch" data-target="form-password">
+                    <em class="passcode-icon icon-show icon fas fa-fingerprint"></em>
+                    <em class="passcode-icon icon-hide icon far fa-eye-slash"></em>
+                </a>
+                <input class="form-control form-control-solid h-auto font-size-h5 p-5 rounded-lg border-0"
+                    type="password" 
+                    id="form-password"
+                    name="password" />
+            </div>
+        </div>
+        <!--end::Form group-->
+        
+        <?php if (isset($captcha_image)) : ?>
+        <div class="form-group">
+            <label class="font-size-h6 font-weight-bolder" for="captcha"><?php echo __('Security Code') ?> <?php echo $captcha_image ?></label>
             <input class="form-control form-control-solid h-auto font-size-h5 p-5 rounded-lg border-0"
                 type="captcha"  
                 name="captcha" 

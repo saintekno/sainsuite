@@ -1,28 +1,22 @@
-<?php if ($this->polatan->get_page() === '404') : ?>
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-<div class="d-flex flex-column-fluid flex-center" id="kt_home">
-    <div class="d-flex flex-column justify-content-center align-items-center px-5 text-center">
-        <img class="w-150px" src="<?=img_url();?>svg/error-illustration.svg"/>
-        <h3 class="display-4 font-weight-bold mt-7 mb-2">Oops! Why you’re here?</h3>
-        <p class="font-weight-bold opacity-80">
-        We are very sorry for inconvenience. It looks like you’re try to access a page that either has been deleted or never existed.
-        </p>
-    </div>
-</div>
-
-<?php elseif (empty($this->polatan->get_cols())) :  ?>
-
-<div class="d-flex flex-column-fluid flex-center" id="kt_home">
-    <div class="d-flex flex-column justify-content-center align-items-center px-5 text-center">
-        <img class="w-150px" src="<?=img_url();?>svg/empty-state.svg"/>
-        <h3 class="display-4 mt-7 mb-2">Hello <span class="font-weight-bold">Buddy!</span> Let's get started</h3>
-        <p class="font-weight-bold opacity-80">
-        Get started building your personal projects, testing out ideas, and more in your spontaner workspace.
-        </p>
-    </div>
-</div>
-
-<?php else : ?>
+/**
+ * SainSuite
+ *
+ * Engine Management System
+ *
+ * @package     SainSuite
+ * @copyright   Copyright (c) 2019-2020 Buddy Winangun, Eracik.
+ * @copyright   Copyright (c) 2020-2021 SainTekno, SainSuite.
+ * @link        https://github.com/saintekno/sainsuite
+ * @filesource
+ */
+    
+if ($this->events->has_filter('gui_before_cols')) :
+    echo $this->events->apply_filters('gui_before_cols', ''); 
+else :
+?>
     
 <div class="d-flex flex-column-fluid" id="kt_data">
     <div class="container">
@@ -97,10 +91,12 @@
                         <?php endif;?>
 
                         <div class="card-body p-0">
+                            <div class="col-12">
                             <?php echo $this->load->backend_view('elements/_init', array(
                                 'namespace' => $namespace,
                                 'meta' => $meta
                             ), true);?>
+                            </div>
                         </div>
 
                         <?php if ($footer = riake('footer', $meta)) : ?>
@@ -136,4 +132,5 @@
     </div>
 </div>
 
-<?php endif;?>
+<?php 
+endif;?>

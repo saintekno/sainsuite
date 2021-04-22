@@ -27,7 +27,6 @@ $this->events->add_filter('toolbar_filter', function ($filter) {
             </label>
         </span>
     </div>';
-    endif;
     $filter[] = '
     <div class="col-auto col-sm-auto mb-1 mb-sm-0">
         <button class="btn btn-light-primary font-weight-bolder" 
@@ -35,6 +34,7 @@ $this->events->add_filter('toolbar_filter', function ($filter) {
             '.__('Add themes').'
         </button>
     </div>';
+    endif;
     $filter[] = '</div>';
 
     return $filter;

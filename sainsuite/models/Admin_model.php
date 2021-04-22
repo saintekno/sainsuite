@@ -89,9 +89,8 @@ class Admin_Model extends CI_Model
     **/
     public function dashboard_dev_class($class)
     {
-        global $Options;
         // skin is defined by default
-        $class = (riake('webdev_mode', $Options)) ? 'checked="checked"' : '';
+        $class = (riake('webdev_mode', options(APPNAME))) ? 'checked="checked"' : '';
         return $class;
     }
 }

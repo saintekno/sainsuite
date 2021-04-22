@@ -41,6 +41,11 @@ class User
         return get_instance()->aauth->get_user_group($user_par);
     }
 
+    public static function in_group($group_name)
+    {
+        return get_instance()->aauth->is_member($group_name);
+    }
+
     public static function control( $perm_par = false )
     {
         return get_instance()->aauth->control($perm_par);

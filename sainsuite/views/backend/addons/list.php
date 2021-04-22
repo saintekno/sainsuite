@@ -26,7 +26,8 @@ $this->events->add_filter('toolbar_filter', function ($filter) {
                 <span></span>
             </label>
         </span>
-    </div>
+    </div>';
+    $filter[] = '
     <div class="col-auto col-sm-auto mb-1 mb-sm-0">
         <button class="btn btn-light-primary font-weight-bolder" 
             onclick="composeModal(\''.site_url(['admin', 'addons', 'install_zip']).'\', \''.__('Choose the addons zip file').'\')" >

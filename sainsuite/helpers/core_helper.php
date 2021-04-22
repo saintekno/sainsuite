@@ -27,8 +27,8 @@ function dd($array, $return = false)
     echo '<pre>';
     var_dump($array);
     echo '</pre>';
-    return $return ? ob_get_clean() : null;
     die;
+    // return $return ? ob_get_clean() : null;
 }
 
 // --------------------------------------------------------------------
@@ -48,6 +48,96 @@ if (!function_exists('notice_from_url'))
             $notice = get_instance()->lang->line($_GET['notice']);
         }
         return $notice;
+    }
+}
+
+/**
+ * Output message with error tag
+ *
+ * @param String (error code)
+ * @return String (Html result)
+ * @package 3.0
+**/
+
+if (!function_exists('notice_error')) {
+    function notice_error($text)
+    {
+        return '<div class="alert alert-custom alert-primary fade show" role="alert">
+            <div class="alert-icon"><i class="fa fa-warning"></i></div>
+            <div class="alert-text">'.$text.'</div>
+            <div class="alert-close">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                </button>
+            </div>
+        </div>';
+    }
+}
+
+/**
+ * Output message with success tag
+ *
+ * @param String (error code)
+ * @return String (Html result)
+**/
+
+if (!function_exists('notice_success')) {
+    function notice_success($text)
+    {
+        return '<div class="alert alert-custom alert-primary fade show" role="alert">
+            <div class="alert-icon"><i class="fa fa-thumbs-o-up"></i></div>
+            <div class="alert-text">'.$text.'</div>
+            <div class="alert-close">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                </button>
+            </div>
+        </div>';
+    }
+}
+
+/**
+ * Output message with warning tag
+ *
+ * @param String (error code)
+ * @return String (Html result)
+**/
+
+if (!function_exists('notice_warning')) {
+    function notice_warning($text)
+    {
+        return '<div class="alert alert-custom alert-warning fade show" role="alert">
+            <div class="alert-icon"><i class="fa fa-warning"></i></div>
+            <div class="alert-text">'.$text.'</div>
+            <div class="alert-close">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                </button>
+            </div>
+        </div>';
+    }
+}
+
+/**
+ * Output message with Info tag
+ *
+ * @param String (error code)
+ * @return String (Html result)
+**/
+
+if (!function_exists('notice_info')) {
+    function notice_info($text)
+    {
+        return '<div class="alert alert-custom alert-info fade show" role="alert">
+            <div class="alert-icon"><i class="fa fa-info"></i></div>
+            <div class="alert-text">'.$text.'</div>
+            <div class="alert-close">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                </button>
+            </div>
+        </div>';
+        ;
     }
 }
 
@@ -278,4 +368,36 @@ function do_upload($photo, $app = null)
         return FALSE ;
     }
    
+}
+
+function options($app = 'system')
+{
+    if (! get_instance()->install_model->is_installed()) : return;
+    endif;
+
+    global $AppOptions;
+    get_instance()->load->model('options_model');
+
+    if ( ! empty( @$AppOptions[ $app ] )) {
+        return $AppOptions[ $app ];
+    } 
+
+    $options = get_instance()->options_model->get(null, $app);
+    
+    $AppOptions[ $app ] = $options;
+    return $options;
+}
+
+/**
+ *  Get Options
+ *  @param string option key
+ *  @return string/int/array
+**/
+
+function get_option( $key = null, $default = null, $app = APPNAME ) {
+    if( $key != null ) {
+        return riake( $key, options($app), $default);
+    }
+
+    return options($app);
 }

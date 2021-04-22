@@ -17,6 +17,7 @@ class Menus_Model extends CI_Model
     public function __construct()
     {
         parent::__construct();
+        $this->load->library('multimenu');
     }
 
     /**
@@ -47,17 +48,8 @@ class Menus_Model extends CI_Model
      **/
     public function aside_nav()
     {
-        $aside_nav[] = array(
-            'id'     => 3,
-            'parent' => null,
-            'name'   => __('Notification'),
-            'icon'   => 'icon-2x flaticon2-bell-4',
-            'slug'   => 'admin/notification',
-            'permission' => 'read.users',
-            'order'  => 3,
-        );
         get_instance()->multimenu->set_items(
-            $this->events->apply_filters('aside_nav', $aside_nav)
+            $this->events->apply_filters('fill_aside_nav', [])
         );
 
         $config["item_tag_open"]  = '<li class="nav-item mb-2" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="%s">';
@@ -80,7 +72,7 @@ class Menus_Model extends CI_Model
             'id'     => 3,
             'parent' => null,
             'name'   => __('Appearance'),
-            'icon'   => 'icon-2x fas fa-palette',
+            'icon'   => 'icon-lg fas fa-palette',
             'slug'   => 'admin/appearance',
             'permission' => 'read.themes',
             'order'  => 3,
@@ -89,7 +81,7 @@ class Menus_Model extends CI_Model
             'id'     => 4,
             'parent' => null,
             'name'   => __('Addons'),
-            'icon'   => 'icon-2x flaticon2-layers-1',
+            'icon'   => 'icon-lg flaticon2-layers-1',
             'slug'   => 'admin/addons',
             'permission' => 'read.addons',
             'order'  => 4,
@@ -98,7 +90,7 @@ class Menus_Model extends CI_Model
             'id'     => 5,
             'parent' => null,
             'name'   => __('Setting'),
-            'icon'   => 'icon-2x flaticon2-settings',
+            'icon'   => 'icon-lg flaticon2-settings',
             'slug'   => 'admin/settings',
             'permission' => 'read.options',
             'order'  => 5,
@@ -108,7 +100,7 @@ class Menus_Model extends CI_Model
             'id'         => 6,
             'parent'     => null,
             'name'       => __('Reset', 'aauth'),
-            'icon'       => 'icon-2x flaticon2-refresh-button',
+            'icon'       => 'icon-lg flaticon2-refresh-button',
             'slug'       => 'admin/reset',
             'permission' => 'read.users',
             'order'      => 6
@@ -301,7 +293,7 @@ class Menus_Model extends CI_Model
     public function menu_nav()
     {
         get_instance()->multimenu->set_items(
-            $this->events->apply_filters('menu_nav', [])
+            $this->events->apply_filters('fill_menu_nav', [])
         );
 
         $config["nav_tag_open"]       = '<ul class="menu-nav">';
@@ -319,6 +311,6 @@ class Menus_Model extends CI_Model
         $config["item_divider"]       = '<li class="menu-section"><h4 class="menu-text">%s</h4></li>';
 
         // call render in view
-        return get_instance()->multimenu->render($config, $this->events->apply_filters('menu_nav_divider', ['']));
+        return get_instance()->multimenu->render($config, $this->events->apply_filters('fill_menu_nav_divider', ['']));
     }
 }

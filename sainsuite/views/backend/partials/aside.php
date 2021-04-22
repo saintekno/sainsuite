@@ -28,7 +28,7 @@
 				<!--begin::Item-->
 				<li class="nav-item mb-2" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Application">
 					<a href="app" class="nav-link btn btn-icon btn-clean btn-lg d-none" data-toggle="tab" data-target="#kt_aside_tab_1" role="tab">
-						<i class="icon-2x flaticon-squares-4"></i>
+						<i class="icon-lg flaticon-squares-4"></i>
 					</a>
 				</li>
 
@@ -48,7 +48,7 @@
 
 			<div class="dropdown dropup">
 				<a class="btn btn-icon btn-clean btn-lg mb-2" data-toggle="dropdown" data-target="help" data-offset="0px,0px" aria-expanded="false">
-					<i class="icon-2x flaticon-questions-circular-button"></i>
+					<i class="icon-lg flaticon-questions-circular-button"></i>
 				</a>
 				<!--begin::Dropdown-->
 				<div id="help" class="dropdown-menu dropdown-menu-sm">

@@ -361,13 +361,6 @@ class MY_Addon extends CI_Model
             Filer::drop($addon_assets_folder);
         }
 
-        // Drop Uploads Folder
-        if ($update) :
-        if (is_dir($addon_uploads_folder = FCPATH . 'uploads' . '/' . $addon_namespace)) {
-            Filer::drop($addon_uploads_folder);
-        }
-        endif;
-
         // Drop Assets Folder
         if (is_dir($addon_themes_folder = FCPATH . 'assets' . '/' . $addon_namespace)) {
             Filer::drop($addon_themes_folder);
@@ -378,7 +371,14 @@ class MY_Addon extends CI_Model
             Filer::drop($themes_folder);
         }
 
-        get_instance()->options_model->delete( null, $addon_namespace);
+        // Drop Uploads Folder
+        if (! $update) :
+            if (is_dir($addon_uploads_folder = FCPATH . 'uploads' . '/' . $addon_namespace)) {
+                Filer::drop($addon_uploads_folder);
+            }
+            get_instance()->options_model->delete( null, $addon_namespace);
+        endif;
+
         if ( @$Options[ 'theme_frontend' ] ==  $addon_namespace ) :
             get_instance()->options_model->set('theme_frontend', 'default' );
         endif;
@@ -388,9 +388,11 @@ class MY_Addon extends CI_Model
 
     public static function extract($addon_namespace)
     {
-        if (! get_instance()->aauth->is_admin()) {
-            return;
-        }
+        if (! get_instance()->aauth->is_admin()) : return;
+        endif;
+
+        if ( ! riake('webdev_mode', options(APPNAME)) ) : return;
+        endif;
         
         $addon = self::get($addon_namespace);
         if ($addon) 

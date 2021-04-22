@@ -180,6 +180,9 @@ class Theme
 
     public static function extract($theme_namespace)
     {
+        if ( ! riake('webdev_mode', options(APPNAME)) ) : return;
+        endif;
+
         $theme = self::get($theme_namespace);
         if ($theme) 
         {

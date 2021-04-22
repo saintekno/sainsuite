@@ -17,9 +17,6 @@ class MY_Controller extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-
-        // Debugging
-        $this->output->enable_profiler(ENVIRONMENT == 'development');
         
         // Load Global Lang lines
         $this->lang->load_lines(APPPATH . '/language/*.php');
@@ -41,7 +38,7 @@ class MY_Controller extends CI_Controller
             MY_Addon::init('actives'); 
 
             // add events
-            $this->events->do_action('app_init');
+            $this->events->do_action('do_app_init');
         }
         // Only for controller requiring installation
         elseif ( $this->uri->segment(1) === 'install' ) {

@@ -8,7 +8,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     
     <?php $this->events->do_action( 'dashboard_header' );?>
 </HEAD>
-<BODY id="kt_body <?php echo APPNAME; ?>" 
+<BODY id="kt_body" 
     class="header-mobile-fixed aside-enabled aside-fixed aside-minimize subheader-enabled subheader-transparent <?php echo xss_clean($this->events->apply_filters('dashboard_skin_class', 'skin-'.APPNAME));?>" 
     <?php echo xss_clean($this->events->apply_filters('dashboard_body_attrs', 'ng-app="SainSuite"'));?>>
 

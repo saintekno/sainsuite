@@ -15,7 +15,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Options_Model extends CI_Model
 {
     private $options = array();
-    private $app_options = array();
 
     public function __construct()
     {
@@ -32,8 +31,7 @@ class Options_Model extends CI_Model
     **/
     public function init()
     {
-        global $Options, $App_Options;
-        $App_Options = $this->app_options = $this->get(null, APPNAME);
+        global $Options;
         $Options = $this->options = $this->get();
     }
 
@@ -60,7 +58,7 @@ class Options_Model extends CI_Model
     **/
     public function set($key, $value, $app = 'system')
     {
-        global $Options, $App_Options;
+        global $Options;
 
         // get option if exists
         if ($key != null) {
@@ -70,7 +68,6 @@ class Options_Model extends CI_Model
         $this->db->where('app', $app);
 
         $Options[ $key ]  = $value;
-        $App_Options[ $key ]  = $value;
         
         $value = is_array($value) ? json_encode($value) : $value;                 // converting array to JSON
         $value = is_bool($value) ? $value === true ? 'true' : 'false' : $value;  // Converting Bool to string
@@ -113,9 +110,6 @@ class Options_Model extends CI_Model
         if ( ! empty( @$this->options[ $key ] ) && $app == 'system') {
             return $this->options[ $key ];
         } 
-        if ( ! empty( @$this->app_options[ $key ] ) && APPNAME != 'system') {
-            return $this->app_options[ $key ];
-        } 
 
         if ($key !== null) {
             $this->db->where('key', $key);
@@ -138,7 +132,6 @@ class Options_Model extends CI_Model
 
                 // Internal Cache
                 $this->options[ $key ] = $value;
-                $this->app_options[ $key ] = $value;
                     
                 return $value;
             }
@@ -154,7 +147,6 @@ class Options_Model extends CI_Model
                 $key_value[ riake('key', $_option) ] = $value;
                 // Internal Cache
                 $this->options[ riake('key', $_option) ] = $value;
-                $this->app_options[ riake('key', $_option) ] = $value;
             }
             return $key_value;
         }

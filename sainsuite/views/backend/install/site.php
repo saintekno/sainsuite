@@ -55,18 +55,36 @@
 		<div class="col-xl-6">
 			<!--begin::Input-->
 			<div class="form-group">
-				<input type="password"
-					class="form-control form-control-solid h-auto font-size-h5 p-6 border-0 rounded-lg font-size-h6"
-					name="password" placeholder="<?php _e( 'Password' );?>" value="<?php echo set_value('password'); ?>" />
+				<div class="form-control-wrap">
+					<a tabindex="-1" href="#" class="form-icon form-icon-right passcode-switch" data-target="form-password">
+						<em class="passcode-icon icon-show icon fas fa-fingerprint"></em>
+						<em class="passcode-icon icon-hide icon far fa-eye-slash"></em>
+					</a>
+					<input class="form-control form-control-solid h-auto font-size-h5 p-6 border-0 rounded-lg font-size-h6"
+						type="password" 
+						id="form-password"
+						placeholder="<?php _e('Password' ); ?>"
+						name="password" 
+						value="<?php echo set_value('password'); ?>" />
+				</div>
 			</div>
 			<!--end::Input-->
 		</div>
 		<div class="col-xl-6">
 			<!--begin::Input-->
 			<div class="form-group">
-				<input type="password"
-					class="form-control form-control-solid h-auto font-size-h5 p-6 border-0 rounded-lg font-size-h6"
-					name="confirm" placeholder="<?php _e('Password confirm');?>" value="<?php echo set_value('confirm'); ?>" />
+				<div class="form-control-wrap">
+					<a tabindex="-1" href="#" class="form-icon form-icon-right passcode-switch" data-target="form-password">
+						<em class="passcode-icon icon-show icon fas fa-fingerprint"></em>
+						<em class="passcode-icon icon-hide icon far fa-eye-slash"></em>
+					</a>
+					<input class="form-control form-control-solid h-auto font-size-h5 p-6 border-0 rounded-lg font-size-h6"
+						type="password" 
+						id="form-password"
+						placeholder="<?php _e('Password Confirm' ); ?>"
+						name="confirm" 
+						value="<?php echo set_value('confirm'); ?>" />
+				</div>
 			</div>
 			<!--end::Input-->
 		</div>

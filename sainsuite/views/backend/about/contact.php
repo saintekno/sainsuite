@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-global $Options, $App_Options;
+global $Options;
+$App_Options = options(APPNAME);
 ?>
 
 <div class="flex-column justify-content-lg-start text-white d-none d-lg-flex px-40">
@@ -17,8 +18,8 @@ global $Options, $App_Options;
         Jika Anda butuh bantuan, silahkan Kontak Kami
         </span>
         <span class="font-size-md">
-        Telp. - HP. +62 822 6920 4668 <br>
-        <?php echo $this->aauth->config_vars['email']; ?>
+        Telp. - HP. <?php echo riake('admin_contact', $App_Options, '(+62) 822 2069 4668'); ?> <br>
+        <?php echo riake('admin_email', $App_Options, 'sainteknoid@gmail.com'); ?>
         </span>
     </p>
     

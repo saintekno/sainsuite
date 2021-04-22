@@ -143,7 +143,7 @@ class Install_Model extends CI_Model
         $this->options_model->set('theme_frontend', 'default');
 
         // Do actions
-        $this->events->do_action('settings_final_config');
+        $this->events->do_action('do_settings_final_config');
 
         // user can change this behaviors
         return $this->events->apply_filters('validating_setup', 'system-installed');

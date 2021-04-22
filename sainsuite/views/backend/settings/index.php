@@ -13,7 +13,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @filesource
  */
 
-global $App_Options;
+$options = options(APPNAME);
 
 $this->polatan->add_meta(array(
     'col_id' => 1,
@@ -37,7 +37,7 @@ $filed_heading1[] = array(
         'required'  => true,
         'label' => __('Site Name'),
         'name'  => 'site_name',
-        'value' => set_value('site_name', riake('site_name', $App_Options )),
+        'value' => set_value('site_name', riake('site_name', $options )),
         'description' => 'Enter your site name'
     ],
     [
@@ -46,7 +46,7 @@ $filed_heading1[] = array(
         'class'  => 'col-12 col-lg-6',
         'label' => __('Site Title'),
         'name'  => 'site_title',
-        'value' => set_value('site_title', riake('site_title', $App_Options )),
+        'value' => set_value('site_title', riake('site_title', $options )),
         'description' => 'Enter your site title'
     ]
 );
@@ -57,7 +57,7 @@ $filed_heading1[] = array(
         'class'  => 'col-12 col-lg-6',
         'label' => __('Site Description'),
         'name'  => 'site_description',
-        'value' => set_value('site_description', riake('site_description', $App_Options )),
+        'value' => set_value('site_description', riake('site_description', $options )),
         'description' => 'Enter your site description'
     ],
     [
@@ -66,7 +66,7 @@ $filed_heading1[] = array(
         'class'  => 'col-12 col-lg-6',
         'label' => __('Site Keywords'),
         'name'  => 'site_keywords',
-        'value' => set_value('site_keywords', riake('site_keywords', $App_Options )),
+        'value' => set_value('site_keywords', riake('site_keywords', $options )),
         'description' => 'Enter your site keywords'
     ]
 );
@@ -78,7 +78,7 @@ $filed_heading1[] = array(
         'class'  => 'col-12 col-lg-6',
         'label'   => __('Timezone'),
         'options' => $this->config->item('site_timezone'),
-        'active'  => riake('site_timezone', $App_Options)
+        'active'  => riake('site_timezone', $options)
     ],
     [
         'permission'  => 'manage.core',
@@ -87,7 +87,7 @@ $filed_heading1[] = array(
         'class'  => 'col-12 col-lg-6',
         'label'   => __('Language'),
         'options' => $this->config->item('supported_languages'),
-        'active'  => riake('site_language', $App_Options)
+        'active'  => riake('site_language', $options)
     ]
 );
 $items_heading1 = $this->events->apply_filters('fill_setting_general', $filed_heading1);
@@ -102,7 +102,7 @@ $filed_heading2[] = array(
         'class'  => 'col-12 col-lg-6',
         'name'    => 'demo_mode',
         'label'   => __('Enable Demo ?'),
-        'active'  => riake('demo_mode', $App_Options),
+        'active'  => riake('demo_mode', $options),
         'options' => array(
             0 => __('No'),
             1 => __('Yes')
@@ -114,7 +114,7 @@ $filed_heading2[] = array(
         'class'  => 'col-12 col-lg-6',
         'name'    => 'enable_frontend',
         'label'   => __('Enable Frontend ?'),
-        'active'  => riake('enable_frontend', $App_Options),
+        'active'  => riake('enable_frontend', $options),
         'options' => array(
             0 => __('No'),
             1 => __('Yes')

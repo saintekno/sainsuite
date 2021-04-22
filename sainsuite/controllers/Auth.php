@@ -75,8 +75,7 @@ class Auth extends MY_Controller
      */
     public function register()
     {
-        global $App_Options;
-        if (intval(riake('site_registration', $App_Options)) == false) : 
+        if (intval(riake('site_registration', options(APPNAME))) == false) : 
             redirect(array( 'login' ));
         endif;
 
@@ -130,8 +129,7 @@ class Auth extends MY_Controller
     **/
     public function recovery()
     {
-        global $App_Options;
-        if (intval(riake('site_registration', $App_Options)) == false) : 
+        if (intval(riake('site_registration', options(APPNAME))) == false) : 
             redirect(array( 'login' ));
         endif;
         
