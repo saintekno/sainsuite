@@ -21,8 +21,8 @@ class Users_Install extends MY_Addon
         // Installation
         $this->events->add_action('do_after_db_setup', [ $this, 'enable_addon' ] );
         $this->events->add_action('do_settings_tables', array( $this, 'do_settings_tables' ), 1);
-        $this->events->add_action('settings_final_config', array( $this, 'permissions' ));
-        $this->events->add_action('settings_final_config', array( $this, 'final_config' ));
+        $this->events->add_action('do_settings_final_config', array( $this, 'permissions' ));
+        $this->events->add_action('do_settings_final_config', array( $this, 'final_config' ));
         $this->events->add_action('settings_setup', array( new Users_Action, 'registration_rules' ));
     }
 
@@ -161,76 +161,82 @@ class Users_Install extends MY_Addon
         /**
          * Creating default permissions
         **/
+        $permissions =	[];
         // Core Permission
-        $this->aauth->create_perm('manage.core', 'Manage Core');
-        $this->aauth->create_perm('manage.menu', 'Manage Menu');
+        $permissions[ 'manage.core' ] 		=	__( 'Manage Core' );
+        $permissions[ 'manage.menu' ] 		=	__( 'Manage Menu' );
 
         // Options Permissions
-        $this->aauth->create_perm('create.options', 'Create Options');
-        $this->aauth->create_perm('edit.options', 'Edit Options');
-        $this->aauth->create_perm('read.options', 'Read Options');
+        $permissions[ 'create.options' ]    =	__( 'Create Options' );
+        $permissions[ 'edit.options' ] 		=	__( 'Edit Options' );
+        $permissions[ 'read.options' ] 		=	__( 'Read Options' );
 
         // Addons Permissions
-        $this->aauth->create_perm('read.addons', 'Read Addons');
-        $this->aauth->create_perm('install.addons', 'Install Addons');
-        $this->aauth->create_perm('update.addons', 'Update Addons');
-        $this->aauth->create_perm('delete.addons', 'Delete Addons');
-        $this->aauth->create_perm('toggle.addons', 'Enable/Disable Addons');
-        $this->aauth->create_perm('extract.addons', 'Extract Addons');
+        $permissions[ 'read.addons' ]       =	__( 'Read Addons' );
+        $permissions[ 'install.addons' ]    =	__( 'Install Addons' );
+        $permissions[ 'update.addons' ]     =	__( 'Update Addons' );
+        $permissions[ 'delete.addons' ]     =	__( 'Delete Addons' );
+        $permissions[ 'toggle.addons' ]     =	__( 'Enable/Disable Addons' );
+        $permissions[ 'extract.addons' ]    =	__( 'Extract Addons' );
 
         // Themes Permissions
-        $this->aauth->create_perm('read.themes', 'Read themes');
-        $this->aauth->create_perm('install.themes', 'Install themes');
-        $this->aauth->create_perm('delete.themes', 'Delete themes');
-        $this->aauth->create_perm('toggle.themes', 'Enable/Disable themes');
-        $this->aauth->create_perm('extract.themes', 'Extract themes');
+        $permissions[ 'read.themes' ]       =	__( 'Read themes' );
+        $permissions[ 'install.themes' ]    =	__( 'Install themes' );
+        $permissions[ 'delete.themes' ]     =	__( 'Delete themes' );
+        $permissions[ 'toggle.themes' ]     =	__( 'Enable/Disable themes' );
+        $permissions[ 'extract.themes' ]    =	__( 'Extract themes' );
 
         // Users Permissions
-        $this->aauth->create_perm('read.users', 'Read Users');
-        $this->aauth->create_perm('create.users', 'Create Users');
-        $this->aauth->create_perm('edit.users', 'Edit Users');
-        $this->aauth->create_perm('delete.users', 'Delete Users');
+        $permissions[ 'read.users' ]        =	__( 'Read Users' );
+        $permissions[ 'create.users' ]      =	__( 'Create Users' );
+        $permissions[ 'edit.users' ]        =	__( 'Edit Users' );
+        $permissions[ 'delete.users' ]      =	__( 'Delete Users' );
 
         // Group Permissions
-        $this->aauth->create_perm('read.group', 'Read Group');
-        $this->aauth->create_perm('create.group', 'Create Group');
-        $this->aauth->create_perm('edit.group', 'Edit Group');
-        $this->aauth->create_perm('delete.group', 'Delete Group');
+        $permissions[ 'read.group' ]        =	__( 'Read Group' );
+        $permissions[ 'create.group' ]      =	__( 'Create Group' );
+        $permissions[ 'edit.group' ]        =	__( 'Edit Group' );
+        $permissions[ 'delete.group' ]      =	__( 'Delete Group' );
 
         // Profile Permission
-        $this->aauth->create_perm('edit.profile', 'Edit Profile');
+        $permissions[ 'edit.profile' ]      =	__( 'Edit Profile' );
+
+        foreach( $permissions as $namespace => $perm ) {
+          $this->aauth->create_perm( 
+            $namespace,
+            $perm
+          );
+        }
 
         /**
          * Assign Permission to Groups
         **/
         // Member
-        $this->aauth->allow_group('member', 'manage.menu');
-
-        $this->aauth->allow_group('member', 'create.options');
-        $this->aauth->allow_group('member', 'edit.options');
-        $this->aauth->allow_group('member', 'read.options');
-
-        $this->aauth->allow_group('member', 'read.addons');
-        $this->aauth->allow_group('member', 'install.addons');
-        $this->aauth->allow_group('member', 'update.addons');
-        $this->aauth->allow_group('member', 'delete.addons');
-        $this->aauth->allow_group('member', 'toggle.addons');
-        $this->aauth->allow_group('member', 'extract.addons');
-
-        $this->aauth->allow_group('member', 'read.users');
-        $this->aauth->allow_group('member', 'create.users');
-        $this->aauth->allow_group('member', 'edit.users');
-        $this->aauth->allow_group('member', 'delete.users');
-
-        $this->aauth->allow_group('member', 'read.group');
-        $this->aauth->allow_group('member', 'create.group');
-        $this->aauth->allow_group('member', 'edit.group');
-        $this->aauth->allow_group('member', 'delete.group');
-        
-        $this->aauth->allow_group('member', 'edit.profile');
+        $permissions_keys =	array_keys( $permissions );
+        foreach([ 
+          'menu',
+          'options',
+          'addons',
+          'themes',
+          'users',
+          'group',
+          'profile',
+        ] as $component ) {
+          foreach([ 'create.', 'edit.', 'delete.', 'read.', 'toggle.', 'extract.', 'install.', 'update.', 'manage.' ] as $action ) 
+          {
+            $permission = $action . $component;
+            if ( in_array( $permission, $permissions_keys ) ) {
+              $this->aauth->allow_group( 'member', $permission );
+            }
+          }
+        }
 
         // Users
-        $this->aauth->allow_group('user', 'edit.profile');
+        foreach([
+          'edit.profile'
+        ] as $permission ) {
+          	$this->aauth->allow_group( 'user', $permission );
+        }
     }
 
     /**

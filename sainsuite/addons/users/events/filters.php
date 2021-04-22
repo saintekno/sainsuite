@@ -22,15 +22,34 @@ class Users_Filters extends MY_Addon
         $this->events->add_filter('load_users_advanced', array( $this, 'load_users_advanced' ));
 
         $this->events->add_filter('apps_logo', array( $this, 'apps_logo' ), 1, 1);
+        $this->events->add_filter('fill_form_register', array( $this, 'fill_form_register' ), 1, 1);
         $this->events->add_filter('fill_apps_contact', array( $this, 'fill_apps_contact' ), 5, 1);
         $this->events->add_filter('fields_user_vars', array( $this, 'fields_user_vars' ), 10, 1);
         $this->events->add_filter('user_menu_card_avatar_src', function () {
             return User::get_user_image_url(User::id());
         });
     }
+
+    public function fill_form_register()
+    {
+        return $this->addon_view( 'users', 'auth/register', array(), true );
+    }
     
     public function load_user_profile($config)
     {        
+        $filed[] = array(
+            'type'  => 'input-image',
+            'wrapper'  => 'user',
+            'accept' => '.png, .jpg, .jpeg',
+            'label' => __('user_image'),
+            'name'  => 'user_image',
+            'id'  => 'user_image',
+            'description' => 'Allowed file types: png, jpg, jpeg.',
+            'value' => (empty($config['user'])) 
+                ? ''
+                : $config['user']->id
+        );
+
         $filed[] = array(
             [
                 'label'    => __('User Name', 'aauth'),
@@ -136,35 +155,6 @@ class Users_Filters extends MY_Addon
         return $filed;
     }
     
-    public function load_users_advanced($config)
-    {
-        $filed[] = array(
-            'type'  => 'input-image',
-            'wrapper'  => 'user',
-            'accept' => '.png, .jpg, .jpeg',
-            'label' => __('user_image'),
-            'name'  => 'user_image',
-            'id'  => 'user_image',
-            'description' => 'Allowed file types: png, jpg, jpeg.',
-            'value' => (empty($config['user'])) 
-                ? ''
-                : $config['user']->id
-        );
-
-        $filed = $this->events->apply_filters_ref_array('load_users_advanced_filed', array( 
-            array_merge(
-                $filed,
-                ['user'=> $config['user']],
-                ['page'=> $config['page']]
-            )
-        ));
-        
-        unset( $filed[ 'page' ] );
-        unset( $filed[ 'user' ] );
-
-        return $filed;
-    }
-    
     public function fields_user_vars($fields)
     {
         $fields[ 'theme-skin' ] = ($skin = $this->input->post('theme-skin')) ? $skin : 'skin-'.APPNAME;
@@ -173,7 +163,7 @@ class Users_Filters extends MY_Addon
 
     public function apps_logo($config_logo = null)
     {
-        global $App_Options;
+        $App_Options = options(APPNAME);
 
         $media = 'media/medium/';
         if ($config_logo == 'light') {

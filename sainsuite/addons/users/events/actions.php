@@ -19,7 +19,7 @@ class Users_Action extends MY_Addon
         parent::__construct();
         
         $this->events->add_action('registration_rules', array( $this, 'registration_rules' ));
-        $this->events->add_action('app_init', array($this, 'check_login'));
+        $this->events->add_action('do_app_init', array($this, 'check_login'));
     }
     
     public function registration_rules()

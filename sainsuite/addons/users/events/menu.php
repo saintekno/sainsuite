@@ -18,7 +18,7 @@ class Users_Menu extends MY_Addon
     {
 		parent::__construct();
 		
-        $this->events->add_filter( 'aside_nav', array( $this, 'aside_nav' ));
+        $this->events->add_filter( 'fill_aside_nav', array( $this, 'fill_aside_nav' ));
     }
 
 	public function _header_nav($menu) {
@@ -68,13 +68,13 @@ class Users_Menu extends MY_Addon
      * Load Dashboard Menu
      * [New Permission Ready]
     **/
-    public function aside_nav($menus)
+    public function fill_aside_nav($menus)
     {
         $menus[] = array(
             'id' => 4,
             'parent'  => NULL,
             'name' => __('Users', 'aauth'),
-            'icon' => 'icon-2x flaticon2-user-1',
+            'icon' => 'icon-lg flaticon2-user-1',
             'slug'  => 'admin/users',
             'permission' => 'read.users',
             'order' => 4
@@ -83,7 +83,7 @@ class Users_Menu extends MY_Addon
             'id' => 5,
             'parent'  => NULL,
             'name' => __('Inbox', 'aauth'),
-            'icon' => 'icon-2x flaticon2-chat-1',
+            'icon' => 'icon-lg flaticon2-chat-1',
             'slug'  => 'admin/chat',
             'permission' => 'read.users',
             'order' => 5

@@ -106,34 +106,4 @@ $this->polatan->add_item(array(
 
 // =============================================================================== 
 
-// load custom field for user creatin
-$this->polatan->add_meta(array(
-    'col_id' => 2,
-    'class'     => 'col-12',
-    'namespace' => 'users_advanced',
-    'gui_saver' => true,
-    'type' => 'card',
-    'form' => array(
-        'action' => site_url('admin/profile')
-    ),
-));
-$users_advanced[] = array(
-    'id' => 3,
-    'class' => 'card-header-light',
-    'heading'=> __('Advanced'),
-    'description' => 'Perform advanced options',
-    'body' => array(
-        'items' => $this->events->apply_filters_ref_array('load_users_advanced', array( 
-            array_merge(
-                ['user'=> User::get()], 
-                ['page'=> 'profile']
-            )
-            ))
-    )
-);
-$this->polatan->add_item(array(
-    'type'  => 'accordions',
-    'accordion' => $users_advanced
-), 'users_advanced', 2);
-
 $this->polatan->output();
