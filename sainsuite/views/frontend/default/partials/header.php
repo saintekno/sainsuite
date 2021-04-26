@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="nav_account btn_demo3 ml-auto">
+                <div class="nav_account ml-auto">
                     <?php if (User::is_loggedin()) : ?>
                     <a href="<?=site_url('admin')?>" class="btn btn_demo3 btn_sm_primary rounded-pill">
                         <?php echo User::get()->username;?>
@@ -31,8 +31,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         Sign Out
                     </a>
                     <?php else : ?>
-                    <a href="<?=site_url('login')?>" class="btn btn_sm_primary border-0 effect-letter bg-dark c-white rounded-pill">
-                        Sign In
+                    <a href="https://github.com/saintekno" class="btn btn_demo3 btn_sm_primary rounded-pill">
+                        Download
+                    </a>
+                    <a href="<?=site_url('login')?>" class="btn btn_demo2 btn_sm_primary effect-letter bg-dark c-white rounded-pill">
+                        Try it for free
                     </a>
                     <?php endif; ?>
                 </div>

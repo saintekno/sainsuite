@@ -29,7 +29,7 @@ global $Options;
                                 </div>
 
                                 <div class="link_item selecr_mark">
-                                <a href="mailto:sainteknoid@mail.com">
+                                <a href="mailto:sainteknoid@gmail.com">
                                     <i class="tio email"></i>
                                     sainteknoid@gmail.com
                                 </a>
