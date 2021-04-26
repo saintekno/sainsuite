@@ -27,6 +27,11 @@ class Reset extends MY_Addon
 	
 	function index()
 	{
+		if (! User::control('manage.core') ) : 
+			$this->session->set_flashdata('info_message', __( 'Youre not allowed to see that page.' ));
+			redirect(site_url('admin/page404'));
+		endif;
+
 		if ( isset( $_GET[ 'reset-process' ] ) ) {
 			unlink( APPPATH . '/config/database.php' );
 			$this->load->dbforge();
