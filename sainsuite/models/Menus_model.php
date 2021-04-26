@@ -95,17 +95,15 @@ class Menus_Model extends CI_Model
             'permission' => 'read.options',
             'order'  => 5,
         );
-        if (APPNAME == 'system') : 
         $asidefooter_nav[] = array(
             'id'         => 6,
             'parent'     => null,
             'name'       => __('Reset', 'aauth'),
             'icon'       => 'icon-lg flaticon2-refresh-button',
             'slug'       => 'admin/reset',
-            'permission' => 'read.users',
+            'permission' => 'manage.core',
             'order'      => 6
         );
-        endif;
         get_instance()->multimenu->set_items(
             $this->events->apply_filters('asidefooter_nav', $asidefooter_nav)
         );

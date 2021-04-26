@@ -388,10 +388,7 @@ class MY_Addon extends CI_Model
 
     public static function extract($addon_namespace)
     {
-        if (! get_instance()->aauth->is_admin()) : return;
-        endif;
-
-        if ( ! riake('webdev_mode', options(APPNAME)) ) : return;
+        if (! get_instance()->aauth->is_admin() || ! riake('webdev_mode', options(APPNAME)) ) : return;
         endif;
         
         $addon = self::get($addon_namespace);

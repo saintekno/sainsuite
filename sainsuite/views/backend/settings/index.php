@@ -72,7 +72,7 @@ $filed_heading1[] = array(
 );
 $filed_heading1[] = array(
     [
-        'permission'  => 'manage.core',
+        'permission'  => 'read.options',
         'type'    => 'select',
         'name'    => 'site_timezone',
         'class'  => 'col-12 col-lg-6',
@@ -81,7 +81,7 @@ $filed_heading1[] = array(
         'active'  => riake('site_timezone', $options)
     ],
     [
-        'permission'  => 'manage.core',
+        'permission'  => 'read.options',
         'type'    => 'select',
         'name'    => 'site_language',
         'class'  => 'col-12 col-lg-6',
@@ -97,7 +97,7 @@ $items_heading1 = $this->events->apply_filters('fill_setting_general', $filed_he
  */
 $filed_heading2[] = array(
     [
-        'permission'  => 'manage.core',
+        'permission'  => 'read.options',
         'type'    => 'select',
         'class'  => 'col-12 col-lg-6',
         'name'    => 'demo_mode',
@@ -109,7 +109,7 @@ $filed_heading2[] = array(
         ),
     ],
     [
-        'permission'  => 'manage.core',
+        'permission'  => 'read.options',
         'type'    => 'select',
         'class'  => 'col-12 col-lg-6',
         'name'    => 'enable_frontend',
@@ -137,7 +137,7 @@ $item[] = array(
 );
 $item[] = array(
     'id' => 2,
-    'permission'  => 'manage.core',
+    'permission'  => 'read.options',
     'class' => 'card-header-light',
     'heading'=> __('Advanced Settings'),
     'description' => 'Advanced settings, open register user',

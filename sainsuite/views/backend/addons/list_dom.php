@@ -36,7 +36,8 @@ if ($addons) :
                                 <?php $this->events->do_action('do_menu_addon_header', $_group) ?>
                             </div>
                         </div>   
-                        <div class="card-body bgi-no-repeat p-4 min-h-100px bg-secondary">
+                        <div class="card-body bgi-no-repeat p-4 min-h-100px 
+                            <?php echo ($_group[ 'application' ][ 'package' ] == 'addkit') ? 'bg-light-primary' : 'bg-secondary' ;?>">
                             <p><?php echo $_group[ 'application' ][ 'description' ];?></p>
                         </div> 
                         <div class="p-1 min-h-40px d-flex justify-content-between align-items-center">
@@ -63,28 +64,28 @@ if ($addons) :
                             <?php endif;?>
 
                             <?php if (! MY_Addon::is_active($addon_namespace, true)) {?>
-                            <?php if ( $this->aauth->is_admin() && APPNAME == 'system') : ?>
-                            <a href="#" class="btn btn-circle btn-icon btn-sm btn-light-danger ml-2" 
-                                data-url="<?php echo site_url(array( 'admin', 'addons', 'remove', $addon_namespace )); ?>" 
-                                data-head="<?php _e( 'Would you like to delete this addon?');?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Remove"
-                                onclick="deleteConfirmation(this)">
-                                <i class="ki ki-close icon-nm"></i>
-                            </a>
-                            <?php endif;?>
-                            
-                            <span class="switch switch-outline switch-icon switch-success ml-2" >
-                                <label data-toggle="tooltip" data-placement="top" title="" data-original-title="Disable">
-                                    <input type="checkbox" onclick="window.location.href='<?php echo site_url(array( 'admin', 'addons', 'enable', $addon_namespace ));?>'"/>
-                                    <span></span>
-                                </label>
-                            </span>
+                                <?php if ( User::control('manage.core') ) : ?>
+                                <a href="#" class="btn btn-circle btn-icon btn-sm btn-light-danger ml-2" 
+                                    data-url="<?php echo site_url(array( 'admin', 'addons', 'remove', $addon_namespace )); ?>" 
+                                    data-head="<?php _e( 'Would you like to delete this addon?');?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Remove"
+                                    onclick="deleteConfirmation(this)">
+                                    <i class="ki ki-close icon-nm"></i>
+                                </a>
+                                <?php endif;?>
+                                
+                                <span class="switch switch-outline switch-icon switch-success ml-2" >
+                                    <label data-toggle="tooltip" data-placement="top" title="" data-original-title="Disable">
+                                        <input type="checkbox" onclick="window.location.href='<?php echo site_url(array( 'admin', 'addons', 'enable', $addon_namespace ));?>'"/>
+                                        <span></span>
+                                    </label>
+                                </span>
                             <?php } else {?>
-                            <span class="switch switch-outline switch-icon switch-success ml-2" >
-                                <label data-toggle="tooltip" data-placement="top" title="" data-original-title="Enable">
-                                    <input type="checkbox" checked="checked" onclick="window.location.href='<?php echo site_url(array( 'admin', 'addons', 'disable', $addon_namespace ));?>'"/>
-                                    <span></span>
-                                </label>
-                            </span>
+                                <span class="switch switch-outline switch-icon switch-success ml-2" >
+                                    <label data-toggle="tooltip" data-placement="top" title="" data-original-title="Enable">
+                                        <input type="checkbox" checked="checked" onclick="window.location.href='<?php echo site_url(array( 'admin', 'addons', 'disable', $addon_namespace ));?>'"/>
+                                        <span></span>
+                                    </label>
+                                </span>
                             <?php };?>
                             
                             <?php endif;?>

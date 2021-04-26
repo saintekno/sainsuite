@@ -6,12 +6,12 @@ $App_Options = options(APPNAME);
 
 <div class="flex-column justify-content-lg-start text-white d-none d-lg-flex px-40">
     <h2 class="m-0 font-weight-boldest display5 display1-lg">
-        <?php echo ($start) ? 'We Got A<br> Surprise<br> For You' : riake('site_name', $App_Options);?>.
+        <?php echo riake('site_name', $App_Options, 'We Got A<br> Surprise<br> For You');?>.
     </h2>
     <h4 class="m-0 font-weight-boldest display5">
-        <?php echo ($start) ? get('app_name') : riake('site_title', $App_Options);?>.
+        <?php echo riake('site_title', $App_Options, 'sainsuite');?>.
     </h4>
-    <small class="lead mb-20"><?php echo ($start) ? 'To Grow Your Business' : riake('site_description', $App_Options);?></small>
+    <small class="lead mb-20"><?php echo riake('site_description', $App_Options, 'To Grow Your Business');?></small>
 
     <p class="flex-column justify-content-end d-flex">
         <span class="opacity-50 font-weight-bold font-size-sm">

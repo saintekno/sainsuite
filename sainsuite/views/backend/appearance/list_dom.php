@@ -35,7 +35,8 @@ if ($themes) :
                                 <?php $this->events->do_action('do_menu_theme_header', $_group) ?>
                             </div>
                         </div>   
-                        <div class="card-body bgi-no-repeat p-4 min-h-100px bg-secondary">
+                        <div class="card-body bgi-no-repeat p-4 min-h-100px 
+                            <?php echo ($_group[ 'theme' ][ 'package' ] == 'themekit') ? 'bg-light-primary' : 'bg-secondary' ;?>">
                             <p><?php echo $_group[ 'theme' ][ 'description' ];?></p>
                         </div> 
                         <div class="p-1 min-h-40px d-flex justify-content-between align-items-center">
@@ -48,22 +49,22 @@ if ($themes) :
                             <?php endif; ?>
 
                             <?php if (! $_group[ 'theme' ][ 'readonly' ]) : ?>
-                            <?php if (! Theme::is_active($theme_namespace, true)) : ?>
-                            <a href="<?php echo site_url(array( 'admin', 'appearance', 'enable', $theme_namespace ));?>" 
-                                class="btn btn-sm btn-light-primary font-weight-bolder text-uppercase ml-2 my-1" data-action="enable">
-                                <i class="fa fa-toggle-on"></i> active
-                            </a>
+                                <?php if (! Theme::is_active($theme_namespace, true)) : ?>
+                                <a href="<?php echo site_url(array( 'admin', 'appearance', 'enable', $theme_namespace ));?>" 
+                                    class="btn btn-sm btn-light-primary font-weight-bolder text-uppercase ml-2" data-action="enable">
+                                    <i class="fa fa-toggle-on"></i> active
+                                </a>
 
-                            <?php if ( User::control('delete.themes') && APPNAME == 'system') : ?>
-                            <a href="#" class="btn btn-sm btn-danger font-weight-bolder text-uppercase ml-2 my-1"
-                                data-head="<?php _e( 'Would you like to delete this theme?');?>"
-                                data-url="<?php echo site_url(array( 'admin', 'appearance', 'remove', $theme_namespace )); ?>"
-                                onclick="deleteConfirmation(this)">
-                                <i class="fa fa-trash p-0"></i>
-                            </a>
-                            <?php endif;?>
+                                <?php if ( User::control('delete.themes') && User::control('manage.core') ) : ?>
+                                <a href="#" class="btn btn-sm btn-danger font-weight-bolder text-uppercase ml-2"
+                                    data-head="<?php _e( 'Would you like to delete this theme?');?>"
+                                    data-url="<?php echo site_url(array( 'admin', 'appearance', 'remove', $theme_namespace )); ?>"
+                                    onclick="deleteConfirmation(this)">
+                                    <i class="fa fa-trash p-0"></i>
+                                </a>
+                                <?php endif;?>
                             <?php else : ?>
-                            <span class="label label-xl label-primary label-inline ml-2 my-1" data-card-tool="toggle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Theme Active">
+                            <span class="label label-xl label-primary label-inline ml-2" data-card-tool="toggle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Theme Active">
                                 active
                             </span>
                             <?php endif; ?>

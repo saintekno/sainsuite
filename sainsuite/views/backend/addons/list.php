@@ -14,7 +14,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  */
 
 // Toolbar
-if (APPNAME == 'system') : 
+if ( User::control('manage.core') ) : 
 $this->events->add_filter('toolbar_filter', function ($filter) { 
     $filter[] = '<div class="row d-flex align-items-center">';
     if ($this->aauth->is_admin()):
