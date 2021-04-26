@@ -307,7 +307,7 @@ class Aauth {
 				}
 			}
 	 	}
-
+		 
 		$query = null;
 		$query = $this->aauth_db->where($db_identifier, $identifier);
 		$query = $this->aauth_db->where('banned', 0);
@@ -329,6 +329,8 @@ class Aauth {
 				);
 
 				$this->CI->session->set_userdata($data);
+
+				$this->CI->events->do_action('do_get_users_by', $row);
 
 				if ($remember){
 					$this->CI->load->helper('string');
@@ -455,7 +457,9 @@ class Aauth {
 			}
 		}
 
-		return $this->CI->events->apply_filters('do_control', true);
+		return (!$this->CI->events->has_filter('fill_control_aauth')) 
+				? true 
+				: $this->CI->events->apply_filters_ref_array('fill_control_aauth', [ $perm_par ] );
 	}
 
 	//tested
@@ -1006,12 +1010,12 @@ class Aauth {
 		}
 
 		// Where
-		$where = $this->CI->events->apply_filters('fill_list_users_where_by', $where);
 		if (!empty($where)) {
             foreach($where as $key => $val){ 
                 $this->aauth_db->where($key, $val); 
             } 
         } 
+		$this->CI->events->do_action('do_get_users_by');
 		
 		// banneds
 		if ($banneds !== '') {
@@ -1424,7 +1428,7 @@ class Aauth {
 			$group_id = $this->aauth_db->insert_id();
 
 			// Add permission
-			foreach ($this->CI->aauth->list_group_perms($group_name) as $perm) :
+			foreach ($this->CI->aauth->list_perms($group_name) as $perm) :
 				$this->allow_group($group_id, $perm->perm_id);
 			endforeach;
 

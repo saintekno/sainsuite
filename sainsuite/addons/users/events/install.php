@@ -164,7 +164,6 @@ class Users_Install extends MY_Addon
         $permissions =	[];
         // Core Permission
         $permissions[ 'manage.core' ] 		=	__( 'Manage Core' );
-        $permissions[ 'manage.menu' ] 		=	__( 'Manage Menu' );
 
         // Options Permissions
         $permissions[ 'create.options' ]    =	__( 'Create Options' );
@@ -214,7 +213,6 @@ class Users_Install extends MY_Addon
         // Member
         $permissions_keys =	array_keys( $permissions );
         foreach([ 
-          'menu',
           'options',
           'addons',
           'themes',

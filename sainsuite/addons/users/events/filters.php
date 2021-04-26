@@ -182,8 +182,7 @@ class Users_Filters extends MY_Addon
 
     public function fill_apps_contact()
     {
-        $data['start'] = true;
-        return $this->load->backend_view( 'about/contact', $data, true );
+        return $this->load->backend_view( 'about/contact', [], true );
     }
 }
 new Users_Filters;

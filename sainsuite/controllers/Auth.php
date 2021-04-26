@@ -36,7 +36,7 @@ class Auth extends MY_Controller
         
         if ($this->session->userdata('captcha')) :
         $this->form_validation->set_rules('captcha', __('Security Code'),  array('matches[captcha]', function($captcha){ 
-            if ($captcha == $this->session->userdata('captcha')) {
+            if (strtolower($captcha) == $this->session->userdata('captcha')) {
                 return true;
             } } )
         );
@@ -96,7 +96,8 @@ class Auth extends MY_Controller
             );
     
             if ($exec == 'created') {
-                redirect(array( 'login?notice=create-email-send'));
+                $url = $this->events->apply_filters( 'register_redirection', site_url( array( 'login?notice=create-email-send' ) ) );
+                redirect( $url );
             }
             
             $this->notice->push_notice_array($this->aauth->get_errors_array());
