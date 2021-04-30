@@ -43,6 +43,9 @@ class Reset extends MY_Addon
 				redirect( array( 'install' ) );
 			}
 		}
+        
+        // Title
+		Polatan::set_title( get('signature') );
 
 		$this->events->add_action( 'dashboard_footer', function () {
 			$this->addon_view( 'reset', 'prompt' );

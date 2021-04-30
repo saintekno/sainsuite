@@ -74,13 +74,13 @@
 			<!--begin::Input-->
 			<div class="form-group">
 				<div class="form-control-wrap">
-					<a tabindex="-1" href="#" class="form-icon form-icon-right passcode-switch" data-target="form-password">
+					<a tabindex="-1" href="#" class="form-icon form-icon-right passcode-switch" data-target="form-confirm">
 						<em class="passcode-icon icon-show icon fas fa-fingerprint"></em>
 						<em class="passcode-icon icon-hide icon far fa-eye-slash"></em>
 					</a>
 					<input class="form-control form-control-solid h-auto font-size-h5 p-6 border-0 rounded-lg font-size-h6"
 						type="password" 
-						id="form-password"
+						id="form-confirm"
 						placeholder="<?php _e('Password Confirm' ); ?>"
 						name="confirm" 
 						value="<?php echo set_value('confirm'); ?>" />

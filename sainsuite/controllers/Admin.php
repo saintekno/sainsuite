@@ -295,7 +295,7 @@ class Admin extends MY_Controller
     
                 MY_Addon::enable($arg2);
                 MY_Addon::init('unique', $arg2);
-                $this->events->do_action('do_enable_addon', $arg2);
+                $this->events->do_action('do_enable_addon', $arg2, $arg3);
                 
                 redirect(array( 'admin', 'addons?notice=' . $this->events->apply_filters('addon_activation_status', 'addon-enabled') ));
                 break;
@@ -321,7 +321,7 @@ class Admin extends MY_Controller
                 }
     
                 MY_Addon::init('unique', $arg2);
-                $this->events->do_action('do_remove_addon', $arg2);
+                $this->events->do_action('do_remove_addon', $arg2, $arg3);
                 MY_Addon::remove($arg2);
     
                 redirect(array( 'admin', 'addons?notice=addon-removed' ));

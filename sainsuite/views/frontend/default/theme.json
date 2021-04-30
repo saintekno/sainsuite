@@ -8,7 +8,7 @@
     "author uri": "http://saintekno.id",
     "email": "sainteknoid@gmail.com",
     "description": "Layouts default",
-    "readonly": false
+    "readonly": true
   },
   "group": "By Sainsuite"
 }
