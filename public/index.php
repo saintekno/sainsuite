@@ -49,18 +49,6 @@
  */
 
 /*
- *----------------------
- * TIMEZONE
- *----------------------
- *
- * If timezone has not been set, give it a default
- *
- */
-if(ini_get('date.timezone') == '' || ini_get('date.timezone') == 'Timezone' ) {
-	date_default_timezone_set('GMT');
-}
-
-/*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
  *---------------------------------------------------------------
@@ -330,6 +318,29 @@ switch (ENVIRONMENT)
 	}
 
 	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
+
+/*
+ *----------------------
+ * TIMEZONE
+ *----------------------
+ *
+ * If timezone has not been set, give it a default
+ *
+ */
+if(ini_get('date.timezone') == '' || ini_get('date.timezone') == 'Timezone' ) {
+	date_default_timezone_set('Asia/Jakarta');
+}
+
+/*
+| -------------------------------------------------------------------
+|  Auto-load Packages
+| -------------------------------------------------------------------
+*/
+if (! file_exists(APPPATH.'third_party/autoload.php')) {
+	header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+	echo 'Auto-load Packages is not install. Run <b>composer install</b> in your root project folder';
+	exit(1); // EXIT_ERROR
+}
 
 /*
  * --------------------------------------------------------------------

@@ -12,7 +12,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @link        https://github.com/saintekno/sainsuite
  * @filesource
  */
-
 class usersApiController extends MY_Addon
 {
 	public function __construct()

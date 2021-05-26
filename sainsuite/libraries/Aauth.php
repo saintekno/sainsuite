@@ -792,7 +792,7 @@ class Aauth {
 			// $this->add_member($user_id, $this->config_vars['member_group']);
 
 			// if verification 
-			global $Options;
+			$Options = options(APPNAME);
 			if($this->config_vars['verification'] && intval(riake('site_registration', $Options)) == true)
 			{
 				$data = null;
@@ -1282,6 +1282,27 @@ class Aauth {
 			return false;
 		}
 		return $query->row()->id;
+	}
+
+	/**
+	 * Get user username
+	 * @return int row
+	 */
+	public function get_user_by_username($username=false) {
+
+		if( ! $username){
+			$query = $this->aauth_db->where('id', $this->CI->session->userdata('id'));
+		} else {
+			$query = $this->aauth_db->where('username', $username);
+		}
+
+		$query = $this->aauth_db->get($this->config_vars['users']);
+
+		if ($this->aauth_db->affected_rows() <= 0){
+			$this->error($this->CI->lang->line('aauth_error_no_user'));
+			return false;
+		}
+		return $query->row();
 	}
 
 	/**

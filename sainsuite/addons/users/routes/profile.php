@@ -92,7 +92,9 @@ class UsersProfileController extends MY_Addon
         
         Polatan::set_title(__( 'My Profile' ));
 
+        $this->load->model('saas_model');
         $data[ 'apps' ] = '';
+        $data[ 'user_saas' ] = $this->saas_model->get_user();
         $this->addon_view( 'users', 'profile/read', $data );
     }
 }

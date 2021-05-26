@@ -1,10 +1,9 @@
 <!--begin: Wizard Nav-->
-<div class="wizard-nav pt-5 pb-10">
+<div class="wizard-nav py-5">
     <!--begin::Wizard Steps-->
     <div class="wizard-steps d-flex flex-column flex-sm-row">
         <!--begin::Wizard Step 1 Nav-->
-        <div class="wizard-step flex-grow-1 flex-basis-0" data-wizard-type="step"
-            data-wizard-state="<?php echo $this->events->apply_filters('install_current', '');?>">
+        <div class="wizard-step flex-grow-1 flex-basis-0" data-wizard-type="step" data-wizard-state="current">
             <div class="wizard-wrapper pr-7">
                 <div class="wizard-icon">
                     <i class="wizard-check ki ki-check"></i>
@@ -39,8 +38,7 @@
         <!--end::Wizard Step 1 Nav-->
 
         <!--begin::Wizard Step 2 Nav-->
-        <div class="wizard-step flex-grow-1 flex-basis-0" data-wizard-type="step"
-        data-wizard-state="<?php echo $this->events->apply_filters('install_current2', '');?>">
+        <div class="wizard-step flex-grow-1 flex-basis-0" data-wizard-type="step">
             <div class="wizard-wrapper pr-7">
                 <div class="wizard-icon">
                     <i class="wizard-check ki ki-check"></i>
@@ -75,8 +73,7 @@
         <!--end::Wizard Step 2 Nav-->
 
         <!--begin::Wizard Step 3 Nav-->
-        <div class="wizard-step flex-grow-1 flex-basis-0" data-wizard-type="step"
-        data-wizard-state="<?php echo $this->events->apply_filters('install_current3', '');?>">
+        <div class="wizard-step flex-grow-1 flex-basis-0" data-wizard-type="step">
             <div class="wizard-wrapper">
                 <div class="wizard-icon">
                     <i class="wizard-check ki ki-check"></i>
@@ -84,7 +81,7 @@
                 </div>
                 <div class="wizard-label">
                     <h3 class="wizard-title">
-                    <?php _e("Site.");?>
+                    <?php _e("WebSite.");?>
                     </h3>
                     <div class="wizard-desc">
                     <?php _e("Configuration.");?>

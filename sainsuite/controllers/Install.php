@@ -35,12 +35,10 @@ class Install extends MY_Controller
             redirect('welcome?notice=database-installed' );
         endif;
 
-        $this->events->add_filter('install_current', function(){ return 'current'; });
-        
 		Polatan::set_title(sprintf(__('Welcome Page &mdash; %s'), get('app_name')));
         $data['pages'] = 'install';
         $data['subpages'] = 'install';
-        $this->load->backend_view('layouts_split', $data );
+        $this->load->backend_view('layouts_aside', $data );
     }
 
     /**
@@ -54,8 +52,6 @@ class Install extends MY_Controller
         if ($this->install_model->is_installed()):
             redirect('welcome');
         endif;
-
-        $this->events->add_filter('install_current2', function(){ return 'current'; });
 
         $this->form_validation->set_rules('_ht_name', __('Host Name'), 'required');
         $this->form_validation->set_rules('_uz_name', __('User Name'), 'required');
@@ -85,7 +81,7 @@ class Install extends MY_Controller
 		Polatan::set_title(sprintf(__('Database config &mdash; %s'), get('app_name')));
         $data['pages'] = 'install';
         $data['subpages'] = 'database';
-        $this->load->backend_view('layouts_split', $data );
+        $this->load->backend_view('layouts_aside', $data );
     }
     
     /**
@@ -99,8 +95,6 @@ class Install extends MY_Controller
         if (! $this->install_model->is_installed()):
             redirect('install');
         endif;
-
-        $this->events->add_filter('install_current3', function(){ return 'current'; });
 
         $this->events->do_action('settings_setup');
         $this->form_validation->set_rules('site_name', __('Site Name'), 'required');
@@ -119,6 +113,6 @@ class Install extends MY_Controller
         Polatan::set_title(sprintf(__('Site & Master account &mdash; %s'), get('core_signature')));
         $data['pages'] = 'install';
         $data['subpages'] = 'site';
-        $this->load->backend_view('layouts_split', $data );
+        $this->load->backend_view('layouts_aside', $data );
     }
 }

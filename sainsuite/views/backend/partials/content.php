@@ -91,11 +91,13 @@ else :
                         <?php endif;?>
 
                         <div class="card-body p-0">
-                            <div class="col-12">
-                            <?php echo $this->load->backend_view('elements/_init', array(
-                                'namespace' => $namespace,
-                                'meta' => $meta
-                            ), true);?>
+                            <div class="row">
+                                <div class="col-12">
+                                    <?php echo $this->load->backend_view('elements/_init', array(
+                                        'namespace' => $namespace,
+                                        'meta' => $meta
+                                    ), true);?>
+                                </div>
                             </div>
                         </div>
 

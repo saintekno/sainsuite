@@ -40,9 +40,12 @@ var KTSains = function() {
 
     var cekClass = function() {
         // cek nav header bottom
-        if ($("#kt_header .navheader-nav a").length) {
+        if ($("#kt_header div > div").length) {
             $('#kt_body').addClass('header-fixed');
             $('#kt_header').removeClass('d-none');
+        }
+        if ($(".navheader-nav").length) {
+            $('.quick-search-form').addClass('pl-5 border-left');
         }
 
         // cek nav aside secondary

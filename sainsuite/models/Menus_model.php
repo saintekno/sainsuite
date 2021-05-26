@@ -192,7 +192,7 @@ class Menus_Model extends CI_Model
     public function header_nav()
     {
         get_instance()->multimenu->set_items(
-            $this->events->apply_filters('header_nav', [])
+            $this->events->apply_filters('fill_header_nav', [])
         );
 
         $config["nav_tag_open"]   = '<div class="navheader-nav nav flex-grow-1">';

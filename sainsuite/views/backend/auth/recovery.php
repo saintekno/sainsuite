@@ -9,8 +9,8 @@
     <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
 
     <!--begin::Form group-->
-    <div class="form-group fv-plugins-icon-container">
-        <input class="form-control form-control-solid h-auto font-size-h5 p-6 border-0 rounded-lg font-size-h6" type="email" placeholder="Email" name="user_email" required>
+    <div class="form-group mb-4 fv-plugins-icon-container">
+        <input class="form-control form-control-solid h-auto font-size-h5 border-0 p-4 font-size-h6" type="email" placeholder="Email" name="user_email" required>
     </div>
     <!--end::Form group-->
 

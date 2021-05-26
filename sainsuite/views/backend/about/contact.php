@@ -24,6 +24,6 @@ $App_Options = options(APPNAME);
     </p>
     
     <p class="text-1 opacity-80 pt-4 mt-2">
-    <?php echo sprintf( __( 'Copyright © %s %s.' ), date('Y'), ($copy = riake('copyright', $Options)) ? $copy : $this->aauth->config_vars['name'].'. All rights reserved' );?>
+    <?php echo $this->events->apply_filters( 'dashboard_footer_right', ( $copyright = riake('copyright', options())) ? sprintf( __( 'Copyright © %s %s.' ), date('Y'), $copyright ).' All rights reserved' : sprintf( __( 'Version %s' ), get('version') ) );?>
     </p>
 </div>

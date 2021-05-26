@@ -20,7 +20,7 @@
 		<!--end::Brand-->
 
 		<!--begin::Nav Wrapper-->
-		<div class="aside-nav d-flex flex-column align-items-center flex-column-fluid py-3 scroll scroll-pull">
+		<div class="aside-nav d-flex flex-column align-items-center flex-column-fluid scroll scroll-pull">
 
 			<!--begin::Nav-->
 			<ul class="nav flex-column" role="tablist">

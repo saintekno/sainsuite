@@ -18,7 +18,6 @@
 **/third_party/*
 !**/third_party/index.html
 composer.lock
-tools/**/node_modules
 
 # Upload
 **/uploads/*

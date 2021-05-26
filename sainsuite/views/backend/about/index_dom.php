@@ -32,7 +32,9 @@ $App_Options = options(APPNAME);
             </a>
             <?php endif; ?>
 
-            <p class="mt-10"><?php echo $this->events->apply_filters('dashboard_footer_text', sprintf( __( 'Copyright © %s %s. All rights reserved.' ), date('Y'), $this->aauth->config_vars['name'] ) );?></p>
+            <p class="mt-10">
+                <?php echo sprintf( __( 'Copyright © %s Developed by %s. All rights reserved.' ), date('Y'), $this->aauth->config_vars['name'] );?>
+            </p>
         </div>
     </div>
 </div>

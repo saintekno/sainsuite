@@ -120,8 +120,8 @@ class Enqueue
     /**
      * addon JS
     **/
-    public function addon_js( $addon_namespace, $style )
+    public function addon_js( $addon_namespace, $script )
     {
-        return $this->js( $style, addon_url( $addon_namespace ) );
+        return $this->js( $script, addon_url( $addon_namespace ) );
     }
 }

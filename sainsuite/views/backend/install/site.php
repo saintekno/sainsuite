@@ -1,26 +1,29 @@
 <!--begin::Form-->
-<form method="post" class="form" autocomplete="off" >
+<form method="post" class="form" autocomplete="off" id="kt_form" >
 	<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
 
 	<!--begin::Row-->
 	<div class="row">
 		<div class="col-xl-6">
 			<!--begin::Input-->
-			<div class="form-group">
-				<input type="text"
-					class="form-control form-control-solid h-auto font-size-h5 p-6 border-0 rounded-lg font-size-h6"
-					name="site_name" placeholder="<?php _e( 'Site Name' );?>" value="<?php echo set_value('site_name'); ?>" />
+			<div class="form-group mb-4 fv-plugins-icon-container">
+				<input class="form-control form-control-solid h-auto font-size-h5 border-0 p-4 font-size-h6"  
+					type="text"
+					name="site_name" 
+					placeholder="<?php _e( 'Site Name' );?>" 
+					value="<?php echo set_value('site_name'); ?>" />
 			</div>
 			<!--end::Input-->
 		</div>
 		<div class="col-xl-6">
 			<!--begin::Select-->
-			<div class="form-group">
-				<select name="lang" class="form-control form-control-solid h-auto font-size-h5 p-6 border-0 rounded-lg font-size-h6">
-				<?php
-				foreach (get_instance()->config->item('supported_languages') as $key => $value)  : ?>
-					<option <?php echo $key == riake('lang', $_GET) ? 'selected="selected"': ''; ?> value="<?php echo $key; ?>"><?php echo $value; ?></option>
-				<?php endforeach; ?>
+			<div class="form-group mb-4 fv-plugins-icon-container">
+				<select class="form-control form-control-solid h-auto font-size-h5 border-0 p-4 font-size-h6"
+					name="lang" 
+					placeholder="<?php _e('supported languages');?>" ><?php
+					foreach (get_instance()->config->item('supported_languages') as $key => $value)  : ?>
+						<option <?php echo $key == riake('lang', $_GET) ? 'selected="selected"': ''; ?> value="<?php echo $key; ?>"><?php echo $value; ?></option>
+					<?php endforeach; ?>
 				</select>
 			</div>
 			<!--end::Input-->
@@ -31,19 +34,23 @@
 	<div class="row">
 		<div class="col-xl-6">
 			<!--begin::Input-->
-			<div class="form-group">
-				<input type="text"
-					class="form-control form-control-solid h-auto font-size-h5 p-6 border-0 rounded-lg font-size-h6"
-					name="username" placeholder="<?php _e( 'User Name' );?>" value="<?php echo set_value('username'); ?>" />
+			<div class="form-group mb-4 fv-plugins-icon-container">
+				<input class="form-control form-control-solid h-auto font-size-h5 border-0 p-4 font-size-h6"  
+					type="text"
+					name="username" 
+					placeholder="<?php _e( 'User Name' );?>" 
+					value="<?php echo set_value('username'); ?>" />
 			</div>
 			<!--end::Input-->
 		</div>
 		<div class="col-xl-6">
 			<!--begin::Input-->
-			<div class="form-group">
-				<input type="text"
-					class="form-control form-control-solid h-auto font-size-h5 p-6 border-0 rounded-lg font-size-h6"
-					name="email" placeholder="<?php _e( 'Email' );?>" value="<?php echo set_value('email'); ?>" />
+			<div class="form-group mb-4 fv-plugins-icon-container">
+				<input class="form-control form-control-solid h-auto font-size-h5 border-0 p-4 font-size-h6"  
+					type="text"
+					name="email" 
+					placeholder="<?php _e( 'Email' );?>" 
+					value="<?php echo set_value('email'); ?>" />
 			</div>
 			<!--end::Input-->
 		</div>
@@ -54,13 +61,13 @@
 	<div class="row">
 		<div class="col-xl-6">
 			<!--begin::Input-->
-			<div class="form-group">
+			<div class="form-group mb-4 fv-plugins-icon-container">
 				<div class="form-control-wrap">
 					<a tabindex="-1" href="#" class="form-icon form-icon-right passcode-switch" data-target="form-password">
 						<em class="passcode-icon icon-show icon fas fa-fingerprint"></em>
 						<em class="passcode-icon icon-hide icon far fa-eye-slash"></em>
 					</a>
-					<input class="form-control form-control-solid h-auto font-size-h5 p-6 border-0 rounded-lg font-size-h6"
+					<input class="form-control form-control-solid h-auto font-size-h5 border-0 p-4 font-size-h6"  
 						type="password" 
 						id="form-password"
 						placeholder="<?php _e('Password' ); ?>"
@@ -72,13 +79,13 @@
 		</div>
 		<div class="col-xl-6">
 			<!--begin::Input-->
-			<div class="form-group">
+			<div class="form-group mb-4 fv-plugins-icon-container">
 				<div class="form-control-wrap">
 					<a tabindex="-1" href="#" class="form-icon form-icon-right passcode-switch" data-target="form-confirm">
 						<em class="passcode-icon icon-show icon fas fa-fingerprint"></em>
 						<em class="passcode-icon icon-hide icon far fa-eye-slash"></em>
 					</a>
-					<input class="form-control form-control-solid h-auto font-size-h5 p-6 border-0 rounded-lg font-size-h6"
+					<input class="form-control form-control-solid h-auto font-size-h5 border-0 p-4 font-size-h6"  
 						type="password" 
 						id="form-confirm"
 						placeholder="<?php _e('Password Confirm' ); ?>"

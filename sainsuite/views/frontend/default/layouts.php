@@ -1,7 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-$App_Options = options();
-$favicon = ($favicon = riake('favicon', $App_Options)) ? upload_url('media/thumb/'.$favicon) : upload_url('system/favicon.png', base_url());
 ?>
 
 <!DOCTYPE html>
@@ -15,13 +13,6 @@ $favicon = ($favicon = riake('favicon', $App_Options)) ? upload_url('media/thumb
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <?php include('partials/meta.php');?>
-
-    <!-- favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="<?php echo $favicon; ?>">
-    <link rel="canonical" href="<?php echo site_url();?>">
-        
-    <!-- Site Title -->
-    <title><?php echo riake('site_name', $App_Options); ?> - <?php echo riake('site_title', $App_Options); ?></title>
     
     <link rel="stylesheet" href="<?=fasset_url();?>css/plugins.bundle.css" type="text/css" />
     <link rel="stylesheet" href="<?=fasset_url();?>css/style.bundle.css" type="text/css" />

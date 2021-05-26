@@ -32,6 +32,7 @@ if ($themes) :
             if (isset($_group[ 'theme' ][ 'namespace' ])) {
                 $theme_namespace = $_group[ 'theme' ][ 'namespace' ];
                 $theme_version = $_group[ 'theme' ][ 'version' ];
+                $color = ($_group[ 'theme' ][ 'package' ] == 'themekit') ? 'bg-light-primary' : 'bg-secondary';
                 ?>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="card card-custom gutter-b card-stretch border border-1 mb-4" data-card="true" data-card-tooltips="false">     
@@ -51,10 +52,10 @@ if ($themes) :
                                 <?php $this->events->do_action('do_menu_theme_header', $_group) ?>
                             </div>
                         </div>   
-                        <div class="card-body bgi-no-repeat p-4 min-h-100px <?php echo ($_group[ 'theme' ][ 'package' ] == 'themekit') ? 'bg-light-primary' : 'bg-secondary' ;?>">
+                        <div class="card-body bgi-no-repeat p-4 min-h-100px <?php echo $color ;?>">
                             <p><?php echo $_group[ 'theme' ][ 'description' ];?></p>
                         </div> 
-                        <div class="p-2 min-h-40px d-flex justify-content-between align-items-center bg-secondary">
+                        <div class="p-2 min-h-40px d-flex justify-content-between align-items-center <?php echo $color ;?>">
                             <div class="d-flex">
                                 <?php if (! $_group[ 'theme' ][ 'readonly' ]) : ?>
                                     <?php if ($this->aauth->is_admin()):?>
@@ -63,7 +64,7 @@ if ($themes) :
                                         <i class="fas fa-download"></i> 
                                     </a>
                                     <?php endif; ?>
-                                    <?php if (! Theme::is_active($theme_namespace, true)) : ?>
+                                    <?php if (! Theme::is_active($theme_namespace, true) && $_group[ 'theme' ][ 'namespace' ] != 'default') : ?>
                                         <?php if ( User::control('delete.themes') && User::control('manage.core') ) : ?>
                                         <a href="#" class="btn btn-sm btn-danger font-weight-bolder text-uppercase ml-2"
                                             data-head="<?php _e( 'Would you like to delete this theme?');?>"
@@ -73,14 +74,15 @@ if ($themes) :
                                         </a>
                                         <?php endif;?>
                                     <?php endif; ?>
+                                    
+                                    <?php if (! Theme::is_active($theme_namespace, true)) : ?>
+                                    <a href="<?php echo site_url(array( 'admin', 'appearance', 'enable', $theme_namespace ));?>" 
+                                        class="btn btn-sm btn-primary font-weight-bolder text-uppercase ml-2" data-action="enable">
+                                        enable
+                                    </a>
+                                    <?php endif; ?>
                                 <?php endif; ?>
 
-                                <?php if (! Theme::is_active($theme_namespace, true)) : ?>
-                                <a href="<?php echo site_url(array( 'admin', 'appearance', 'enable', $theme_namespace ));?>" 
-                                    class="btn btn-sm btn-primary font-weight-bolder text-uppercase ml-2" data-action="enable">
-                                    <i class="fa fa-toggle-on"></i> active
-                                </a>
-                                <?php endif; ?>
                             </div>
 
                             <div class="d-flex align-items-center">

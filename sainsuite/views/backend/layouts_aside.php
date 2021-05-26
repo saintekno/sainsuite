@@ -14,6 +14,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     $this->enqueue->css('style.bundle');
     $this->enqueue->css('login');
     $this->enqueue->css('skin/all');
+    $this->events->do_action( 'auth_header' );
     $this->enqueue->load_css('header');
     ?>
 </HEAD>
@@ -75,6 +76,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     $this->enqueue->js('plugins.bundle');
     $this->enqueue->js('scripts.bundle');
     $this->enqueue->js('login');
+    $this->events->do_action( 'auth_footer' );
     $this->enqueue->load_js('footer');
     ?>
 </BODY>

@@ -1,4 +1,4 @@
-<div class="form-group row <?php echo riake('row_class', $_item);?>" id="<?php echo riake('row_id', $_item);?>">
+<div class="form-group mb-4 row <?php echo riake('row_class', $_item);?>" id="<?php echo riake('row_id', $_item);?>">
     <?php
     $form = (count($_item) <= 3) ? force_array($_item) : array($_item);
     foreach ( $form as $col) : 

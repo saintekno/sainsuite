@@ -30,11 +30,6 @@ $this->polatan->add_item( array(
     'content' => $this->addon_view( 'users', 'profile/avatar', array(), true )
 ), 'profile',  1 );
 
-$this->polatan->add_item( array(
-    'type'    => 'dom',
-    'content' => $this->addon_view( 'users', 'profile/menu', array(), true )
-), 'profile',  1 );
-
 // =============================================================================== 
 
 // load field for user_profile
@@ -105,5 +100,7 @@ $this->polatan->add_item(array(
 ), 'user_pass', 2);
 
 // =============================================================================== 
+
+echo $this->events->do_action('do_profile_content', '');
 
 $this->polatan->output();

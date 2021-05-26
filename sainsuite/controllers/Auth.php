@@ -67,7 +67,7 @@ class Auth extends MY_Controller
         
 		$data['pages'] = 'login';
         $data = $this->events->apply_filters('fill_user_login', $data);
-        $this->load->backend_view('layouts_split', $data );
+        $this->load->backend_view('layouts_aside', $data );
 	}
     
     /**
@@ -86,7 +86,7 @@ class Auth extends MY_Controller
 
         if ($this->form_validation->run()) 
         {
-            global $Options;
+            $Options = options(APPNAME);
             $exec = $this->user_model->create(
                 $this->input->post('email'),
                 $this->input->post('password'),
@@ -105,7 +105,7 @@ class Auth extends MY_Controller
 		
 		Polatan::set_title(sprintf(__('Sign Up &mdash; %s'), get('app_name')));
 		$data['pages'] = 'register';
-        $this->load->backend_view('layouts_split', $data );
+        $this->load->backend_view('layouts_aside', $this->events->apply_filters('fill_data_register', $data) );
     }
     
     /**
@@ -148,7 +148,7 @@ class Auth extends MY_Controller
 
         Polatan::set_title(sprintf(__('Recover Password &mdash; %s'), get('app_name')));
         $data['pages'] = 'recovery';
-        $this->load->backend_view('layouts_split', $data );
+        $this->load->backend_view('layouts_aside', $data );
     }
     
     /**
@@ -179,5 +179,16 @@ class Auth extends MY_Controller
         endif;
 
         redirect(array( 'login?notice=account-activated' ));
+    }
+    
+    //check username using ajax
+    public function check_username($value)
+    {   
+        $result = $this->aauth->user_exist_by_username($value);
+        if (!empty($result)) {
+            echo json_encode(array('st' => 2));
+        } else {
+            echo json_encode(array('st' => 1));
+        }
     }
 }

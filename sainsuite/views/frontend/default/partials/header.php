@@ -35,7 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         Download
                     </a>
                     <a href="<?=site_url('login')?>" class="btn btn_demo2 btn_sm_primary effect-letter bg-dark c-white rounded-pill">
-                        Try it free
+                        Try it for free
                     </a>
                     <?php endif; ?>
                 </div>

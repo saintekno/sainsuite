@@ -18,14 +18,14 @@ class Users_Action extends MY_Addon
     {
         parent::__construct();
         
-        $this->events->add_action('registration_rules', array( $this, 'registration_rules' ));
+        $this->events->add_action('registration_rules', array( $this, 'registration_rules' ), 1);
         $this->events->add_action('do_app_init', array($this, 'check_login'));
     }
     
     public function registration_rules()
     {
-        $this->form_validation->set_rules('username', __('User Name' ), 'required|min_length[5]');
-        $this->form_validation->set_rules('email', __('Email' ), 'valid_email|required');
+        $this->form_validation->set_rules('username', __('User Name' ), 'required|min_length[5]|is_unique[aauth_users.username]');
+        $this->form_validation->set_rules('email', __('Email' ), 'valid_email|required|is_unique[aauth_users.email]');
         $this->form_validation->set_rules('password', __('Password' ), 'required|min_length[6]');
         $this->form_validation->set_rules('confirm', __('Confirm' ), 'matches[password]');
     }

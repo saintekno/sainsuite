@@ -39,8 +39,7 @@ class Users_Install extends MY_Addon
         extract($config);
 
         // Creatin Auth Group
-        $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_groups`;");
-        $this->db->query("CREATE TABLE `{$database_prefix}aauth_groups` (
+        $this->db->query("CREATE TABLE IF NOT EXISTS `{$database_prefix}aauth_groups` (
             `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
             `name` varchar(100),
             `definition` text,
@@ -48,8 +47,7 @@ class Users_Install extends MY_Addon
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
         
         // Auth Group to Group
-        $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_group_to_group`;");
-        $this->db->query("CREATE TABLE `{$database_prefix}aauth_group_to_group` (
+        $this->db->query("CREATE TABLE IF NOT EXISTS `{$database_prefix}aauth_group_to_group` (
             `group_id` int(11) unsigned NOT NULL,
             `user_id` varchar(100) NOT NULL,
             `subgroup_id` int(11) unsigned NOT NULL,
@@ -57,8 +55,7 @@ class Users_Install extends MY_Addon
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
         
         // Creating Auth Permission
-        $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_perms`;");
-        $this->db->query("CREATE TABLE `{$database_prefix}aauth_perms` (
+        $this->db->query("CREATE TABLE IF NOT EXISTS `{$database_prefix}aauth_perms` (
             `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
             `name` varchar(100),
             `definition` text,
@@ -66,24 +63,21 @@ class Users_Install extends MY_Addon
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
         
         // Creating Permission to Group
-        $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_perm_to_group`;");
-        $this->db->query("CREATE TABLE `{$database_prefix}aauth_perm_to_group` (
+        $this->db->query("CREATE TABLE IF NOT EXISTS `{$database_prefix}aauth_perm_to_group` (
             `perm_id` int(11) unsigned NOT NULL,
             `group_id` int(11) unsigned NOT NULL,
             PRIMARY KEY (`perm_id`,`group_id`)
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
         
         // Auth Permission to User
-        $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_perm_to_user`;");
-        $this->db->query("CREATE TABLE `{$database_prefix}aauth_perm_to_user` (
+        $this->db->query("CREATE TABLE IF NOT EXISTS `{$database_prefix}aauth_perm_to_user` (
             `perm_id` int(11) unsigned NOT NULL,
             `user_id` VARCHAR(100) NOT NULL,
             PRIMARY KEY (`perm_id`,`user_id`)
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
         
         // Auth PMS
-        $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_pms`;");
-        $this->db->query("CREATE TABLE `{$database_prefix}aauth_pms` (
+        $this->db->query("CREATE TABLE IF NOT EXISTS `{$database_prefix}aauth_pms` (
             `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
             `sender_id` VARCHAR(100) NOT NULL,
             `receiver_id` VARCHAR(100) NOT NULL,
@@ -98,8 +92,7 @@ class Users_Install extends MY_Addon
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
         
         // Auth User Table
-        $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_users`;");
-        $this->db->query("CREATE TABLE `{$database_prefix}aauth_users` (
+        $this->db->query("CREATE TABLE IF NOT EXISTS `{$database_prefix}aauth_users` (
             `id` VARCHAR(100) NOT NULL,
             `email` VARCHAR(100) NOT NULL,
             `pass` VARCHAR(64) NOT NULL,
@@ -118,16 +111,14 @@ class Users_Install extends MY_Addon
           ) COLLATE='utf8_general_ci' ENGINE=InnoDB ; ");
         
         // User Auth Group
-        $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_user_to_group`;");
-        $this->db->query("CREATE TABLE `{$database_prefix}aauth_user_to_group` (
+        $this->db->query("CREATE TABLE IF NOT EXISTS `{$database_prefix}aauth_user_to_group` (
             `user_id` VARCHAR(100) NOT NULL,
             `group_id` int(11) unsigned NOT NULL,
             PRIMARY KEY (`user_id`,`group_id`)
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
         
         // Auth User Variable
-        $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_user_variables`;");
-        $this->db->query("CREATE TABLE `{$database_prefix}aauth_user_variables` (
+        $this->db->query("CREATE TABLE IF NOT EXISTS `{$database_prefix}aauth_user_variables` (
             `user_id` VARCHAR(100) NOT NULL,
             `data_key` VARCHAR(100) NOT NULL,
             `value` TEXT NULL,
@@ -135,8 +126,7 @@ class Users_Install extends MY_Addon
           ) COLLATE='utf8_general_ci' ENGINE=InnoDB ;");
         
         // Auth Attempts
-        $this->db->query("DROP TABLE IF EXISTS `{$database_prefix}aauth_login_attempts`;");
-        $this->db->query("CREATE TABLE `{$database_prefix}aauth_login_attempts` (
+        $this->db->query("CREATE TABLE IF NOT EXISTS `{$database_prefix}aauth_login_attempts` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `ip_address` varchar(39) DEFAULT '0',
             `timestamp` datetime DEFAULT NULL,

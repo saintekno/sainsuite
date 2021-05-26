@@ -3,12 +3,12 @@
     "name": "default",
     "namespace": "default",
     "package": "SainTekno",
-    "version": "1.2",
+    "version": "3.0.1",
     "author": "SainTekno",
     "author uri": "http://saintekno.id",
     "email": "sainteknoid@gmail.com",
     "description": "Layouts default",
-    "readonly": true
+    "readonly": false
   },
   "group": "By Sainsuite"
 }

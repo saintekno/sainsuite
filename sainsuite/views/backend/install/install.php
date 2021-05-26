@@ -1,7 +1,7 @@
 <!--begin::Form-->
-<form action="<?php echo site_url(array( 'install', 'database' )) . (riake('lang', $_GET) ? '?lang=' . $_GET[ 'lang' ] : '');?>" class="form" >
+<form action="<?php echo site_url(array( 'install', 'database' )) . (riake('lang', $_GET) ? '?lang=' . $_GET[ 'lang' ] : '');?>" class="form" id="kt_form" >
 	<!--begin::Title-->
-	<div class="pb-10 pb-lg-12">
+	<div class="py-5">
 		<br>
 		<h3 class="font-weight-bolder font-size-h2 font-size-h1-lg">
 			<?php _e("Thank for having chosen SainSuite to host your project.");?>

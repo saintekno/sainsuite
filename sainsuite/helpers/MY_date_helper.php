@@ -149,7 +149,7 @@ if(!function_exists('get_time_ago')){
 
 if(!function_exists('get_time_zone')){
     function get_time_zone(){        
-        global $Options;
+        $Options = options(APPNAME);
         return @$Options[ 'site_timezone' ];
     }
 }
@@ -172,8 +172,8 @@ function date_now( $format = DATE_W3C )
 **/
 
 function date_timestamp()
-{
-    global $Options;
+{ 
+    $Options = options(APPNAME);
     return now( @$Options[ 'site_timezone' ] );
 }
     

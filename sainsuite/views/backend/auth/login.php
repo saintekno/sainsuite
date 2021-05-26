@@ -5,7 +5,7 @@ $App_Options = options(APPNAME);
     
 <div class="login-form">
     <!--begin::Title-->
-    <div class="pb-5 pb-lg-10">
+    <div class="pb-5">
         <h3 class="font-weight-bolder font-size-h2 font-size-h1-lg"><?php _e('Sign In');?></h3>
         
         <?php
@@ -23,48 +23,53 @@ $App_Options = options(APPNAME);
         <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
 
         <!--begin::Form group-->
-        <div class="form-group">
-            <label class="font-size-h6 font-weight-bolder "><?php _e('Email or User Name' ) ?></label>
-            <input class="form-control form-control-solid h-auto font-size-h5 p-5 rounded-lg border-0"
+        <div class="form-group mb-4 fv-plugins-icon-container">
+            <input class="form-control form-control-solid h-auto font-size-h5 border-0 p-4 font-size-h6"
                 type="text" 
                 id="form-username"
+                placeholder="<?php _e('Email or User Name' ); ?>"
                 name="username_or_email" />
         </div>
         <!--end::Form group-->
 
         <!--begin::Form group-->
-        <div class="form-group pt-0">
-            <div class="d-flex justify-content-between">
-                <label class="font-size-h6 font-weight-bolder"><?php _e('Password' ) ?></label>
-
-                <?php if (intval(riake('site_registration', $App_Options)) == true) : ?>
-                <a href="<?php echo site_url(['recovery']) ; ?>"
-                    class="text-primary font-size-h6 font-weight-bolder text-hover-primary">
-                    <?php _e('I Lost My Password !'); ?>
-                </a>
-                <?php endif; ?>
-            </div>
+        <div class="form-group mb-4 fv-plugins-icon-container">
             <div class="form-control-wrap">
                 <a tabindex="-1" href="#" class="form-icon form-icon-right passcode-switch" data-target="form-password">
                     <em class="passcode-icon icon-show icon fas fa-fingerprint"></em>
                     <em class="passcode-icon icon-hide icon far fa-eye-slash"></em>
                 </a>
-                <input class="form-control form-control-solid h-auto font-size-h5 p-5 rounded-lg border-0"
+                <input class="form-control form-control-solid h-auto font-size-h5 border-0 p-4 font-size-h6"
                     type="password" 
                     id="form-password"
+                    placeholder="<?php _e('Password' ); ?>"
                     name="password" />
             </div>
         </div>
         <!--end::Form group-->
         
         <?php if (isset($captcha_image)) : ?>
-        <div class="form-group">
-            <label class="font-size-h6 font-weight-bolder" for="captcha"><?php echo __('Security Code') ?> <?php echo $captcha_image ?></label>
-            <input class="form-control form-control-solid h-auto font-size-h5 p-5 rounded-lg border-0"
-                type="captcha"  
-                name="captcha" 
-                id="captcha" 
-                autocomplete="off"> 
+        <div class="form-group mb-4 fv-plugins-icon-container">
+            <div class="form-control-wrap">
+                <span class="form-icon form-icon-right" style="right: 67px;">
+                    <?php echo $captcha_image ?>
+                </span>
+                <input class="form-control form-control-solid h-auto font-size-h5 border-0 p-4 font-size-h6"
+                    type="captcha"  
+                    name="captcha" 
+                    id="captcha" 
+                    placeholder="<?php _e('Security Code' ); ?>"
+                    autocomplete="off"> 
+            </div>
+        </div> 
+        <?php endif; ?>
+        
+        <?php if (intval(riake('site_registration', $App_Options)) == true) : ?>
+        <div class="form-group mb-4 fv-plugins-icon-container">
+            <a href="<?php echo site_url(['recovery']) ; ?>"
+                class="text-primary font-size-h6 font-weight-bolder text-hover-primary">
+                <?php _e('I Lost My Password !'); ?>
+            </a>
         </div> 
         <?php endif; ?>
 

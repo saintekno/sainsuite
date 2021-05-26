@@ -75,11 +75,13 @@ var DatatableScript = function() {
 					template: function(row) {
 						var banned = {
 							0 : {'title': 'Active', 'class': ' label-light-primary'},
-							1 : {'title': 'Banned', 'class': ' label-light-danger'},
+							1 : {'title': 'Inactive', 'class': ' label-light-danger'},
 						};
 						return '<span class="label font-weight-bold label-lg ' + banned[row.banned].class + ' label-inline">' + banned[row.banned].title + '</span>';
 					},
-                }, {
+                }, 
+                <?php echo $this->events->do_action('do_users_columns'); ?>
+                {
 					field: 'Actions',
 					title: 'Actions',
                     textAlign: 'right',
@@ -116,7 +118,7 @@ var DatatableScript = function() {
 
                         return '<div class="btn-group">'+ edit +' '+ hapus +'</div>';
 					},
-				}
+				},
             ],
         });
 

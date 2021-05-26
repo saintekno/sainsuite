@@ -76,7 +76,7 @@ class Admin extends MY_Controller
 
             $Routes->error(function($request, \Exception $exception) {
                 if($exception instanceof NotFoundHttpException && $exception->getCode() == 404) {
-                    global $Options;
+                    $Options = options(APPNAME);
                     if (riake('demo_mode', $Options) && !$this->aauth->is_admin()) :
                         $this->session->set_flashdata('error_message', 'this demo application');
                         redirect(array( 'admin')); 
@@ -108,8 +108,9 @@ class Admin extends MY_Controller
             $this->events->add_filter( 'gui_before_cols', function() {
                 return $this->load->backend_view( 'partials/home', null, true );
             });
-            $this->polatan->output();
         endif;
+        
+        $this->polatan->output();
 	}
 
     // --------------------------------------------------------------------

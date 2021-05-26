@@ -1205,6 +1205,7 @@ class MY_Model extends CI_Model
                 break;
         }
 
+        date_default_timezone_set(get_time_zone());
         return (strtolower($this->config->item('time_reference')) == 'gmt' ?
                 gmdate($dateFormat, $curr_date) :
                 date($dateFormat, $curr_date));

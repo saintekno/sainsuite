@@ -15,7 +15,7 @@
             <?php echo User::get_user_group()->definition;?>
         </div>
 
-        <?php echo $this->events->apply_filters('check_day', '');?>
+        <?php echo $this->events->apply_filters('check_hit', '');?>
     </div>
 </div>
 <!--end::User-->
@@ -26,21 +26,21 @@
     
     <div class="d-flex align-items-center justify-content-between ml-n2">
         <div class="radio-inline">
-            <label class="radio radio-accent radio-<?=APPNAME;?> mr-0">
-                <input type="radio" class="radio" name="color-mode" id="skin-<?=APPNAME;?>" />
-                <span class="mr-1"></span>
-            </label>
-
             <label class="radio radio-accent radio-dark mr-0">
                 <input type="radio" class="radio" name="color-mode" id="skin-dark" />
                 <span class="mr-1"></span>
             </label>
-
             <label class="radio radio-accent radio-secondary mr-0">
                 <input type="radio" class="radio" name="color-mode" id="skin-light" />
+                <span class="mr-1"></span>
+            </label>
+            <label class="radio radio-accent radio-<?=APPNAME;?> mr-0">
+                <input type="radio" class="radio" name="color-mode" id="skin-<?=APPNAME;?>" />
                 <span class="mr-1"></span>
             </label>
         </div>
     </div>
 </div>
 <!--end::Contact-->
+
+<?php echo $this->events->do_action('do_profile_menu', '');?>

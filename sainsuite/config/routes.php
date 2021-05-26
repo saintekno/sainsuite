@@ -10,6 +10,8 @@ $route['404_override']         = 'welcome/error_404';
 $route['default_controller']   = 'welcome';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['page404'] = 'welcome/error_404';
+
 $route[ 'login' ]    = 'auth';
 $route[ 'logout' ]   = 'auth/logout';
 $route[ 'register' ] = 'auth/register';
