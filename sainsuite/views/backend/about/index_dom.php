@@ -8,7 +8,7 @@ $App_Options = options(APPNAME);
     <div class="col-lg-8">
         
         <h3 class="font-weight-bold mb-10 text-dark">
-            <img alt="<?php echo get('app_name');?>" src="<?php echo $this->events->apply_filters( 'apps_logo', '' ); ?>" class="max-h-40px" />
+            <img alt="<?php echo get('app_name');?>" src="<?php echo $this->events->apply_filters( 'fill_apps_logo', '' ); ?>" class="max-h-40px" />
         </h3>
         <div class="font-weight-nromal font-size-lg mb-6">
             <p class="lead">

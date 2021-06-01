@@ -15,14 +15,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 // Toolbar
 if ( User::control('manage.core') ) : 
-$this->events->add_filter('toolbar_filter', function ($filter) { 
+$this->events->add_filter('fill_toolbar_filter', function ($filter) { 
     $filter[] = '<div class="row d-flex align-items-center">';
     if ($this->aauth->is_admin()):
     $filter[] = '
     <div class="col-auto col-sm-auto mb-1 mb-sm-0">
         <span class="switch switch-primary">
             <label data-toggle="tooltip" title="Developer mode">
-                <input type="checkbox" '.$this->events->apply_filters('dashboard_dev_class', '').' id="dev_mode">
+                <input type="checkbox" '.$this->events->apply_filters('fill_dev_mode', '').' id="dev_mode">
                 <span></span>
             </label>
         </span>
@@ -51,7 +51,5 @@ $this->polatan->add_item(array(
     'type'    => 'dom',
     'content' => $this->load->backend_view('appearance/list_dom', array(), true )
 ), 'theme', 1);
-
-$this->events->do_action('header_nav_themes');
 
 $this->polatan->output();

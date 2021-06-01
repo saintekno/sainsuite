@@ -52,7 +52,7 @@ class Auth extends MY_Controller
                     redirect(urldecode(riake('redirect', $_GET)));
                 } 
                 else {
-                    $url = $this->events->apply_filters( 'login_redirection', site_url( array( 'admin' ) ) );
+                    $url = $this->events->apply_filters( 'fill_login_redirection', site_url( array( 'admin' ) ) );
                     redirect( $url );
                 }
             }
@@ -66,8 +66,7 @@ class Auth extends MY_Controller
         $this->events->do_action('do_oauth_client');
         
 		$data['pages'] = 'login';
-        $data = $this->events->apply_filters('fill_user_login', $data);
-        $this->load->backend_view('layouts_aside', $data );
+        $this->load->backend_view('layouts_aside', $this->events->apply_filters('fill_data_login', $data) );
 	}
     
     /**
@@ -82,7 +81,7 @@ class Auth extends MY_Controller
         if (User::is_loggedin()) : redirect($this->config->item('admin_route'));
         endif;
         
-        $this->events->do_action('registration_rules');
+        $this->events->do_action('do_registration_rules');
 
         if ($this->form_validation->run()) 
         {
@@ -96,7 +95,7 @@ class Auth extends MY_Controller
             );
     
             if ($exec == 'created') {
-                $url = $this->events->apply_filters( 'register_redirection', site_url( array( 'login?notice=create-email-send' ) ) );
+                $url = $this->events->apply_filters( 'fill_register_redirection', site_url( array( 'login?notice=create-email-send' ) ) );
                 redirect( $url );
             }
             

@@ -15,7 +15,7 @@
             <?php echo User::get_user_group()->definition;?>
         </div>
 
-        <?php echo $this->events->apply_filters('check_hit', '');?>
+        <?php echo $this->events->apply_filters('fill_check_hit', '');?>
     </div>
 </div>
 <!--end::User-->

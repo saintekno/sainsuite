@@ -41,7 +41,7 @@ class Options_Model extends CI_Model
     public function defineLanguage()
     {
         global $Options;
-        get_instance()->config->set_item('site_language', $this->events->apply_filters( 'site_language', riake('site_language', $Options) ) );
+        get_instance()->config->set_item('site_language', $this->events->apply_filters( 'fill_site_language', riake('site_language', $Options) ) );
     }
 
     /**

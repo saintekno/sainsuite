@@ -13,8 +13,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @filesource
  */
     
-if ($this->events->has_filter('gui_before_cols')) :
-    echo $this->events->apply_filters('gui_before_cols', ''); 
+if ($this->events->has_filter('fill_gui_before_cols')) :
+    echo $this->events->apply_filters('fill_gui_before_cols', ''); 
 else :
 ?>
     
@@ -27,7 +27,7 @@ else :
         </div>
         <?php endif; ?>
         
-        <div class="<?php echo $this->events->apply_filters('kt_subheader_mobile_toggle_row', 'row');?>">
+        <div class="<?php echo $this->events->apply_filters('fill_mobile_toggle_row', 'row');?>">
         <?php foreach (force_array($this->polatan->get_cols()) as $col_id => $col_data):?>
         <?php if (riake('class', $col_data)) : ?>
         <div class="<?php echo riake('class', $col_data);?>" id="<?php echo riake('id', $col_data);?>" style="<?php echo riake('style', $col_data);?>">

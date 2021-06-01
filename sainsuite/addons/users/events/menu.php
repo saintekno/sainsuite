@@ -37,7 +37,7 @@ class Users_Menu extends MY_Addon
             'permission' => 'read.group'
         );
 
-        $header_nav = $this->events->apply_filters('header_nav_users', $menu);
+        $header_nav = $this->events->apply_filters('fill_header_nav_users', $menu);
         
         return $header_nav;
 	}
@@ -59,7 +59,7 @@ class Users_Menu extends MY_Addon
         //     'icon' => 'svg/Settings4.svg',
         // );
 
-        $aside_menu = $this->events->apply_filters('aside_menu_users', $menu);
+        $aside_menu = $this->events->apply_filters('fill_aside_nav_users', $menu);
         
         return $aside_menu;
 	}

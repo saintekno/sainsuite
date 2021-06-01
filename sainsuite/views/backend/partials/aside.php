@@ -44,7 +44,7 @@
 		<!--begin::Footer-->
 		<div class="aside-footer d-flex flex-column align-items-center flex-column-auto py-3">
 			
-			<?php echo $this->menus_model->asidefooter_nav(); ?>
+			<?php echo $this->menus_model->aside_footer_nav(); ?>
 
 			<div class="dropdown dropup">
 				<a class="btn btn-icon btn-clean btn-lg mb-2" data-toggle="dropdown" data-target="help" data-offset="0px,0px" aria-expanded="false">
@@ -62,7 +62,7 @@
 			<div class="aside-users d-none d-lg-flex">
 				<div class="dropdown dropup">
 					<a class="symbol symbol-users" data-toggle="dropdown" data-target="user" data-offset="0px,0px" aria-expanded="false">
-						<img src="<?php echo $this->events->apply_filters('user_menu_card_avatar_src', '');?>" alt="<?php echo $this->events->apply_filters('user_menu_card_avatar_alt', '');?>">
+						<img src="<?php echo $this->events->apply_filters('fill_user_avatar', '');?>" alt="<?php echo $this->events->apply_filters('fill_user_avatar_alt', '');?>">
 					</a>
 					<!--begin::Dropdown-->
 					<div id="user" class="dropdown-menu dropdown-menu-lg">
@@ -107,7 +107,7 @@
 			<div class="aside-brand border-bottom border-bottom-secondary">
 				<!--begin::Logo-->
 				<a href="<?php echo site_url(); ?>" class="d-flex mr-5">
-					<img alt="Logo" src="<?php echo $this->events->apply_filters( 'apps_logo', ''); ?>" class="max-h-40px" />
+					<img alt="Logo" src="<?php echo $this->events->apply_filters( 'fill_apps_logo', ''); ?>" class="max-h-40px" />
 				</a>
 				<!--end::Logo-->
 			</div>

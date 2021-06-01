@@ -13,7 +13,7 @@
  */
 
 // Toolbar
-$this->events->add_filter( 'toolbar_nav', function( $final ) {
+$this->events->add_filter( 'fill_toolbar_nav', function( $final ) {
     $final[] = array(
         'id'          => 1,
         'name'        => __('Back to the list'),

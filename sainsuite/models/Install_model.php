@@ -146,7 +146,7 @@ class Install_Model extends CI_Model
         $this->events->do_action('do_settings_final_config');
 
         // user can change this behaviors
-        return $this->events->apply_filters('validating_setup', 'system-installed');
+        return $this->events->apply_filters('fill_validating_setup', 'system-installed');
     }
 
     /**

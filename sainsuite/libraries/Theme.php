@@ -105,7 +105,7 @@ class Theme
     {
         global $Options;
 
-        $activated_themes = get_instance()->events->apply_filters('load_theme_active', @$Options[ 'theme_frontend' ]);
+        $activated_themes = get_instance()->events->apply_filters('fill_theme_active', @$Options[ 'theme_frontend' ]);
         if ( $theme_namespace == $activated_themes ) {
             return true;
         }
@@ -123,11 +123,11 @@ class Theme
     {
         global $Options;
 
-        $activated_themes = get_instance()->events->apply_filters('load_theme_active', @$Options[ 'theme_frontend' ]);
+        $activated_themes = get_instance()->events->apply_filters('fill_theme_active', @$Options[ 'theme_frontend' ]);
         if ( $theme_namespace != $activated_themes ) 
         {
             get_instance()->options_model->set(
-                get_instance()->events->apply_filters('load_theme_option', 'theme_frontend'), 
+                get_instance()->events->apply_filters('fill_theme_option', 'theme_frontend'), 
                 $theme_namespace
             );
         }
@@ -139,12 +139,12 @@ class Theme
     {
         global $Options;
 
-        $activated_themes = get_instance()->events->apply_filters('load_theme_active', @$Options[ 'theme_frontend' ]);
+        $activated_themes = get_instance()->events->apply_filters('fill_theme_active', @$Options[ 'theme_frontend' ]);
         if ( $theme_namespace == $activated_themes ) : 
-            get_instance()->events->do_action('load_theme_uninstall');
+            get_instance()->events->do_action('do_theme_uninstall');
         endif;
 
-        $themepath = get_instance()->events->apply_filters('load_theme_path', FRONTENDPATH) . $theme_namespace;
+        $themepath = get_instance()->events->apply_filters('fill_theme_path', FRONTENDPATH) . $theme_namespace;
         $manifest_file = $themepath . '/' . self::$manifest_theme;
 
         if (is_file($manifest_file)) 
@@ -171,7 +171,7 @@ class Theme
         Filer::drop($themepath);
 
         // Drop Assets Folder
-        if (is_dir($theme_themes_folder = FCPATH . get_instance()->config->item('asset_path') . get_instance()->events->apply_filters('load_theme_folder', '') . '/' . $theme_namespace)) {
+        if (is_dir($theme_themes_folder = FCPATH . get_instance()->config->item('asset_path') . get_instance()->events->apply_filters('fill_theme_folder', '') . '/' . $theme_namespace)) {
             Filer::drop($theme_themes_folder);
         }
     }
@@ -189,7 +189,7 @@ class Theme
             get_instance()->load->library('zip');
 
             $theme_temp_folder_name = do_hash($theme_namespace);
-            $theme_installed_dir = get_instance()->events->apply_filters('load_theme_path', FRONTENDPATH)  . $theme_namespace . '/';
+            $theme_installed_dir = get_instance()->events->apply_filters('fill_theme_path', FRONTENDPATH)  . $theme_namespace . '/';
             
             // creating temp folder
             $temp_folder = APPPATH . 'temp' . '/' . $theme_temp_folder_name;
@@ -226,7 +226,7 @@ class Theme
             }
 
             // Copy Themes to
-            if (is_dir($themes_folder = VIEWPATH . get_instance()->events->apply_filters('load_theme_folder', 'frontend') . '/' . $theme_namespace)) 
+            if (is_dir($themes_folder = VIEWPATH . get_instance()->events->apply_filters('fill_theme_folder', 'frontend') . '/' . $theme_namespace)) 
             {
                 // create themes folder
                 $_temp_folder_themes = $temp_folder;
@@ -237,7 +237,7 @@ class Theme
             }
 
             // Copy Themes to
-            if (is_dir($theme_themes_folder = FCPATH . get_instance()->config->item('asset_path') . get_instance()->events->apply_filters('load_theme_folder', '') . '/' . $theme_namespace)) 
+            if (is_dir($theme_themes_folder = FCPATH . get_instance()->config->item('asset_path') . get_instance()->events->apply_filters('fill_theme_folder', '') . '/' . $theme_namespace)) 
             {
                 // create themes folder
                 $_temp_folder_themes_assets = $temp_folder . '/' . 'assets';
@@ -524,7 +524,7 @@ class Theme
 
         get_instance()->load->helper('file');
         $folder_to_lower = strtolower($theme_namespace);
-        $theme_dir_path = get_instance()->events->apply_filters('load_theme_path', FRONTENDPATH) . $folder_to_lower;
+        $theme_dir_path = get_instance()->events->apply_filters('fill_theme_path', FRONTENDPATH) . $folder_to_lower;
 
         // Creating theme folder within
         if (! is_dir($theme_dir_path)) {
@@ -573,7 +573,7 @@ class Theme
         **/
         if (is_dir($theme_dir_path . '/' . get_instance()->config->item('asset_path'))) 
         {
-            $addon_assets_folder = FCPATH . get_instance()->config->item('asset_path') . get_instance()->events->apply_filters('load_theme_folder', '') . '/' . $folder_to_lower;
+            $addon_assets_folder = FCPATH . get_instance()->config->item('asset_path') . get_instance()->events->apply_filters('fill_theme_folder', '') . '/' . $folder_to_lower;
             if (is_dir($addon_assets_folder)) { // checks if addon folder exists on public folder
                 Filer::drop($addon_assets_folder);
             }

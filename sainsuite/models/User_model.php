@@ -110,8 +110,8 @@ class User_model extends CI_Model
         // add events create users
         $this->events->do_action('do_create_users', $user_id);
 
-        $fields_user_vars = $this->events->apply_filters('fields_user_vars', []);
-        foreach (force_array($fields_user_vars) as $key => $value) {
+        $fill_user_vars = $this->events->apply_filters('fill_user_vars', []);
+        foreach (force_array($fill_user_vars) as $key => $value) {
             $this->aauth->set_user_var($key, $value, $user_id);
         }
 
@@ -160,8 +160,8 @@ class User_model extends CI_Model
             }
         }
 
-        $fields_user_vars = $this->events->apply_filters('fields_user_vars', []);
-        foreach (force_array($fields_user_vars) as $key => $value) {
+        $fill_user_vars = $this->events->apply_filters('fill_user_vars', []);
+        foreach (force_array($fill_user_vars) as $key => $value) {
             $this->aauth->set_user_var($key, $value, $user_id);
         }
 

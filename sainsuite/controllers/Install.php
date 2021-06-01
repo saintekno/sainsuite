@@ -96,7 +96,7 @@ class Install extends MY_Controller
             redirect('install');
         endif;
 
-        $this->events->do_action('settings_setup');
+        $this->events->do_action('do_settings_setup');
         $this->form_validation->set_rules('site_name', __('Site Name'), 'required');
         if ($this->form_validation->run()) 
         {

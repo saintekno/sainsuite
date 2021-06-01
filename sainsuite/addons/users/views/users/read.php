@@ -13,7 +13,7 @@
  */
 
 // Toolbar
-$this->events->add_filter( 'toolbar_nav', function( $final ) {
+$this->events->add_filter( 'fill_toolbar_nav', function( $final ) {
     $final[] = array(
         'id' => 1,
         'name'   => __('Add A user'),
@@ -25,7 +25,7 @@ $this->events->add_filter( 'toolbar_nav', function( $final ) {
     return $final;
 });
 
-$this->events->add_filter('toolbar_filter', function ($filter) { // disabling header
+$this->events->add_filter('fill_toolbar_filter', function ($filter) { // disabling header
     $groups = $this->aauth->list_groups();
     $option = '<option value="">All</option>';
     foreach ( force_array($groups) as $gr ) {
@@ -67,7 +67,7 @@ $this->polatan->add_item(array(
     'type' => 'table-datatable',
 ), 'users');
 
-$this->events->add_action( 'dashboard_footer', function() {
+$this->events->add_action( 'do_dashboard_footer', function() {
     $this->load->addon_view( 'users', 'users/datatable');
 });
 

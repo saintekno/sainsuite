@@ -13,7 +13,7 @@
  */
 
 // Toolbar
-$this->events->add_filter( 'toolbar_nav', function( $final ) {
+$this->events->add_filter( 'fill_toolbar_nav', function( $final ) {
     $final[] = array(
         'id' => 1,
         'name'   => __('Back to the list'),
@@ -45,7 +45,7 @@ $this->polatan->add_item(array(
             'description' => 'Update your personal informaiton',
             'show' => true,
             'body' => array(
-                'items' => $this->events->apply_filters_ref_array('load_user_profile', array( 
+                'items' => $this->events->apply_filters_ref_array('fill_user_profile', array( 
                     array_merge(
                         ['user'=> $user], 
                         ['groups'=> $groups], 
@@ -80,7 +80,7 @@ $this->polatan->add_item(array(
             'heading'=> __('Change Password'),
             'description' => 'Change your account password',
             'body' => array(
-                'items' => $this->events->apply_filters_ref_array('load_user_pass', array( 
+                'items' => $this->events->apply_filters_ref_array('fill_user_pass', array( 
                     array_merge(
                         ['user'=>$user], 
                         ['page'=> 'users']

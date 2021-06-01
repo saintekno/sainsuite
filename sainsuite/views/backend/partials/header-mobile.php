@@ -3,7 +3,7 @@
 
 	<!--begin::Logo-->
 	<a href="<?php echo site_url('admin'); ?>" class="header-logo d-flex">
-		<img alt="Logo" src="<?php echo $this->events->apply_filters( 'apps_logo', 'light'); ?>" class="max-h-30px" />
+		<img alt="Logo" src="<?php echo $this->events->apply_filters( 'fill_apps_logo', 'light'); ?>" class="max-h-30px" />
 	</a>
 
 	<!--end::Logo-->
@@ -42,7 +42,7 @@
 				</ul>
 				<div class="navi-footer py-5 mx-5 d-flex justify-content-between">
 					<a href="#" target="_blank" class="btn btn-clean font-weight-bold">Upgrade Plan</a>
-					<a href="<?php echo xss_clean($this->events->apply_filters('user_header_sign_out_link', site_url('logout' ) . '?redirect=' . urlencode(current_url())));?>" 
+					<a href="<?php echo xss_clean($this->events->apply_filters('fill_link_sign_out', site_url('logout' ) . '?redirect=' . urlencode(current_url())));?>" 
 						class="btn btn-light-danger font-weight-bold">
 						<?php _e('Sign Out');?>
 					</a>

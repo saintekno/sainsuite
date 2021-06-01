@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- navbar -->
         <nav class="navbar navbar-expand-lg navbar-light px-sm-0">
             <a class="navbar-brand" href="<?php echo site_url();?>">
-                <img class="logo" src="<?php echo $this->events->apply_filters( 'apps_logo', '' ); ?>" alt="<?php echo riake('site_name', options(APPNAME)); ?>" />
+                <img class="logo" src="<?php echo $this->events->apply_filters( 'fill_apps_logo', '' ); ?>" alt="<?php echo riake('site_name', options(APPNAME)); ?>" />
             </a>
 
             <button class="navbar-toggler menu ripplemenu" type="button" data-toggle="collapse"

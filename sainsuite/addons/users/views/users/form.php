@@ -13,7 +13,7 @@
  */
 
 // Toolbar
-$this->events->add_filter( 'toolbar_nav', function( $final ) {
+$this->events->add_filter( 'fill_toolbar_nav', function( $final ) {
     $final[] = array(
         'id' => 1,
         'name'   => __('Back to the list'),
@@ -45,7 +45,7 @@ $item[] = array(
     'show' => true,
     'hide_footer' => true,
     'body' => array(
-        'items' => $this->events->apply_filters_ref_array('load_user_profile', array( 
+        'items' => $this->events->apply_filters_ref_array('fill_user_profile', array( 
             array_merge(
                 ['user'=> null], 
                 ['groups'=> $groups], 
@@ -63,7 +63,7 @@ $item[] = array(
     'show' => true,
     'hide_footer' => true,
     'body' => array(
-        'items' => $this->events->apply_filters_ref_array('load_user_pass', array( 
+        'items' => $this->events->apply_filters_ref_array('fill_user_pass', array( 
             array_merge(
                 ['user'=> null], 
                 ['page'=> 'users']

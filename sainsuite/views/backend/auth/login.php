@@ -94,6 +94,6 @@ $App_Options = options(APPNAME);
     <?php
     // Should checks whether a registration is enabled
     if (intval(riake('demo_mode', $App_Options)) == true) : 
-    $this->events->apply_filters('demo_account', '');
+    $this->events->do_action('do_demo_account', '');
     endif; ?>
 </div>

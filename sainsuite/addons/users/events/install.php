@@ -23,7 +23,7 @@ class Users_Install extends MY_Addon
         $this->events->add_action('do_settings_tables', array( $this, 'do_settings_tables' ), 1);
         $this->events->add_action('do_settings_final_config', array( $this, 'permissions' ));
         $this->events->add_action('do_settings_final_config', array( $this, 'final_config' ));
-        $this->events->add_action('settings_setup', array( new Users_Action, 'registration_rules' ));
+        $this->events->add_action('do_settings_setup', array( new Users_Action, 'do_registration_rules' ));
     }
 
     public function enable_addon()
@@ -242,7 +242,7 @@ class Users_Install extends MY_Addon
         );
         
         if ($create_user != 'created') {
-            $this->events->add_filter('validating_setup', 'unexpected-error');
+            $this->events->add_filter('fill_validating_setup', 'unexpected-error');
         }
     }
 }

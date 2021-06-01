@@ -27,7 +27,7 @@ class Menus_Model extends CI_Model
     public function usercard_nav()
     {
         get_instance()->multimenu->set_items(
-            $this->events->apply_filters('after_user_card', [])
+            $this->events->apply_filters('fill_user_card', [])
         );
 
         $config["nav_tag_open"]   = '';
@@ -66,9 +66,9 @@ class Menus_Model extends CI_Model
      * Load Dashboard Menu
      * [New Permission Ready]
      **/
-    public function asidefooter_nav()
+    public function aside_footer_nav()
     {
-        $asidefooter_nav[] = array(
+        $aside_footer_nav[] = array(
             'id'     => 3,
             'parent' => null,
             'name'   => __('Appearance'),
@@ -77,7 +77,7 @@ class Menus_Model extends CI_Model
             'permission' => 'read.themes',
             'order'  => 3,
         );
-        $asidefooter_nav[] = array(
+        $aside_footer_nav[] = array(
             'id'     => 4,
             'parent' => null,
             'name'   => __('Addons'),
@@ -86,7 +86,7 @@ class Menus_Model extends CI_Model
             'permission' => 'read.addons',
             'order'  => 4,
         );
-        $asidefooter_nav[] = array(
+        $aside_footer_nav[] = array(
             'id'     => 5,
             'parent' => null,
             'name'   => __('Setting'),
@@ -95,7 +95,7 @@ class Menus_Model extends CI_Model
             'permission' => 'read.options',
             'order'  => 5,
         );
-        $asidefooter_nav[] = array(
+        $aside_footer_nav[] = array(
             'id'         => 6,
             'parent'     => null,
             'name'       => __('Reset', 'aauth'),
@@ -105,7 +105,7 @@ class Menus_Model extends CI_Model
             'order'      => 6
         );
         get_instance()->multimenu->set_items(
-            $this->events->apply_filters('asidefooter_nav', $asidefooter_nav)
+            $this->events->apply_filters('fill_aside_footer_nav', $aside_footer_nav)
         );
 
         $config["item_tag_open"]  = '<div data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="%s" aria-expanded="false">';
@@ -215,7 +215,7 @@ class Menus_Model extends CI_Model
     public function create_nav()
     {
         get_instance()->multimenu->set_items(
-            $this->events->apply_filters('create_nav', [])
+            $this->events->apply_filters('fill_create_nav', [])
         );
 
         $config["nav_tag_open"]   = '<div class="px-3 pt-2 pb-5 border-bottom">';
@@ -228,11 +228,11 @@ class Menus_Model extends CI_Model
         $config["item_divider"] = '';
         get_instance()->multimenu->initialize($config);
 
-        if (empty($this->events->apply_filters('create_nav', []))) : return;
+        if (empty($this->events->apply_filters('fill_create_nav', []))) : return;
         endif;
 
         // call render in view
-        if (User::control( $this->events->apply_filters('create_nav', [])[0]['permission'] )) :
+        if (User::control( $this->events->apply_filters('fill_create_nav', [])[0]['permission'] )) :
         return get_instance()->multimenu->render();
         endif;
     }
@@ -244,7 +244,7 @@ class Menus_Model extends CI_Model
     public function toolbar_nav()
     {
         get_instance()->multimenu->set_items(
-            $this->events->apply_filters('toolbar_nav', [])
+            $this->events->apply_filters('fill_toolbar_nav', [])
         );
 
         $config["nav_tag_open"]   = '';

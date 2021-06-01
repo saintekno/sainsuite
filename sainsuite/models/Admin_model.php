@@ -18,12 +18,12 @@ class Admin_Model extends CI_Model
     {
         parent::__construct();   
           
-        $this->events->add_filter( 'dashboard_dev_class', array( $this, 'dashboard_dev_class' ) );
-        $this->events->add_filter( 'dashboard_skin_class', array( $this, 'dashboard_skin_class' ), 5, 1);
+        $this->events->add_filter( 'fill_dev_mode', array( $this, 'fill_dev_mode' ) );
+        $this->events->add_filter( 'fill_skin_class', array( $this, 'fill_skin_class' ), 5, 1);
 
         // Load CSS and JS
-        $this->events->add_action( 'dashboard_header', array( $this, '_dashboard_header' ), 1 );
-        $this->events->add_action( 'dashboard_footer', array( $this, '_dashboard_footer' ), 1 );
+        $this->events->add_action( 'do_dashboard_header', array( $this, '_dashboard_header' ), 1 );
+        $this->events->add_action( 'do_dashboard_footer', array( $this, '_dashboard_footer' ), 1 );
     }
 
     /**
@@ -72,7 +72,7 @@ class Admin_Model extends CI_Model
      * @param : string
      * @return : string
     **/
-    public function dashboard_skin_class($class)
+    public function fill_skin_class($class)
     {
         global $User_Options;
         // skin is defined by default
@@ -87,7 +87,7 @@ class Admin_Model extends CI_Model
      * @param : string
      * @return : string
     **/
-    public function dashboard_dev_class($class)
+    public function fill_dev_mode($class)
     {
         // skin is defined by default
         $class = (riake('webdev_mode', options(APPNAME))) ? 'checked="checked"' : '';

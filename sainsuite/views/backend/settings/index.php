@@ -145,7 +145,7 @@ $item[] = array(
         'items' => $items_heading2
     )
 );
-$items = $this->events->apply_filters('load_items_setting', $item);
+$items = $this->events->apply_filters('fill_setting_items', $item);
 
 /**
  * Item

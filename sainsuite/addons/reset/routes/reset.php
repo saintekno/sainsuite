@@ -47,7 +47,7 @@ class Reset extends MY_Addon
         // Title
 		Polatan::set_title( get('signature') );
 
-		$this->events->add_action( 'dashboard_footer', function () {
+		$this->events->add_action( 'do_dashboard_footer', function () {
 			$this->addon_view( 'reset', 'prompt' );
 		});
 

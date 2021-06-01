@@ -82,7 +82,7 @@ class UsersHomeController extends MY_Addon
         $this->form_validation->set_rules('group', __('Group', 'aauth'), 'required');
 
         // load custom rules
-        $this->events->do_action('user_creation_rules');
+        $this->events->do_action('do_user_rules');
 
         if ($this->form_validation->run()) 
         {

@@ -6,11 +6,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <HEAD>
     <?php $this->load->backend_view( 'partials/metas.php' );?>
     
-    <?php $this->events->do_action( 'dashboard_header' );?>
+    <?php $this->events->do_action( 'do_dashboard_header' );?>
 </HEAD>
 <BODY id="kt_body" 
-    class="header-mobile-fixed aside-enabled aside-fixed aside-minimize subheader-enabled subheader-transparent <?php echo xss_clean($this->events->apply_filters('dashboard_skin_class', 'skin-dark'));?>" 
-    <?php echo xss_clean($this->events->apply_filters('dashboard_body_attrs', 'ng-app="SainSuite"'));?>>
+    class="header-mobile-fixed aside-enabled aside-fixed aside-minimize subheader-enabled subheader-transparent <?php echo xss_clean($this->events->apply_filters('fill_skin_class', 'skin-dark'));?>" 
+    <?php echo xss_clean($this->events->apply_filters('fill_body_attrs', 'ng-app="SainSuite"'));?>>
 
     <?php include('partials/header-mobile.php'); ?>
 
@@ -44,6 +44,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <?php include('partials/scrolltop.php'); ?>
 
-    <?php $this->events->do_action( 'dashboard_footer' );?>
+    <?php $this->events->do_action( 'do_dashboard_footer' );?>
 </BODY>
 </HTML>

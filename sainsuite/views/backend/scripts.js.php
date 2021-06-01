@@ -34,7 +34,7 @@ var KTSains = function() {
 		offcanvas = new KTOffcanvas('kt_profile_aside', {
             overlay: true,
             baseClass: 'offcanvas-mobile',
-            toggleBy: 'kt_subheader_mobile_toggle'
+            toggleBy: 'fill_mobile_toggle'
         });
 	}
 
@@ -287,7 +287,7 @@ var KTSains = function() {
             });
         }
 
-        if ( '<?php echo $this->events->apply_filters('dashboard_dev_class', '') ?>' ) {
+        if ( '<?php echo $this->events->apply_filters('fill_dev_mode', '') ?>' ) {
             $('.webdev_mode').removeClass('d-none');
         }
         
@@ -492,7 +492,7 @@ var KTSains = function() {
     };
 }();
 
-var AppAngular = angular.module( 'SainSuite', <?php echo json_encode( ( Array ) $this->events->apply_filters( 'admin_dependencies', array() ) );?> );
+var AppAngular = angular.module( 'SainSuite', <?php echo json_encode( ( Array ) $this->events->apply_filters( 'fill_dependencies', array() ) );?> );
 var _buttonSpinnerClasses = 'spinner spinner-right spinner-white pr-15';
 
 function checkRequiredFields() {

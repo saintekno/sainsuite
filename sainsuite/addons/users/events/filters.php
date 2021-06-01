@@ -17,15 +17,14 @@ class Users_Filters extends MY_Addon
     public function __construct()
     {
         parent::__construct();
-        $this->events->add_filter('load_user_profile', array( $this, 'load_user_profile' ));
-        $this->events->add_filter('load_user_pass', array( $this, 'load_user_pass' ));
-        $this->events->add_filter('load_users_advanced', array( $this, 'load_users_advanced' ));
+        $this->events->add_filter('fill_user_profile', array( $this, 'load_user_profile' ));
+        $this->events->add_filter('fill_user_pass', array( $this, 'load_user_pass' ));
 
-        $this->events->add_filter('apps_logo', array( $this, 'apps_logo' ), 1, 1);
+        $this->events->add_filter('fill_apps_logo', array( $this, 'apps_logo' ), 1, 1);
         $this->events->add_filter('fill_form_register', array( $this, 'fill_form_register' ), 1, 1);
         $this->events->add_filter('fill_apps_contact', array( $this, 'fill_apps_contact' ), 5, 1);
-        $this->events->add_filter('fields_user_vars', array( $this, 'fields_user_vars' ), 10, 1);
-        $this->events->add_filter('user_menu_card_avatar_src', function () {
+        $this->events->add_filter('fill_user_vars', array( $this, 'fields_user_vars' ), 10, 1);
+        $this->events->add_filter('fill_user_avatar', function () {
             return User::get_user_image_url(User::id());
         });
     }

@@ -85,8 +85,8 @@ class UsersProfileController extends MY_Addon
             }
         }
 
-        $this->events->add_filter('kt_subheader_mobile_toggle', function () { return true; });
-        $this->events->add_filter('kt_subheader_mobile_toggle_row', function () { 
+        $this->events->add_filter('fill_mobile_toggle', function () { return true; });
+        $this->events->add_filter('fill_mobile_toggle_row', function () { 
             return 'd-flex flex-row';
         });
         

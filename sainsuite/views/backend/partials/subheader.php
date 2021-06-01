@@ -4,8 +4,8 @@
         <div class="subheader-wrap py-4 d-flex flex-column flex-sm-row justify-content-between flex-wrap flex-sm-nowrap">  
             <!--begin::Info-->
             <div class="d-flex align-items-center flex-wrap mb-2 mb-sm-0">
-                <?php if ($this->events->apply_filters('kt_subheader_mobile_toggle', '')) : ?>
-                <button class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none" id="kt_subheader_mobile_toggle">
+                <?php if ($this->events->apply_filters('fill_mobile_toggle', '')) : ?>
+                <button class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none" id="fill_mobile_toggle">
                     <span></span>
                 </button>
                 <?php endif; ?>
@@ -27,7 +27,7 @@
 
             <!--begin::Toolbar-->
             <div class="toolbar_menu">
-            <?php foreach ($this->events->apply_filters('toolbar_filter', []) as $key => $value) {
+            <?php foreach ($this->events->apply_filters('fill_toolbar_filter', []) as $key => $value) {
                 echo $value;
             }; ?>
             </div>

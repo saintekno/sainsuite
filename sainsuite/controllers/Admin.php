@@ -105,7 +105,7 @@ class Admin extends MY_Controller
         if ($this->events->has_action('do_dashboard_home')) :
             $this->events->do_action('do_dashboard_home');
         else :
-            $this->events->add_filter( 'gui_before_cols', function() {
+            $this->events->add_filter( 'fill_gui_before_cols', function() {
                 return $this->load->backend_view( 'partials/home', null, true );
             });
         endif;
@@ -125,7 +125,7 @@ class Admin extends MY_Controller
     {        
         Polatan::set_title(sprintf(__('404 &mdash; %s'), get('signature')));
         
-        $this->events->add_filter( 'gui_before_cols', function() {
+        $this->events->add_filter( 'fill_gui_before_cols', function() {
             return $this->load->backend_view( 'partials/error_404', null, true );
         });
         $this->polatan->output();
@@ -298,7 +298,7 @@ class Admin extends MY_Controller
                 MY_Addon::init('unique', $arg2);
                 $this->events->do_action('do_enable_addon', $arg2, $arg3);
                 
-                redirect(array( 'admin', 'addons?notice=' . $this->events->apply_filters('addon_activation_status', 'addon-enabled') ));
+                redirect(array( 'admin', 'addons?notice=' . $this->events->apply_filters('fill_addon_activation_status', 'addon-enabled') ));
                 break;
 
             case "disable":
@@ -311,7 +311,7 @@ class Admin extends MY_Controller
                 MY_Addon::disable($arg2);
                 $this->events->do_action('do_disable_addon', $arg2);
     
-                redirect(array( 'admin', 'addons?notice=' . $this->events->apply_filters('addon_disabling_status', 'addon-disabled') ));
+                redirect(array( 'admin', 'addons?notice=' . $this->events->apply_filters('fill_addon_disabling_status', 'addon-disabled') ));
                 break;
 
             case "remove":

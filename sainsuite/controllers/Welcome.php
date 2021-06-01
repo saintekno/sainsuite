@@ -27,15 +27,13 @@ class Welcome extends MY_Controller
 	public function index()
 	{
         $data['pages'] = 'home';
-        $data = $this->events->apply_filters('load_website_index', $data);
-        $this->load->frontend_view( 'layouts', $data );
+        $this->load->frontend_view( 'layouts', $this->events->apply_filters('load_website_index', $data) );
 	}
 
     // not found page
     public function error_404()
     {
         $data['pages'] = '404';
-        $data = $this->events->apply_filters('load_website_index', $data);
-        $this->load->frontend_view( 'layouts', $data );
+        $this->load->frontend_view( 'layouts', $this->events->apply_filters('load_website_index', $data) );
     }
 }

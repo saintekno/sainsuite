@@ -14,7 +14,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     $this->enqueue->css('style.bundle');
     $this->enqueue->css('login');
     $this->enqueue->css('skin/all');
-    $this->events->do_action( 'auth_header' );
+    $this->events->do_action( 'do_auth_header' );
     $this->enqueue->load_css('header');
     ?>
 </HEAD>
@@ -31,7 +31,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <!--begin::Logo-->
                     <div class="login-logo pb-xl-10 pb-5">
                         <a href="<?php echo site_url(); ?>">
-                            <img alt="<?php echo get('app_name'); ?>" src="<?php echo $this->events->apply_filters('apps_logo', ''); ?>" class="max-h-50px" />
+                            <img alt="<?php echo get('app_name'); ?>" src="<?php echo $this->events->apply_filters('fill_apps_logo', ''); ?>" class="max-h-50px" />
                         </a>
                     </div>
 
@@ -76,7 +76,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     $this->enqueue->js('plugins.bundle');
     $this->enqueue->js('scripts.bundle');
     $this->enqueue->js('login');
-    $this->events->do_action( 'auth_footer' );
+    $this->events->do_action( 'do_auth_footer' );
     $this->enqueue->load_js('footer');
     ?>
 </BODY>

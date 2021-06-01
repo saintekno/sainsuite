@@ -39,7 +39,7 @@ global $Options;
                                 <p class="d-flex">
                                     <i class="tio checkmark_circle"></i>
                                     Copyright &copy; <?php echo date('Y');?>.
-                                    <?php echo $this->events->apply_filters('dashboard_footer_right', ( $copyright = riake('copyright', $Options)) ? $copyright : sprintf( __( 'Version %s' ), get('version') ) );?>
+                                    <?php echo $this->events->apply_filters('fill_dash_footer_copyright', ( $copyright = riake('copyright', $Options)) ? $copyright : sprintf( __( 'Version %s' ), get('version') ) );?>
                                 </p>
                                 </div>
 

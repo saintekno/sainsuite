@@ -543,7 +543,7 @@ class Aauth {
 				'kode' => $ver_code,
 				'url' => site_url() . $this->config_vars['reset_password_link'] . $ver_code
 			);
-			$this->CI->events->do_action('do_template_email_remind', $config);
+			$this->CI->events->do_action('do_email_remind_password', $config);
 
 			return true;
 		}
@@ -586,7 +586,7 @@ class Aauth {
 				'username' => $row->username,
 				'kode' => $pass
 			);
-			$this->CI->events->do_action('do_template_email_reset', $config);
+			$this->CI->events->do_action('do_email_reset_password', $config);
 
 			return true;
 		}
@@ -1130,7 +1130,7 @@ class Aauth {
 				'kode' => $ver_code,
 				'url' => site_url() .$this->config_vars['verification_link'] . $user_id . '/' . $ver_code
 			);
-			$this->CI->events->do_action('do_template_email', $config);
+			$this->CI->events->do_action('do_email_verification', $config);
 		}
 	}
 
@@ -1429,8 +1429,7 @@ class Aauth {
 				'definition'=> $definition
 			);
 
-			$data = $this->CI->events->apply_filters('fill_data_group', $data);
-			$this->aauth_db->insert($this->config_vars['groups'], $data);
+			$this->aauth_db->insert($this->config_vars['groups'], $this->CI->events->apply_filters('fill_data_group', $data) );
 			$group_id = $this->aauth_db->insert_id();
 			
 			$this->precache_groups();
@@ -1444,8 +1443,7 @@ class Aauth {
 				'definition'=> $this->get_group($group_name)->definition
 			);
 
-			$data = $this->CI->events->apply_filters('fill_data_group', $data);
-			$this->aauth_db->insert($this->config_vars['groups'], $data);
+			$this->aauth_db->insert($this->config_vars['groups'], $this->CI->events->apply_filters('fill_data_group', $data) );
 			$group_id = $this->aauth_db->insert_id();
 
 			// Add permission
@@ -1481,10 +1479,8 @@ class Aauth {
 			$data['definition'] = $definition;
 		}
 
-		$data = $this->CI->events->apply_filters('fill_data_group', $data);
-
 		$this->aauth_db->where('id', $group_id);
-		return $this->aauth_db->update($this->config_vars['groups'], $data);
+		return $this->aauth_db->update($this->config_vars['groups'], $this->CI->events->apply_filters('fill_data_group', $data) );
 	}
 
 	//tested
