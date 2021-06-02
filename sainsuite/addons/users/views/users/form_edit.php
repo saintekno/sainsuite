@@ -45,7 +45,7 @@ $this->polatan->add_item(array(
             'description' => 'Update your personal informaiton',
             'show' => true,
             'body' => array(
-                'items' => $this->events->apply_filters_ref_array('fill_user_profile', array( 
+                'items' => $this->events->apply_filters_ref_array('fill_ref_user_profile', array( 
                     array_merge(
                         ['user'=> $user], 
                         ['groups'=> $groups], 
@@ -80,7 +80,7 @@ $this->polatan->add_item(array(
             'heading'=> __('Change Password'),
             'description' => 'Change your account password',
             'body' => array(
-                'items' => $this->events->apply_filters_ref_array('fill_user_pass', array( 
+                'items' => $this->events->apply_filters_ref_array('fill_ref_user_pass', array( 
                     array_merge(
                         ['user'=>$user], 
                         ['page'=> 'users']

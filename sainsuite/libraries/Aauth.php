@@ -457,9 +457,9 @@ class Aauth {
 			}
 		}
 
-		return (!$this->CI->events->has_filter('fill_control_aauth')) 
+		return (!$this->CI->events->has_filter('fill_ref_control_aauth')) 
 				? true 
-				: $this->CI->events->apply_filters_ref_array('fill_control_aauth', [ $perm_par ] );
+				: $this->CI->events->apply_filters_ref_array('fill_ref_control_aauth', [ $perm_par ] );
 	}
 
 	//tested

@@ -45,7 +45,7 @@ $item[] = array(
     'show' => true,
     'hide_footer' => true,
     'body' => array(
-        'items' => $this->events->apply_filters_ref_array('fill_user_profile', array( 
+        'items' => $this->events->apply_filters_ref_array('fill_ref_user_profile', array( 
             array_merge(
                 ['user'=> null], 
                 ['groups'=> $groups], 
@@ -63,7 +63,7 @@ $item[] = array(
     'show' => true,
     'hide_footer' => true,
     'body' => array(
-        'items' => $this->events->apply_filters_ref_array('fill_user_pass', array( 
+        'items' => $this->events->apply_filters_ref_array('fill_ref_user_pass', array( 
             array_merge(
                 ['user'=> null], 
                 ['page'=> 'users']

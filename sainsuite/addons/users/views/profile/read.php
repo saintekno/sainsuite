@@ -54,7 +54,7 @@ $user_profile[] = array(
     'heading'=> __('Personal Information'),
     'description' => 'Update your personal informaiton',
     'body' => array(
-        'items' => $this->events->apply_filters_ref_array('fill_user_profile', array( 
+        'items' => $this->events->apply_filters_ref_array('fill_ref_user_profile', array( 
             array_merge(
                 ['user'=> User::get()], 
                 ['page'=> 'profile']
@@ -86,7 +86,7 @@ $user_pass[] = array(
     'heading'=> __('Change Password'),
     'description' => 'Change your account password',
     'body' => array(
-        'items' => $this->events->apply_filters_ref_array('fill_user_pass', array( 
+        'items' => $this->events->apply_filters_ref_array('fill_ref_user_pass', array( 
             array_merge(
                 ['user'=> User::get()], 
                 ['page'=> 'profile']

@@ -17,8 +17,8 @@ class Users_Filters extends MY_Addon
     public function __construct()
     {
         parent::__construct();
-        $this->events->add_filter('fill_user_profile', array( $this, 'load_user_profile' ));
-        $this->events->add_filter('fill_user_pass', array( $this, 'load_user_pass' ));
+        $this->events->add_filter('fill_ref_user_profile', array( $this, 'load_user_profile' ));
+        $this->events->add_filter('fill_ref_user_pass', array( $this, 'load_user_pass' ));
 
         $this->events->add_filter('fill_apps_logo', array( $this, 'apps_logo' ), 1, 1);
         $this->events->add_filter('fill_form_register', array( $this, 'fill_form_register' ), 1, 1);
@@ -109,7 +109,7 @@ class Users_Filters extends MY_Addon
             );
         endif;
 
-        $filed = $this->events->apply_filters_ref_array('fill_user_profile', array( 
+        $filed = $this->events->apply_filters_ref_array('fill_ref_field_user_profile', array( 
             array_merge(
                 $filed,
                 ['user'=> $config['user']],
