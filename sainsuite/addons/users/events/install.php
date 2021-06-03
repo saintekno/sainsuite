@@ -29,9 +29,6 @@ class Users_Install extends MY_Addon
     public function enable_addon()
     {
         MY_Addon::enable('users');
-
-        // Defaut options_model
-        $this->options_model->set('users_installed', true, 'users');
     }
     
     public function do_settings_tables($config)
