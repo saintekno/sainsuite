@@ -36,18 +36,6 @@
  * @filesource
  */
 
-/**
- * SainSuite
- *
- * Engine Management System
- *
- * @package     SainSuite
- * @copyright   Copyright (c) 2019-2020 Buddy Winangun, Eracik.
- * @copyright   Copyright (c) 2020-2021 SainTekno, SainSuite.
- * @link        https://github.com/saintekno/sainsuite
- * @filesource
- */
-
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
@@ -110,8 +98,8 @@ switch (ENVIRONMENT)
  * This variable must contain the name of your "system" directory.
  * Set the path if it is not in the same directory as this file.
  */
-	$path_folder = '..';
-	$system_path = $path_folder.DIRECTORY_SEPARATOR.'system';
+	$folder_path = '..';
+	$system_path = $folder_path.DIRECTORY_SEPARATOR.'system';
 
 /*
  *---------------------------------------------------------------
@@ -128,7 +116,7 @@ switch (ENVIRONMENT)
  *
  * NO TRAILING SLASH!
  */
-	$application_folder = $path_folder.DIRECTORY_SEPARATOR.'sainsuite';
+	$application_folder = $folder_path.DIRECTORY_SEPARATOR;
 
 /*
  *---------------------------------------------------------------
@@ -321,14 +309,16 @@ switch (ENVIRONMENT)
 
 /*
  *----------------------
- * TIMEZONE
+ * minimum PHP requirements
  *----------------------
  *
- * If timezone has not been set, give it a default
+ * Check that the environment meets minimum PHP requirements.
  *
  */
-if(ini_get('date.timezone') == '' || ini_get('date.timezone') == 'Timezone' ) {
-	date_default_timezone_set('Asia/Jakarta');
+if( version_compare('7.3.0', PHP_VERSION) == 1 ) {
+	header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+	echo 'Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.3.0"; you are currently using PHP '.PHP_VERSION;
+	exit(1); // EXIT_ERROR
 }
 
 /*
@@ -336,7 +326,7 @@ if(ini_get('date.timezone') == '' || ini_get('date.timezone') == 'Timezone' ) {
 |  Auto-load Packages
 | -------------------------------------------------------------------
 */
-if (! file_exists(APPPATH.'third_party/autoload.php')) {
+if (! file_exists(APPPATH.'vendor/autoload.php')) {
 	header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
 	echo 'Auto-load Packages is not install. Run <b>composer install</b> in your root project folder';
 	exit(1); // EXIT_ERROR
