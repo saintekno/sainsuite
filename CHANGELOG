@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.18.0] - 2021-06-04
+### Changed
+- normalisasi events
+
 ## [3.17.0] - 2021-04-12
 ### Changed
 - normalisasi path frontend
