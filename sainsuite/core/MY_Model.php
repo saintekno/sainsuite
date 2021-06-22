@@ -24,7 +24,7 @@ class MY_Model extends CI_Model
     protected $key = 'id';
 
     /** @var string The primary key of the table. Used as the 'id' throughout. */
-    protected $autokey = [];
+    protected $autokey = '';
 
     /**
      * @var string Field name to use for the created time column in the DB table
@@ -54,7 +54,7 @@ class MY_Model extends CI_Model
      * @var bool If true, will log user id in $created_by_field, $modified_by_field,
      * and $deleted_by_field.
      */
-    protected $log_user = false;
+    protected $log_user = true;
 
     /** @var string Field name to use as the created by column in the DB table. */
     protected $created_by_field = 'created_by';
@@ -76,7 +76,7 @@ class MY_Model extends CI_Model
      * If false, the delete() method will perform a delete of that row.
      * If true, the value in $deleted_field will be set to 1.
      */
-    protected $soft_deletes = false;
+    protected $soft_deletes = true;
 
     /** @var string Stores any selects here for use by the find* methods. */
     protected $selects = '';

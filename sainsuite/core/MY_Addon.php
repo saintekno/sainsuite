@@ -349,6 +349,8 @@ class MY_Addon extends CI_Model
             foreach ($manifest_array as $file) {
                 if (is_file($file)):
                     unlink($file);
+                else :
+                    Filer::drop($file);
                 endif;
             }
         }
@@ -366,21 +368,12 @@ class MY_Addon extends CI_Model
             Filer::drop($addon_themes_folder);
         }
 
-        // Drop Assets Folder
-        if (is_dir($themes_folder = APPPATH . 'views/frontend' . '/' . $addon_namespace)) {
-            Filer::drop($themes_folder);
-        }
-
         // Drop Uploads Folder
         if (! $update) :
             if (is_dir($addon_uploads_folder = FCPATH . 'uploads' . '/' . $addon_namespace)) {
                 Filer::drop($addon_uploads_folder);
             }
             get_instance()->options_model->delete( null, $addon_namespace);
-        endif;
-
-        if ( @$Options[ 'theme_frontend' ] ==  $addon_namespace ) :
-            get_instance()->options_model->set('theme_frontend', 'default' );
         endif;
     }
 
@@ -413,12 +406,12 @@ class MY_Addon extends CI_Model
                 // manifest is valid
                 if (is_array($manifest_array)) 
                 {
-                    // moving manifest file to temp folder
-                    foreach (self::$allowed_app_folders as $reserved_folder) 
+                    foreach ($manifest_array as $file) 
                     {
-                        foreach ($manifest_array as $file) 
+                        // moving manifest file to temp folder
+                        foreach (self::$allowed_app_folders as $reserved_folder) 
                         {
-                            //var_dump( $path_id_separator = APPPATH . $reserved_folder );
+                            // var_dump( $path_id_separator = APPPATH . $reserved_folder );
                             if (strstr($file, $path_id_separator = APPPATH . $reserved_folder)) 
                             {
                                 // we found a a file
@@ -430,13 +423,29 @@ class MY_Addon extends CI_Model
                                 );
                             }
                         }
+
+                        if (strstr($file, $path_id_separator = VIEWPATH . "frontend")) 
+                        {
+                            // we found a a file
+                            $path_splited = explode($path_id_separator, $file);
+                            // var_dump( $path_splited );
+                            // create themes folder
+                            $_temp_folder_themes = $temp_folder . '/' . 'themes';
+                            if (!is_dir($_temp_folder_themes)) {
+                                mkdir($_temp_folder_themes);
+                            }
+                            Filer::copy(
+                                VIEWPATH . "frontend" . $path_splited[1],
+                                $_temp_folder_themes . $path_splited[1]
+                            );
+                        }
                     }
                 }
             }
 
             get_instance()->events->do_action('do_extract_addon_dir', $addon_namespace);
 
-            // Copy Assets to
+            // Copy Assets addons to
             if (is_dir($addon_assets_folder = FCPATH . 'assets/addons' . '/' . $addon_namespace)) 
             {
                 // create assets folder
@@ -445,6 +454,17 @@ class MY_Addon extends CI_Model
                     mkdir($_temp_folder_assets);
                 }
                 Filer::copy($addon_assets_folder, $_temp_folder_assets);
+            }
+
+            // Copy Assets Themes to
+            if (is_dir($addon_themes_folder = FCPATH . 'assets' . '/' . $addon_namespace)) 
+            {
+                // create themes folder
+                $_temp_folder_themes_assets = $temp_folder . '/' . 'assets/themes';
+                if (!is_dir($_temp_folder_themes_assets)) {
+                    mkdir($_temp_folder_themes_assets);
+                }
+                Filer::copy($addon_themes_folder, $_temp_folder_themes_assets);
             }
 
             // Copy Uploads to
@@ -456,28 +476,6 @@ class MY_Addon extends CI_Model
                     mkdir($_temp_folder_uploads);
                 }
                 Filer::copy($addon_uploads_folder, $_temp_folder_uploads);
-            }
-
-            // Copy Themes to
-            if (is_dir($themes_folder = APPPATH . 'views/frontend' . '/' . $addon_namespace)) 
-            {
-                // create themes folder
-                $_temp_folder_themes = $temp_folder . '/' . 'themes';
-                if (!is_dir($_temp_folder_themes)) {
-                    mkdir($_temp_folder_themes);
-                }
-                Filer::copy($themes_folder, $_temp_folder_themes);
-            }
-
-            // Copy Themes to
-            if (is_dir($addon_themes_folder = FCPATH . 'assets' . '/' . $addon_namespace)) 
-            {
-                // create themes folder
-                $_temp_folder_themes_assets = $temp_folder . '/' . 'themes/assets';
-                if (!is_dir($_temp_folder_themes_assets)) {
-                    mkdir($_temp_folder_themes_assets);
-                }
-                Filer::copy($addon_themes_folder, $_temp_folder_themes_assets);
             }
 
             // move addon file to temp folder
@@ -523,11 +521,11 @@ class MY_Addon extends CI_Model
      */
     public static function __treatZipFile( $data )
     {
-        // Look for manifest.json file to read manifest
+        // Unzip an Uploaded addon
         $extraction_temp_path = self::__unzip( $data );
         if (file_exists($extraction_temp_path . '/' . self::$config_addon)) 
         {
-            // If manifest xml file has at least a namespace parameter
+            // If manifest json file has at least a namespace parameter
             $addon_array = json_decode(file_get_contents($extraction_temp_path . '/' . self::$config_addon), true);
             if (isset($addon_array[ 'application' ][ 'namespace' ])) 
             {
@@ -615,6 +613,7 @@ class MY_Addon extends CI_Model
 
                     if (is_array($addon_global_manifest)) 
                     {
+                        // Install the new version
                         $response = self::__move_to_addon_dir($addon_array, $addon_global_manifest[0], $addon_global_manifest[1], $data, true);
 
                         // Delete temp file
@@ -800,10 +799,28 @@ class MY_Addon extends CI_Model
         if (! is_dir($addon_dir_path)) {
             mkdir($addon_dir_path, 0777, true);
         }
+        
+        // manifest array
+        $relative_json_manifest = array();
 
         // moving global manifest
         foreach ($global_manifest as $_manifest) 
         {
+            // removing raw_name from old manifest to ease copy
+            $relative_path_to_file = explode($extraction_data[ 'upload_data' ][ 'raw_name' ] . '/', $_manifest);
+            if ( $relative_path_to_file[1] == 'themes' ) {
+                // relative json manifest
+                $_manifest_themes = self::__parse_path($_manifest);
+                foreach ($_manifest_themes[0] as $_manifest_theme) {
+                    $relative_path_to_theme = explode($extraction_data[ 'upload_data' ][ 'raw_name' ] . '/', $_manifest_theme);
+                    $relative_path_to_theme[1] = str_replace("themes", VIEWPATH . "frontend", $relative_path_to_theme[1]);
+                    
+                    Filer::copy($_manifest_theme, $relative_path_to_theme[1]);
+                    
+                    $relative_json_manifest[] = $relative_path_to_theme[1];
+                }
+            } 
+
             // creating folder if it does'nt exists
             if (! is_file($_manifest)) {
                 $dir_name = basename($_manifest);
@@ -814,16 +831,14 @@ class MY_Addon extends CI_Model
                 write_file($addon_dir_path . '/' . $file_name, file_get_contents($_manifest));
             }
         }
-        
+
         // moving manifest to system folder
-        $relative_json_manifest = array();
         foreach ($manifest as $_manifest) 
         {
             // removing raw_name from old manifest to ease copy
             $relative_path_to_file = explode($extraction_data[ 'upload_data' ][ 'raw_name' ] . '/', $_manifest);
 
             if (! is_file($_manifest)) {
-                $dir_name = basename($_manifest);
                 Filer::copy($_manifest, $relative_path_to_file[1]);
             } 
             else {
@@ -833,6 +848,7 @@ class MY_Addon extends CI_Model
                 $relative_json_manifest[] = APPPATH . $relative_path_to_file[1];
             }
         }
+
         // Creating Manifest
         file_put_contents($addon_dir_path . '/' . self::$manifest_addon, json_encode($relative_json_manifest, JSON_PRETTY_PRINT));
 
@@ -848,6 +864,14 @@ class MY_Addon extends CI_Model
             if (is_dir($addon_assets_folder)) { // checks if addon folder exists on public folder
                 Filer::drop($addon_assets_folder);
             }
+            
+            $themes_assets_folder = FCPATH . 'assets' . '/' . $folder_to_lower;
+            if (is_dir($themes_assets_folder)) { // checks if addon folder exists on public folder
+                Filer::drop($themes_assets_folder);
+            }
+
+            mkdir($themes_assets_folder); // creating addon folder within
+            Filer::extractor($addon_dir_path . '/' . 'assets/themes', $themes_assets_folder);
 
             mkdir($addon_assets_folder); // creating addon folder within
             Filer::extractor($addon_dir_path . '/' . 'assets', $addon_assets_folder);
@@ -866,36 +890,6 @@ class MY_Addon extends CI_Model
 
             mkdir($addon_uploads_folder); // creating addon folder within
             Filer::extractor($addon_dir_path . '/' . 'uploads', $addon_uploads_folder);
-        }
-
-        /**
-         * New Feature Assets management
-         * Description : move addon assets to public directory within a folder with namespace as name
-        **/
-        if (is_dir($addon_dir_path . '/' . 'themes/assets')) 
-        {
-            $addon_themes_folder = FCPATH . 'assets' . '/' . $folder_to_lower;
-            if (is_dir($addon_themes_folder)) { // checks if addon folder exists on public folder
-                Filer::drop($addon_themes_folder);
-            }
-
-            mkdir($addon_themes_folder); // creating addon folder within
-            Filer::extractor($addon_dir_path . '/' . 'themes/assets', $addon_themes_folder);
-        }
-
-        /**
-         * New Feature Assets management
-         * Description : move addon assets to public directory within a folder with namespace as name
-        **/
-        if (is_dir($addon_dir_path . '/' . 'themes')) 
-        {
-            $themes_folder = APPPATH . 'views/frontend' . '/' . $folder_to_lower;
-            if (is_dir($themes_folder)) { // checks if addon folder exists on public folder
-                Filer::drop($themes_folder);
-            }
-
-            mkdir($themes_folder); // creating addon folder within
-            Filer::extractor($addon_dir_path . '/' . 'themes', $themes_folder);
         }
 
         return true;

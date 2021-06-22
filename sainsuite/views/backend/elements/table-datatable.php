@@ -13,5 +13,5 @@
 <!--end: Selected Rows Group Action Form-->
 
 <!--begin::Datatable-->
-<div id="kt_datatable" class="datatable datatable-bordered datatable-head-custom"></div>
+<div id="kt_datatable" class="datatable datatable-bordered datatable-head-bg"></div>
 <!--end::Datatable-->

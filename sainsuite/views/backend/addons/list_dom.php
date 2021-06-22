@@ -58,7 +58,7 @@ if ($addons) :
                                     <i class="fas fa-download"></i>
                                 </a>
                                 <?php endif; ?>
-                                <?php if (! $_group[ 'application' ][ 'readonly' ] && $_group[ 'application' ][ 'package' ] != 'addkit' ) :
+                                <?php if (! $_group[ 'application' ][ 'readonly' ] && $this->events->apply_filters('fill_riake_addons', $_group) ) :
                                     
                                     // Migration
                                     $hasMigration = MY_Addon::migration_files( 
