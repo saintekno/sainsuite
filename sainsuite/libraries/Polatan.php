@@ -106,8 +106,8 @@ class Polatan
 
     /**
      * 	Get GUI cols
-     *	@access		:	Public
-     *	@returns	:	Array
+     *	@access : Public
+     *	@returns : Array
     **/
     public function get_cols()
     {

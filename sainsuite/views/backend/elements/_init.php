@@ -19,7 +19,7 @@ if ( riake('gui_saver', $meta) && riake('use_namespace', $meta)) {
 
 foreach (force_array(riake('items', $meta)) as $_item) 
 {
-    if( @$_item[ 'permission' ] != null && ! User::control( $_item[ 'permission' ] ) ) {
+    if ( @$_item[ 'permission' ] != null && ! User::control( $_item[ 'permission' ] ) ) {
         continue;
     }
     
@@ -41,7 +41,7 @@ foreach (force_array(riake('items', $meta)) as $_item)
     {
         include( dirname( __FILE__ ) . '/table-lists.php' );                            
     }
-    elseif ( $type == 'accordions') 
+    elseif ($type == 'accordions') 
     {
         include( dirname( __FILE__ ) . '/accordions.php' );               
     }

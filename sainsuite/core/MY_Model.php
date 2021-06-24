@@ -465,7 +465,7 @@ class MY_Model extends CI_Model
             && $this->log_user === true
             && ! array_key_exists($this->created_by_field, $data)
         ) {
-            $data[$this->created_by_field] = $this->auth->user_id();
+            $data[$this->created_by_field] = $this->session->userdata('id');
         }
 
         // Insert it
@@ -513,7 +513,7 @@ class MY_Model extends CI_Model
             $set[$this->created_field] = $this->set_date();
 
             if ($this->log_user === true) {
-                $set[$this->created_by_field] = $this->auth->user_id();
+                $set[$this->created_by_field] = $this->session->userdata('id');
             }
         }
 
@@ -562,7 +562,7 @@ class MY_Model extends CI_Model
             && $this->log_user === true
             && ! array_key_exists($this->modified_by_field, $data)
         ) {
-            $data[$this->modified_by_field] = $this->auth->user_id();
+            $data[$this->modified_by_field] = $this->session->userdata('id');
         }
 
         if ($result = $this->db->update($this->table_name, $data, $where)) {
@@ -613,7 +613,7 @@ class MY_Model extends CI_Model
                 if ($this->log_user === true
                     && ! array_key_exists($this->modified_by_field, $data[$key])
                 ) {
-                    $data[$key][$this->modified_by_field] = $this->auth->user_id();
+                    $data[$key][$this->modified_by_field] = $this->session->userdata('id');
                 }
             }
         }
@@ -665,7 +665,7 @@ class MY_Model extends CI_Model
         } else {
             $data = [$this->deleted_field => 1];
             if ($this->log_user === true) {
-                $data[$this->deleted_by_field] = $this->auth->user_id();
+                $data[$this->deleted_by_field] = $this->session->userdata('id');
             }
 
             $result = $this->db->update($this->table_name, $data);

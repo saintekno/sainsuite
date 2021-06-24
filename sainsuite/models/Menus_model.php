@@ -273,7 +273,7 @@ class Menus_Model extends CI_Model
 
         get_instance()->multimenu->set_items($item);
 
-        $config["nav_tag_open"]  = '<ul class="d-none d-md-flex breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 mr-4 font-size-sm">';
+        $config["nav_tag_open"]  = '<ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 mr-4">';
         $config["nav_tag_close"]  = '</ul>';
         $config["item_tag_open"] = '<li class="breadcrumb-item">';
         $config["item_tag_close"] = '</li>';
